@@ -1,36 +1,68 @@
 '''
-Created on Feb 29, 2012
-
-@author: tkr2
+This module implements a Graph class based on the class provided by Pydot.
+You must have installed Pydot and Graphviz. Optionally, if you have
+PIL, xdot
 '''
 
-from pydot import Dot, Node, Edge
-from pydot import quote_if_necessary
+__version__    = '1.0.0'
+__author__     = 'Aykut Bulut, Ted Ralphs (ayb211@lehigh.edu,ted@lehigh.edu)'
+__license__    = 'BSD'
+__maintainer__ = 'Aykut Bulut'
+__email__      = 'ayb211@lehigh.edu'
+__url__        = None
+__title__      = 'GiMPy (Graph Methods in Python)'
+
+from pydot.pydot import Dot, Node, Edge
+from pydot.pydot import Subgraph as Dotsubgraph
+from pydot.pydot import Cluster as Dotcluster
+from pydot.pydot import quote_if_necessary
 from random import random, randint, seed
-from queues_solution import Queue
-from stacks_solution import Stack
-from lists_solution import LinkedList
+from Queues import Queue
+from Stack import Stack
+from LinkedList import LinkedList
 import operator
 from StringIO import StringIO
 from sys import exit
-from priority_queue import PriorityQueue
+from Queues import PriorityQueue
 from operator import itemgetter
-from PIL import Image
+try:
+    from PIL import Image
+except ImportError:
+    PIL_installed = False
+    print 'Pyton Image Library not installed'
+else:
+    PIL_installed = True
+    print 'Found Python Image Library'
+
+try:
+    import gtk
+    import gtk.gdk
+    import xdot
+except ImportError:
+    xdot_installed = False
+    print 'Xdot not installed'
+else:
+    xdot_installed = True
+    print 'Found xdot installation'
 
 try:
     from pygame.locals import QUIT, KEYDOWN
     from pygame import display, image, event, init
 except ImportError:
     pygame_installed = False
+    print 'Pygame not installed'
 else:
     pygame_installed = True
+    print 'Found pygame installation'
 
 try:
     from baktree import BAKTree as Bak
 except ImportError:
     bak_installed = False
+    print 'BAK not installed'
 else:
     bak_installed = True
+    print 'Found BAK installation'
 
 class Graph(Dot):
     
@@ -735,8 +767,21 @@ class Graph(Dot):
                 if e.type == QUIT:
                     exit()
         elif self.display_mode == 'PIL':
-            im2 = Image.open(im)
-            im2.show()
+            if PIL_installed:
+                im2 = Image.open(im)
+                im2.show()
+            else:
+                print 'Error: PIL not installed. Display disabled.'
+                self.display_mode = 'off'
+        elif self.display_mode == 'xdot':
+            if xdot_installed:
+                window = xdot.DotWindow()
+                window.set_dotcode(self.to_string())
+                window.show()
+                gtk.main()
+            else:
+                print 'Error: xdot not installed. Display disabled.'
+                self.display_mode = 'off'
         else:
             print "Unknown display mode"
         
@@ -747,6 +792,47 @@ class Graph(Dot):
             e = event.wait()
             if e.type == QUIT:
                 break
+
+    def add_subgraph(self, S):
+        Dot.add_subgraph(self, S)
+    
+class Subgraph(Dotsubgraph, Graph):
+    
+    def __init__(self, display = 'off', type = 'digraph', **attrs):
+        self.display_mode = display
+        self.type = type
+        self.num_components = None
+        if self.type == 'digraph':
+            self.in_neighbor_lists = {}
+            self.out_neighbor_lists = {}
+        else:
+            self.neighbor_lists = {}
+        if display == 'pygame':
+            if pygame_installed:
+                init()
+            else:
+                print "Pygame module not installed, graphical display disabled"
+        Dotsubgraph.__init__(self, **attrs)
+        attrs['graph_type'] = 'subgraph'
+
+class Cluster(Dotcluster, Graph):
+    
+    def __init__(self, display = 'off', type = 'digraph', **attrs):
+        self.display_mode = display
+        self.type = type
+        self.num_components = None
+        if self.type == 'digraph':
+            self.in_neighbor_lists = {}
+            self.out_neighbor_lists = {}
+        else:
+            self.neighbor_lists = {}
+        if display == 'pygame':
+            if pygame_installed:
+                init()
+            else:
+                print "Pygame module not installed, graphical display disabled"
+        Dotcluster.__init__(self, **attrs)
+        attrs['graph_type'] = 'subgraph'
 
 class Tree(Graph):
     
@@ -1032,108 +1118,95 @@ class DisjointSet(Graph):
 
 if __name__ == '__main__':
     
+    G = Graph(graph_type = 'graph', splines='true', layout = 'fdp', K = 1)
+#    G.random(numnodes = 6, density = 0.7, length_range = (5, 20), seedInput = 3)
+    G.random(numnodes = 6, density = 0.7, seedInput = 3)
+    G.set_display_mode('pygame')
+    G.display()
+
     G = Graph(graph_type = 'digraph', splines = 'true', layout = 'dot', display = 'pygame')
-    G.add_node('Chem 30')
-    G.add_node('Math 21')
-    G.add_node('Math 22')
-    G.add_edge('Math 21', 'Math 22')
-    G.add_node('Math 23')
-    G.add_edge('Math 22', 'Math 23')
-    G.add_node('Math 205')
-    G.add_edge('Math 22', 'Math 205')
+    C = Cluster(label = 'Test')
+    C.add_node('Chem 30')
+    C.add_node('Math 21')
+    G.add_subgraph(C)
+    G.add_node('Engl 1')
+    G.add_node('Eng 97')
     G.add_node('Physics 11/12')
     G.add_edge('Math 21', 'Physics 11/12')
-    G.add_node('Physics 21/22')
-    G.add_edge('Math 23', 'Physics 21/22')
-    G.add_node('ME 104')
-    G.add_edge('Math 23', 'ME 104')
-    G.add_node('Mech 2')
-    G.add_edge('Math 22', 'Mech 2')
-    G.add_node('ECE 84')
-    G.add_node('Eco 1')
-    G.add_node('Engl 1')
+    G.add_node('Math 22')
+    G.add_edge('Math 21', 'Math 22')
     G.add_node('Engl 2')
-    G.add_node('Eng 97')
+    G.add_edge('Engl1', 'Engl2')
     G.add_node('Eng 98')
+    G.add_node('Physics 21/22')
+    G.add_edge('Physics 11/12', 'Physics 21/22')
+    G.add_node('Math 23')
+    G.add_edge('Math 23', 'Physics 21/22')
+    G.add_edge('Math 22', 'Math 23')
     G.add_node('IE 111')
     G.add_edge('Math 22', 'IE 111')
+    G.add_edge('End 97', 'IE 111')
+    G.add_node('CSE 18')
+    G.add_edge('Eng 98', 'CSE 18')
+    G.add_node('ECE 83')
+    G.add_edge('Math 22', 'ECE 83')
+    G.add_edge('Physics 21/22', 'ECE 83')
+    G.add_node('Math 205')
+    G.add_edge('Math 22', 'Math 205')
     G.add_node('IE 121')
     G.add_edge('IE 111', 'IE 121')
-    G.add_node('IE 131/132')
-    G.add_edge('IE 111', 'IE 131/132')
+    G.add_node('IE 172')
+    G.add_edge('CSE 18', 'IE 172')
+    G.add_node('Eco 1')
+    G.add_node('Mech 2')
+    G.add_edge('Math 22', 'Mech 2')
+    G.add_edge('Physics 11/12', 'Mech 2')
+    G.add_node('Mat 33')
+    G.add_node('ME 104')
+    G.add_edge('Math 23', 'Mech 2')
+    G.add_edge('Physics 11/12', 'ME 104')
+    G.add_node('IE 131')
+    G.add_edge('Math 205', 'IE131')
+    G.add_node('IE 132')
+    G.add_edge('IE 111', 'IE 132')
+    G.add_node('Acct 108')
+    G.add_node('IE 224')
     G.add_node('IE 305')
     G.add_edge('IE 121', 'IE 305')
-    G.add_node('IE 230')
+    G.add_node('IE 226')
     G.add_edge('IE 111', 'IE 230')
-    G.add_node('IE 240')
-    G.add_edge('Math 205', 'IE 240')
+    G.add_node('IE 275')
+    G.add_edge('IE 224', 'IE 275')
+    G.add_node('IE 316')
+    G.add_edge('IE 131', 'IE 316')
+    G.add_node('IE 372')
+    G.add_edge('IE 131', 'IE 372')
+    G.add_node('IE 154')
+    G.add_node('IE 339')
+    G.add_node('IE 358')
+    G.add_node('IE 324')
+    G.add_edge('Mech 2', 'IE 324')
+    G.add_edge('Math 205', 'IE 324')
+    G.add_node('IE 332')
+    G.add_edge('IE 121', 'IE 332')
     G.add_node('IE 251')
     G.add_edge('IE 121', 'IE 251')
-    G.add_edge('IE 230', 'IE 251')
+    G.add_node('IE 362')
+    G.add_edge('IE 251', 'IE 362')
+    G.add_edge('IE 131', 'IE 362')
+    G.add_node('IE 341')
+    G.add_edge('IE 131', 'IE 341')
+    G.add_node('IE 356')
+    G.add_edge('IE 131', 'IE 356')
+    G.add_node('IE 355')
+    G.add_edge('IE 131', 'IE 355')
+    G.add_node('IE 321')
+    G.add_node('IE 345')
+    G.add_edge('IE 275', 'IE 345')
+    G.add_node('IE 382')
+    G.add_node('IE 334')
+    G.add_node('BIS 331')
     
-#    G. display()
-    
-    G = Graph(graph_type = 'graph', splines='true', layout = 'fdp', K = 1)
-#    G.random(numnodes = 10, degree_range = (2,4), length_range = (10, 20))
-    G.random(numnodes = 6, density = 0.7, length_range = (5, 20), seedInput = 3)
-    G.set_display_mode('file')
     G.display()
-    G.label_strong_component(0)
-    for n in G.get_node_list():
-        print 'node', n, G.get_node_attr(n, 'disc_time'), G.get_node_attr(n, 'finish_time'), G.get_node_attr(n, 'component') 
-    #print G.to_string()
-#    G.set_node_attr(0, 'label', '0')
-    #G.search(0, algo = 'Prim')
-    #G.search(0, algo = 'DFS')
-    #G.label_components()
-    #for n in range(10):
-    #    print G.get_node_attr(str(n),'component')
-    #G.dfs(0)
-    #for n in range(10):
-    #    print n, G.get_node_attr(str(n), 'disc_time'), G.get_node_attr(str(n), 'finish_time')
-#    G.set_display_mode('off')
-#    for i in range(10):
-#        for j in range(10):
-#            if i>=j:
-#                continue
-#            print G.shortest_weighted_path(i,j)
-#    print G.minimum_spanning_tree_kruskal()
-#    print G.page_rank()
-    #G.exit_window()
-    '''
-    G.dfs(1)
-    G.label_components()
-    print G.path(1, 4)
-        
-    aList = []
-    for j in range(25):
-        aList.append(randint(0, 9999))
-
-    T = BinaryTree(display = 'dot')
     
-    #pycallgraph.start_trace()
-    quick_sort_count(aList, T, True)
-    #pycallgraph.make_dot_graph('test.png')
-            
-    T.dfs()
-    T.bfs()
-    T.print_nodes(order = 'post')
-
-    T = BinaryTree()
-    T.add_root(0)
-    T.add_right_child(1, 0)
-    T.add_left_child(2, 0)
-    T.dfs(priority = 'R')
-    
-    T = BinaryTree(display = 'dot')
-    T.add_root(0, label = '*')
-    T.add_left_child(1, 0, label = '+')
-    T.add_left_child(2, 1, label = '4')
-    T.add_right_child(3, 1, label = '5')
-    T.add_right_child(4, 0, label = '7')
-    T.printexp()
-    print
-    T.postordereval()
-    T.exit_window()
-    '''
     
