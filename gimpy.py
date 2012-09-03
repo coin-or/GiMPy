@@ -22,7 +22,7 @@ from Stack import Stack
 from LinkedList import LinkedList
 import operator
 from StringIO import StringIO
-from sys import exit
+import sys
 from Queues import PriorityQueue
 from operator import itemgetter
 try:
@@ -765,7 +765,7 @@ class Graph(Dot):
                 if e.type == KEYDOWN:
                     break
                 if e.type == QUIT:
-                    exit()
+                    sys.exit()
         elif self.display_mode == 'PIL':
             if PIL_installed:
                 im2 = Image.open(im)
