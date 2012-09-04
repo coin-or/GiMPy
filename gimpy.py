@@ -25,6 +25,9 @@ from StringIO import StringIO
 import sys
 from Queues import PriorityQueue
 from operator import itemgetter
+
+sys.path.append('../xdot')
+sys.path.append('../GrUMPy/trunk')
 try:
     from PIL import Image
 except ImportError:
@@ -75,9 +78,9 @@ class Graph(Dot):
         #self.obj_dict['type'] = attrs['graph_type']
         Dot.__init__(self, **attrs)
         self.display_mode = display
-        self.type = attrs['graph_type']
+        self.graph_type = attrs['graph_type']
         self.num_components = None
-        if self.type == 'digraph':
+        if self.graph_type == 'digraph':
             self.in_neighbor_lists = {}
             self.out_neighbor_lists = {}
         else:
@@ -92,7 +95,7 @@ class Graph(Dot):
         if 'label' not in attrs:
             attrs['label'] = str(name)
         Dot.add_node(self, Node(name, **attrs))
-        if self.type == 'digraph':
+        if self.graph_type == 'digraph':
             if name in self.in_neighbor_lists:
                 raise Exception, "Node with that name already exists"
             self.in_neighbor_lists[str(name)] = LinkedList()
@@ -104,7 +107,7 @@ class Graph(Dot):
         self.num_components = None
        
     def del_node(self, name):
-        if self.type == 'digraph':
+        if self.graph_type == 'digraph':
             try:
                 for neighbor in self.out_neighbor_lists[str(name)]:
                     self.del_edge(name, neighbor)
@@ -114,7 +117,7 @@ class Graph(Dot):
                 del self.in_neighbor_lists[str(name)]
             except KeyError:
                 return False
-        if self.type == 'graph':
+        if self.graph_type == 'graph':
             try:
                 for n in self.neighborlists[str(name)]:
                     del self.neighborlists[n][str(name)]
@@ -158,7 +161,7 @@ class Graph(Dot):
         if self.get_node(n) == None:
             self.add_node(n)
         Dot.add_edge(self, Edge(self.get_node(m), self.get_node(n), **attrs))
-        if self.type == 'digraph':
+        if self.graph_type == 'digraph':
             self.out_neighbor_lists[str(m)].append(str(n))
             self.in_neighbor_lists[str(n)].append(str(m))
         else:
@@ -167,13 +170,13 @@ class Graph(Dot):
         self.num_components = None
         
     def del_edge(self, m, n):
-        if self.type == 'digraph':
+        if self.graph_type == 'digraph':
             try:
                 del self.get_out_neighbors(str(m))[str(n)]
                 del self.get_in_neighbors(str(n))[str(m)]
             except KeyError:
                 return False
-        if self.type == 'graph':
+        if self.graph_type == 'graph':
             try:
                 del self.get_neighbors(str(m))[str(n)]
                 del self.get_neighbors(str(n))[str(m)]
@@ -200,12 +203,12 @@ class Graph(Dot):
         return self.get_edge(m, n).set(attr, val)
 
     def get_neighbors(self, n):
-        if self.type == 'digraph':
+        if self.graph_type == 'digraph':
             raise Exception, "get_neighbors method called for digraph" 
         return self.neighbor_lists[str(n)]
 
     def get_out_neighbors(self, n):
-        if self.type != 'digraph':
+        if self.graph_type != 'digraph':
             raise Exception, "get_out_neighbors method called for undirected graph"
         try:
             return self.out_neighbor_lists[str(n)]
@@ -213,7 +216,7 @@ class Graph(Dot):
             pass
 
     def get_in_neighbors(self, n):
-        if self.type != 'digraph':
+        if self.graph_type != 'digraph':
             raise Exception, "get_in_neighbors method called for undirected graph"
         return self.in_neighbor_lists[str(n)]
 
@@ -222,7 +225,7 @@ class Graph(Dot):
         This method labels the nodes of an undirected graph with component numbers
         so that each node has the same label as all nodes in the same component
         '''
-        if self.type == 'digraph':
+        if self.graph_type == 'digraph':
             raise Exception, "label_components only works for undirected graphs"
         if self.num_components != None:
             return 
@@ -239,7 +242,7 @@ class Graph(Dot):
         return self.get_node_attr(n, 'finish_time')
     
     def label_strong_component(self, root, disc_count = 0, finish_count = 1, component = None):
-        if self.type == 'graph':
+        if self.graph_type == 'graph':
             raise Exception, "label_strong_componentsis only for directed graphs"
         if self.num_components != None:
             return 
@@ -260,7 +263,7 @@ class Graph(Dot):
 
     def dfs(self, root, disc_count = 0, finish_count = 1, component = None,
             transpose = False):
-        if self.type == 'digraph':
+        if self.graph_type == 'digraph':
             if not transpose:
                 neighbors = self.get_out_neighbors
             else:
@@ -323,7 +326,7 @@ class Graph(Dot):
             removeFromQ = q.pop
             peek = q.peek
             isEmpty = q.isEmpty
-        #if self.type == 'digraph':
+        #if self.graph_type == 'digraph':
         #    neighbors = self.get_out_neighbors
         #else:
         #    neighbors = self.get_neighbors
@@ -382,7 +385,7 @@ class Graph(Dot):
             removeFromQ = q.pop
             peek = q.peek
             isEmpty = q.isEmpty
-        if self.type == 'digraph':
+        if self.graph_type == 'digraph':
             neighbors = self.get_out_neighbors
         else:
             neighbors = self.get_neighbors
@@ -484,7 +487,7 @@ class Graph(Dot):
                 self.set_node_attr(n, 'label', '-')
             self.display()
 
-        if self.type == 'digraph':
+        if self.graph_type == 'digraph':
             neighbors = self.get_out_neighbors
         else:
             neighbors = self.get_neighbors
@@ -636,7 +639,7 @@ class Graph(Dot):
                                 self.add_edge(m, n, **edge_format)
             if density != None:
                 for m in range(numnodes):
-                    if self.type == 'digraph':
+                    if self.graph_type == 'digraph':
                         numnodes2 = numnodes
                     else:
                         numnodes2 = m
@@ -703,10 +706,10 @@ class Graph(Dot):
             return pagerank            
     def get_degree(self):
         dd = {}
-        if self.type == 'graph':
+        if self.graph_type == 'graph':
             for n in self.get_node_list():
                 dd[n] = len(self.get_neighbors(n))
-        elif self.type == 'digraph':
+        elif self.graph_type == 'digraph':
             for n in self.get_node_list():
                 dd[n] = len(self.get_in_neighbors(n)) + len(self.get_out_neighbors(n))
         return dd 
@@ -800,9 +803,9 @@ class Subgraph(Dotsubgraph, Graph):
     
     def __init__(self, display = 'off', type = 'digraph', **attrs):
         self.display_mode = display
-        self.type = type
+        self.graph_type = type
         self.num_components = None
-        if self.type == 'digraph':
+        if self.graph_type == 'digraph':
             self.in_neighbor_lists = {}
             self.out_neighbor_lists = {}
         else:
@@ -819,9 +822,9 @@ class Cluster(Dotcluster, Graph):
     
     def __init__(self, display = 'off', type = 'digraph', **attrs):
         self.display_mode = display
-        self.type = type
+        self.graph_type = type
         self.num_components = None
-        if self.type == 'digraph':
+        if self.graph_type == 'digraph':
             self.in_neighbor_lists = {}
             self.out_neighbor_lists = {}
         else:
@@ -838,6 +841,7 @@ class Tree(Graph):
     
     def __init__(self, display = False, **attrs):
         attrs['graph_type'] = 'digraph'
+        attrs['layout'] = 'dot'
         Graph.__init__(self, display, **attrs)
         self.root = None
         
@@ -894,66 +898,29 @@ class BinaryTree(Tree):
 
     def __init__(self, display = False, **attrs):
         Tree.__init__(self, display, **attrs)
-        if bak_installed:
-            self.__bases__ += Bak
-            Bak.__init__(self)
 
-    def add_root(self, root, branch_direction = None, vertical_position = None, **attrs):
+    def add_root(self, root, **attrs):
         Tree.add_root(self, root, **attrs)
-        if vertical_position == None:
-            vertical_position = 0
-        if bak_installed:
-            self.AddOrUpdateNode(root, None, None, 'candidate', 
-                                 vertical_position, None, None)
     
-    def add_child(self, n, parent, branch_direction = None, vertical_position = None, **attrs):
-        children = self.get_children(parent)
-        if branch_direction == None:
-            if len(children) == 0:
-                # Add left child first by default
-                branch_direction = 'L'
-            elif len(children) == 1:
-                if self.get_node_attr(children[0], 'which') == 'L':
-                    branch_direction = 'R'
-                elif self.get_node_attr(children[0], 'which') == 'R':
-                    branch_direction = 'L'
-                else:
-                    raise Exception("BinaryTree child node is neither left nor right")
-            else:
-                raise Exception("Trying to add a 3rd child to a BinaryTree node")
-        if vertical_position == None:
-            vertical_position = self.get_node_attr(parent, 'level') + 1
-        attrs['which'] = branch_direction
-        attrs['parent'] = parent
-        self.add_node(n, **attrs)
-        self.add_edge(parent, n)
-        if branch_direction == 'L' and len(children) == 1:
-            #We want the left child to come first in the sequence
-            self.get_node(children[0]).set_sequence(self.get_next_sequence_number())
-            self.get_edge(parent, children[0]).set_sequence(self.get_next_sequence_number())
-        if bak_installed:
-            self.AddOrUpdateNode(n, parent, branch_direction, 'candidate', 
-                                 vertical_position, None, None)
-        
     def add_right_child(self, n, parent, **attrs):
-        attrs['which'] = 'R'
-        BinaryTree.add_child(self, n, parent, **attrs)
+        if self.get_right_child(parent) is not None:
+            raise Exception("Right child already exists for node " + parent)
+        attrs['direction'] = 'R'
+        self.set_node_attr(parent, 'Rchild', n)
+        self.add_child(n, parent, **attrs)
         
     def add_left_child(self, n, parent, **attrs):
-        attrs['which'] = 'R'
-        BinaryTree.add_child(self, n, parent, **attrs)
+        if self.get_left_child(parent) is not None:
+            raise Exception("Left child already exists for node " + parent)
+        attrs['direction'] = 'L'
+        self.set_node_attr(parent, 'Lchild', n)
+        self.add_child(n, parent, **attrs)
         
     def get_right_child(self, n):
-        for child in self.get_children(n):
-            if self.get_node_attr(child, 'which') == 'R':
-                return child
-        return None
+        return self.get_node_attr(n, 'Rchild')
 
     def get_left_child(self, n):
-        for child in self.get_children(n):
-            if self.get_node_attr(child, 'which') == 'L':
-                return child
-        return None
+        return self.get_node_attr(n, 'Lchild')
                 
     def print_nodes(self, order = 'in', priority = 'L', display = None, root = None):
         if root == None:
