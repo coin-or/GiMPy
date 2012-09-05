@@ -763,12 +763,12 @@ class Graph(Dot):
             screen = display.set_mode(picture.get_size())
             screen.blit(picture, picture.get_rect())
             display.flip()
-            while pause:
-                e = event.poll()
-                if e.type == KEYDOWN:
-                    break
-                if e.type == QUIT:
-                    sys.exit()
+#            while pause:
+#                e = event.poll()
+#                if e.type == KEYDOWN:
+#                    break
+#                if e.type == QUIT:
+#                    sys.exit()
         elif self.display_mode == 'PIL':
             if PIL_installed:
                 im2 = Image.open(im)
@@ -841,7 +841,8 @@ class Tree(Graph):
     
     def __init__(self, display = False, **attrs):
         attrs['graph_type'] = 'digraph'
-        attrs['layout'] = 'dot'
+        if 'layout' not in attrs:
+            attrs['layout'] = 'dot'
         Graph.__init__(self, display, **attrs)
         self.root = None
         
