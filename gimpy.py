@@ -11,23 +11,23 @@ __maintainer__ = 'Aykut Bulut'
 __email__      = 'ayb211@lehigh.edu'
 __url__        = None
 __title__      = 'GiMPy (Graph Methods in Python)'
-
-from pydot.pydot import Dot, Node, Edge
-from pydot.pydot import Subgraph as Dotsubgraph
-from pydot.pydot import Cluster as Dotcluster
-from pydot.pydot import quote_if_necessary
+import sys
+sys.path.append('../pydot')
+sys.path.append('../xdot')
+sys.path.append('../GrUMPy/trunk')
+from pydot import Dot, Node, Edge
+from pydot import Subgraph as Dotsubgraph
+from pydot import Cluster as Dotcluster
+from pydot import quote_if_necessary
 from random import random, randint, seed
 from Queues import Queue
 from Stack import Stack
 from LinkedList import LinkedList
 import operator
 from StringIO import StringIO
-import sys
 from Queues import PriorityQueue
 from operator import itemgetter
 
-sys.path.append('../xdot')
-sys.path.append('../GrUMPy/trunk')
 try:
     from PIL import Image
 except ImportError:
@@ -757,7 +757,7 @@ class Graph(Dot):
             for n in highlight:
                 if not isinstance(n, Node):
                     m = self.get_node(n)
-                m.set('color', 'black')    
+                m.set('color', 'black')
         if self.display_mode == 'pygame':
             picture = image.load(im, format)
             screen = display.set_mode(picture.get_size())
