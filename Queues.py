@@ -48,7 +48,10 @@ class Queue(object):
         else:
             self.items.remove(item)
             return item
-
+    
+    def remove(self, item = None):
+        self.dequeue(item)
+        
     def pop(self, item = None):
         return self.dequeue(item)
 

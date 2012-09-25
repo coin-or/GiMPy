@@ -1,7 +1,7 @@
 '''
 This module implements a Graph class based on the class provided by Pydot.
 You must have installed Pydot and Graphviz. Optionally, if you have
-PIL, xdot
+PIL, xdot, or Pygame installed, these can also be used for display
 '''
 
 __version__    = '1.0.0'
@@ -11,10 +11,11 @@ __maintainer__ = 'Aykut Bulut'
 __email__      = 'ayb211@lehigh.edu'
 __url__        = None
 __title__      = 'GiMPy (Graph Methods in Python)'
+
 import sys
-sys.path.append('../pydot')
-sys.path.append('../xdot')
-sys.path.append('../GrUMPy/trunk')
+#sys.path.append('..\pydot')
+#sys.path.append('..\xdot')
+#sys.path.append('..\GrUMPy')
 from pydot import Dot, Node, Edge
 from pydot import Subgraph as Dotsubgraph
 from pydot import Cluster as Dotcluster
@@ -469,7 +470,7 @@ class Graph(Dot):
         if display == None:
             display = self.display_mode
         else:
-            self.set_display_mode = display
+            self.set_display_mode(display)
             
         if algo == 'DFS':
             q = Stack()
@@ -654,7 +655,45 @@ class Graph(Dot):
             else:
                 print "Must set either degree range or density"
         else:
-            print "Random Euclidean graph generation not implemented yet"
+            for m in range(numnodes):
+                ''' Assigns random coordinates (between 1 and 20) to the nodes '''
+                self.add_node(m, locationx = randint(1, 20), locationy = randint(1, 20), **node_format)
+            if degree_range is not None:
+                for m in range(numnodes):
+                    for i in range(randint(degree_range[0], degree_range[1])):
+                        n = randint(1, numnodes)
+                        if not self.get_edge(m, n) and m != n:
+                            if length_range is None:
+                                ''' calculates the euclidean norm and round it to three decimal places '''
+                                length = round((((self.get_node_attr(n, 'locationx') - self.get_node_attr(m, 'locationx')) ** 2 
+                                           + (self.get_node_attr(n, 'locationy') - self.get_node_attr(m, 'locationy')) ** 2) ** 0.5), 3) 
+                                self.add_edge(m, n, cost = length, 
+                                             label = str(length), **edge_format)
+                            else:
+                                self.add_edge(m, n, **edge_format)
+            if density != None:
+                for m in range(numnodes):
+                    if self.type == 'digraph':
+                        numnodes2 = numnodes
+                    else:
+                        numnodes2 = m
+                    for n in range(numnodes2):
+                        if random() < density:
+                            if length_range is None:
+                                ''' calculates the euclidean norm and round it to three decimal places '''
+                                length = round((((self.get_node_attr(n, 'locationx') - self.get_node_attr(m, 'locationx')) ** 2 
+                                           + (self.get_node_attr(n, 'locationy') - self.get_node_attr(m, 'locationy')) ** 2) ** 0.5), 3) 
+                                self.add_edge(m, n, cost = length, 
+                                             label = str(length), **edge_format)
+                                print 'Node #' + str(n) + ' x-coordinate is ' + str(self.get_node_attr(n, 'locationx'))
+                                print 'Node #' + str(m) + ' x-coordinate is ' + str(self.get_node_attr(m, 'locationx'))
+                                print 'Node #' + str(n) + ' y-coordinate is ' + str(self.get_node_attr(n, 'locationy'))
+                                print 'Node #' + str(m) + ' y-coordinate is ' + str(self.get_node_attr(m, 'locationy')) 
+                                print
+                            else:
+                                self.add_edge(m, n, **edge_format)
+            else:
+                print "Must set either degree range or density"
 
     def page_rank(self, damping_factor=0.85, max_iterations=100, min_delta=0.00001):
         """
@@ -1087,94 +1126,16 @@ class DisjointSet(Graph):
 if __name__ == '__main__':
     
     G = Graph(graph_type = 'graph', splines='true', layout = 'fdp', K = 1)
-#    G.random(numnodes = 6, density = 0.7, length_range = (5, 20), seedInput = 3)
-    G.random(numnodes = 6, density = 0.7, seedInput = 3)
+    G.random(numnodes = 10, density = 0.7, length_range = (5, 20), seedInput = 5)
+#    G.random(numnodes = 10, density = 0.7, seedInput = 5)
+
+#    G.search(0, display = 'pygame', algo = 'Dijkstra')
+
     G.set_display_mode('pygame')
+
+    G.minimum_spanning_tree_kruskal(display = 'pygame')
+        
     G.display()
 
-    G = Graph(graph_type = 'digraph', splines = 'true', layout = 'dot', display = 'pygame')
-    C = Cluster(label = 'Test')
-    C.add_node('Chem 30')
-    C.add_node('Math 21')
-    G.add_subgraph(C)
-    G.add_node('Engl 1')
-    G.add_node('Eng 97')
-    G.add_node('Physics 11/12')
-    G.add_edge('Math 21', 'Physics 11/12')
-    G.add_node('Math 22')
-    G.add_edge('Math 21', 'Math 22')
-    G.add_node('Engl 2')
-    G.add_edge('Engl1', 'Engl2')
-    G.add_node('Eng 98')
-    G.add_node('Physics 21/22')
-    G.add_edge('Physics 11/12', 'Physics 21/22')
-    G.add_node('Math 23')
-    G.add_edge('Math 23', 'Physics 21/22')
-    G.add_edge('Math 22', 'Math 23')
-    G.add_node('IE 111')
-    G.add_edge('Math 22', 'IE 111')
-    G.add_edge('End 97', 'IE 111')
-    G.add_node('CSE 18')
-    G.add_edge('Eng 98', 'CSE 18')
-    G.add_node('ECE 83')
-    G.add_edge('Math 22', 'ECE 83')
-    G.add_edge('Physics 21/22', 'ECE 83')
-    G.add_node('Math 205')
-    G.add_edge('Math 22', 'Math 205')
-    G.add_node('IE 121')
-    G.add_edge('IE 111', 'IE 121')
-    G.add_node('IE 172')
-    G.add_edge('CSE 18', 'IE 172')
-    G.add_node('Eco 1')
-    G.add_node('Mech 2')
-    G.add_edge('Math 22', 'Mech 2')
-    G.add_edge('Physics 11/12', 'Mech 2')
-    G.add_node('Mat 33')
-    G.add_node('ME 104')
-    G.add_edge('Math 23', 'Mech 2')
-    G.add_edge('Physics 11/12', 'ME 104')
-    G.add_node('IE 131')
-    G.add_edge('Math 205', 'IE131')
-    G.add_node('IE 132')
-    G.add_edge('IE 111', 'IE 132')
-    G.add_node('Acct 108')
-    G.add_node('IE 224')
-    G.add_node('IE 305')
-    G.add_edge('IE 121', 'IE 305')
-    G.add_node('IE 226')
-    G.add_edge('IE 111', 'IE 230')
-    G.add_node('IE 275')
-    G.add_edge('IE 224', 'IE 275')
-    G.add_node('IE 316')
-    G.add_edge('IE 131', 'IE 316')
-    G.add_node('IE 372')
-    G.add_edge('IE 131', 'IE 372')
-    G.add_node('IE 154')
-    G.add_node('IE 339')
-    G.add_node('IE 358')
-    G.add_node('IE 324')
-    G.add_edge('Mech 2', 'IE 324')
-    G.add_edge('Math 205', 'IE 324')
-    G.add_node('IE 332')
-    G.add_edge('IE 121', 'IE 332')
-    G.add_node('IE 251')
-    G.add_edge('IE 121', 'IE 251')
-    G.add_node('IE 362')
-    G.add_edge('IE 251', 'IE 362')
-    G.add_edge('IE 131', 'IE 362')
-    G.add_node('IE 341')
-    G.add_edge('IE 131', 'IE 341')
-    G.add_node('IE 356')
-    G.add_edge('IE 131', 'IE 356')
-    G.add_node('IE 355')
-    G.add_edge('IE 131', 'IE 355')
-    G.add_node('IE 321')
-    G.add_node('IE 345')
-    G.add_edge('IE 275', 'IE 345')
-    G.add_node('IE 382')
-    G.add_node('IE 334')
-    G.add_node('BIS 331')
-    
-    G.display()
     
     
