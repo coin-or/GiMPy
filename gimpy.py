@@ -607,6 +607,157 @@ class Graph(Dot):
             self.display()
             q.push(str(neighbor))
 
+    def find_maximum_flow(self, source, sink, display=None):
+        '''
+        API: find_maximum_flow(self, source, sink, display=None)
+        Finds maximum flow from source to sink. Returns the tuple
+        (flow_amount, flow_map) where flow amount is the integer value of
+        maximum flow and flow_map is the flow dictionary where keys are
+        tuples of nodes (n,m) where n and m are string, and values are the
+        optimal flow on the edge (n,m).
+        Assumes edges have 'capacity' attribute.
+        Assumes directed arc for now.
+        inputs:
+            source: source node, integer or string
+            sink: sink node, integer or string
+            display: 
+        return value:
+            (flow_amount, flow_map)
+        '''
+        if display=='pygame':
+            self.set_display_mode('pygame')
+        if isinstance(source, int):
+            source = str(source)
+        if isinstance(sink, int):
+            sink = str(sink)
+        nl = self.get_node_list()
+        # set flow of all edges to 0
+        for n in nl:
+            for m in nl:
+                if self.get_edge(n,m)!=None:
+                    self.set_edge_attr(n, m, 'flow', 0)
+                    capacity = self.get_edge_attr(n, m, 'capacity')
+                    self.set_edge_attr(n, m, 'label', str(capacity)+'/0')
+        self.display()
+        while True:
+            # find an augmenting path from source to sink using DFS
+            dfs_stack = []
+            dfs_stack.append(source)
+            pred = {source:None}
+            explored = [source]
+            for n in self.get_node_list():
+                self.set_node_attr(n, 'color', 'black')
+            for n in self.get_node_list():
+                for m in self.get_node_list():
+                    if self.get_edge(n,m)!=None:
+                        if self.get_edge_attr(n,m,'flow')==0:
+                            self.set_edge_attr(n,m,'color','black')
+                        elif self.get_edge_attr(n,m,'flow')==self.get_edge_attr(n,m,'capacity'):
+                            self.set_edge_attr(n,m,'color','red')
+                        else:
+                            self.set_edge_attr(n,m,'color','green')
+            self.display()
+            while dfs_stack:
+                current = dfs_stack.pop()
+                if current==sink:
+                    break
+                out_neighbor = self.get_out_neighbors(current)
+                in_neighbor = self.get_in_neighbors(current)
+                neighbor = out_neighbor+in_neighbor
+                for m in neighbor:
+                    if m in explored:
+                        continue
+                    self.set_node_attr(m, 'color', 'yellow')
+                    if m in out_neighbor:
+                        self.set_edge_attr(current, m , 'color', 'yellow')
+                        available_capacity = self.get_edge_attr(current, m,
+                                                            'capacity')-\
+                                         self.get_edge_attr(current, m, 'flow')
+                    else:
+                        self.set_edge_attr(m, current , 'color', 'yellow')
+                        available_capacity = self.get_edge_attr(m, current, 'flow')
+                    self.display()
+                    if available_capacity > 0:
+                        self.set_node_attr(m, 'color', 'blue')
+                        if m in out_neighbor:
+                            self.set_edge_attr(current, m, 'color', 'blue')
+                        else:
+                            self.set_edge_attr(m, current, 'color', 'blue')
+                        explored.append(m)
+                        pred[m] = current
+                        dfs_stack.append(m)
+                    else:
+                        self.set_node_attr(m, 'color', 'black')
+                        if m in out_neighbor:
+                            if self.get_edge_attr(current,m,'flow')==self.get_edge_attr(current,m,'capacity'):
+                                self.set_edge_attr(current,m,'color','red')
+                            elif self.get_edge_attr(current,m,'flow')==0:
+                                self.set_edge_attr(current, m, 'color', 'black')
+                            else:
+                                self.set_edge_attr(current, m, 'color', 'green')
+                        else:
+                            if self.get_edge_attr(m,current,'flow')==self.get_edge_attr(m,current,'capacity'):
+                                self.set_edge_attr(m,current,'color','red')
+                            elif self.get_edge_attr(m,current,'flow')==0:
+                                self.set_edge_attr(m,current,'color', 'black')
+                            else:
+                                self.set_edge_attr(m,current,'color', 'green')
+                    self.display()
+            # if no path with positive capacity from source sink exists, stop
+            if sink not in pred:
+                break
+            # find capacity of the path
+            current = sink
+            min_capacity = 'infinite'
+            while True:
+                m = pred[current]
+                if self.get_edge(m, current)!=None:
+                    arc_capacity = self.get_edge_attr(m, current, 'capacity')
+                    flow = self.get_edge_attr(m, current, 'flow')
+                    potential = arc_capacity-flow
+                    if min_capacity=='infinite':
+                        min_capacity = potential
+                    elif min_capacity>potential:
+                        min_capacity = potential
+                else:
+                    potential = self.get_edge_attr(current, m, 'flow')
+                    if min_capacity=='infinite':
+                        min_capacity = potential
+                    elif min_capacity>potential:
+                        min_capacity = potential
+                if m==source:
+                    break
+                current = m
+            # update flows on the path
+            current = sink
+            while True:
+                m = pred[current]
+                if self.get_edge(m, current)!=None:
+                    flow = self.get_edge_attr(m, current, 'flow')
+                    capacity = self.get_edge_attr(m, current, 'capacity')
+                    new_flow = flow+min_capacity
+                    self.set_edge_attr(m, current, 'flow', new_flow)
+                    self.set_edge_attr(m, current, 'label', str(capacity)+'/'+str(new_flow))
+                    if new_flow==capacity:
+                        self.set_edge_attr(m, current, 'color', 'red')
+                    else:
+                        self.set_edge_attr(m, current, 'color', 'green')
+                    self.display()
+                else:
+                    flow = self.get_edge_attr(current, m, 'flow')
+                    capacity = self.get_edge_attr(current, m, 'capacity')
+                    new_flow = flow-min_capacity
+                    self.set_edge_attr(current, m, 'flow', new_flow)
+                    if new_flow==0:
+                        self.set_edge_attr(current, m, 'color', 'red')
+                    else:
+                        self.set_edge_attr(current, m, 'color', 'green')
+                    self.display()
+                if m==source:
+                    break
+                current = m
+
+
     def random(self, numnodes = 10, degree_range = None, length_range = None,
                density = None, edge_format = None, node_format = None, 
                Euclidean = False, seedInput = None):
@@ -802,12 +953,12 @@ class Graph(Dot):
             screen = display.set_mode(picture.get_size())
             screen.blit(picture, picture.get_rect())
             display.flip()
-#            while pause:
-#                e = event.poll()
-#                if e.type == KEYDOWN:
-#                    break
-#                if e.type == QUIT:
-#                    sys.exit()
+            while pause:
+                e = event.poll()
+                if e.type == KEYDOWN:
+                    break
+                if e.type == QUIT:
+                    sys.exit()
         elif self.display_mode == 'PIL':
             if PIL_installed:
                 im2 = Image.open(im)
