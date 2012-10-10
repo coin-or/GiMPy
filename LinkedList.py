@@ -179,13 +179,13 @@ class LinkedList(object):
         ''' class method that extends the list by adding otherLinkedList at the
          end of the self
          pre: self, otherLinkedList'''
-        oldHead = self.head
-        self.head = otherLinkedList.head
-        current = self.head
-        while current.getNext() != None:
-            current = current.getNext()
-        current.setNext(oldHead)
-        self.length += otherLinkedList.length
+        #if self.head==None:
+        #    self.head = otherLinkedList.head
+        #    return
+        #if otherLinkedList.head==None:
+        #    return
+        for item in otherLinkedList:
+            self.append(item)
 
     def index(self, item):
         ''' class method that returns the index of the first occurance of
@@ -270,12 +270,13 @@ class LinkedList(object):
         return self.backward()
 
     def __repr__(self):
-        s = '['
+        s = ']'
         current = self.head
         while current != None:
             if current.getNext() == None:
-                return s+str(current.getData())+']'
-            s += str(current.getData())+', '
+                s = s+str(current.getData())+'['
+                return s[::-1]
+            s += str(current.getData())+' ,'
             current = current.getNext()
         return '[]'
     
@@ -288,6 +289,13 @@ class LinkedList(object):
         while current != None:
             yield current.getData()
             current = current.getNext()
+
+    def __add__(self, otherLinkedList):
+        new_list = self.__class__()
+        new_list.extend(self)
+        new_list.extend(otherLinkedList)
+        return new_list
+
 
 if __name__ == '__main__':
     o = LinkedList() 
