@@ -1277,8 +1277,12 @@ class DisjointSet(Graph):
 
 if __name__ == '__main__':
     
+<<<<<<< .mine
+#    G = Graph(graph_type = 'graph', splines='true', layout = 'fdp', K = 1)
+=======
     
     G = Graph(graph_type = 'graph', splines='true', layout = 'fdp', K = 1)
+>>>>>>> .r682
     G.random(numnodes = 10, density = 0.7, length_range = (5, 20), seedInput = 5)
 #    G.random(numnodes = 10, density = 0.7, seedInput = 5)
 
@@ -1290,5 +1294,4 @@ if __name__ == '__main__':
     G.minimum_spanning_tree_kruskal(display = 'pygame')
 
 
-    
     
