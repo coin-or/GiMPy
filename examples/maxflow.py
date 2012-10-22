@@ -34,7 +34,10 @@ if __name__=='__main__':
     g.add_edge(6, 7, capacity=30, label='30')
     g.add_edge(5, 7, capacity=20, label='20')
     g.set_display_mode('pygame')
-    g.find_maximum_flow(1, 7)
+
+    
+    
+    g.max_flow_augment(1, 7, algo = 'MaxCapacity')
     g.display()
     g.write_png('g.png')
     nl = list(int(n) for n in g.get_node_list())
