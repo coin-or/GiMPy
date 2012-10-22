@@ -28,6 +28,7 @@ import operator
 from StringIO import StringIO
 from Queues import PriorityQueue
 from operator import itemgetter
+from sorting import quick_sort_count
 
 try:
     from PIL import Image
@@ -395,7 +396,7 @@ class Graph(Dot):
         addToQ(str(source))
         done = False
         while not isEmpty() and not done:
-            distance, count, current = removeFromQ()
+            current = removeFromQ()
             self.set_node_attr(current, 'color', 'blue')
             if current != str(source):
                 self.set_edge_attr(pred[current], current, 'color', 'green')
@@ -432,7 +433,7 @@ class Graph(Dot):
             self.set_display_mode = display
         
         if components is None:
-            components = DisjointSet(display = 'pygame', layout = 'dot', optimize = True)
+            components = DisjointSet(display = 'pygame', layout = 'dot', optimize = False)
             
         sorted_edge_list = sorted(self.obj_dict['edges'].keys(), key = self.get_edge_cost)
         
@@ -1276,17 +1277,18 @@ class DisjointSet(Graph):
 
 if __name__ == '__main__':
     
+    
     G = Graph(graph_type = 'graph', splines='true', layout = 'fdp', K = 1)
     G.random(numnodes = 10, density = 0.7, length_range = (5, 20), seedInput = 5)
 #    G.random(numnodes = 10, density = 0.7, seedInput = 5)
 
-#    G.search(0, display = 'pygame', algo = 'Dijkstra')
-
     G.set_display_mode('pygame')
 
-    G.minimum_spanning_tree_kruskal(display = 'pygame')
-        
     G.display()
+
+#    G.search(0, display = 'pygame', algo = 'DFS')
+    G.minimum_spanning_tree_kruskal(display = 'pygame')
+
 
     
     
