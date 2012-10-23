@@ -16,10 +16,12 @@ from gimpy import Graph
 if __name__=='__main__':
     g = Graph(graph_type='digraph')
     g.add_node(1,pos='"0,2!"')
+    
     g.add_node(3,pos='"2,4!"')
     g.add_node(2,pos='"2,0!"')
     g.add_node(4,pos='"4,2!"')
     g.add_node(6,pos='"6,4!"')
+    
     g.add_node(5,pos='"6,0!"')
     g.add_node(7,pos='"8,2!"')
     g.add_edge(1, 3, capacity=40, label='40')
@@ -35,9 +37,7 @@ if __name__=='__main__':
     g.add_edge(5, 7, capacity=20, label='20')
     g.set_display_mode('pygame')
 
-    
-    
-    g.max_flow_augment(1, 7, algo = 'MaxCapacity')
+    g.max_flow_labeling(1, 7)
     g.display()
     g.write_png('g.png')
     nl = list(int(n) for n in g.get_node_list())
