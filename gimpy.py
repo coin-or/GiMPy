@@ -457,7 +457,7 @@ class Graph(Dot):
         return edges
             
     def search(self, source, destination = None, display = None, component = None, q = Stack(),
-               algo = 'DFS', **kargs):
+               algo = 'DFS', reverse = False, **kargs):
         '''
         This method determines all nodes reachable from "source" if "destination" is not given.
         Otherwise, it determines whether there is a path from "source" to "destination"
@@ -474,9 +474,8 @@ class Graph(Dot):
             
         if algo == 'DFS':
             q = Stack()
-        elif algo == 'BFS':
+        elif algo == 'BFS' or algo == "UnweightedSPT":
             q = Queue()
-            #self.process_edge = Graph.process_edge
         elif algo == 'Dijkstra':
             q = PriorityQueue()
             for n in self.get_node_list():
@@ -489,7 +488,10 @@ class Graph(Dot):
             self.display()
 
         if self.graph_type == 'digraph':
-            neighbors = self.get_out_neighbors
+            if reverse:
+                neighbors = self.get_in_neighbors
+            else:
+                neighbors = self.get_out_neighbors
         else:
             neighbors = self.get_neighbors
 
@@ -497,30 +499,43 @@ class Graph(Dot):
         for i in nl:
             self.set_node_attr(i, 'color', 'black')
             for j in neighbors(i):
-                self.set_edge_attr(i, j, 'color', 'black')
+                if reverse:
+                    self.set_edge_attr(j, i, 'color', 'black')
+                else:
+                    self.set_edge_attr(i, j, 'color', 'black')
 
         pred = {}
-        self.process_edge(None, source, pred, q, component, algo, **kargs)
+        self.process_edge_search(None, source, pred, q, component, algo, 
+                                 reverse, **kargs)
         found = True
         if str(source) != str(destination):
             found = False
         while not q.isEmpty() and not found:
             current = q.peek()
-            if 'pattern' in kargs:
-                self.process_node(current, kargs['pattern'])
+            self.process_node_search(current, q)
             self.set_node_attr(current, 'color', 'blue')
             if current != str(source):
-                self.set_edge_attr(pred[current], current, 'color', 'green')
+                if reverse:
+                    self.set_edge_attr(current, pred[current], 'color', 'green')
+                else:
+                    self.set_edge_attr(pred[current], current, 'color', 'green')
             if current == str(destination):
                 found = True
                 break
             self.display()
             for n in neighbors(current):
                 if self.get_node_attr(n, 'color') != 'green':
-                    self.set_edge_attr(current, n, 'color', 'yellow')
+                    if reverse:
+                        self.set_edge_attr(n, current, 'color', 'yellow')
+                    else:
+                        self.set_edge_attr(current, n, 'color', 'yellow')
                     self.display()
-                    self.process_edge(current, n, pred, q, component, algo, **kargs)
-                    self.set_edge_attr(current, n, 'color', 'black')
+                    self.process_edge_search(current, n, pred, q, component, algo, 
+                                             reverse, **kargs)
+                    if reverse:
+                        self.set_edge_attr(n, current, 'color', 'black')
+                    else:
+                        self.set_edge_attr(current, n, 'color', 'black')
             q.remove(current)
             self.set_node_attr(current, 'color', 'green')
             self.display()
@@ -543,8 +558,9 @@ class Graph(Dot):
 
         return pred
 
-    def process_node(self, node, pattern):
-        pass
+    def process_node_search(self, node, q):
+        if isinstance(q, PriorityQueue):
+            self.set_node_attr(node, 'priority', q.get_priority(node))
 
     def process_edge_dijkstra(self, current, neighbor, pred, q, component):
 
@@ -584,13 +600,21 @@ class Graph(Dot):
             self.display()
             self.set_node_attr(neighbor, 'color', 'black')
 
-    def process_edge(self, current, neighbor, pred, q, component, algo, **kargs):
+    def process_edge_search(self, current, neighbor, pred, q, component, algo, 
+                            reverse, **kargs):
 
         if algo == 'Dijkstra':
-            return self.process_edge_dijkstra(current, neighbor, pred, q, component)
+            return self.process_edge_dijkstra(current, neighbor, pred, q, component, reverse)
 
         if algo == 'Prim':
-            return self.process_edge_prim(current, neighbor, pred, q, component)
+            return self.process_edge_reverse_prim(current, neighbor, pred, q, component, reverse)
+        
+        if algo == 'UnweightedSPT':
+            if current == None:
+                self.set_node_attr(neighbor, 'distance', 0)
+            else:                
+                self.set_node_attr(neighbor, 'distance',
+                                   self.get_node_attr(current, 'distance') + 1)
 
         if current == None:
             q.push(str(neighbor))
@@ -609,20 +633,19 @@ class Graph(Dot):
 
     def max_flow(self, source, sink, display=None):
         '''
-        API: find_maximum_flow(self, source, sink, display=None)
-        Finds maximum flow from source to sink. Returns the tuple
-        (flow_amount, flow_map) where flow amount is the integer value of
-        maximum flow and flow_map is the flow dictionary where keys are
-        tuples of nodes (n,m) where n and m are string, and values are the
-        optimal flow on the edge (n,m).
-        Assumes edges have 'capacity' attribute.
-        Assumes directed arc for now.
+        API: max_flow(self, source, sink, display=None)
+        Finds maximum flow from source to sink by a depth-first search based 
+        augmenting path algorithm. 
+        
+        pre: Assumes a directed graph in which each arc has a 'capacity' attribute 
+        and for which there does does not exist both arcs (i, j) and (j, i) 
+        for any pair of nodes i and j.
         inputs:
             source: source node, integer or string
             sink: sink node, integer or string
             display: 
-        return value:
-            (flow_amount, flow_map)
+       
+        post: The 'flow" attribute of each arc gives a maximum flow.
         '''
         if display=='pygame':
             self.set_display_mode('pygame')
@@ -649,17 +672,17 @@ class Graph(Dot):
                 self.set_node_attr(n, 'color', 'black')
             for n in self.get_node_list():
                 for m in self.get_node_list():
-                    if self.get_edge(n,m)!=None:
-                        if self.get_edge_attr(n,m,'flow')==0:
-                            self.set_edge_attr(n,m,'color','black')
-                        elif self.get_edge_attr(n,m,'flow')==self.get_edge_attr(n,m,'capacity'):
-                            self.set_edge_attr(n,m,'color','red')
+                    if self.get_edge(n, m) != None:
+                        if self.get_edge_attr(n, m, 'flow') == 0:
+                            self.set_edge_attr(n, m, 'color', 'black')
+                        elif self.get_edge_attr(n, m, 'flow') == self.get_edge_attr(n, m, 'capacity'):
+                            self.set_edge_attr(n, m, 'color', 'red')
                         else:
-                            self.set_edge_attr(n,m,'color','green')
+                            self.set_edge_attr(n, m, 'color', 'green')
             self.display()
             while dfs_stack:
                 current = dfs_stack.pop()
-                if current==sink:
+                if current == sink:
                     break
                 out_neighbor = self.get_out_neighbors(current)
                 in_neighbor = self.get_in_neighbors(current)
@@ -670,9 +693,8 @@ class Graph(Dot):
                     self.set_node_attr(m, 'color', 'yellow')
                     if m in out_neighbor:
                         self.set_edge_attr(current, m , 'color', 'yellow')
-                        available_capacity = self.get_edge_attr(current, m,
-                                                            'capacity')-\
-                                         self.get_edge_attr(current, m, 'flow')
+                        available_capacity =  (self.get_edge_attr(current, m, 'capacity')-
+                            self.get_edge_attr(current, m, 'flow'))
                     else:
                         self.set_edge_attr(m, current , 'color', 'yellow')
                         available_capacity = self.get_edge_attr(m, current, 'flow')
@@ -689,19 +711,19 @@ class Graph(Dot):
                     else:
                         self.set_node_attr(m, 'color', 'black')
                         if m in out_neighbor:
-                            if self.get_edge_attr(current,m,'flow')==self.get_edge_attr(current,m,'capacity'):
-                                self.set_edge_attr(current,m,'color','red')
-                            elif self.get_edge_attr(current,m,'flow')==0:
+                            if self.get_edge_attr(current, m, 'flow') == self.get_edge_attr(current,m,'capacity'):
+                                self.set_edge_attr(current, m, 'color', 'red')
+                            elif self.get_edge_attr(current, m, 'flow') == 0:
                                 self.set_edge_attr(current, m, 'color', 'black')
                             else:
                                 self.set_edge_attr(current, m, 'color', 'green')
                         else:
-                            if self.get_edge_attr(m,current,'flow')==self.get_edge_attr(m,current,'capacity'):
-                                self.set_edge_attr(m,current,'color','red')
-                            elif self.get_edge_attr(m,current,'flow')==0:
-                                self.set_edge_attr(m,current,'color', 'black')
+                            if self.get_edge_attr(m, current, 'flow') == self.get_edge_attr(m, current, 'capacity'):
+                                self.set_edge_attr(m, current, 'color', 'red')
+                            elif self.get_edge_attr(m, current, 'flow') == 0:
+                                self.set_edge_attr(m, current,'color', 'black')
                             else:
-                                self.set_edge_attr(m,current,'color', 'green')
+                                self.set_edge_attr(m, current, 'color', 'green')
                     self.display()
             # if no path with positive capacity from source sink exists, stop
             if sink not in pred:
@@ -715,17 +737,17 @@ class Graph(Dot):
                     arc_capacity = self.get_edge_attr(m, current, 'capacity')
                     flow = self.get_edge_attr(m, current, 'flow')
                     potential = arc_capacity-flow
-                    if min_capacity=='infinite':
+                    if min_capacity == 'infinite':
                         min_capacity = potential
-                    elif min_capacity>potential:
+                    elif min_capacity > potential:
                         min_capacity = potential
                 else:
                     potential = self.get_edge_attr(current, m, 'flow')
-                    if min_capacity=='infinite':
+                    if min_capacity == 'infinite':
                         min_capacity = potential
-                    elif min_capacity>potential:
+                    elif min_capacity > potential:
                         min_capacity = potential
-                if m==source:
+                if m == source:
                     break
                 current = m
             # update flows on the path
@@ -753,26 +775,29 @@ class Graph(Dot):
                     else:
                         self.set_edge_attr(current, m, 'color', 'green')
                     self.display()
-                if m==source:
+                if m == source:
                     break
                 current = m
 
-    def max_flow_augment(self, source, sink, display = None, algo = 'Shortest'):
+    def max_flow_augment(self, source, sink, display = None, algo = 'SAP'):
         '''
-        API: find_maximum_flow(self, source, sink, display=None)
-        Finds maximum flow from source to sink. Returns the tuple
-        (flow_amount, flow_map) where flow amount is the integer value of
-        maximum flow and flow_map is the flow dictionary where keys are
-        tuples of nodes (n,m) where n and m are string, and values are the
-        optimal flow on the edge (n,m).
-        Assumes edges have 'capacity' attribute.
-        Assumes directed arc for now.
+        API: max_flow(self, source, sink, display=None)
+        Finds maximum flow from source to sink by a general graph search based 
+        augmenting path algorithm. 
+        
+        pre: Assumes a directed graph in which each arc has a 'capacity' attribute 
+        and for which there does does not exist both arcs (i, j) and (j, i) 
+        for any pair of nodes i and j.
         inputs:
             source: source node, integer or string
             sink: sink node, integer or string
             display: 
-        return value:
-            (flow_amount, flow_map)
+            algo: determines what graph search method to use
+                  'SAP' is the shortest augmenting path
+                  'DFS' is depth-first search
+                  'MaxCap' is the maximum capacity path
+       
+        post: The 'flow" attribute of each arc gives a maximum flow.
         '''
         if display =='pygame':
             self.set_display_mode('pygame')
@@ -783,8 +808,8 @@ class Graph(Dot):
         nl = self.get_node_list()
         # set flow of all edges to 0
         for n in nl:
-            for m in nl:
-                if self.get_edge(n,m)!=None:
+            for m in self.get_out_neighbors(n):
+                if self.get_edge(n, m) != None:
                     self.set_edge_attr(n, m, 'flow', 0)
                     capacity = self.get_edge_attr(n, m, 'capacity')
                     self.set_edge_attr(n, m, 'label', str(capacity)+'/0')
@@ -795,51 +820,12 @@ class Graph(Dot):
             path = self.find_augmenting_path(source, sink, algo = algo, display = 'off')
             self.set_display_mode(display)
             if path is not None:
-                min_capacity = 'infinite'
-                current = path[0]
-                for m in path[1:]:
-                    if self.get_edge(current, m) is not None:
-                        residual_capacity = (self.get_edge_attr(current, m, 'capacity') -
-                            self.get_edge_attr(current, m, 'flow')) 
-                    else:                            
-                        residual_capacity = self.get_edge_attr(current, m, 'flow')
-                    if min_capacity == 'infinite':
-                        min_capacity = residual_capacity
-                    elif min_capacity > residual_capacity:
-                        min_capacity = residual_capacity
-                    current = m
-                    # update flows on the path
-                current = path[0]
-                for m in path[1:]:
-                    if self.get_edge(current, m) is not None:
-                        flow = self.get_edge_attr(current, m, 'flow')
-                        capacity = self.get_edge_attr(current, m, 'capacity')
-                        new_flow = flow + min_capacity
-                        self.set_edge_attr(current, m, 'flow', new_flow)
-                        self.set_edge_attr(current, m, 'label', str(capacity)+'/'+str(new_flow))
-                        self.set_edge_attr(current, m, 'color', 'yellow')
-                        self.display()
-                        if new_flow == capacity:
-                            self.set_edge_attr(current, m, 'color', 'red')
-                        else:
-                            self.set_edge_attr(current, m, 'color', 'green')
-                    else:
-                        flow = self.get_edge_attr(m, current, 'flow')
-                        capacity = self.get_edge_attr(m, current, 'capacity')
-                        new_flow = flow-min_capacity
-                        self.set_edge_attr(m, current, 'flow', new_flow)
-                        self.set_edge_attr(current, m, 'color', 'yellow')
-                        self.display()
-                        if new_flow==0:
-                            self.set_edge_attr(m, current, 'color', 'black')
-                        else:
-                            self.set_edge_attr(m, current, 'color', 'green')
-                    current = m
+                self.augment_flow(source, sink, path)
             else:
                 return
 
     def find_augmenting_path(self, source, sink, display = None, q = Stack(),
-               algo = 'Shortest', **kargs):
+               algo = 'SAP', **kargs):
         '''
         This method finds an augmenting path in the residual graph from "source" to "sink"
         using a generalized graph search method. 
@@ -854,10 +840,10 @@ class Graph(Dot):
             
         if algo == 'DFS':
             q = Stack()
-        elif algo == 'Shortest':
+        elif algo == 'SAP':
             q = Queue()
-            #self.process_edge = Graph.process_edge
-        elif algo == 'MaxCapacity':
+            #self.process_edge_search = Graph.process_edge_search
+        elif algo == 'MaxCap':
             q = PriorityQueue()
 
         nl = self.get_node_list()
@@ -868,9 +854,9 @@ class Graph(Dot):
                     self.set_edge_attr(i, j, 'color', 'black')
 
         pred = {}
-        if algo == 'DFS' or algo == 'Shortest':
+        if algo == 'DFS' or algo == 'SAP':
             q.push(str(source))
-        elif algo == 'MaxCapacity':
+        elif algo == 'MaxCap':
             q.push(str(source), 0)
                 
         found = True
@@ -910,10 +896,9 @@ class Graph(Dot):
                         if display != 'off':
                             self.set_node_attr(n, 'color', 'red')
                             self.display()
-                        if display != 'off':
                             self.set_node_attr(n, 'color', 'black')
                             self.display()
-                        if algo == 'DFS' or algo == 'Shortest':
+                        if algo == 'DFS' or algo == 'SAP':
                             q.push(str(n))
                         elif algo == 'MaxCapacity':
                             if current_capacity is None or current_capacity > residual_capacity:
@@ -932,17 +917,201 @@ class Graph(Dot):
             
         if display != None:
             self.set_display_mode(old_display)
-                    
+        
         if found:
             path = [str(sink)]
             current = str(sink)        
             while current != str(source):
                 path.insert(0, pred[current])
                 current = pred[current]
-            
-            return path
+        else:
+            path = None
 
-        return None
+        return path
+
+    def augment_flow(self, source, sink, path): 
+        min_capacity = 'infinite'
+        current = path[0]
+        for m in path[1:]:
+            if self.get_edge(current, m) is not None:
+                residual_capacity = (self.get_edge_attr(current, m, 'capacity') -
+                    self.get_edge_attr(current, m, 'flow')) 
+            else:                            
+                residual_capacity = self.get_edge_attr(current, m, 'flow')
+            if min_capacity == 'infinite':
+                min_capacity = residual_capacity
+            elif min_capacity > residual_capacity:
+                min_capacity = residual_capacity
+            current = m
+            # update flows on the path
+        current = path[0]
+        for m in path[1:]:
+            if self.get_edge(current, m) is not None:
+                flow = self.get_edge_attr(current, m, 'flow')
+                capacity = self.get_edge_attr(current, m, 'capacity')
+                new_flow = flow + min_capacity
+                self.set_edge_attr(current, m, 'flow', new_flow)
+                self.set_edge_attr(current, m, 'label', str(capacity)+'/'+str(new_flow))
+                self.set_edge_attr(current, m, 'color', 'yellow')
+                self.display()
+                if new_flow == capacity:
+                    self.set_edge_attr(current, m, 'color', 'red')
+                else:
+                    self.set_edge_attr(current, m, 'color', 'green')
+            else:
+                flow = self.get_edge_attr(m, current, 'flow')
+                capacity = self.get_edge_attr(m, current, 'capacity')
+                new_flow = flow-min_capacity
+                self.set_edge_attr(m, current, 'flow', new_flow)
+                self.set_edge_attr(current, m, 'color', 'yellow')
+                self.display()
+                if new_flow==0:
+                    self.set_edge_attr(m, current, 'color', 'black')
+                else:
+                    self.set_edge_attr(m, current, 'color', 'green')
+            current = m
+        return
+
+    def max_flow_labeling(self, source, sink, algo = 'PreflowPush', display = None):
+        '''
+        API: max_flow(self, source, sink, display=None)
+        Finds maximum flow from source to sink by a depth-first search based 
+        augmenting path algorithm. 
+        
+        pre: Assumes a directed graph in which each arc has a 'capacity' attribute 
+        and for which there does does not exist both arcs (i, j) and (j, i) 
+        for any pair of nodes i and j.
+        inputs:
+            source: source node, integer or string
+            sink: sink node, integer or string
+            display: 
+       
+        post: The 'flow" attribute of each arc gives a maximum flow.
+        '''
+        if display=='pygame':
+            self.set_display_mode('pygame')
+        if isinstance(source, int):
+            source = str(source)
+        if isinstance(sink, int):
+            sink = str(sink)
+        nl = self.get_node_list()
+        # set flow of all edges to 0
+        current_index = {}
+        for n in nl:
+            self.set_node_attr(n, 'excess', 0)
+            current_index[n] = 0
+            for m in self.get_out_neighbors(n):
+                if self.get_edge(n, m) != None:
+                    self.set_edge_attr(n, m, 'flow', 0)
+                    capacity = self.get_edge_attr(n, m, 'capacity')
+                    self.set_edge_attr(n, m, 'label', str(capacity)+'/0')
+        self.display()
+
+        display = self.display_mode
+        self.search(sink, algo = 'UnweightedSPT', reverse = True, display = 'off')
+        self.set_display_mode(display)
+
+        q = Queue()
+        q.push(source)
+        pred = {}
+        while not q.isEmpty() or (algo == 'SAP' and 
+                                  self.get_node_attr(source, 'distance') >= len(self.get_node_list())):
+            current = q.peek()
+            neighbors = self.get_out_neighbors(current) + self.get_in_neighbors(current)
+            distance = self.get_node_attr(current, 'distance')
+            pushed = False
+            for n in neighbors:
+                if distance == self.get_node_attr(n, 'distance') + 1:
+                    pushed = self.process_edge_flow(source, sink, current, n, algo, q, pred)
+                    if current != source and self.get_node_attr(current, 'excess') == 0:
+                        break
+            q.remove(current)
+
+            for n in self.get_node_list():
+                self.set_node_attr(n, 'label', str(self.get_node_attr(n, 'excess')))
+                for neighbor in self.get_out_neighbors(n):
+                    capacity = self.get_edge_attr(n, neighbor, 'capacity')
+                    flow = self.get_edge_attr(n, neighbor, 'flow')
+                    self.set_edge_attr(n, neighbor, 'label', str(capacity)+'/'+str(flow))
+                    if capacity == flow:
+                        self.set_edge_attr(n, neighbor, 'color', 'red')
+                    elif flow > 0:
+                        self.set_edge_attr(n, neighbor, 'color', 'green')
+                    else:
+                        self.set_edge_attr(n, neighbor, 'color', 'black')
+            self.display()
+            
+            if not pushed or self.get_node_attr(current, 'excess') > 0:
+                if current == source and algo == 'PreflowPush':
+                    self.set_node_attr(current, 'distance', len(self.get_node_list()))
+                elif current != sink:
+                    self.relabel(current)
+                    q.push(current)
+                if algo == 'SAP':
+                    tmp = pred[current]
+                    del pred[current]
+                    current = tmp
+                    
+        return
+                    
+    def process_edge_flow(self, source, sink, i, j, algo, q, pred):
+        if self.get_edge(i, j) is not None:
+            capacity = self.get_edge_attr(i, j, 'capacity')
+            flow = self.get_edge_attr(i, j, 'flow')
+            residual_capacity = capacity - flow
+        else:
+            capacity = self.get_edge_attr(j, i, 'capacity')
+            flow = self.get_edge_attr(j, i, 'flow')
+            residual_capacity = flow
+        if residual_capacity == 0:
+            return False
+        if algo == 'PreflowPush':
+            excess_i = self.get_node_attr(i, 'excess')
+            excess_j = self.get_node_attr(j, 'excess')
+            if i == source:
+                self.set_edge_attr(i, j, 'flow', capacity)
+                self.set_node_attr(j, 'excess', capacity)
+                self.set_node_attr(i, 'excess', excess_i - capacity)
+                q.push(j)
+                return True
+            if excess_i < residual_capacity:
+                if self.get_edge(i, j) is not None:
+                    self.set_edge_attr(i, j, 'flow', flow + excess_i)
+                    if excess_j == 0:
+                        q.push(j)
+                    self.set_node_attr(j, 'excess', excess_j + excess_i)
+                else:
+                    self.set_edge_attr(j, i, 'flow', flow - excess_i)
+                    self.set_node_attr(j, 'excess', excess_j + excess_i)
+                self.set_node_attr(i, 'excess', 0)
+            else:
+                if self.get_edge(i, j) is not None:
+                    self.set_edge_attr(i, j, 'flow', capacity)
+                    if excess_j == 0:
+                        q.push(j)
+                    self.set_node_attr(j, 'excess', excess_j + residual_capacity)
+                else:
+                    self.set_edge_attr(j, i, 'flow', 0)
+                    self.set_node_attr(j, 'excess', excess_j + residual_capacity)
+                self.set_node_attr(i, 'excess', excess_i - residual_capacity)
+        else:
+            if not j in pred:
+                pred[j] = i
+                q.push(j)
+        return True
+
+    def relabel(self, i):
+        min_distance = len(self.get_node_list())
+        neighbors = self.get_out_neighbors(i) + self.get_in_neighbors(i)
+        for j in self.get_out_neighbors(i):
+            if (self.get_node_attr(j, 'distance') < min_distance and 
+                self.get_edge_attr(i, j, 'flow') < self.get_edge_attr(i, j, 'capacity')):
+                min_distance = self.get_node_attr(j, 'distance')
+        for j in self.get_in_neighbors(i):
+            if (self.get_node_attr(j, 'distance') < min_distance and 
+                self.get_edge_attr(j, i, 'flow') > 0):
+                min_distance = self.get_node_attr(j, 'distance')
+        self.set_node_attr(i, 'distance', min_distance + 1)
 
     def random(self, numnodes = 10, degree_range = None, length_range = None,
                density = None, edge_format = None, node_format = None, 
