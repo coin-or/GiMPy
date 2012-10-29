@@ -55,8 +55,14 @@ class Queue(object):
     def pop(self, item = None):
         return self.dequeue(item)
 
-    def peek(self):
-        return self.items[len(self.items)-1]
+    def peek(self, item = None):
+        if item == None:
+            return self.items[len(self.items)-1]
+        else:
+            for i in self.items:
+                if i == item:
+                    return i            
+        return None
 
     def size(self):
         return len(self.items)
@@ -119,7 +125,10 @@ class PriorityQueue:
                 else:
                     heapq.heappop(self.heap)
             raise KeyError('peek at an empty priority queue')
-        return self.entry_finder[item][-1]
+        try:
+            return self.entry_finder[item][-1]
+        except KeyError:
+            return None
 
     def get_priority(self, item):
         try:
