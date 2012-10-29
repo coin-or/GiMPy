@@ -36,8 +36,14 @@ class Stack(object):
     def remove(self, item):
         self.items.remove(item)
 
-    def peek(self):
-        return self.items[len(self.items)-1]
+    def peek(self, item = None):
+        if item == None:
+            return self.items[len(self.items)-1]
+        else:
+            for i in self.items:
+                if i == item:
+                    return i            
+        return None
 
     def size(self):
         return len(self.items)

@@ -14,7 +14,7 @@ green: there is positive flow on the arc, less then capacity.
 from gimpy import Graph
 
 if __name__=='__main__':
-    g = Graph(graph_type='digraph')
+    g = Graph(graph_type='digraph', display = 'pygame')
     g.add_node(1,pos='"0,2!"')
     
     g.add_node(3,pos='"2,4!"')
@@ -37,9 +37,9 @@ if __name__=='__main__':
     g.add_edge(5, 7, capacity=20, label='20')
     g.set_display_mode('pygame')
 
-    g.max_flow_labeling(1, 7)
-    g.display()
-    g.write_png('g.png')
+    g.max_flow_preflowpush(1, 7, algo = 'FIFO')
+    g.max_flow_augment(1, 7, algo = 'DFS')
+    
     nl = list(int(n) for n in g.get_node_list())
     nl.sort()
     for n in nl:
