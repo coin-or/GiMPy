@@ -406,15 +406,6 @@ class Graph(Dot):
         
         return None
     
-    def shortest_weighted_path_label_correcting(self, source, destination = None, display = None, q = Queue()):
-        '''
-        This method determines the shortest paths to all nodes reachable from "source" 
-        if "destination" is not given. Otherwise, it determines a shortest path from 
-        "source" to "destination". The variable "q" must be an instance of a priority 
-        queue. 
-        '''
-        
-
     def minimum_spanning_tree_prim(self, source, display = None, q = PriorityQueue()):
         '''
         This method determines a minimum spanning tree of all nodes reachable from "source" 
@@ -1047,6 +1038,11 @@ class Graph(Dot):
         self.set_display_mode('off')
         self.search(sink, algo = 'UnweightedSPT', reverse = True)
         self.set_display_mode(display)
+        
+        for n in nl:
+            if self.get_node_attr(n, 'distance') is None:
+                print 'Graph contains nodes not connected to the sink...aborting'
+                return
 
         if algo == 'FIFO':
             q = Queue()
@@ -1079,7 +1075,7 @@ class Graph(Dot):
                         '''With FIFO, we need to add the neighbors to the queue
                         before the current is added back in or the nodes will be out
                         of order'''
-                        if q.peek(n) is None and n != source:
+                        if q.peek(n) is None and n != source and n != sink:
                             q.push(n)
                         '''Keep pushing while there is excess'''
                         if self.get_node_attr(current, 'excess') > 0:
@@ -1132,7 +1128,7 @@ class Graph(Dot):
         return True
 
     def relabel(self, i):
-        min_distance = len(self.get_node_list())
+        min_distance = 2*len(self.get_node_list()) + 1
         for j in self.get_out_neighbors(i):
             if (self.get_node_attr(j, 'distance') < min_distance and 
                 self.get_edge_attr(i, j, 'flow') < self.get_edge_attr(i, j, 'capacity')):
@@ -1390,7 +1386,7 @@ class Graph(Dot):
 
     def add_subgraph(self, S):
         Dot.add_subgraph(self, S)
-    
+            
 class Subgraph(Dotsubgraph, Graph):
     
     def __init__(self, display = 'off', type = 'digraph', **attrs):
@@ -1676,8 +1672,9 @@ class DisjointSet(Graph):
                     self.add_edge(e[0], current)
         return current
 
+
 if __name__ == '__main__':
-    
+        
     G = Graph(graph_type = 'digraph', splines='true', layout = 'dot', K = 1)
     G.random(numnodes = 7, density = 0.7, length_range = (-5, 5), seedInput = 5)
 #    G.random(numnodes = 10, density = 0.7, seedInput = 5)
