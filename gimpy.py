@@ -1039,10 +1039,13 @@ class Graph(Dot):
         self.search(sink, algo = 'UnweightedSPT', reverse = True)
         self.set_display_mode(display)
         
+        disconnect = False
         for n in nl:
             if self.get_node_attr(n, 'distance') is None:
-                print 'Graph contains nodes not connected to the sink...aborting'
-                return
+                disconnect = True
+                self.set_node_attr(n, 'distance', 2*len(self.get_node_list()) + 1)
+        if disconnect:
+            print 'Warning: graph contains nodes not connected to the sink...'
 
         if algo == 'FIFO':
             q = Queue()
