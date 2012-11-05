@@ -295,7 +295,7 @@ class Graph(Dot):
     def shortest_unweighted_path(self, source, destination, display = None):
         return self.search(source, destination, display = display, q = Queue(), algo = 'BFS')
 
-    def shortest_weighted_path(self, source, destination = None, display = None, q = PriorityQueue()):
+    def shortest_weighted_path(self, source, destination = None, display = None, algo = 'Dijkstra'):
         '''
         This method determines the shortest paths to all nodes reachable from "source" 
         if "destination" is not given. Otherwise, it determines a shortest path from 
@@ -303,53 +303,68 @@ class Graph(Dot):
         queue. 
         '''
         nl = self.get_node_list()
+        neighbors = self.get_out_neighbors
+
         for i in nl:
             self.set_node_attr(i, 'color', 'black')
-            for j in self.neighbor_lists[i]:
+            self.set_node_attr(i, 'distance', 'inf')
+            for j in neighbors(i):
                 self.set_edge_attr(i, j, 'color', 'black')
         
         if display == None:
             display = self.display_mode
         else:
             self.set_display_mode = display
-        if isinstance(q, PriorityQueue):
-            addToQ = q.push
-            removeFromQ = q.pop
-            peek = q.peek
-            isEmpty = q.isEmpty
-        #if self.graph_type == 'digraph':
-        #    neighbors = self.get_out_neighbors
-        #else:
-        #    neighbors = self.get_neighbors
-        
-        neighbors = self.get_neighbors
 
-        pred = {}
-        addToQ(str(source))
+        if algo == 'Dijkstra':
+            q = PriorityQueue()
+        elif algo == 'FIFO':
+            q = Queue()
+        else:
+            print 'Unknown algorithm'
+            return
+        
+        pred = {source:source}
+        q.push(str(source))
+        self.set_node_attr(source, 'distance', 0)
         done = False
-        while not isEmpty() and not done:
-            current = removeFromQ()
+        while not q.isEmpty() and not done:
+            current = q.pop()
+            current_estimate = self.get_node_attr(current, 'distance')
             self.set_node_attr(current, 'color', 'blue')
-            if current != str(source):
-                self.set_edge_attr(pred[current], current, 'color', 'green')
             if current == str(destination):
                 done = True
                 break
             self.display()
             for n in neighbors(current):
-                if self.get_node_attr(n, 'color') != 'green':
+                if self.get_node_attr(n, 'color') != 'green' and n != pred[current]:
                     self.set_edge_attr(current, n, 'color', 'yellow')
                     self.display()
-                    new_estimate = q.get_priority(current) + self.get_edge_attr(current, n, 'cost')
-                    if not n in pred or new_estimate < peek(n):
+                    new_estimate = current_estimate + self.get_edge_attr(current, n, 'cost')
+                    if self.get_node_attr(n, 'distance') == 'inf' or new_estimate < self.get_node_attr(n, 'distance'):
+                        if n in pred and n != pred[n]:
+                            self.set_edge_attr(pred[n], n, 'color', 'black')                            
                         pred[n] = current
+                        self.set_edge_attr(current, n, 'color', 'green')
                         self.set_node_attr(n, 'color', 'red')
                         self.set_node_attr(n, 'label', new_estimate)
-                        addToQ(n, new_estimate)
+                        self.set_node_attr(n, 'distance', new_estimate)
+                        if algo == 'Dijkstra':
+                            q.push(n, new_estimate)
+                        elif algo == 'FIFO':
+                            q.push(n)
                         self.display()
                         self.set_node_attr(n, 'color', 'black')
-                    self.set_edge_attr(current, n, 'color', 'black')
-            self.set_node_attr(current, 'color', 'green')
+                    else:
+                        self.set_edge_attr(current, n, 'color', 'black')
+            if algo == 'Dijkstra':
+                self.set_node_attr(current, 'color', 'green')
+            else:
+                cycle = self.check_for_cycle(source, pred)
+                if cycle is not None:
+                    print 'Negative cycle detected'
+                    return cycle, None 
+                self.set_node_attr(current, 'color', 'black')
             self.display()
                     
         if done:
@@ -361,6 +376,44 @@ class Graph(Dot):
             return path, q.get_priority(current)
         
         return pred
+    
+    def check_for_cycle(self, source, tree):
+        labels = {}
+        found = False
+        for start in self.get_node_list():
+            if start not in labels and start in tree and tree[start] != start:
+                labels[start] = start
+                pred = tree[start]
+                while True:
+                    if pred not in labels:
+                        labels[pred] = start
+                        if pred != tree[pred]:
+                            pred = tree[pred]
+                        else:
+                            break
+                    else:
+                        if labels[pred] == start:
+                            found = True
+                        break
+            if found:
+                start = pred
+                cycle = [start]
+                pred = tree[start]
+                while pred != start:
+                    cycle.append(pred)
+                    pred = tree[pred]
+                return cycle
+        
+        return None
+    
+    def shortest_weighted_path_label_correcting(self, source, destination = None, display = None, q = Queue()):
+        '''
+        This method determines the shortest paths to all nodes reachable from "source" 
+        if "destination" is not given. Otherwise, it determines a shortest path from 
+        "source" to "destination". The variable "q" must be an instance of a priority 
+        queue. 
+        '''
+        
 
     def minimum_spanning_tree_prim(self, source, display = None, q = PriorityQueue()):
         '''
@@ -787,7 +840,7 @@ class Graph(Dot):
                   'DFS' is depth-first search
                   'MaxCap' is the maximum capacity path
        
-        post: The 'flow" attribute of each arc gives a maximum flow.
+        post: The 'flow' attribute of each arc gives a maximum flow.
         '''
         if display == None:
             display = self.display_mode
@@ -970,7 +1023,7 @@ class Graph(Dot):
             sink: sink node, integer or string
             display: 
        
-        post: The 'flow" attribute of each arc gives a maximum flow.
+        post: The 'flow' attribute of each arc gives a maximum flow.
         '''
         if display == None:
             display = self.display_mode
@@ -1145,7 +1198,7 @@ class Graph(Dot):
                     else:
                         numnodes2 = m
                     for n in range(numnodes2):
-                        if random() < density:
+                        if random() < density and m != n:
                             if length_range is not None:
                                 length = randint(length_range[0], length_range[1])
                                 self.add_edge(m, n, cost = length, 
@@ -1625,8 +1678,8 @@ class DisjointSet(Graph):
 
 if __name__ == '__main__':
     
-    G = Graph(graph_type = 'graph', splines='true', layout = 'fdp', K = 1)
-    G.random(numnodes = 10, density = 0.7, length_range = (5, 20), seedInput = 5)
+    G = Graph(graph_type = 'digraph', splines='true', layout = 'dot', K = 1)
+    G.random(numnodes = 7, density = 0.7, length_range = (-5, 5), seedInput = 5)
 #    G.random(numnodes = 10, density = 0.7, seedInput = 5)
 
     G.set_display_mode('pygame')
@@ -1634,7 +1687,8 @@ if __name__ == '__main__':
     G.display()
 
 #    G.search(0, display = 'pygame', algo = 'DFS')
-    G.minimum_spanning_tree_kruskal(display = 'pygame')
+#    G.minimum_spanning_tree_kruskal(display = 'pygame')
+    G.shortest_weighted_path(source = '0', algo = 'FIFO')
 
 
     
