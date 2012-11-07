@@ -126,7 +126,8 @@ class Graph(Dot):
         elif len(nodes) == 0:
             return None
         else:
-            raise Exception("Multiple instances of node", name, "present in Tree")
+            raise Exception("Multiple instances of node", name, 
+                            "present in Tree")
 
     def get_node_list(self):
         return self.obj_dict['nodes'].keys()
@@ -173,16 +174,19 @@ class Graph(Dot):
                 del self.get_neighbors(str(n))[str(m)]
             except KeyError:
                 return False
-        Dot.del_edge(self, quote_if_necessary(str(m)), quote_if_necessary(str(n)))
+        Dot.del_edge(self, quote_if_necessary(str(m)), 
+                     quote_if_necessary(str(n)))
 
     def get_edge(self, m, n):
-        edges = Dot.get_edge(self, quote_if_necessary(str(m)), quote_if_necessary(str(n)))
+        edges = Dot.get_edge(self, quote_if_necessary(str(m)), 
+                             quote_if_necessary(str(n)))
         if len(edges) == 1:
             return edges[0]
         elif len(edges) == 0:
             return None
         else:
-            raise Exception("Multiple instances of edge (", m, n, ") present in Tree")
+            raise Exception("Multiple instances of edge (", m, n, 
+                            ") present in Tree")
 
     def get_edge_list(self):
         return self.obj_dict['edges'].keys()
@@ -200,7 +204,8 @@ class Graph(Dot):
 
     def get_out_neighbors(self, n):
         if self.graph_type != 'digraph':
-            raise Exception, "get_out_neighbors method called for undirected graph"
+            raise Exception("get_out_neighbors method called ",
+                            "for undirected graph")
         try:
             return self.out_neighbor_lists[str(n)]
         except KeyError:
@@ -208,16 +213,19 @@ class Graph(Dot):
 
     def get_in_neighbors(self, n):
         if self.graph_type != 'digraph':
-            raise Exception, "get_in_neighbors method called for undirected graph"
+            raise Exception("get_in_neighbors method called for ",
+                            "undirected graph")
         return self.in_neighbor_lists[str(n)]
 
     def label_components(self, display = None):
         '''
-        This method labels the nodes of an undirected graph with component numbers
-        so that each node has the same label as all nodes in the same component
+        This method labels the nodes of an undirected graph with component 
+        numbers so that each node has the same label as all nodes in the 
+        same component
         '''
         if self.graph_type == 'digraph':
-            raise Exception, "label_components only works for undirected graphs"
+            raise Exception("label_components only works for ",
+                            "undirected graphs")
         if self.num_components != None:
             return 
         self.num_components = 0
@@ -232,9 +240,11 @@ class Graph(Dot):
     def get_finishing_time(self, n):
         return self.get_node_attr(n, 'finish_time')
     
-    def label_strong_component(self, root, disc_count = 0, finish_count = 1, component = None):
+    def label_strong_component(self, root, disc_count = 0, finish_count = 1, 
+                               component = None):
         if self.graph_type == 'graph':
-            raise Exception, "label_strong_componentsis only for directed graphs"
+            raise Exception("label_strong_componentsis only for ",
+                            "directed graphs")
         if self.num_components != None:
             return 
         self.num_components = 0
@@ -276,12 +286,14 @@ class Graph(Dot):
         for i in neighbor_list:
             if not transpose:
                 if self.get_node_attr(i, 'disc_time') is None:
-                    disc_count, finish_count = self.dfs(i, disc_count, finish_count, 
-                                                   component, transpose)
+                    disc_count, finish_count = self.dfs(i, disc_count, 
+                                                        finish_count, 
+                                                        component, transpose)
             else:
                 if self.get_node_attr(i, 'component') is None:
-                    disc_count, finish_count = self.dfs(i, disc_count, finish_count, 
-                                                   component, transpose)
+                    disc_count, finish_count = self.dfs(i, disc_count, 
+                                                        finish_count, 
+                                                        component, transpose)
         finish_count += 1
         self.set_node_attr(root, 'finish_time', finish_count)
         return disc_count, finish_count
@@ -293,14 +305,16 @@ class Graph(Dot):
         return self.search(source, destination, display = display)
 
     def shortest_unweighted_path(self, source, destination, display = None):
-        return self.search(source, destination, display = display, q = Queue(), algo = 'BFS')
+        return self.search(source, destination, display = display, q = Queue(), 
+                           algo = 'BFS')
 
-    def shortest_weighted_path(self, source, destination = None, display = None, algo = 'Dijkstra'):
+    def shortest_weighted_path(self, source, destination = None, 
+                               display = None, algo = 'Dijkstra'):
         '''
-        This method determines the shortest paths to all nodes reachable from "source" 
-        if "destination" is not given. Otherwise, it determines a shortest path from 
-        "source" to "destination". The variable "q" must be an instance of a priority 
-        queue. 
+        This method determines the shortest paths to all nodes reachable from 
+        "source" if "destination" is not given. Otherwise, it determines a 
+        shortest path from "source" to "destination". The variable "q" must 
+        be an instance of a priority queue. 
         '''
         nl = self.get_node_list()
         neighbors = self.get_out_neighbors
@@ -337,13 +351,16 @@ class Graph(Dot):
                 break
             self.display()
             for n in neighbors(current):
-                if self.get_node_attr(n, 'color') != 'green' and n != pred[current]:
+                if (self.get_node_attr(n, 'color') != 'green' and 
+                    n != pred[current]):
                     self.set_edge_attr(current, n, 'color', 'yellow')
                     self.display()
-                    new_estimate = current_estimate + self.get_edge_attr(current, n, 'cost')
-                    if self.get_node_attr(n, 'distance') == 'inf' or new_estimate < self.get_node_attr(n, 'distance'):
+                    new_estimate = (current_estimate + 
+                                    self.get_edge_attr(current, n, 'cost'))
+                    if (self.get_node_attr(n, 'distance') == 'inf' or 
+                        new_estimate < self.get_node_attr(n, 'distance')):
                         if n in pred and n != pred[n]:
-                            self.set_edge_attr(pred[n], n, 'color', 'black')                            
+                            self.set_edge_attr(pred[n], n, 'color', 'black')
                         pred[n] = current
                         self.set_edge_attr(current, n, 'color', 'green')
                         self.set_node_attr(n, 'color', 'red')
@@ -406,10 +423,11 @@ class Graph(Dot):
         
         return None
     
-    def minimum_spanning_tree_prim(self, source, display = None, q = PriorityQueue()):
+    def minimum_spanning_tree_prim(self, source, display = None, 
+                                   q = PriorityQueue()):
         '''
-        This method determines a minimum spanning tree of all nodes reachable from "source" 
-        using Prim's Algorithm
+        This method determines a minimum spanning tree of all nodes reachable 
+        from "source" using Prim's Algorithm
         '''
         if display == None:
             display = self.display_mode
@@ -457,8 +475,8 @@ class Graph(Dot):
 
     def minimum_spanning_tree_kruskal(self, display = None, components = None):
         '''
-        This method determines a minimum spanning tree of all nodes reachable from "source" 
-        using Kruskal's Algorithm
+        This method determines a minimum spanning tree of all nodes reachable 
+        from "source" using Kruskal's Algorithm
         '''
         if display == None:
             display = self.display_mode
@@ -466,9 +484,11 @@ class Graph(Dot):
             self.set_display_mode = display
         
         if components is None:
-            components = DisjointSet(display = 'pygame', layout = 'dot', optimize = False)
+            components = DisjointSet(display = 'pygame', layout = 'dot', 
+                                     optimize = False)
             
-        sorted_edge_list = sorted(self.obj_dict['edges'].keys(), key = self.get_edge_cost)
+        sorted_edge_list = sorted(self.obj_dict['edges'].keys(), 
+                                  key = self.get_edge_cost)
         
         edges = []
         for n in self.get_node_list():
@@ -490,16 +510,19 @@ class Graph(Dot):
             components.display()
         return edges
             
-    def search(self, source, destination = None, display = None, component = None, q = Stack(),
+    def search(self, source, destination = None, display = None, 
+               component = None, q = Stack(),
                algo = 'DFS', reverse = False, **kargs):
         '''
-        This method determines all nodes reachable from "source" if "destination" is not given.
-        Otherwise, it determines whether there is a path from "source" to "destination"
-        Optionally, it marks all nodes reachable from "source" with a component number.
-        The variable "q" determines the order in which the nodes are searched. 
+        This method determines all nodes reachable from "source" if 
+        "destination" is not given. Otherwise, it determines whether there is 
+        a path from "source" to "destination". Optionally, it marks all nodes 
+        reachable from "source" with a component number. The variable "q" 
+        determines the order in which the nodes are searched. 
         
-        post: The return value should be a list of nodes on the path from "source" to
-        "destination" if one is found. Otherwise, "None" is returned
+        post: The return value should be a list of nodes on the path from 
+        "source" to "destination" if one is found. Otherwise, "None" is 
+        returned
         '''
         if display == None:
             display = self.display_mode
@@ -606,7 +629,8 @@ class Graph(Dot):
             self.set_node_attr(neighbor, 'color', 'black')
             return
        
-        new_estimate = q.get_priority(str(current)) + self.get_edge_attr(current, neighbor, 'cost')
+        new_estimate = (q.get_priority(str(current)) + 
+                        self.get_edge_attr(current, neighbor, 'cost'))
         if neighbor not in pred or new_estimate < q.get_priority(str(neighbor)):
             pred[neighbor] = current
             self.set_node_attr(neighbor, 'color', 'red')
@@ -638,10 +662,12 @@ class Graph(Dot):
                             **kargs):
 
         if algo == 'Dijkstra':
-            return self.process_edge_dijkstra(current, neighbor, pred, q, component)
+            return self.process_edge_dijkstra(current, neighbor, pred, q, 
+                                              component)
 
         if algo == 'Prim':
-            return self.process_edge_prim(current, neighbor, pred, q, component)
+            return self.process_edge_prim(current, neighbor, pred, q, 
+                                          component)
         
         if algo == 'UnweightedSPT':
             if current == None:
@@ -671,9 +697,9 @@ class Graph(Dot):
         Finds maximum flow from source to sink by a depth-first search based 
         augmenting path algorithm. 
         
-        pre: Assumes a directed graph in which each arc has a 'capacity' attribute 
-        and for which there does does not exist both arcs (i, j) and (j, i) 
-        for any pair of nodes i and j.
+        pre: Assumes a directed graph in which each arc has a 'capacity' 
+        attribute and for which there does does not exist both arcs (i, j) 
+        and (j, i) for any pair of nodes i and j.
         inputs:
             source: source node, integer or string
             sink: sink node, integer or string
@@ -709,7 +735,8 @@ class Graph(Dot):
                     if self.get_edge(n, m) != None:
                         if self.get_edge_attr(n, m, 'flow') == 0:
                             self.set_edge_attr(n, m, 'color', 'black')
-                        elif self.get_edge_attr(n, m, 'flow') == self.get_edge_attr(n, m, 'capacity'):
+                        elif (self.get_edge_attr(n, m, 'flow') == 
+                              self.get_edge_attr(n, m, 'capacity')):
                             self.set_edge_attr(n, m, 'color', 'red')
                         else:
                             self.set_edge_attr(n, m, 'color', 'green')
@@ -727,11 +754,14 @@ class Graph(Dot):
                     self.set_node_attr(m, 'color', 'yellow')
                     if m in out_neighbor:
                         self.set_edge_attr(current, m , 'color', 'yellow')
-                        available_capacity =  (self.get_edge_attr(current, m, 'capacity')-
-                            self.get_edge_attr(current, m, 'flow'))
+                        available_capacity = (self.get_edge_attr(current, m, 
+                                                                 'capacity')-
+                                              self.get_edge_attr(current, m, 
+                                                                 'flow'))
                     else:
                         self.set_edge_attr(m, current , 'color', 'yellow')
-                        available_capacity = self.get_edge_attr(m, current, 'flow')
+                        available_capacity = self.get_edge_attr(m, current, 
+                                                                'flow')
                     self.display()
                     if available_capacity > 0:
                         self.set_node_attr(m, 'color', 'blue')
@@ -745,14 +775,16 @@ class Graph(Dot):
                     else:
                         self.set_node_attr(m, 'color', 'black')
                         if m in out_neighbor:
-                            if self.get_edge_attr(current, m, 'flow') == self.get_edge_attr(current,m,'capacity'):
+                            if (self.get_edge_attr(current, m, 'flow') == 
+                                self.get_edge_attr(current,m,'capacity')):
                                 self.set_edge_attr(current, m, 'color', 'red')
                             elif self.get_edge_attr(current, m, 'flow') == 0:
                                 self.set_edge_attr(current, m, 'color', 'black')
                             else:
                                 self.set_edge_attr(current, m, 'color', 'green')
                         else:
-                            if self.get_edge_attr(m, current, 'flow') == self.get_edge_attr(m, current, 'capacity'):
+                            if (self.get_edge_attr(m, current, 'flow') == 
+                                self.get_edge_attr(m, current, 'capacity')):
                                 self.set_edge_attr(m, current, 'color', 'red')
                             elif self.get_edge_attr(m, current, 'flow') == 0:
                                 self.set_edge_attr(m, current,'color', 'black')
@@ -793,7 +825,8 @@ class Graph(Dot):
                     capacity = self.get_edge_attr(m, current, 'capacity')
                     new_flow = flow+min_capacity
                     self.set_edge_attr(m, current, 'flow', new_flow)
-                    self.set_edge_attr(m, current, 'label', str(capacity)+'/'+str(new_flow))
+                    self.set_edge_attr(m, current, 'label', 
+                                       str(capacity)+'/'+str(new_flow))
                     if new_flow==capacity:
                         self.set_edge_attr(m, current, 'color', 'red')
                     else:
@@ -819,9 +852,9 @@ class Graph(Dot):
         Finds maximum flow from source to sink by a general graph search based 
         augmenting path algorithm. 
         
-        pre: Assumes a directed graph in which each arc has a 'capacity' attribute 
-        and for which there does does not exist both arcs (i, j) and (j, i) 
-        for any pair of nodes i and j.
+        pre: Assumes a directed graph in which each arc has a 'capacity' 
+        attribute and for which there does does not exist both arcs (i, j) 
+        and (j, i) for any pair of nodes i and j.
         inputs:
             source: source node, integer or string
             sink: sink node, integer or string
@@ -863,11 +896,11 @@ class Graph(Dot):
     def find_augmenting_path(self, source, sink, display = None, q = Stack(),
                algo = 'SAP', **kargs):
         '''
-        This method finds an augmenting path in the residual graph from "source" to "sink"
-        using a generalized graph search method. 
+        This method finds an augmenting path in the residual graph from 
+        "source" to "sink" using a generalized graph search method. 
         
-        post: The return value should be a list of nodes on the path from "source" to
-        "sink" if one is found. Otherwise, "None" is returned.
+        post: The return value should be a list of nodes on the path from 
+        "source" to "sink" if one is found. Otherwise, "None" is returned.
         '''
 
         if display == None:
@@ -908,7 +941,8 @@ class Graph(Dot):
             if current == str(sink):
                 found = True
                 break
-            neighbors = self.get_out_neighbors(current) + self.get_in_neighbors(current)
+            neighbors = (self.get_out_neighbors(current) + 
+                         self.get_in_neighbors(current))
             for n in neighbors:
                 if n == source:
                     continue
@@ -931,8 +965,11 @@ class Graph(Dot):
                         if current != source:
                             if self.get_node_attr(n, 'color') != 'green':
                                 capacity_n = q.get_priority(n)
-                                if capacity_n is None or min(residual_capacity, current_capacity) > -capacity_n:
-                                    q.push(str(n), max(-residual_capacity, -current_capacity))
+                                if (capacity_n is None or 
+                                    (min(residual_capacity, current_capacity) 
+                                     > -capacity_n)):
+                                    q.push(str(n), max(-residual_capacity, 
+                                                        -current_capacity))
                                     pred[n] = current
                         else:
                             q.push(str(n), -residual_capacity)
@@ -966,7 +1003,7 @@ class Graph(Dot):
         current = path[0]
         for m in path[1:]:
             if self.get_edge(current, m) is not None:
-                residual_capacity = (self.get_edge_attr(current, m, 'capacity') -
+                residual_capacity = (self.get_edge_attr(current,m,'capacity') -
                     self.get_edge_attr(current, m, 'flow')) 
             else:                            
                 residual_capacity = self.get_edge_attr(m, current, 'flow')
@@ -988,7 +1025,8 @@ class Graph(Dot):
             capacity = self.get_edge_attr(edge[0], edge[1], 'capacity')
             new_flow = flow + mult * min_capacity
             self.set_edge_attr(edge[0], edge[1], 'flow', new_flow)
-            self.set_edge_attr(edge[0], edge[1], 'label', str(capacity)+'/'+str(new_flow))
+            self.set_edge_attr(edge[0], edge[1], 'label', 
+                               str(capacity)+'/'+str(new_flow))
             self.set_edge_attr(edge[0], edge[1], 'color', 'yellow')
             self.display()
             if new_flow == capacity:
@@ -1006,9 +1044,9 @@ class Graph(Dot):
         Finds maximum flow from source to sink by a depth-first search based 
         augmenting path algorithm. 
         
-        pre: Assumes a directed graph in which each arc has a 'capacity' attribute 
-        and for which there does does not exist both arcs (i, j) and (j, i) 
-        for any pair of nodes i and j.
+        pre: Assumes a directed graph in which each arc has a 'capacity' 
+        attribute and for which there does does not exist both arcs (i, j) and 
+        (j, i) for any pair of nodes i and j.
         inputs:
             source: source node, integer or string
             sink: sink node, integer or string
@@ -1043,7 +1081,8 @@ class Graph(Dot):
         for n in nl:
             if self.get_node_attr(n, 'distance') is None:
                 disconnect = True
-                self.set_node_attr(n, 'distance', 2*len(self.get_node_list()) + 1)
+                self.set_node_attr(n, 'distance',
+                                   2*len(self.get_node_list()) + 1)
         if disconnect:
             print 'Warning: graph contains nodes not connected to the sink...'
 
@@ -1069,21 +1108,26 @@ class Graph(Dot):
         while not q.isEmpty():
             relabel = True
             current = q.peek()
-            neighbors = self.get_out_neighbors(current) + self.get_in_neighbors(current)
+            neighbors = (self.get_out_neighbors(current) + 
+                         self.get_in_neighbors(current))
             for n in neighbors:
-                pushed = self.process_edge_flow(source, sink, current, n, algo, q)
+                pushed = self.process_edge_flow(source, sink, current, n, algo, 
+                                                q)
                 if pushed:
                     self.show_flow()                    
                     if algo == 'FIFO':
                         '''With FIFO, we need to add the neighbors to the queue
-                        before the current is added back in or the nodes will be out
-                        of order'''
+                        before the current is added back in or the nodes will 
+                        be out of order
+                        '''
                         if q.peek(n) is None and n != source and n != sink:
                             q.push(n)
                         '''Keep pushing while there is excess'''
                         if self.get_node_attr(current, 'excess') > 0:
                             continue
-                    '''If we were able to push, then there we should not relabel'''
+                    '''If we were able to push, then there we should not 
+                    relabel
+                    '''
                     relabel = False
                     break
 
@@ -1097,7 +1141,8 @@ class Graph(Dot):
                     if algo == 'FIFO' or algo == 'SAP':
                         q.push(current)
                     elif algo == 'HighestLabel':
-                        q.push(current, -self.get_node_attr(current, 'distance'))
+                        q.push(current, -self.get_node_attr(current, 
+                                                            'distance'))
             if pushed and q.peek(n) is None and n != source:
                 if algo == 'SAP':
                     q.push(n)
@@ -1134,7 +1179,8 @@ class Graph(Dot):
         min_distance = 2*len(self.get_node_list()) + 1
         for j in self.get_out_neighbors(i):
             if (self.get_node_attr(j, 'distance') < min_distance and 
-                self.get_edge_attr(i, j, 'flow') < self.get_edge_attr(i, j, 'capacity')):
+                (self.get_edge_attr(i, j, 'flow') < 
+                 self.get_edge_attr(i, j, 'capacity'))):
                 min_distance = self.get_node_attr(j, 'distance')
         for j in self.get_in_neighbors(i):
             if (self.get_node_attr(j, 'distance') < min_distance and 
@@ -1150,7 +1196,8 @@ class Graph(Dot):
             for neighbor in self.get_out_neighbors(n):
                 capacity = self.get_edge_attr(n, neighbor, 'capacity')
                 flow = self.get_edge_attr(n, neighbor, 'flow')
-                self.set_edge_attr(n, neighbor, 'label', str(capacity)+'/'+str(flow))
+                self.set_edge_attr(n, neighbor, 'label', 
+                                   str(capacity)+'/'+str(flow))
                 if capacity == flow:
                     self.set_edge_attr(n, neighbor, 'color', 'red')
                 elif flow > 0:
@@ -1185,9 +1232,11 @@ class Graph(Dot):
                         n = randint(1, numnodes)
                         if not self.get_edge(m, n) and m != n:
                             if length_range is not None:
-                                length = randint(length_range[0], length_range[1])
+                                length = randint(length_range[0], 
+                                                 length_range[1])
                                 self.add_edge(m, n, cost = length, 
-                                              label = str(length), **edge_format)
+                                              label = str(length), 
+                                              **edge_format)
                             else:
                                 self.add_edge(m, n, **edge_format)
             if density != None:
@@ -1199,28 +1248,33 @@ class Graph(Dot):
                     for n in range(numnodes2):
                         if random() < density and m != n:
                             if length_range is not None:
-                                length = randint(length_range[0], length_range[1])
+                                length = randint(length_range[0], 
+                                                 length_range[1])
                                 self.add_edge(m, n, cost = length, 
-                                              label = str(length), **edge_format)
+                                              label = str(length), 
+                                              **edge_format)
                             else:
                                 self.add_edge(m, n, **edge_format)
             else:
                 print "Must set either degree range or density"
         else:
             for m in range(numnodes):
-                ''' Assigns random coordinates (between 1 and 20) to the nodes '''
-                self.add_node(m, locationx = randint(1, 20), locationy = randint(1, 20), **node_format)
+                ''' Assigns random coordinates (between 1 and 20) to the nodes 
+                '''
+                self.add_node(m, locationx = randint(1, 20), 
+                              locationy = randint(1, 20), **node_format)
             if degree_range is not None:
                 for m in range(numnodes):
                     for i in range(randint(degree_range[0], degree_range[1])):
                         n = randint(1, numnodes)
                         if not self.get_edge(m, n) and m != n:
                             if length_range is None:
-                                ''' calculates the euclidean norm and round it to three decimal places '''
-                                length = round((((self.get_node_attr(n, 'locationx') - self.get_node_attr(m, 'locationx')) ** 2 
-                                           + (self.get_node_attr(n, 'locationy') - self.get_node_attr(m, 'locationy')) ** 2) ** 0.5), 3) 
+                                ''' calculates the euclidean norm and round it 
+                                to three decimal places '''
+                                length = round((((self.get_node_attr(n, 'locationx') - self.get_node_attr(m, 'locationx')) ** 2 + (self.get_node_attr(n, 'locationy') - self.get_node_attr(m, 'locationy')) ** 2) ** 0.5), 3) 
                                 self.add_edge(m, n, cost = length, 
-                                             label = str(length), **edge_format)
+                                             label = str(length), 
+                                              **edge_format)
                             else:
                                 self.add_edge(m, n, **edge_format)
             if density != None:
@@ -1232,26 +1286,24 @@ class Graph(Dot):
                     for n in range(numnodes2):
                         if random() < density:
                             if length_range is None:
-                                ''' calculates the euclidean norm and round it to three decimal places '''
-                                length = round((((self.get_node_attr(n, 'locationx') - self.get_node_attr(m, 'locationx')) ** 2 
-                                           + (self.get_node_attr(n, 'locationy') - self.get_node_attr(m, 'locationy')) ** 2) ** 0.5), 3) 
+                                ''' calculates the euclidean norm and round it 
+                                to three decimal places '''
+                                length = round((((self.get_node_attr(n, 'locationx') - self.get_node_attr(m, 'locationx')) ** 2 + (self.get_node_attr(n, 'locationy') - self.get_node_attr(m, 'locationy')) ** 2) ** 0.5), 3) 
                                 self.add_edge(m, n, cost = length, 
-                                             label = str(length), **edge_format)
-                                print 'Node #' + str(n) + ' x-coordinate is ' + str(self.get_node_attr(n, 'locationx'))
-                                print 'Node #' + str(m) + ' x-coordinate is ' + str(self.get_node_attr(m, 'locationx'))
-                                print 'Node #' + str(n) + ' y-coordinate is ' + str(self.get_node_attr(n, 'locationy'))
-                                print 'Node #' + str(m) + ' y-coordinate is ' + str(self.get_node_attr(m, 'locationy')) 
-                                print
+                                             label = str(length), 
+                                              **edge_format)
                             else:
                                 self.add_edge(m, n, **edge_format)
             else:
                 print "Must set either degree range or density"
 
-    def page_rank(self, damping_factor=0.85, max_iterations=100, min_delta=0.00001):
+    def page_rank(self, damping_factor=0.85, max_iterations=100, 
+                  min_delta=0.00001):
         """
         Compute and return the PageRank in a directed graph.
         
-        This function was originally taken from here and modified for this graph class:
+        This function was originally taken from here and modified for this 
+        graph class:
         http://code.google.com/p/python-graph/source/browse/trunk/core/pygraph/algorithms/pagerank.py
     
         @type  graph: digraph
@@ -1274,7 +1326,8 @@ class Graph(Dot):
         graph_size = len(nodes)
         if graph_size == 0:
             return {}
-        min_value = (1.0-damping_factor)/graph_size #value for nodes without inbound links
+        #value for nodes without inbound links
+        min_value = (1.0-damping_factor)/graph_size 
     
         # itialize the page rank dict with 1/N for all nodes
         pagerank = dict.fromkeys(nodes, 1.0/graph_size)
@@ -1285,7 +1338,8 @@ class Graph(Dot):
             for node in nodes:
                 rank = min_value
                 for referring_page in self.get_in_neighbors(node):
-                    rank += damping_factor * pagerank[referring_page] / len(self.get_out_neighbors(referring_page))
+                    rank += (damping_factor * pagerank[referring_page] / 
+                             len(self.get_out_neighbors(referring_page)))
                 
                 diff += abs(pagerank[node] - rank)
                 pagerank[node] = rank
@@ -1302,7 +1356,8 @@ class Graph(Dot):
                 dd[n] = len(self.get_neighbors(n))
         elif self.graph_type == 'digraph':
             for n in self.get_node_list():
-                dd[n] = len(self.get_in_neighbors(n)) + len(self.get_out_neighbors(n))
+                dd[n] = (len(self.get_in_neighbors(n)) + 
+                         len(self.get_out_neighbors(n)))
         return dd 
 
     def get_diameter(self):
@@ -1514,7 +1569,8 @@ class BinaryTree(Tree):
     def get_left_child(self, n):
         return self.get_node_attr(n, 'Lchild')
                 
-    def print_nodes(self, order = 'in', priority = 'L', display = None, root = None):
+    def print_nodes(self, order = 'in', priority = 'L', display = None, 
+                    root = None):
         if root == None:
             root = self.root
         if display == None:
@@ -1557,8 +1613,8 @@ class BinaryTree(Tree):
             display = self.display_mode
         self.traverse(root, display, Queue(), priority, order)
 
-    def traverse(self, root = None, display = None, q = Stack(), priority = 'L', 
-                 order = 'in'):
+    def traverse(self, root = None, display = None, q = Stack(), 
+                 priority = 'L',  order = 'in'):
         if root == None:
             root = self.root
         if display == None:
@@ -1613,7 +1669,8 @@ class BinaryTree(Tree):
             root = self.root
         if display == None:
             display = self.display_mode
-        opers = {'+':operator.add, '-':operator.sub, '*':operator.mul, '/':operator.truediv}
+        opers = {'+':operator.add, '-':operator.sub, '*':operator.mul, 
+                 '/':operator.truediv}
         res1 = None
         res2 = None
         if self.get_left_child(root):
@@ -1652,7 +1709,7 @@ class DisjointSet(Graph):
         roots = (self.find(i), self.find(j))
         if roots[0] == roots[1]:
             return False
-        if self.sizes[roots[0]] <= self.sizes[roots[1]] or not self.optimize:    
+        if self.sizes[roots[0]] <= self.sizes[roots[1]] or not self.optimize:
             self.add_edge(roots[0], roots[1])
             self.sizes[roots[1]] += self.sizes[roots[0]]
             return True
