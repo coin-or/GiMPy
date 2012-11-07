@@ -540,7 +540,7 @@ class Graph(Dot):
 
         pred = {}
         self.process_edge_search(None, source, pred, q, component, algo, 
-                                 reverse, **kargs)
+                                 **kargs)
         found = True
         if str(source) != str(destination):
             found = False
@@ -565,7 +565,7 @@ class Graph(Dot):
                         self.set_edge_attr(current, n, 'color', 'yellow')
                     self.display()
                     self.process_edge_search(current, n, pred, q, component, 
-                                             algo, reverse, **kargs)
+                                             algo, **kargs)
                     if reverse:
                         self.set_edge_attr(n, current, 'color', 'black')
                     else:
@@ -635,13 +635,13 @@ class Graph(Dot):
             self.set_node_attr(neighbor, 'color', 'black')
 
     def process_edge_search(self, current, neighbor, pred, q, component, algo, 
-                            reverse, **kargs):
+                            **kargs):
 
         if algo == 'Dijkstra':
-            return self.process_edge_dijkstra(current, neighbor, pred, q, component, reverse)
+            return self.process_edge_dijkstra(current, neighbor, pred, q, component)
 
         if algo == 'Prim':
-            return self.process_edge_reverse_prim(current, neighbor, pred, q, component, reverse)
+            return self.process_edge_prim(current, neighbor, pred, q, component)
         
         if algo == 'UnweightedSPT':
             if current == None:
@@ -1678,17 +1678,17 @@ class DisjointSet(Graph):
 
 if __name__ == '__main__':
         
-    G = Graph(graph_type = 'digraph', splines='true', layout = 'dot', K = 1)
+    G = Graph(graph_type = 'graph', splines='false', layout = 'dot', K = 1)
     G.random(numnodes = 7, density = 0.7, length_range = (-5, 5), seedInput = 5)
 #    G.random(numnodes = 10, density = 0.7, seedInput = 5)
 
-    G.set_display_mode('pygame')
+    G.set_display_mode('off')
 
     G.display()
 
 #    G.search(0, display = 'pygame', algo = 'DFS')
 #    G.minimum_spanning_tree_kruskal(display = 'pygame')
-    G.shortest_weighted_path(source = '0', algo = 'FIFO')
+    G.search(source = '0', algo = 'Prim')
 
 
     
