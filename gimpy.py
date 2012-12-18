@@ -13,9 +13,7 @@ __url__        = None
 __title__      = 'GiMPy (Graph Methods in Python)'
 
 import sys
-#sys.path.append('..\pydot')
-#sys.path.append('..\xdot')
-#sys.path.append('..\GrUMPy')
+sys.path.append('/home/aykut/project_coin/pydot')
 from pydot import Dot, Node, Edge
 from pydot import Subgraph as Dotsubgraph
 from pydot import Cluster as Dotcluster
@@ -1106,6 +1104,16 @@ class Graph(Dot):
         self.show_flow()
 
         while not q.isEmpty():
+            # debug stuff
+            print "node_id excess distance"
+            nl = self.get_node_list()
+            nl.sort()
+            for n in nl:
+                print n.ljust(6), \
+                    str(self.get_node_attr(n,'excess')).ljust(6), \
+                    self.get_node_attr(n,'distance')
+
+            # end of debug stuff
             relabel = True
             current = q.peek()
             neighbors = (self.get_out_neighbors(current) + 
@@ -1444,7 +1452,100 @@ class Graph(Dot):
 
     def add_subgraph(self, S):
         Dot.add_subgraph(self, S)
-            
+
+    def compute_potentials(self):
+        '''
+        API: compute_potentials(self)
+        computes node potentials for a minimum cost flow problem and stores
+        them as node attribute 'potential'. Based on pseudocode given in
+        Network Flows by Ahuja et al.
+
+        pre: Assumes a directed graph in which each arc has a 'cost' attribute.
+        Uses 'thread' and 'pred' attributes of nodes.
+       
+        post: Keeps the node potentials as 'potential' attribute.
+        '''
+
+    def compute_flows(self, problem_type):
+        '''
+        API: compute_flows(self)
+        Determines the flows on the tree arcs of the current spanning tree
+        structure. Stores the flows in 'flow' attribute of arcs.
+
+        pre: Assumes, 'capacity' and 'pred' attributes of arcs
+        inputs:
+        problem_type: specifies the type of the problem, can be one of the
+        following
+              'max_flow': the problem is min cost max flow problem.
+              'feasible_flow': the problem is min cost flow problem.
+        
+        post: 'flow' attribute of arcs.
+        '''
+
+    def identify_cycle(self, k, l):
+        '''
+        API: identify_cycle(self)
+        identifies and returns to the pivot cycle.
+
+        pre: 'depth' and 'pred' attributes of nodes.
+        inputs:
+        k: tail of the entering arc
+        l: head of the entering arc
+
+        returns: dictionary of pivot cycle. Keys are node names, values are
+        predecessors.
+        '''
+
+    def update_potentials(self, k, l, p, q):
+        '''
+        API: update_potentials(self, k, l, p, q)
+        updates node potentials where (k,l) is the entering arc and (p,q) is
+        the leaving arc.
+
+        pre: 'potential', 'thread' and 'depth' attributes of nodes.
+        inputs:
+        k: tail of the entering arc
+        l: head of the entering arc
+        p: tail of the leaving arc
+        q: head of the leaving arc
+
+        T_1 and T_2? They may go to input.
+
+        post: updates 'potential' attribute of nodes.
+        '''
+
+    def min_cost_flow(source, sink, problem_type, algo = 'simplex'):
+        '''
+        API: min_cost_max_flow(source, sink, alg = 'simplex')
+        Finds minimum cost maximum flow from source to sink using algorithm
+        specified.
+
+        pre: Assumes a directed graph in which each arc has 'capacity' 
+        and 'cost' attributes.
+        inputs:
+            source: source node, integer or string
+            sink: sink node, integer or string
+            display: display method, 'pygame' gives an interactive display
+            algo: determines algorithm to use, can be one of the following
+                  'simplex': network simplex algorithm
+                  'capacity_scaling': capacity scaling algorithm
+                  'cost_scaling': cost scaling algorithm
+                  'double_scaling': double scaling algorithm
+                  'mean_cycle_canceling': mean cycle canceling algorithm
+                  'repeated_capacity_scaling': repeated capacity canceling
+                  algorithm
+                  'enhanced_capacity_scaling': enhanced capacity scaling
+                  algorithm
+                  Check Network Flows by Ahuja et al. for details of algorithms.
+            problem_type: specifies the type of the problem, can be one of the
+                  following
+                  'max_flow': the problem is min cost max flow problem.
+                  'feasible_flow': the problem is min cost flow problem.
+        
+        post: The 'flow' attribute of each arc gives a minimum cost maximum
+        flow.
+        '''
+
 class Subgraph(Dotsubgraph, Graph):
     
     def __init__(self, display = 'off', type = 'digraph', **attrs):
@@ -1746,6 +1847,3 @@ if __name__ == '__main__':
 #    G.search(0, display = 'pygame', algo = 'DFS')
 #    G.minimum_spanning_tree_kruskal(display = 'pygame')
     G.search(source = '0', algo = 'Prim')
-
-
-    
