@@ -418,7 +418,6 @@ class Graph(Dot):
                     cycle.append(pred)
                     pred = tree[pred]
                 return cycle
-        
         return None
     
     def minimum_spanning_tree_prim(self, source, display = None, 
@@ -713,12 +712,10 @@ class Graph(Dot):
             sink = str(sink)
         nl = self.get_node_list()
         # set flow of all edges to 0
-        for n in nl:
-            for m in nl:
-                if self.get_edge(n,m)!=None:
-                    self.set_edge_attr(n, m, 'flow', 0)
-                    capacity = self.get_edge_attr(n, m, 'capacity')
-                    self.set_edge_attr(n, m, 'label', str(capacity)+'/0')
+        for e in self.get_edge_list():
+            self.set_edge_attr(e[0], e[1], 'flow', 0)
+            capacity = self.get_edge_attr(e[0], e[1], 'capacity')
+            self.set_edge_attr(e[0], e[1], 'label', str(capacity)+'/0')
         self.display()
         while True:
             # find an augmenting path from source to sink using DFS
@@ -728,16 +725,14 @@ class Graph(Dot):
             explored = [source]
             for n in self.get_node_list():
                 self.set_node_attr(n, 'color', 'black')
-            for n in self.get_node_list():
-                for m in self.get_node_list():
-                    if self.get_edge(n, m) != None:
-                        if self.get_edge_attr(n, m, 'flow') == 0:
-                            self.set_edge_attr(n, m, 'color', 'black')
-                        elif (self.get_edge_attr(n, m, 'flow') == 
-                              self.get_edge_attr(n, m, 'capacity')):
-                            self.set_edge_attr(n, m, 'color', 'red')
-                        else:
-                            self.set_edge_attr(n, m, 'color', 'green')
+            for e in self.get_edge_list():
+                if self.get_edge_attr(e[0], e[1], 'flow') == 0:
+                    self.set_edge_attr(e[0], e[1], 'color', 'black')
+                elif (self.get_edge_attr(e[0], e[1], 'flow') == 
+                      self.get_edge_attr(e[0], e[1], 'capacity')):
+                    self.set_edge_attr(e[0], e[1], 'color', 'red')
+                else:
+                    self.set_edge_attr(e[0], e[1], 'color', 'green')
             self.display()
             while dfs_stack:
                 current = dfs_stack.pop()
@@ -1465,6 +1460,17 @@ class Graph(Dot):
        
         post: Keeps the node potentials as 'potential' attribute.
         '''
+        self.set_node_attr(1, 'potential', 0)
+        j = self.get_node_attr(1, 'thread')
+        while j is not 1:
+            i = self.get_node_attr(j, 'pred')
+            potential_i = self.get_node_attr(i,'potential')
+            c_ij = self.get_edge_attr(i, j, 'cost')
+            if (str(i),str(j)) in self.get_edge_list():
+                self.set_node_attr(j, 'potential', potential_i - c_ij)
+            if (str(j),str(i)) in self.get_edge_list():
+                self.set_node_attr(j, 'potential', potential_i + c_ij)
+            j = self.get_node_attr(j, 'thread')
 
     def compute_flows(self, problem_type):
         '''
@@ -1481,6 +1487,7 @@ class Graph(Dot):
         
         post: 'flow' attribute of arcs.
         '''
+        pass
 
     def identify_cycle(self, k, l):
         '''
@@ -1495,6 +1502,7 @@ class Graph(Dot):
         returns: dictionary of pivot cycle. Keys are node names, values are
         predecessors.
         '''
+        pass
 
     def update_potentials(self, k, l, p, q):
         '''
@@ -1513,38 +1521,510 @@ class Graph(Dot):
 
         post: updates 'potential' attribute of nodes.
         '''
+        pass
 
-    def min_cost_flow(source, sink, problem_type, algo = 'simplex'):
+    def network_simplex(self, pivot):
         '''
-        API: min_cost_max_flow(source, sink, alg = 'simplex')
-        Finds minimum cost maximum flow from source to sink using algorithm
-        specified.
+        API:
+            network_simplex(self, pivot)
+        Description:
+            Solves minimum cost feasible flow problem using network simplex
+            algorithm. It is recommended to use min_cost_flow(algo='simplex')
+            instead of using network_simplex() directly. Returns True when an
+            optimal solution is found, returns False otherwise. 'flow' attribute
+            values of arcs should be considered as junk when returned False.
+        Pre:
+            (1) check Pre section of min_cost_flow()
+        Inputs:
+            pivot: specifies pivot rule. Check min_cost_flow()
+        Post:
+            Changes 'flow' attribute of edges.
+        Return:
+            Returns True when an optimal solution is found, returns
+            False otherwise.
+        '''
+        # ==== determine an initial tree structure (T,L,U)
+        # find a feasible flow
+        if not self.find_feasible_flow():
+            return False
+        self.convert_to_tree()
+        # convert 
+        # we will add node s and node t, convert problem to max flow problem
+        for i in self.get_node_list():
+            b_i = self.get_node_attr(i, 'demand')
+            if b_i > 0:
+                # i is a supply node, add (s,i) arc
+                self.add_edge('s', i, capacity=b_i)
+            elif b_i < 0:
+                # i is a demand node, add (i,t) arc
+                self.add_edge(i, 't', capacity=-1*b_i)
+        # solve max flow on this modified graph
+        self.max_flow('s', 't')
+        # check if all demand is satisfied, i.e. the min cost problem is
+        # feasible or not
+        for i in self.get_out_neighbors('s'):
+            flow = self.get_edge_attr('s', i, 'flow')
+            capacity = self.get_edge_attr('s', i, 'capacity')
+            if flow != capacity:
+                print 'there is no feasible solution to the problem. Exiting.'
+                return
+        # remove node 's' and node 't'
+        self.del_node('s')
+        self.del_node('t')
+        # solve max flow problem then delete node s and node t
+        # to do this find a feasible flow
+        # compute flow, potential, depth and thread associated with T
+        # while some nontree arc violates optimality conditions
+        while False:
+            # select an entering arc (k,l)
+            # add (k,l) to the tree and determine the leaving arc (p,q)
+            # perform tree update, compute flow, potential, depth and thread
+            pass
 
-        pre: Assumes a directed graph in which each arc has 'capacity' 
-        and 'cost' attributes.
-        inputs:
-            source: source node, integer or string
-            sink: sink node, integer or string
-            display: display method, 'pygame' gives an interactive display
-            algo: determines algorithm to use, can be one of the following
-                  'simplex': network simplex algorithm
-                  'capacity_scaling': capacity scaling algorithm
-                  'cost_scaling': cost scaling algorithm
-                  'double_scaling': double scaling algorithm
-                  'mean_cycle_canceling': mean cycle canceling algorithm
-                  'repeated_capacity_scaling': repeated capacity canceling
-                  algorithm
-                  'enhanced_capacity_scaling': enhanced capacity scaling
-                  algorithm
-                  Check Network Flows by Ahuja et al. for details of algorithms.
-            problem_type: specifies the type of the problem, can be one of the
-                  following
-                  'max_flow': the problem is min cost max flow problem.
-                  'feasible_flow': the problem is min cost flow problem.
-        
-        post: The 'flow' attribute of each arc gives a minimum cost maximum
-        flow.
+    def convert_to_tree(self):
         '''
+        API:
+            convert_to_tree(self)
+        Description:
+            Assumes a feasible flow solution stored in 'flow' attribute's of
+            arcs and converts this solution to a spanning tree solution
+        Pre:
+            (1) 'flow' attributes represents a feasible flow solution.
+        Post:
+            'flow' attributes will represent a spanning tree solution to flow
+            problem.
+        '''
+        # find a cycle
+        cycle = self.find_cycle()
+        while cycle is not None:
+            # find amount to augment
+            # augment along the cycle
+            # find a new cycle
+            pass
+        # check if the solution is connected
+        connected = False
+        connected = self.check_connected()
+        while not connected:
+            # add an arc that connects two pieces
+            self.connect_tree()
+            # check if now connected
+            connected = self.check_connected()
+
+    def cycle_canceling(self):
+        '''
+        API:
+            cycle_canceling(self)
+        Description:
+            Solves minimum cost feasible flow problem using cycle canceling
+            algorithm. Returns True when an optimal solution is found, returns
+            False otherwise. 'flow' attribute values of arcs should be
+            considered as junk when returned False.
+        Pre:
+            (1) Arcs should have 'capacity' and 'cost' attribute.
+            (2) Nodes should have 'demand' attribute, this value should be
+            positive if the node is a supply node, negative if it is demand
+            node and 0 if it is transhipment node.
+            (3) graph should not have node 's' and 't'.
+        Post:
+            Changes 'flow' attributes of arcs.
+        Return:
+            Returns True when an optimal solution is found, returns False
+            otherwise.
+        '''
+        # find a feasible solution to flow problem
+        if not self.find_feasible_flow():
+            return False
+        # create residual graph
+        residual_g = self.create_residual_graph()
+        # identify a negative cycle in residual graph
+        ncycle = residual_g.get_negative_cycle()
+        # loop while residual graph has a negative cycle
+        while ncycle is not None:
+            # display cycle
+            if self.display_mode is not 'off':
+                self.paint_cycle(ncycle)
+                self.relabel()
+                self.display()
+            # find capacity of cycle
+            cap = residual_g.find_cycle_capacity(ncycle)
+            # augment capacity amount along the cycle
+            self.augment_cycle(cap, ncycle)
+            if self.display_mode is not 'off':
+                # set labels for display purposes
+                self.relabel()
+                self.display()
+            # create residual graph
+            residual_g = self.create_residual_graph()
+            # identify next negative cycle
+            ncycle = residual_g.get_negative_cycle()
+        return True
+
+    def find_feasible_flow(self):
+        '''
+        API:
+            find_feasible_flow(self)
+        Description:
+            Solves feasible flow problem, stores solution in 'flow' attribute
+            or arcs. This method is used to get an initial feasible flow for
+            simplex and cycle canceling algorithms. Uses max_flow() method.
+            Other max flow methods can also be used. Returns True if a feasible
+            flow is found, returns False, if the problem is infeasible. When
+            the problem is infeasible 'flow' attributes of arcs should be
+            considered as junk.
+        Pre:
+            (1) 'capacity' attribute of arcs
+            (2) 'demand' attribute of nodes
+        Post:
+            Keeps solution in 'flow' attribute of arcs.
+        Return:
+            Returns True if a feasible flow is found, returns False, if the
+            problem is infeasible
+        '''
+        # establish a feasible flow in the network, to do this add nodes s and
+        # t and solve a max flow problem.
+        for i in self.get_node_list():
+            b_i = self.get_node_attr(i, 'demand')
+            if b_i > 0:
+                # i is a supply node, add (s,i) arc
+                self.add_edge('s', i, capacity=b_i)
+            elif b_i < 0:
+                # i is a demand node, add (i,t) arc
+                self.add_edge(i, 't', capacity=-1*b_i)
+        # solve max flow on this modified graph
+        self.max_flow('s', 't')
+        # check if all demand is satisfied, i.e. the min cost problem is
+        # feasible or not
+        for i in self.get_out_neighbors('s'):
+            flow = self.get_edge_attr('s', i, 'flow')
+            capacity = self.get_edge_attr('s', i, 'capacity')
+            if flow != capacity:
+                self.del_node('s')
+                self.del_node('t')
+                return False
+        # remove node 's' and node 't'
+        self.del_node('s')
+        self.del_node('t')
+        return True
+
+    def get_negative_cycle(self):
+        '''
+        API:
+            get_negative_cycle(self)
+        Description:
+            Finds and returns negative cost cycle using 'cost' attribute of
+            arcs. Return value is a list of nodes representing cycle it is in
+            the following form; n_1-n_2-...-n_k, when the cycle has k nodes.
+        Pre:
+            Arcs should have 'cost' attribute.
+        Return:
+            Returns a list of nodes in the cycle if a negative cycle exists,
+            returns None otherwise.
+        '''
+        nl = self.get_node_list()
+        i = nl[0]
+        r_value = self.fifo_label_correcting(i)
+        if r_value[0] is False:
+            return r_value[1]
+        else:
+            return None
+
+    def fifo_label_correcting(self, source):
+        '''
+        API:
+            fifo_label_correcting(self, source)
+        Description:
+            finds shortest path from source to every other node. Returns
+            predecessor dictionary. If graph has a negative cycle, detects it
+            and returns to it.
+        Pre:
+            (1) 'cost' attribute of arcs. It will be used to compute shortest
+            path.
+            (2) There is no node with name -1 or '-1'.
+        Input:
+            source: source node
+        Post:
+            Modifies 'distance' attribute of nodes.
+        Return:
+            If there is no negative cycle returns to (True, pred), otherwise
+            returns to (False, cycle) where pred is the predecessor dictionary
+            and cycle is a list of nodes that represents cycle. It is in
+            [n_1, n_2, ..., n_k] form where the cycle has k nodes.
+        '''
+        pred = {}
+        self.set_node_attr(source, 'distance', 0)
+        pred[source] = -1
+        for n in self.get_node_list():
+            if n!=source:
+                self.set_node_attr(n, 'distance', 'inf')
+        q = [source]
+        while q:
+            i = q[0]
+            q = q[1:]
+            for j in self.get_out_neighbors(i):
+                distance_j = self.get_node_attr(j, 'distance')
+                distance_i = self.get_node_attr(i, 'distance')
+                c_ij = self.get_edge_attr(i, j, 'cost')
+                if distance_j > distance_i + c_ij:
+                    self.set_node_attr(j, 'distance', distance_i+c_ij)
+                    if j in pred:
+                        pred[j] = i
+                        cycle = self.label_correcting_check_cycle(j, pred)
+                        if cycle is not None:
+                            return (False, cycle)
+                    else:
+                        pred[j] = i
+                    if j not in q:
+                        q.append(j)
+        return (True, pred)
+
+    def label_correcting_check_cycle(self, j, pred):
+        '''
+        API:
+            label_correcting_check_cycle(self, j, pred)
+        Description:
+            Checks if predecessor dictionary has a cycle, j represents the node
+            that predecessor is recently updated.
+        Pre:
+            (1) predecessor of source node should be -1.
+        Input:
+            j: node that predecessor is recently updated.
+            pred: predecessor dictionary
+        Return:
+            If there exists a cycle, returns the list that represents the
+            cycle, otherwise it returns to None.
+        '''
+        labelled = {}
+        for n in self.get_node_list():
+            labelled[n] = -1
+        current = j
+        while current != -1:
+            if labelled[current]==j:
+                cycle = self.label_correcting_get_cycle(j, pred)
+                return cycle
+            labelled[current] = j
+            current = pred[current]
+        return None
+
+    def label_correcting_get_cycle(self, j, pred):
+        '''
+        API:
+            label_correcting_get_cycle(self, labelled, pred)
+        Description:
+            In label correcting check cycle it is decided pred has a cycle and
+            nodes in the cycle are labelled. We will create a list of nodes
+            in the cycle using labelled and pred inputs.
+        Pre:
+            This method should be called from label_correcting_check_cycle(),
+            unless you are sure about what you are doing.
+        Inputs:
+            j: node that predecessor is recently updated. We know that it is
+            in the cycle
+            pred: predecessor dictionary that contains a cycle
+        Post:
+            Returns a list of nodes that represents cycle. It is in
+            [n_1, n_2, ..., n_k] form where the cycle has k nodes.
+        '''
+        cycle = []
+        cycle.append(j)
+        current = pred[j]
+        while current!=j:
+            cycle.append(current)
+            current = pred[current]
+        cycle.reverse()
+        return cycle
+
+    def paint_cycle(self, cycle):
+        '''
+        API:
+            paint_cycle(self)
+        Description:
+            Changes colors of the arcs in the cycle
+        Post:
+            'color' attributes of arcs in the cycle will be changed.
+        '''
+        index = 0
+        k = len(cycle)
+        while index<(k-1):
+            i = cycle[index]
+            j = cycle[index+1]
+            if (str(i),str(j)) in self.get_edge_list():
+                self.set_edge_attr(i, j, 'color', 'red')
+            else:
+                self.set_edge_attr(j, i, 'color', 'red')
+            index += 1
+
+    def relabel(self):
+        '''
+        API:
+            relabel(self)
+        Description:
+            Updates label attributes of edges to cost/flow/capacity
+        Pre:
+            (1) Arcs should have 'cost', 'flow' and 'capacity' attributes
+        Post:
+            Changes 'label' attributes of arcs.
+        '''
+        for e in self.get_edge_list():
+            cost = self.get_edge_attr(e[0], e[1], 'cost')
+            flow = self.get_edge_attr(e[0], e[1], 'flow')
+            capacity = self.get_edge_attr(e[0], e[1], 'capacity')
+            self.set_edge_attr(e[0], e[1], 'label', '%d/%d/%d'
+                               %(cost, flow, capacity))
+
+    #TODO(aykut): this is a game changer, all algorithms that depend on
+    # residual graph can be better implemented using this method. Create
+    # residual graph and use existing search/traverse methods on residual graph
+    # instance created.
+    def create_residual_graph(self):
+        '''
+        API:
+            create_residual_graph(self)
+        Description:
+            Creates and returns residual graph, which is a Graph instance
+            itself.
+        Pre:
+            (1) Arcs should have 'flow', 'capacity' and 'cost' attribute
+            TODO(aykut): this can be generalized by skipping 'cost' when it is
+            not relevant.
+            (2) Graph should be a directed graph
+        Return:
+            returns residual graph, which is a Graph instance.
+        '''
+        if self.graph_type=='graph':
+            raise 'residual graph is defined for directed graphs.'
+        residual_g = self.__class__(graph_type = 'digraph')
+        for e in self.get_edge_list():
+            capacity_e = self.get_edge_attr(e[0], e[1], 'capacity')
+            flow_e = self.get_edge_attr(e[0], e[1], 'flow')
+            cost_e = self.get_edge_attr(e[0], e[1], 'cost')
+            if flow_e > 0:
+                residual_g.add_edge(e[1], e[0], cost=-1*cost_e,
+                                    capacity=flow_e)
+            if capacity_e - flow_e > 0:
+                residual_g.add_edge(e[0], e[1], cost=cost_e,
+                                    capacity=capacity_e-flow_e)
+        return residual_g
+
+    def augment_cycle(self, amount, cycle):
+        '''
+        API:
+            augment_cycle(self, amount, cycle):
+        Description:
+            Augments 'amount' unit of flow along cycle.
+        Pre:
+            Arcs should have 'flow' attribute.
+        Inputs:
+            amount: an integer representing the amount to augment
+            cycle: a list representing a cycle
+        Post:
+            Changes 'flow' attributes of arcs.
+        '''
+        index = 0
+        k = len(cycle)
+        while index<(k-1):
+            i = cycle[index]
+            j = cycle[index+1]
+            if (str(i),str(j)) in self.get_edge_list():
+                flow_ij = self.get_edge_attr(i, j, 'flow')
+                self.set_edge_attr(i, j, 'flow', flow_ij+amount)
+            else:
+                flow_ji = self.get_edge_attr(j, i, 'flow')
+                self.set_edge_attr(j, i, 'flow', flow_ji-amount)
+            index += 1
+
+    def find_cycle_capacity(self, cycle):
+        '''
+        API:
+            find_cycle_capacity(self, cycle):
+        Description:
+            Finds capacity of the cycle input.
+        Pre:
+            (1) Arcs should have 'capacity' attribute.
+        Inputs:
+            cycle: a list representing a cycle
+        Return:
+            Returns an integer number representing capacity of cycle.
+        '''
+        index = 0
+        k = len(cycle)
+        capacity = self.get_edge_attr(cycle[k-1], cycle[0], 'capacity')
+        while index<(k-1):
+            i = cycle[index]
+            j = cycle[index+1]
+            capacity_ij = self.get_edge_attr(i, j, 'capacity')
+            if capacity > capacity_ij:
+                capacity = capacity_ij
+            index += 1
+        return capacity
+            
+
+    def min_cost_flow(self, **args):
+        '''
+        API:
+            min_cost_flow(self, **args)
+        Description:
+            Solves minimum cost flow problem using node/edge attributes with
+            the algorithm specified.
+        Pre:
+            (1) Assumes a directed graph in which each arc has 'capacity' and
+            'cost' attributes.
+            (2) Nodes should have 'demand' attribute. This value should be
+            positive for supply and negative for demand, and 0 for transhipment
+            nodes.
+            (3) Node names should be integers starting from 1. 1 will be the
+            root node (required for simplex algorithm).
+            (4) The graph should be connected.
+            (5) Assumes (i,j) and (j,i) does not exist together. Needed when
+            solving max flow. (max flow problem is solved to get a feasible
+            flow).
+        Inputs:
+            args: may have the following
+                display: display method, if not given current mode (the one
+                    specified by __init__ or set_display) will be used.
+                algo: determines algorithm to use, can be one of the following
+                    'simplex': network simplex algorithm
+                    'cycle_canceling': cycle canceling algorithm
+                    'simplex' is used if not given.
+                    see Network Flows by Ahuja et al. for details of algorithms.
+                pivot: valid if algo is 'simlex', determines pivoting rule for
+                    simplex, may be one of the following; 'first_eligible',
+                    'dantzig' or 'scaled'.
+                    'dantzig' is used if not given.
+                    see Network Flows by Ahuja et al. for pivot rules.
+        Post:
+            The 'flow' attribute of each arc gives the optimal flows.
+            'distance' attribute of the nodes are also changed during max flow
+            solution process.
+        Examples:
+            g.min_cost_flow():
+                solves minimum cost feasible flow problem using simplex
+                algorithm with dantzig pivoting rule.
+                See pre section for details.
+            g.min_cost_flow(algo='cycle_canceling'):
+                solves minimum cost feasible flow problem using cycle canceling
+                agorithm.
+            g.min_cost_flow(algo='simplex', pivot='scaled'):
+                solves minimum cost feasible flow problem using network simplex
+                agorithm with scaled pivot rule.
+        '''
+        if 'algo' in args:
+            algorithm = args['algo']
+        else:
+            algorithm = 'simlex'
+        if algorithm is 'simplex':
+            if 'pivot' in args:
+                if not self.network_simplex(pivot_rule = args['pivot']):
+                    print 'problem is infeasible'
+            else:
+                if not self.network_simplex(pivot_rule = 'dantzig'):
+                    print 'problem is infeasible'
+        elif algorithm is 'cycle_canceling':
+            if not self.cycle_canceling():
+                print 'problem is infeasible'
+        else:
+            print args['algo'], 'is not a defined algorithm. Exiting.'
+            return
+
 
 class Subgraph(Dotsubgraph, Graph):
     
