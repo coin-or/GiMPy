@@ -8,7 +8,7 @@ __version__    = '1.0.0'
 __author__     = 'Aykut Bulut, Ted Ralphs (ayb211@lehigh.edu,ted@lehigh.edu)'
 __license__    = 'BSD'
 __maintainer__ = 'Aykut Bulut'
-__email__      = 'ayb211@lehigh.edu'
+__email__      = 'aykut@lehigh.edu'
 __url__        = None
 __title__      = 'GiMPy (Graph Methods in Python)'
 
@@ -1475,15 +1475,118 @@ class Graph(Dot):
         t = self.simplex_find_tree()
         # set predecessor, depth and thread indexes
         t.simplex_search('1', 1)
-        # compute flow, potential
-        self.compute_flow(t)
-        self.compute_potential(t)
+        # compute potentials
+        self.simplex_compute_potentials()
         # while some nontree arc violates optimality conditions
         while not self.simplex_optimal(t):
             # select an entering arc (k,l)
+            (k,l) = self.simplex_select_entering_arc(pivot)
             # add (k,l) to the tree and determine the leaving arc (p,q)
-            # perform tree update, compute flow, potential, depth and thread
-            pass
+            t.add_edge(k,l)
+            # compute cycle easily
+
+            # use simplex_augment_cycle to compute amount
+
+            # use augment_cycle to augment
+
+            # update t, flows
+
+            # set predecessor, depth and thread indexes
+            t.simplex_search('1', 1)
+            # compute potentials
+            self.simplex_compute_potentials()
+
+    def simplex_select_entering_arc(self, pivot):
+        '''
+        API:
+            simplex_optimal(self, pivot)
+        Description:
+            Decides and returns entering arc using pivot rule.
+        Input:
+            pivot: May be one of the following; 'first_eligible', 'dantzig' or
+            'scaled'. 'dantzig' is used if not given.
+        Return:
+            Returns entering arc tuple (k,l)
+        '''
+        if pivot=='dantzig':
+            # pick the maximum violation
+            candidate = {}
+            for e in self.get_edge_list():
+                if e in t.get_edge_list():
+                    continue
+                flow_ij = self.get_edge_attr(e[0], e[1], 'flow')
+                potential_i = self.get_node_attr(e[0], 'potential')
+                potential_j = self.get_node_attr(e[1], 'potential')
+                capacity_ij = self.get_edge_attr(e[0], e[1], 'capacity')
+                c_ij = self.get_edge_attr(e[0], e[1], 'cost')
+                cpi_ij = c_ij - potential_i + potential_j
+                if flow_ij==0:
+                    if cpi_ij < 0:
+                        candidate[(i,j)] = cpi_ij
+                elif flow_ij==capacity_ij:
+                    if cpi_ij > 0:
+                        candidate[(i,j)] = cpi_ij
+            for e in candidate:
+                max_c = e
+                max_v = abs(candidate[e])
+                break
+            for e in candidate:
+                if max_v < abs(candidate[e]):
+                    max_c = e
+                    max_v = abs(candidate[e])
+        elif pivot=='first_eligible':
+            # pick the first eligible
+            for e in self.get_edge_list():
+                if e in t.get_edge_list():
+                    continue
+                flow_ij = self.get_edge_attr(e[0], e[1], 'flow')
+                potential_i = self.get_node_attr(e[0], 'potential')
+                potential_j = self.get_node_attr(e[1], 'potential')
+                capacity_ij = self.get_edge_attr(e[0], e[1], 'capacity')
+                c_ij = self.get_edge_attr(e[0], e[1], 'cost')
+                cpi_ij = c_ij - potential_i + potential_j
+                if flow_ij==0:
+                    if cpi_ij < 0:
+                        max_c = e
+                        max_v = abs(cpi_ij)
+                elif flow_ij==capacity_ij:
+                    if cpi_ij > 0:
+                        max_c = e
+                        max_v = cpi_ij
+        else:
+            raise Exception("Pivot rule "+pivot+" is not implemented.")
+        return max_c
+
+    def simplex_optimal(self, t):
+        '''
+        API:
+            simplex_optimal(self, t)
+        Description:
+            Checks if the current solution is optimal, if yes returns True,
+            False otherwise.
+        Pre:
+            'flow' attributes represents a solution.
+        Input:
+            t: spanning tree solution graph.
+        Return:
+            Returns True if the current colution is optimal, else returns False
+        '''
+        for e in self.get_edge_list():
+            if e in t.get_edge_list():
+                continue
+            flow_ij = self.get_edge_attr(e[0], e[1], 'flow')
+            potential_i = self.get_node_attr(e[0], 'potential')
+            potential_j = self.get_node_attr(e[1], 'potential')
+            capacity_ij = self.get_edge_attr(e[0], e[1], 'capacity')
+            c_ij = self.get_edge_attr(e[0], e[1], 'cost')
+            cpi_ij = c_ij - potential_i + potential_j
+            if flow_ij==0:
+                if cpi_ij < 0:
+                    return False
+            elif flow_ij==capacity_ij:
+                if cpi_ij > 0:
+                    return False
+        return True
 
     def simplex_find_tree(self):
         '''
