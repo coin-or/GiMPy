@@ -1448,81 +1448,6 @@ class Graph(Dot):
     def add_subgraph(self, S):
         Dot.add_subgraph(self, S)
 
-    def compute_potentials(self):
-        '''
-        API: compute_potentials(self)
-        computes node potentials for a minimum cost flow problem and stores
-        them as node attribute 'potential'. Based on pseudocode given in
-        Network Flows by Ahuja et al.
-
-        pre: Assumes a directed graph in which each arc has a 'cost' attribute.
-        Uses 'thread' and 'pred' attributes of nodes.
-       
-        post: Keeps the node potentials as 'potential' attribute.
-        '''
-        self.set_node_attr(1, 'potential', 0)
-        j = self.get_node_attr(1, 'thread')
-        while j is not 1:
-            i = self.get_node_attr(j, 'pred')
-            potential_i = self.get_node_attr(i,'potential')
-            c_ij = self.get_edge_attr(i, j, 'cost')
-            if (str(i),str(j)) in self.get_edge_list():
-                self.set_node_attr(j, 'potential', potential_i - c_ij)
-            if (str(j),str(i)) in self.get_edge_list():
-                self.set_node_attr(j, 'potential', potential_i + c_ij)
-            j = self.get_node_attr(j, 'thread')
-
-    def compute_flows(self, problem_type):
-        '''
-        API: compute_flows(self)
-        Determines the flows on the tree arcs of the current spanning tree
-        structure. Stores the flows in 'flow' attribute of arcs.
-
-        pre: Assumes, 'capacity' and 'pred' attributes of arcs
-        inputs:
-        problem_type: specifies the type of the problem, can be one of the
-        following
-              'max_flow': the problem is min cost max flow problem.
-              'feasible_flow': the problem is min cost flow problem.
-        
-        post: 'flow' attribute of arcs.
-        '''
-        pass
-
-    def identify_cycle(self, k, l):
-        '''
-        API: identify_cycle(self)
-        identifies and returns to the pivot cycle.
-
-        pre: 'depth' and 'pred' attributes of nodes.
-        inputs:
-        k: tail of the entering arc
-        l: head of the entering arc
-
-        returns: dictionary of pivot cycle. Keys are node names, values are
-        predecessors.
-        '''
-        pass
-
-    def update_potentials(self, k, l, p, q):
-        '''
-        API: update_potentials(self, k, l, p, q)
-        updates node potentials where (k,l) is the entering arc and (p,q) is
-        the leaving arc.
-
-        pre: 'potential', 'thread' and 'depth' attributes of nodes.
-        inputs:
-        k: tail of the entering arc
-        l: head of the entering arc
-        p: tail of the leaving arc
-        q: head of the leaving arc
-
-        T_1 and T_2? They may go to input.
-
-        post: updates 'potential' attribute of nodes.
-        '''
-        pass
-
     def network_simplex(self, pivot):
         '''
         API:
@@ -1547,68 +1472,295 @@ class Graph(Dot):
         # find a feasible flow
         if not self.find_feasible_flow():
             return False
-        self.convert_to_tree()
-        # convert 
-        # we will add node s and node t, convert problem to max flow problem
-        for i in self.get_node_list():
-            b_i = self.get_node_attr(i, 'demand')
-            if b_i > 0:
-                # i is a supply node, add (s,i) arc
-                self.add_edge('s', i, capacity=b_i)
-            elif b_i < 0:
-                # i is a demand node, add (i,t) arc
-                self.add_edge(i, 't', capacity=-1*b_i)
-        # solve max flow on this modified graph
-        self.max_flow('s', 't')
-        # check if all demand is satisfied, i.e. the min cost problem is
-        # feasible or not
-        for i in self.get_out_neighbors('s'):
-            flow = self.get_edge_attr('s', i, 'flow')
-            capacity = self.get_edge_attr('s', i, 'capacity')
-            if flow != capacity:
-                print 'there is no feasible solution to the problem. Exiting.'
-                return
-        # remove node 's' and node 't'
-        self.del_node('s')
-        self.del_node('t')
-        # solve max flow problem then delete node s and node t
-        # to do this find a feasible flow
-        # compute flow, potential, depth and thread associated with T
+        t = self.simplex_find_tree()
+        # set predecessor, depth and thread indexes
+        t.simplex_search('1', 1)
+        # compute flow, potential
+        self.compute_flow(t)
+        self.compute_potential(t)
         # while some nontree arc violates optimality conditions
-        while False:
+        while not self.simplex_optimal(t):
             # select an entering arc (k,l)
             # add (k,l) to the tree and determine the leaving arc (p,q)
             # perform tree update, compute flow, potential, depth and thread
             pass
 
-    def convert_to_tree(self):
+    def simplex_find_tree(self):
         '''
         API:
-            convert_to_tree(self)
+            simplex_find_tree(self)
         Description:
             Assumes a feasible flow solution stored in 'flow' attribute's of
-            arcs and converts this solution to a spanning tree solution
+            arcs and converts this solution to a spanning tree solution.
         Pre:
             (1) 'flow' attributes represents a feasible flow solution.
         Post:
-            'flow' attributes will represent a spanning tree solution to flow
-            problem.
+            'flow' attributes may change.
+        Return:
+            Return a graph instance that is a spanning tree solution.
         '''
         # find a cycle
-        cycle = self.find_cycle()
+        solution_g = self.get_simplex_solution_graph()
+        cycle = solution_g.simplex_find_cycle()
         while cycle is not None:
-            # find amount to augment
+            # find amount to augment and direction
+            amount = self.simplex_augment_cycle(cycle)
             # augment along the cycle
+            self.augment_cycle(amount, cycle)
             # find a new cycle
-            pass
+            cycle = self.simplex_find_cycle()
         # check if the solution is connected
-        connected = False
-        connected = self.check_connected()
-        while not connected:
-            # add an arc that connects two pieces
-            self.connect_tree()
-            # check if now connected
-            connected = self.check_connected()
+        while self.simplex_connect(solution_g):
+            pass
+        return solution_g
+
+    def simplex_connect(self, solution_g):
+        '''
+        API:
+            simplex_connect(self, solution_g)
+        Description:
+            At this point we assume that the solution does not have a cycle.
+            We check if all the nodes are connected, if not we add an arc to
+            solution_g that does not create a cycle and return True. Otherwise
+            we do nothing and return False.
+        Pre:
+            (1) We assume there is no cycle in the solution.
+        Input:
+            solution_g: current solution graph.
+        Post:
+            (1) solution_g is updated. An arc that does not create a cycle is
+            added.
+            (2) 'component' attribute of nodes are changed.
+        Return:
+            Returns True if an arc is added, returns False otherwise.
+        '''
+        nl = solution_g.get_node_list()
+        current = nl[0]
+        pred = solution_g.simplex_search(current, current)
+        separated = pred.keys()
+        for n in nl:
+            if solution_g.get_node_attr(n, 'component') != current:
+                # find an arc from n to seperated
+                for m in separated:
+                    if self.get_edge(n,m) is not None:
+                        solution_g.add_edge(n,m)
+                        return True
+                    elif self.get_edge(m,n) is not None:
+                        solution_g.add_edge(m,n)
+                        return True
+        return False
+
+    def simplex_search(self, source, component_nr):
+        '''
+        API:
+            simplex_search(self, source, component)
+        Description:
+            Searches graph starting from source. Its difference from usual
+            search is we can also go backwards along an arc. When the graph
+            is a spanning tree it computes predecessor, thread and depth
+            indexes and stores them as node attributes. These values should be
+            considered as junk when the graph is not a spanning tree.
+        Input:
+            source: source node
+            component_nr: component number
+        Post:
+            (1) Sets the component number of all reachable nodes to component.
+            Changes 'component' attribute of nodes.
+            (2) Sets 'pred', 'thread' and 'depth' attributes of nodes. These
+            values are junk if the graph is not a tree.
+        Return:
+            Returns predecessor dictionary.
+        TODO(aykut): search is bugged, it does not set component number for
+        source. If you fix that update this method (since it sets component
+        number of source after search).
+        '''
+        q = [source]
+        pred = {source:None}
+        depth = {source:0}
+        sequence = []
+        for n in self.get_node_list():
+            self.set_node_attr(n, 'component', None)
+        while q:
+            current = q.pop()
+            self.set_node_attr(current, 'component', component_nr)
+            sequence.append(current)
+            neighbors = self.get_in_neighbors(current)+\
+                        self.get_out_neighbors(current)
+            for n in neighbors:
+                if n in pred:
+                    continue
+                self.set_node_attr(n, 'component', component_nr)
+                pred[n] = current
+                depth[n] = depth[current]+1
+                q.append(n)
+        for i in range(len(sequence)-1):
+            self.set_node_attr(sequence[i], 'thread', int(sequence[i+1]))
+        self.set_node_attr(sequence[-1], 'thread', sequence[0])
+        for n in pred:
+            self.set_node_attr(n, 'pred', pred[n])
+            self.set_node_attr(n, 'depth', depth[n])
+        return pred
+
+    def simplex_augment_cycle(self, cycle):
+        '''
+        API:
+            simplex_augment_cycle(self, cycle)
+        Description:
+            Augments along the cycle to break it.
+        Pre:
+            'flow' attribute on arcs.
+        Input:
+            cycle: list representing a cycle in the solution
+        Post:
+            'flow' attribute will be modified.
+        '''
+        pass
+
+    def simplex_find_cycle(self):
+        '''
+        API:
+            simplex_find_cycle(self)
+        Description:
+            Returns a cycle (list of nodes) if the graph has one, returns None
+            otherwise. Uses DFS. During DFS checks existence of back arcs.
+            Acheives this using label_correcting_check_cycle() method.
+            Note that direction of the arcs are not important.
+        Return:
+            Returns list of nodes that represents cycle. Returns None if the
+            graph does not have any cycle.
+        '''
+        pred = {}
+        nl = self.get_node_list()
+        q = [nl[0]]
+        pred[nl[0]] = None
+        while q:
+            current = q.pop()
+            neighbors = self.get_in_neighbors(current) +\
+                        self.get_out_neighbors(current)
+            for n in neighbors:
+                if n in pred:
+                    # check existence of back arc
+                    previous = pred[n]
+                    pred[n] = current
+                    cycle = self.label_correcting_check_cycle(n, pred)
+                    if cycle is None or len(cycle)==2:
+                        pred[n] = previous
+                        continue
+                    else:
+                        return cycle
+                pred[n] = current
+                q.append(n)
+            if len(q)==0:
+                for n in nl:
+                    if n not in pred:
+                        pred[n] = None
+                        q.append(n)
+                        break
+        return None
+
+    def get_simplex_solution_graph(self):
+        '''
+        API:
+            get_simplex_solution_graph(self):
+        Description:
+            Assumes a feasible flow solution stored in 'flow' attribute's of
+            arcs. Returns the graph that has arcs that have flow between
+            0 and capacity.
+        Pre:
+            (1) 'flow' attribute represents a feasible flow solution. See
+            Pre section of min_cost_flow() for details.
+        Return:
+            graph instance that only has the arcs that have flow strictly
+            between 0 and capacity.
+        '''
+        simplex_g = self.__class__(graph_type='digraph')
+        for e in self.get_edge_list():
+            flow_e = self.get_edge_attr(e[0], e[1], 'flow')
+            capacity_e = self.get_edge_attr(e[0], e[1], 'capacity')
+            if flow_e>0 and flow_e<capacity_e:
+                simplex_g.add_edge(e[0], e[1])
+        for i in self.get_node_list():
+            if i in simplex_g.get_node_list():
+                continue
+            else:
+                simplex_g.add_node(i)
+        return simplex_g
+        
+    def simplex_compute_potentials(self):
+        '''
+        API: simplex_compute_potentials(self)
+        computes node potentials for a minimum cost flow problem and stores
+        them as node attribute 'potential'. Based on pseudocode given in
+        Network Flows by Ahuja et al.
+
+        pre: Assumes a directed graph in which each arc has a 'cost' attribute.
+        Uses 'thread' and 'pred' attributes of nodes.
+       
+        post: Keeps the node potentials as 'potential' attribute.
+        '''
+        self.set_node_attr(1, 'potential', 0)
+        j = self.get_node_attr(1, 'thread')
+        while j is not 1:
+            i = self.get_node_attr(j, 'pred')
+            potential_i = self.get_node_attr(i,'potential')
+            c_ij = self.get_edge_attr(i, j, 'cost')
+            if (str(i),str(j)) in self.get_edge_list():
+                self.set_node_attr(j, 'potential', potential_i - c_ij)
+            if (str(j),str(i)) in self.get_edge_list():
+                self.set_node_attr(j, 'potential', potential_i + c_ij)
+            j = self.get_node_attr(j, 'thread')
+
+    def simplex_compute_flows(self, problem_type):
+        '''
+        API: simplex_compute_flows(self)
+        Determines the flows on the tree arcs of the current spanning tree
+        structure. Stores the flows in 'flow' attribute of arcs.
+
+        pre: Assumes, 'capacity' and 'pred' attributes of arcs
+        inputs:
+        problem_type: specifies the type of the problem, can be one of the
+        following
+              'max_flow': the problem is min cost max flow problem.
+              'feasible_flow': the problem is min cost flow problem.
+        
+        post: 'flow' attribute of arcs.
+        '''
+        pass
+
+    def simplex_identify_cycle(self, k, l):
+        '''
+        API: identify_cycle(self)
+        identifies and returns to the pivot cycle.
+
+        pre: 'depth' and 'pred' attributes of nodes.
+        inputs:
+        k: tail of the entering arc
+        l: head of the entering arc
+
+        returns: dictionary of pivot cycle. Keys are node names, values are
+        predecessors.
+        '''
+        pass
+
+    def simplex_update_potentials(self, k, l, p, q):
+        '''
+        API: update_potentials(self, k, l, p, q)
+        updates node potentials where (k,l) is the entering arc and (p,q) is
+        the leaving arc.
+
+        pre: 'potential', 'thread' and 'depth' attributes of nodes.
+        inputs:
+        k: tail of the entering arc
+        l: head of the entering arc
+        p: tail of the leaving arc
+        q: head of the leaving arc
+
+        T_1 and T_2? They may go to input.
+
+        post: updates 'potential' attribute of nodes.
+        '''
+        pass
+
 
     def cycle_canceling(self):
         '''
@@ -1739,7 +1891,6 @@ class Graph(Dot):
         Pre:
             (1) 'cost' attribute of arcs. It will be used to compute shortest
             path.
-            (2) There is no node with name -1 or '-1'.
         Input:
             source: source node
         Post:
@@ -1752,7 +1903,7 @@ class Graph(Dot):
         '''
         pred = {}
         self.set_node_attr(source, 'distance', 0)
-        pred[source] = -1
+        pred[source] = None
         for n in self.get_node_list():
             if n!=source:
                 self.set_node_attr(n, 'distance', 'inf')
@@ -1785,7 +1936,7 @@ class Graph(Dot):
             Checks if predecessor dictionary has a cycle, j represents the node
             that predecessor is recently updated.
         Pre:
-            (1) predecessor of source node should be -1.
+            (1) predecessor of source node should be None.
         Input:
             j: node that predecessor is recently updated.
             pred: predecessor dictionary
@@ -1795,9 +1946,9 @@ class Graph(Dot):
         '''
         labelled = {}
         for n in self.get_node_list():
-            labelled[n] = -1
+            labelled[n] = None
         current = j
-        while current != -1:
+        while current != None:
             if labelled[current]==j:
                 cycle = self.label_correcting_get_cycle(j, pred)
                 return cycle
@@ -2013,10 +2164,10 @@ class Graph(Dot):
             algorithm = 'simlex'
         if algorithm is 'simplex':
             if 'pivot' in args:
-                if not self.network_simplex(pivot_rule = args['pivot']):
+                if not self.network_simplex(args['pivot']):
                     print 'problem is infeasible'
             else:
-                if not self.network_simplex(pivot_rule = 'dantzig'):
+                if not self.network_simplex('dantzig'):
                     print 'problem is infeasible'
         elif algorithm is 'cycle_canceling':
             if not self.cycle_canceling():
