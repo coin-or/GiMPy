@@ -1474,31 +1474,164 @@ class Graph(Dot):
         # find a feasible flow
         if not self.find_feasible_flow():
             return False
-        #self.print_flow()
         t = self.simplex_find_tree()
-        if display is not 'off':
-            t.set_display_mode(display)
+        self.set_display_mode(display)
+        # mark spanning tree arcs
+        self.simplex_mark_st_arcs(t)
+        # display initial spanning tree
+        t.simplex_redraw(display)
+        t.set_display_mode(display)
+        #t.display()
+        self.display()
         # set predecessor, depth and thread indexes
         t.simplex_search('1', 1)
         # compute potentials
         self.simplex_compute_potentials(t)
         # while some nontree arc violates optimality conditions
         while not self.simplex_optimal(t):
-            # we need this for proper tree display
-            if display is not 'off':
-                t = t.simplex_redraw(display)
-                t.display()
+            self.display()
             # select an entering arc (k,l)
             (k,l) = self.simplex_select_entering_arc(t, pivot)
-            # t is a cycle with arc (k,l). Remove last blocking arc, update t and
-            # flows
-            self.simplex_remove_arc(t, k, l)
-            #self.print_flow()
+            self.simplex_mark_entering_arc(k, l)
+            self.display()
+            # determine leaving arc
+            ((p,q), capacity, cycle)=self.simplex_determine_leaving_arc(t,k,l)
+            # mark leaving arc
+            self.simplex_mark_leaving_arc(p, q)
+            self.display()
+            self.simplex_remove_arc(t, p, q, capacity, cycle)
+            # display after arc removed
+            self.display()
+            self.simplex_mark_st_arcs(t)
+            self.display()
             # set predecessor, depth and thread indexes
+            t.simplex_redraw(display)
+            #t.display()
             t.simplex_search('1', 1)
             # compute potentials
             self.simplex_compute_potentials(t)
         return True
+
+    def simplex_mark_leaving_arc(self, p, q):
+        '''
+        API:
+            simplex_mark_leving_arc(self, p, q)
+        Description:
+            Marks leaving arc.
+        Inputs:
+            p: tail of the leaving arc
+            q: head of the leaving arc
+        Post:
+            Changes color attribute of leaving arc.
+        '''
+        self.set_edge_attr(p, q, 'color', 'red')
+
+    def simplex_determine_leaving_arc(self, t, k, l):
+        '''
+        API:
+            simplex_determine_leaving_arc(self, t, k, l)
+        Description:
+            Determines and returns the leaving arc.
+        Inputs:
+            t: current spanning tree solution.
+            k: tail of the entering arc.
+            l: head of the entering arc.
+        Return:
+            Returns the tuple that represents leaving arc, capacity of the
+            cycle and cycle.
+        '''
+        # k,l are the first two elements of the cycle
+        cycle = self.simplex_identify_cycle(t, k, l)
+        flow_kl = self.get_edge_attr(k, l, 'flow')
+        capacity_kl = self.get_edge_attr(k, l, 'capacity')
+        min_capacity = capacity_kl
+        # check if k,l is in U or L
+        if flow_kl==capacity_kl:
+            # l,k will be the last two elements
+            cycle.reverse()
+        n = len(cycle)
+        index = 0
+        # determine last blocking arc
+        t.add_edge(k, l)
+        tel = t.get_edge_list()
+        while index < (n-1):
+            if (cycle[index], cycle[index+1]) in tel:
+                flow = self.get_edge_attr(cycle[index], cycle[index+1], 'flow')
+                capacity = self.get_edge_attr(cycle[index], cycle[index+1],
+                                           'capacity')
+                if min_capacity >= (capacity-flow):
+                    candidate = (cycle[index], cycle[index+1])
+                    min_capacity = capacity-flow
+            else:
+                flow = self.get_edge_attr(cycle[index+1], cycle[index], 'flow')
+                if min_capacity >= flow:
+                    candidate = (cycle[index+1], cycle[index])
+                    min_capacity = flow
+            index += 1
+        # check arc (cycle[n-1], cycle[0])
+        if (cycle[n-1], cycle[0]) in tel:
+            flow = self.get_edge_attr(cycle[n-1], cycle[0], 'flow')
+            capacity = self.get_edge_attr(cycle[n-1], cycle[0],
+                                       'capacity')
+            if min_capacity >= (capacity-flow):
+                candidate = (cycle[n-1], cycle[0])
+                min_capacity = capacity-flow
+        else:
+            flow = self.get_edge_attr(cycle[0], cycle[n-1], 'flow')
+            if min_capacity >= flow:
+                candidate = (cycle[0], cycle[n-1])
+                min_capacity = flow
+        return (candidate, min_capacity, cycle)
+
+    def simplex_mark_entering_arc(self, k, l):
+        '''
+        API:
+            simplex_mark_entering_arc(self, k, l)
+        Description:
+            Marks entering arc (k,l)
+        Input:
+            k: tail of the entering arc
+            l: head of the entering arc
+        Post:
+            (1) color attribute of the arc (k,l)
+        '''
+        self.set_edge_attr(k, l, 'color', 'green')
+
+    def simplex_mark_st_arcs(self, t):
+        '''
+        API:
+            simplex_mark_st_arcs(self, t)
+        Description:
+            Marks spanning tree arcs.
+            Case 1, Blue: Arcs that are at lower bound and in tree.
+            Case 2, Red: Arcs that are at upper bound and in tree.
+            Case 3, Green: Arcs that are between bounds are green.
+            Case 4, Brown: Non-tree arcs at lower bound.
+            Case 5, Violet: Non-tree arcs at upper bound.
+        Input:
+            t: t is the current spanning tree
+        Post:
+            (1) color attribute of edges.
+        '''
+        tel = t.get_edge_list()
+        for e in self.get_edge_list():
+            flow_e = self.get_edge_attr(e[0], e[1], 'flow')
+            capacity_e = self.get_edge_attr(e[0], e[1], 'capacity')
+            if e in tel:
+                if flow_e == 0:
+                    self.set_edge_attr(e[0], e[1], 'color', 'blue')
+                elif flow_e == capacity_e:
+                    self.set_edge_attr(e[0], e[1], 'color', 'blue')
+                else:
+                    self.set_edge_attr(e[0], e[1], 'color', 'blue')
+            else:
+                if flow_e == 0:
+                    self.set_edge_attr(e[0], e[1], 'color', 'black')
+                elif flow_e == capacity_e:
+                    self.set_edge_attr(e[0], e[1], 'color', 'black')
+                else:
+                    msg = "Arc is not in ST but has flow between bounds."
+                    raise Exception(msg)
 
     def print_flow(self):
         '''
@@ -1569,65 +1702,26 @@ class Graph(Dot):
                                      "%d/%d/%d" %(flow,capacity,cost))
         return new
 
-    def simplex_remove_arc(self, t, k, l):
+    def simplex_remove_arc(self, t, p, q, min_capacity, cycle):
         '''
         API:
-            simplex_remove_arc(self, t, k, l)
+            simplex_remove_arc(self, p, q, min_capacity, cycle)
         Description:
-            Removes last blocking arc, updates t, updates flows, where (k,l) is
+            Removes arc (p,q), updates t, updates flows, where (k,l) is
             the entering arc.
-        Pre:
-            t should be a cycle solution when an arc (k,l) is added.
         Inputs:
             t: tree solution to be updated.
-            k: tail of the entering arc.
-            t: head of the entering arc.
+            p: tail of the leaving arc.
+            q: head of the leaving arc.
+            min_capacity: capacity of the cycle.
+            cycle: cycle obtained when entering arc considered.
         Post:
             (1) updates t.
             (2) updates 'flow' attributes.
         '''
-        # k,l are the first two elements of the cycle
-        cycle = self.simplex_identify_cycle(t, k, l)
-        flow_kl = self.get_edge_attr(k, l, 'flow')
-        capacity_kl = self.get_edge_attr(k, l, 'capacity')
-        min_capacity = capacity_kl
-        # check if k,l is in U or L
-        if flow_kl==capacity_kl:
-            # l,k will be the last two elements
-            cycle.reverse()
-        n = len(cycle)
-        index = 0
-        # determine last blocking arc
-        t.add_edge(k, l)
-        tel = t.get_edge_list()
-        while index < (n-1):
-            if (cycle[index], cycle[index+1]) in tel:
-                flow = self.get_edge_attr(cycle[index], cycle[index+1], 'flow')
-                capacity = self.get_edge_attr(cycle[index], cycle[index+1],
-                                           'capacity')
-                if min_capacity >= (capacity-flow):
-                    candidate = (cycle[index], cycle[index+1])
-                    min_capacity = capacity-flow
-            else:
-                flow = self.get_edge_attr(cycle[index+1], cycle[index], 'flow')
-                if min_capacity >= flow:
-                    candidate = (cycle[index+1], cycle[index])
-                    min_capacity = flow
-            index += 1
-        # check arc (cycle[n-1], cycle[0])
-        if (cycle[n-1], cycle[0]) in tel:
-            flow = self.get_edge_attr(cycle[n-1], cycle[0], 'flow')
-            capacity = self.get_edge_attr(cycle[n-1], cycle[0],
-                                       'capacity')
-            if min_capacity >= (capacity-flow):
-                candidate = (cycle[n-1], cycle[0])
-                min_capacity = capacity-flow
-        else:
-            flow = self.get_edge_attr(cycle[0], cycle[n-1], 'flow')
-            if min_capacity >= flow:
-                candidate = (cycle[0], cycle[n-1])
-                min_capacity = flow
         # augment min_capacity along cycle
+        n = len(cycle)
+        tel = t.get_edge_list()
         index = 0
         while index < (n-1):
             if (cycle[index], cycle[index+1]) in tel:
@@ -1651,7 +1745,13 @@ class Graph(Dot):
             self.set_edge_attr(cycle[0], cycle[n-1], 'flow',
                                flow_e-min_capacity)
         # remove leaving arc
-        t.del_edge(candidate[0], candidate[1])
+        t.del_edge(p, q)
+        # set label of removed arc
+        flow_pq = self.get_edge_attr(p, q, 'flow')
+        capacity_pq = self.get_edge_attr(p, q, 'capacity')
+        cost_pq = self.get_edge_attr(p, q, 'cost')
+        self.set_edge_attr(p, q, 'label',
+                                     "%d/%d/%d" %(flow_pq,capacity_pq,cost_pq))
         for e in t.get_edge_list():
             flow = self.get_edge_attr(e[0], e[1], 'flow')
             capacity = self.get_edge_attr(e[0], e[1], 'capacity')
@@ -1660,6 +1760,8 @@ class Graph(Dot):
             t.set_edge_attr(e[0], e[1], 'capacity', capacity)
             t.set_edge_attr(e[0], e[1], 'cost', cost)
             t.set_edge_attr(e[0], e[1], 'label',
+                                     "%d/%d/%d" %(flow,capacity,cost))
+            self.set_edge_attr(e[0], e[1], 'label',
                                      "%d/%d/%d" %(flow,capacity,cost))
 
 
@@ -1788,15 +1890,18 @@ class Graph(Dot):
         while self.simplex_connect(solution_g):
             pass
         # add attributes
-        for e in solution_g.get_edge_list():
+        for e in self.get_edge_list():
             flow = self.get_edge_attr(e[0], e[1], 'flow')
             capacity = self.get_edge_attr(e[0], e[1], 'capacity')
             cost = self.get_edge_attr(e[0], e[1], 'cost')
-            solution_g.set_edge_attr(e[0], e[1], 'flow', flow)
-            solution_g.set_edge_attr(e[0], e[1], 'capacity', capacity)
-            solution_g.set_edge_attr(e[0], e[1], 'cost', cost)
-            solution_g.set_edge_attr(e[0], e[1], 'label',
+            self.set_edge_attr(e[0], e[1], 'label',
                                      "%d/%d/%d" %(flow,capacity,cost))
+            if e in solution_g.get_edge_list():
+                solution_g.set_edge_attr(e[0], e[1], 'flow', flow)
+                solution_g.set_edge_attr(e[0], e[1], 'capacity', capacity)
+                solution_g.set_edge_attr(e[0], e[1], 'cost', cost)
+                solution_g.set_edge_attr(e[0], e[1], 'label',
+                                         "%d/%d/%d" %(flow,capacity,cost))
         return solution_g
 
     def simplex_connect(self, solution_g):
