@@ -185,7 +185,7 @@ class Graph(Dot):
         else:
             raise Exception("Multiple instances of edge (", m, n, 
                             ") present in Tree")
-
+        
     def get_edge_list(self):
         return self.obj_dict['edges'].keys()
 
@@ -2662,6 +2662,10 @@ class Cluster(Dotcluster, Graph):
         Dotcluster.__init__(self, **attrs)
         attrs['graph_type'] = 'subgraph'
 
+from lxml import etree
+from gexf import Gexf
+from string import atoi
+
 class Tree(Graph):
     
     def __init__(self, display = False, **attrs):
@@ -2719,6 +2723,108 @@ class Tree(Graph):
                 current.set('color', '')
             for n in self.get_children(current):
                 addToQ(n)
+                
+    def write_as_svg(self, filename, prevfile = None, nextfile = None, mode = 'Dot',
+                           highlight = None, label_attr = None, tooltip_attr = None):
+        if highlight != None:
+            if not isinstance(highlight, Node):
+                highlight = self.get_node(highlight)
+            highlight.set('color', 'red')    
+        if mode == 'Dot':
+            node_names = self.get_node_list()
+            edge_names = self.get_edge_list()
+            for name in node_names:
+                node = self.get_node(name)
+                if tooltip_attr is None:
+                  node.set_tooltip(str(node.get_label()))
+                else:
+                  node.set_tooltip(str(node.get(tooltip_attr)))  
+                if label_attr is not None:
+                  node_label = node.get(label_attr)
+                  node.set("label", node_label)
+                node.set_style('"filled"')
+                node.set_fillcolor('"white"')
+            for (m_name, n_name) in edge_names:
+                edge = self.get_edge(m_name, n_name)
+                edge.set_edgetooltip('"Arc"')
+
+            try:
+                
+                svgGraph = self.create('dot', 'svg')
+                svgText = StringIO(svgGraph)
+                svgParsed = etree.parse(svgText)
+                svgRoot = svgParsed.getroot()
+                
+                widthStr = svgRoot.get("width")
+                try:
+                    width = int(widthStr)
+                except:
+                    try:
+                        width = int(widthStr[:-2])
+                    except:
+                        raise Exception("Could not parse SVG width")
+                
+                xlinkPrefix = svgRoot.nsmap['xlink']
+                
+                if not (prevfile is None):
+                    prevg = etree.XML('<g id="prev" class="nav-link"></g>')
+                    svgRoot.append(prevg)
+                    prevlink = etree.SubElement(prevg, "a")
+                    prevlink.set("{%s}href" % xlinkPrefix, prevfile + ".svg")
+                    prevtext = etree.SubElement(prevlink, "text", x="5", y="15")
+                    prevtext.text = "Prev"
+##                    print etree.tostring(prevg, pretty_print=True)
+                    
+                if not (nextfile is None):
+                    nextg = etree.XML('<g id="next" class="nav-link"></g>')
+                    svgRoot.append(nextg)
+                    nextlink = etree.SubElement(nextg, "a")
+                    nextlink.set("{%s}href" % xlinkPrefix, nextfile + ".svg")
+                    nexttext = etree.SubElement(nextlink, "text", x="%s" % (width - 5 - 20), y="15") # -20 for width of Next
+                    nexttext.text = "Next"
+##                    print etree.tostring(nextg, pretty_print=True)
+                    
+##                print etree.tostring(svgParsed.getroot())
+                svgParsed.write(filename + ".svg")
+                
+            except Exception as e:
+                print e
+        else:
+            raise Exception("Only Dot mode supported in write_as_svg")
+            print "No .svg file created"
+
+        if highlight != None:
+            highlight.set('color', 'black')    
+        
+    def write_as_dot(self, filename, mode = 'Dot', highlight = None):
+        if highlight != None:
+            if not isinstance(highlight, Node):
+                highlight = self.get_node(highlight)
+            highlight.set('color', 'red')    
+        if mode == 'Dot':
+            node_names = self.get_node_list()
+            edge_names = self.get_edge_list()
+            for name in node_names:
+                node = self.get_node(name)
+                node.set_tooltip('%s' % node.get_label())
+                node.set_style('"filled"')
+                node.set_fillcolor('"white"')
+            for (m_name, n_name) in edge_names:
+                edge = self.get_edge(m_name, n_name)
+                edge.set_edgetooltip('"Arc"')
+
+            try:
+                
+                self.write_raw(filename + ".dot")
+                
+            except Exception as e:
+                print e
+        else:
+            raise Exception("Only Dot mode supported in write_as_dot")
+            print "No .dot file created"
+            
+        if highlight != None:
+            highlight.set('color', 'black')
         
 class BinaryTree(Tree):
 
@@ -2869,6 +2975,7 @@ class BinaryTree(Tree):
             return opers[self.get_node_attr(root, 'label')](res1 , res2)
         else:
             return int(self.get_node_attr(root, 'label'))
+           
     
 class DisjointSet(Graph):
     
@@ -2911,6 +3018,45 @@ class DisjointSet(Graph):
                     self.add_edge(e[0], current)
         return current
 
+class BBTree(BinaryTree):
+    
+    def __init__(self, display = False, **attrs):
+        BinaryTree.__init__(self, display, **attrs)
+
+    def write_as_dynamic_gexf(self, filename, mode = "Dot"):
+        if mode == 'Dot':
+            try:
+                
+                gexf = Gexf("Mike O'Sullivan", "Dynamic graph file")
+                graph = gexf.addGraph("directed", "dynamic", "Dynamic graph")
+                objAtt = graph.addNodeAttribute("obj", "0.0", "float")
+                currAtt = graph.addNodeAttribute("current", "1.0", "integer", "dynamic")
+                
+                node_names = self.get_node_list()
+                for name in node_names:
+                    node = self.get_node(name)
+                    step = node.get_label()
+                    next = "%s" % (atoi(step) + 1)
+                    n = graph.addNode(node.get_label(), node.get_label(), start=step)
+
+                    if node.get("obj") is None:
+                        raise Exception("Node without objective in BBTree, node =", node)
+                    
+                    n.addAttribute(objAtt, "%s" % node.get("obj"))
+                    n.addAttribute(currAtt, "1", start=step, end=next)
+                    n.addAttribute(currAtt, "0", start=next)
+                edge_names = self.get_edge_list()
+                for i, (m_name, n_name) in enumerate(edge_names):
+                    edge = self.get_edge(m_name, n_name)
+                    graph.addEdge(i, edge.get_source(), edge.get_destination(), start=edge.get_destination())
+                output_file = open(filename + ".gexf", "w")
+                gexf.write(output_file)
+                
+            except Exception as e:
+                print e
+                print "No .gexf file created"
+        else:
+            raise Exception("Only Dot mode supported in write_bb_as_gexf")
 
 if __name__ == '__main__':
         
