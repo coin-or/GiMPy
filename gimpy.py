@@ -12,8 +12,6 @@ __email__      = 'aykut@lehigh.edu'
 __url__        = None
 __title__      = 'GiMPy (Graph Methods in Python)'
 
-import sys
-sys.path.append('/home/aykut/project_coin/pydot')
 from pydot import Dot, Node, Edge
 from pydot import Subgraph as Dotsubgraph
 from pydot import Cluster as Dotcluster
@@ -326,7 +324,7 @@ class Graph(Dot):
         if display == None:
             display = self.display_mode
         else:
-            self.set_display_mode = display
+            self.set_display_mode(display)
 
         if algo == 'Dijkstra':
             q = PriorityQueue()
@@ -429,7 +427,7 @@ class Graph(Dot):
         if display == None:
             display = self.display_mode
         else:
-            self.set_display_mode = display
+            self.set_display_mode(display)
         if isinstance(q, PriorityQueue):
             addToQ = q.push
             removeFromQ = q.pop
@@ -478,7 +476,7 @@ class Graph(Dot):
         if display == None:
             display = self.display_mode
         else:
-            self.set_display_mode = display
+            self.set_display_mode(display)
         
         if components is None:
             components = DisjointSet(display = 'pygame', layout = 'dot', 
@@ -1435,7 +1433,7 @@ class Graph(Dot):
                 print 'Error: xdot not installed. Display disabled.'
                 self.display_mode = 'off'
         else:
-            print "Unknown display mode"
+            print "Unknown display mode: " + self.display_mode
         
     def exit_window(self):
         if self.display_mode != 'pygame':
