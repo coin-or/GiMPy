@@ -2666,7 +2666,7 @@ from string import atoi
 
 class Tree(Graph):
     
-    def __init__(self, display = False, **attrs):
+    def __init__(self, display = 'off', **attrs):
         attrs['graph_type'] = 'digraph'
         if 'layout' not in attrs:
             attrs['layout'] = 'dot'
