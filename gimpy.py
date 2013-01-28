@@ -24,6 +24,7 @@ import operator
 from StringIO import StringIO
 from Queues import PriorityQueue
 from operator import itemgetter
+from string import atoi
 
 try:
     from PIL import Image
@@ -53,6 +54,24 @@ except ImportError:
 else:
     pygame_installed = True
     print 'Found pygame installation'
+
+try:
+    from lxml import etree
+except ImportError:
+    etree_installed = False
+    print 'Etree could not be imported from lxml'
+else:
+    etree_installed = True
+    print 'Found etree in lxml'
+
+try:
+    from gexf import Gexf
+except ImportError:
+    gexf_installed = False
+    print 'Gexf not installed'
+else:
+    pygame_installed = True
+    print 'Found gexf installation'
 
 class Graph(Dot):
     
@@ -1433,7 +1452,8 @@ class Graph(Dot):
                 print 'Error: xdot not installed. Display disabled.'
                 self.display_mode = 'off'
         else:
-            print "Unknown display mode: " + self.display_mode
+            print "Unknown display mode: ",
+            print self.display_mode
         
     def exit_window(self):
         if self.display_mode != 'pygame':
@@ -2660,10 +2680,6 @@ class Cluster(Dotcluster, Graph):
         Dotcluster.__init__(self, **attrs)
         attrs['graph_type'] = 'subgraph'
 
-from lxml import etree
-from gexf import Gexf
-from string import atoi
-
 class Tree(Graph):
     
     def __init__(self, display = 'off', **attrs):
@@ -2722,8 +2738,12 @@ class Tree(Graph):
             for n in self.get_children(current):
                 addToQ(n)
                 
-    def write_as_svg(self, filename, prevfile = None, nextfile = None, mode = 'Dot',
-                           highlight = None, label_attr = None, tooltip_attr = None):
+    def write_as_svg(self, filename, prevfile = None, nextfile = None, 
+                     mode = 'Dot', highlight = None, label_attr = None, 
+                     tooltip_attr = None):
+        if not etree_installed:
+            print 'Etree not installed. Exiting.'
+            return
         if highlight != None:
             if not isinstance(highlight, Node):
                 highlight = self.get_node(highlight)
@@ -2778,7 +2798,9 @@ class Tree(Graph):
                     svgRoot.append(nextg)
                     nextlink = etree.SubElement(nextg, "a")
                     nextlink.set("{%s}href" % xlinkPrefix, nextfile + ".svg")
-                    nexttext = etree.SubElement(nextlink, "text", x="%s" % (width - 5 - 20), y="15") # -20 for width of Next
+                    nexttext = etree.SubElement(nextlink, "text", 
+                                                x="%s" % (width - 5 - 20), 
+                                                y="15") # -20 for width of Next
                     nexttext.text = "Next"
 ##                    print etree.tostring(nextg, pretty_print=True)
                     
@@ -2826,7 +2848,7 @@ class Tree(Graph):
         
 class BinaryTree(Tree):
 
-    def __init__(self, display = False, **attrs):
+    def __init__(self, display = 'off', **attrs):
         Tree.__init__(self, display, **attrs)
 
     def add_root(self, root, **attrs):
@@ -3022,23 +3044,29 @@ class BBTree(BinaryTree):
         BinaryTree.__init__(self, display, **attrs)
 
     def write_as_dynamic_gexf(self, filename, mode = "Dot"):
+        if not gexf_installed:
+            print 'Gexf not installed. Exiting.'
+            return
         if mode == 'Dot':
             try:
                 
                 gexf = Gexf("Mike O'Sullivan", "Dynamic graph file")
                 graph = gexf.addGraph("directed", "dynamic", "Dynamic graph")
                 objAtt = graph.addNodeAttribute("obj", "0.0", "float")
-                currAtt = graph.addNodeAttribute("current", "1.0", "integer", "dynamic")
+                currAtt = graph.addNodeAttribute("current", "1.0", 
+                                                 "integer", "dynamic") 
                 
                 node_names = self.get_node_list()
                 for name in node_names:
                     node = self.get_node(name)
                     step = node.get_label()
                     next = "%s" % (atoi(step) + 1)
-                    n = graph.addNode(node.get_label(), node.get_label(), start=step)
+                    n = graph.addNode(node.get_label(), node.get_label(), 
+                                      start=step)
 
                     if node.get("obj") is None:
-                        raise Exception("Node without objective in BBTree, node =", node)
+                        raise Exception("Node without objective in BBTree" +
+                                        "node =", node)
                     
                     n.addAttribute(objAtt, "%s" % node.get("obj"))
                     n.addAttribute(currAtt, "1", start=step, end=next)
@@ -3046,7 +3074,8 @@ class BBTree(BinaryTree):
                 edge_names = self.get_edge_list()
                 for i, (m_name, n_name) in enumerate(edge_names):
                     edge = self.get_edge(m_name, n_name)
-                    graph.addEdge(i, edge.get_source(), edge.get_destination(), start=edge.get_destination())
+                    graph.addEdge(i, edge.get_source(), edge.get_destination(),
+                                  start=edge.get_destination())
                 output_file = open(filename + ".gexf", "w")
                 gexf.write(output_file)
                 
