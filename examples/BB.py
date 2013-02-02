@@ -20,23 +20,25 @@ from gimpy import Tree, BinaryTree, BBTree
 from Queues import PriorityQueue
 from random import randint, seed
 
-#from milp3 import CONSTRAINTS, VARIABLES, OBJ, MAT, RHS
+import_instance = True
+if import_instance:
+    from milp3 import CONSTRAINTS, VARIABLES, OBJ, MAT, RHS
 
-##the number of variables and constraints
-#numVars = len(VARIABLES)
-#numCons = len(CONSTRAINTS)
-
-seed(2)
-numVars = 20
-numCons = 6
-maxObjCoeff = 20
-maxConsCoeff = 20
-CONSTRAINTS = ["C"+str(i) for i in range(numCons)]
-VARIABLES = ["x"+str(i) for i in range(numVars)]
-OBJ = {i : randint(1, maxObjCoeff) for i in VARIABLES}
-MAT = {i : [randint(1, maxConsCoeff) for j in CONSTRAINTS]
-       for i in VARIABLES}
-RHS = [randint(1, numVars*maxConsCoeff/2) for i in CONSTRAINTS]
+    #the number of variables and constraints
+    numVars = len(VARIABLES)
+    numCons = len(CONSTRAINTS)
+else:
+    seed(2)
+    numVars = 20
+    numCons = 6
+    maxObjCoeff = 20
+    maxConsCoeff = 20
+    CONSTRAINTS = ["C"+str(i) for i in range(numCons)]
+    VARIABLES = ["x"+str(i) for i in range(numVars)]
+    OBJ = {i : randint(1, maxObjCoeff) for i in VARIABLES}
+    MAT = {i : [randint(1, maxConsCoeff) for j in CONSTRAINTS]
+           for i in VARIABLES}
+    RHS = [randint(1, numVars*maxConsCoeff/2) for i in CONSTRAINTS]
 
 var   = LpVariable.dicts("", VARIABLES, 0, 1)
 
