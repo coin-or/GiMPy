@@ -12,6 +12,7 @@ __email__      = 'aykut@lehigh.edu'
 __url__        = None
 __title__      = 'GiMPy (Graph Methods in Python)'
 
+import sys
 from pydot import Dot, Node, Edge
 from pydot import Subgraph as Dotsubgraph
 from pydot import Cluster as Dotcluster
@@ -3065,7 +3066,7 @@ class BBTree(BinaryTree):
                                       start=step)
 
                     if node.get("obj") is None:
-                        raise Exception("Node without objective in BBTree" +
+                        raise Exception("Node without objective in BBTree", 
                                         "node =", node)
                     
                     n.addAttribute(objAtt, "%s" % node.get("obj"))
