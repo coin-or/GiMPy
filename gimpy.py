@@ -71,7 +71,7 @@ except ImportError:
     gexf_installed = False
     print 'Gexf not installed'
 else:
-    pygame_installed = True
+    gexf_installed = True
     print 'Found gexf installation'
 
 class Graph(Dot):
@@ -3103,9 +3103,9 @@ class BBTree(BinaryTree):
                 node_names = self.get_node_list()
                 for name in node_names:
                     node = self.get_node(name)
-                    step = node.get_label()
+                    step = name #node.get_label()
                     next = "%s" % (atoi(step) + 1)
-                    n = graph.addNode(node.get_label(), node.get_label(), start=step)
+                    n = graph.addNode(name, node.get_label(), start=step)
 
                     if node.get("obj") is None:
                         raise Exception("Node without objective in BBTree, node =", node)

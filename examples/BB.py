@@ -16,11 +16,11 @@ variable can be used to turn off fathoming by bound.
 from pulp import *
 import math
 import time
-from gimpy import Tree, BinaryTree, BBTree
+from gimpy import BBTree, gexf_installed, etree_installed, pygame_installed
 from Queues import PriorityQueue
-from random import randint, seed
+from random import random, randint, seed
 
-import_instance = True
+import_instance = False
 if import_instance:
     from milp3 import CONSTRAINTS, VARIABLES, OBJ, MAT, RHS
 
@@ -31,14 +31,15 @@ else:
     seed(2)
     numVars = 20
     numCons = 6
+    density = 0.2
     maxObjCoeff = 20
     maxConsCoeff = 20
     CONSTRAINTS = ["C"+str(i) for i in range(numCons)]
     VARIABLES = ["x"+str(i) for i in range(numVars)]
     OBJ = {i : randint(1, maxObjCoeff) for i in VARIABLES}
-    MAT = {i : [randint(1, maxConsCoeff) for j in CONSTRAINTS]
-           for i in VARIABLES}
-    RHS = [randint(1, numVars*maxConsCoeff/2) for i in CONSTRAINTS]
+    MAT = {i : [randint(1, maxConsCoeff) if random() < density else 0
+                for j in CONSTRAINTS] for i in VARIABLES}
+    RHS = [randint(1, numVars*density*maxConsCoeff/2) for i in CONSTRAINTS]
 
 var   = LpVariable.dicts("", VARIABLES, 0, 1)
 
@@ -53,7 +54,7 @@ DEPTH_FIRST = "Depth First"
 BEST_FIRST = "Best First"
 
 #Selected branching strategy
-branch_strategy = FIXED
+branch_strategy = MOST_FRAC
 search_strategy = DEPTH_FIRST
 
 # 1 to force complete enumeration of nodes (no fathoming by bounding)
@@ -62,7 +63,6 @@ complete_enumeration = 0
 # List shows if the corresponding variable is fixed to 0 or 1 or if it is not 
 # fixed when the corresponding value is 2.
 # Initially each variable is assigned to be unfixed
-
 INFINITY = 9999
 
 #The initial lower bound 
@@ -72,6 +72,9 @@ LB = 0
 node_count = 1
 iter_count = 0
 lp_count = 0
+
+#Mode for displaying tree
+display_mode = 'svg'
 
 #List of incumbent solution variable values
 opt = dict([(i, 0) for i in VARIABLES]) 
@@ -228,22 +231,27 @@ while not Q.isEmpty():
         label = 'I'
 
     if iter_count == 0:
-        T.add_root(0, label = label, status = status)
-        T.write_as_svg(filename = "node%d" % iter_count, 
-                       nextfile = "node%d" % (iter_count + 1), 
-                       highlight = cur_index)
+        T.add_root(0, label = label, status = status, obj = relax)
+        if etree_installed and display_mode == 'svg':
+            T.write_as_svg(filename = "node%d" % iter_count, 
+                           nextfile = "node%d" % (iter_count + 1), 
+                           highlight = cur_index)
     else:
         T.add_child(cur_index, parent, label = label, branch_var = branch_var,
-                    branch_value = branch_value, status = status)
+                    branch_value = branch_value, status = status, obj = relax)
         T.set_edge_attr(parent, cur_index, 'label', 
                         str(branch_var) + ': ' + str(branch_value))
-        T.write_as_svg(filename = "node%d" % iter_count, 
-                       prevfile = "node%d" % (iter_count - 1), 
-                       nextfile = "node%d" % (iter_count + 1), 
-                       highlight = cur_index)
+        if etree_installed and display_mode == 'svg':
+            T.write_as_svg(filename = "node%d" % iter_count, 
+                           prevfile = "node%d" % (iter_count - 1), 
+                           nextfile = "node%d" % (iter_count + 1), 
+                           highlight = cur_index)
     iter_count += 1
 
-#    T.display(highlight = [cur_index])
+    if pygame_installed and display_mode == 'pygame':
+        T.display(highlight = [cur_index])
+    elif gexf_installed and display_mode == 'gexf':
+        T.write_as_dynamic_gexf("graph")
 
     if status == 'C':
   
