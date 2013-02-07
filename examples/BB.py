@@ -20,7 +20,7 @@ from gimpy import BBTree, gexf_installed, etree_installed, pygame_installed, xdo
 from Queues import PriorityQueue
 from random import random, randint, seed
 
-import_instance = True
+import_instance = False
 if import_instance:
     from milp3 import CONSTRAINTS, VARIABLES, OBJ, MAT, RHS
 
@@ -30,8 +30,8 @@ if import_instance:
 else:
     seed(2)
     numVars = 20
-    numCons = 6
-    density = 0.2
+    numCons = 20
+    density = 1
     maxObjCoeff = 20
     maxConsCoeff = 20
     CONSTRAINTS = ["C"+str(i) for i in range(numCons)]
@@ -39,7 +39,7 @@ else:
     OBJ = {i : randint(1, maxObjCoeff) for i in VARIABLES}
     MAT = {i : [randint(1, maxConsCoeff) if random() < density else 0
                 for j in CONSTRAINTS] for i in VARIABLES}
-    RHS = [randint(1, numVars*density*maxConsCoeff/2) for i in CONSTRAINTS]
+    RHS = [randint(1, int(numVars*density*maxConsCoeff/1.6)) for i in CONSTRAINTS]
 
 var   = LpVariable.dicts("", VARIABLES, 0, 1)
 
@@ -214,17 +214,21 @@ while not Q.isEmpty():
     if integer_solution:
         print "Integer solution"
         status = 'S'
+        color = 'lightblue'
     elif infeasible:
         print "Infeasible node"
         status = 'I'
+        color = 'orange'
     elif not complete_enumeration and relax <= LB:
         print "Node pruned by bound (obj: %s, UB: %s)" %(relax,LB)
         status = 'P'
+        color = 'red'
     elif cur_depth >= numVars :
         print "Reached a leaf"
         status = 'L'
     else:
         status = 'C'
+        color = 'yellow'
 
     if status is not 'I':
         label = status + ": " + "%.1f"%relax
@@ -232,14 +236,16 @@ while not Q.isEmpty():
         label = 'I'
 
     if iter_count == 0:
-        T.add_root(0, label = label, status = status, obj = relax)
+        T.add_root(0, label = label, status = status, obj = relax, color = color,
+                   style = 'filled', fillcolor = color)
         if etree_installed and display_mode == 'svg':
             T.write_as_svg(filename = "node%d" % iter_count, 
                            nextfile = "node%d" % (iter_count + 1), 
                            highlight = cur_index)
     else:
         T.add_child(cur_index, parent, label = label, branch_var = branch_var,
-                    branch_value = branch_value, status = status, obj = relax)
+                    branch_value = branch_value, status = status, obj = relax,
+                    color = color, style = 'filled', fillcolor = color)
         T.set_edge_attr(parent, cur_index, 'label', 
                         str(branch_var) + ': ' + str(branch_value))
         if etree_installed and display_mode == 'svg':
@@ -251,6 +257,8 @@ while not Q.isEmpty():
 
     if pygame_installed and display_mode == 'pygame':
         T.display(highlight = [cur_index])
+#    if xdot_installed and display_mode == 'xdot':
+#        T.display(highlight = [cur_index])
     elif gexf_installed and display_mode == 'gexf':
         T.write_as_dynamic_gexf("graph")
 
@@ -296,6 +304,7 @@ while not Q.isEmpty():
         Q.push((node_count, cur_index, branching_var, math.floor(var[branching_var].varValue)), priority)
         node_count += 1
         Q.push((node_count, cur_index, branching_var, math.ceil(var[branching_var].varValue)), priority)
+        T.set_node_attr(cur_index, color, 'green')
  
 timer = int(math.ceil((time.time()-timer)*1000))
 
