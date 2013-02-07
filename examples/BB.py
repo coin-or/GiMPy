@@ -16,11 +16,11 @@ variable can be used to turn off fathoming by bound.
 from pulp import *
 import math
 import time
-from gimpy import BBTree, gexf_installed, etree_installed, pygame_installed
+from gimpy import BBTree, gexf_installed, etree_installed, pygame_installed, xdot_installed
 from Queues import PriorityQueue
 from random import random, randint, seed
 
-import_instance = False
+import_instance = True
 if import_instance:
     from milp3 import CONSTRAINTS, VARIABLES, OBJ, MAT, RHS
 
@@ -74,7 +74,7 @@ iter_count = 0
 lp_count = 0
 
 #Mode for displaying tree
-display_mode = 'svg'
+display_mode = 'xdot'
 
 #List of incumbent solution variable values
 opt = dict([(i, 0) for i in VARIABLES]) 
@@ -99,7 +99,8 @@ else:
 print "==========================================="
 
 T = BBTree()
-T.set_display_mode('pygame')
+if display_mode == 'xdot' or display_mode == 'pygame':
+    T.set_display_mode(display_mode)
 
 # List of candidate nodes
 Q = PriorityQueue()
@@ -298,6 +299,9 @@ while not Q.isEmpty():
  
 timer = int(math.ceil((time.time()-timer)*1000))
 
+if xdot_installed and display_mode == 'xdot':
+    T.display()
+    
 print ""
 print "==========================================="
 print "Branch and bound completed in %sms" %timer
