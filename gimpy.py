@@ -37,6 +37,7 @@ else:
     print 'Found Python Image Library'
 
 try:
+    import pygtk
     import gtk
     import xdot
 except ImportError:
@@ -1447,7 +1448,7 @@ class Graph(Dot):
             if xdot_installed:
                 window = xdot.DotWindow()
                 window.set_dotcode(self.to_string())
-                window.show()
+                window.connect('destroy', gtk.main_quit)
                 gtk.main()
             else:
                 print 'Error: xdot not installed. Display disabled.'
