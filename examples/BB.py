@@ -29,17 +29,17 @@ if import_instance:
     numCons = len(CONSTRAINTS)
 else:
     seed(2)
-    numVars = 20
-    numCons = 20
-    density = 1
-    maxObjCoeff = 20
-    maxConsCoeff = 20
+    numVars = 80
+    numCons = 40
+    density = 0.2
+    maxObjCoeff = 10
+    maxConsCoeff = 10
     CONSTRAINTS = ["C"+str(i) for i in range(numCons)]
     VARIABLES = ["x"+str(i) for i in range(numVars)]
     OBJ = {i : randint(1, maxObjCoeff) for i in VARIABLES}
-    MAT = {i : [randint(1, maxConsCoeff) if random() < density else 0
+    MAT = {i : [randint(1, maxConsCoeff) if random() <= density else 0
                 for j in CONSTRAINTS] for i in VARIABLES}
-    RHS = [randint(1, int(numVars*density*maxConsCoeff/1.6)) for i in CONSTRAINTS]
+    RHS = [randint(int(numVars*density*maxConsCoeff/2), int(numVars*density*maxConsCoeff/1.5)) for i in CONSTRAINTS]
 
 var   = LpVariable.dicts("", VARIABLES, 0, 1)
 
