@@ -3087,46 +3087,6 @@ class BBTree(BinaryTree):
         else:
             raise Exception("Only Dot mode supported in write_bb_as_gexf")
 
-class BBTree(BinaryTree):
-    
-    def __init__(self, display = False, **attrs):
-        BinaryTree.__init__(self, display, **attrs)
-
-    def write_as_dynamic_gexf(self, filename, mode = "Dot"):
-        if mode == 'Dot':
-            try:
-                
-                gexf = Gexf("Mike O'Sullivan", "Dynamic graph file")
-                graph = gexf.addGraph("directed", "dynamic", "Dynamic graph")
-                objAtt = graph.addNodeAttribute("obj", "0.0", "float")
-                currAtt = graph.addNodeAttribute("current", "1.0", "integer", "dynamic")
-                
-                node_names = self.get_node_list()
-                for name in node_names:
-                    node = self.get_node(name)
-                    step = name #node.get_label()
-                    next = "%s" % (atoi(step) + 1)
-                    n = graph.addNode(name, node.get_label(), start=step)
-
-                    if node.get("obj") is None:
-                        raise Exception("Node without objective in BBTree, node =", node)
-                    
-                    n.addAttribute(objAtt, "%s" % node.get("obj"))
-                    n.addAttribute(currAtt, "1", start=step, end=next)
-                    n.addAttribute(currAtt, "0", start=next)
-                edge_names = self.get_edge_list()
-                for i, (m_name, n_name) in enumerate(edge_names):
-                    edge = self.get_edge(m_name, n_name)
-                    graph.addEdge(i, edge.get_source(), edge.get_destination(), start=edge.get_destination())
-                output_file = open(filename + ".gexf", "w")
-                gexf.write(output_file)
-                
-            except Exception as e:
-                print e
-                print "No .gexf file created"
-        else:
-            raise Exception("Only Dot mode supported in write_bb_as_gexf")
-
 if __name__ == '__main__':
         
     G = Graph(graph_type = 'graph', splines='false', layout = 'dot', K = 1)
