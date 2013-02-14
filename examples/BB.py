@@ -20,9 +20,9 @@ from gimpy import BBTree, gexf_installed, etree_installed, pygame_installed, xdo
 from Queues import PriorityQueue
 from random import random, randint, seed
 
-import_instance = False
+import_instance = True
 if import_instance:
-    from milp3 import CONSTRAINTS, VARIABLES, OBJ, MAT, RHS
+    from milp2 import CONSTRAINTS, VARIABLES, OBJ, MAT, RHS
 
     #the number of variables and constraints
     numVars = len(VARIABLES)
@@ -54,8 +54,8 @@ DEPTH_FIRST = "Depth First"
 BEST_FIRST = "Best First"
 
 #Selected branching strategy
-branch_strategy = MOST_FRAC
-search_strategy = DEPTH_FIRST
+branch_strategy = FIXED
+search_strategy = BEST_FIRST
 
 # 1 to force complete enumeration of nodes (no fathoming by bounding)
 complete_enumeration = 0
@@ -66,7 +66,7 @@ complete_enumeration = 0
 INFINITY = 9999
 
 #The initial lower bound 
-LB = 0
+LB = -INFINITY
 
 #The number of LP's solved, and the number of nodes solved
 node_count = 1
