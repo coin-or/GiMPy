@@ -2707,7 +2707,7 @@ class Tree(Graph):
         attrs['parent'] = str(parent)
         self.add_node(n, **attrs)
         self.add_edge(parent, n)
-            
+        
     def dfs(self, root = None, display = 'dot'):
         if root == None:
             root = self.root
@@ -2876,6 +2876,14 @@ class BinaryTree(Tree):
     def get_left_child(self, n):
         return self.get_node_attr(n, 'Lchild')
                 
+    def del_node(self, n):
+        self.get_node_attr(n, 'parent')
+        if self.get_node_attr('direction', 'R'):
+            self.set_node_attr(parent, 'RChild', None)
+        else:
+            self.set_node_attr(parent, 'LChild', None)
+        Graph.del_node(self, n)
+            
     def print_nodes(self, order = 'in', priority = 'L', display = None, 
                     root = None):
         if root == None:
