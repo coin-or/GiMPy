@@ -2879,9 +2879,9 @@ class BinaryTree(Tree):
     def del_node(self, n):
         parent = self.get_node_attr(n, 'parent')
         if self.get_node_attr(n, 'direction') == 'R':
-            self.set_node_attr(parent, 'RChild', None)
+            self.set_node_attr(parent, 'Rchild', None)
         else:
-            self.set_node_attr(parent, 'LChild', None)
+            self.set_node_attr(parent, 'Lchild', None)
         Graph.del_node(self, n)
             
     def print_nodes(self, order = 'in', priority = 'L', display = None, 
