@@ -1453,6 +1453,10 @@ class Graph(Dot):
             else:
                 print 'Error: xdot not installed. Display disabled.'
                 self.display_mode = 'off'
+        elif self.display_mode == 'svg':
+            if not etree_installed:
+                print 'Error: etree not installed (display mode: svg). Display disabled.'
+                self.display_mode = 'off'
         else:
             print "Unknown display mode: ",
             print self.display_mode
@@ -2741,11 +2745,9 @@ class Tree(Graph):
                 addToQ(n)
                 
     def write_as_svg(self, filename, prevfile = None, nextfile = None, 
-                     mode = 'Dot', highlight = None, label_attr = None, 
-                     tooltip_attr = None):
-        if not etree_installed:
-            print 'Etree not installed. Exiting.'
-            return
+                     mode = 'Dot', highlight = None,
+                     node_label_attr = None, node_tooltip_attr = None,
+                     edge_label_attr = None, edge_tooltip_attr = None):
         if highlight != None:
             if not isinstance(highlight, Node):
                 highlight = self.get_node(highlight)
@@ -2755,18 +2757,22 @@ class Tree(Graph):
             edge_names = self.get_edge_list()
             for name in node_names:
                 node = self.get_node(name)
-                if tooltip_attr is None:
+                if node_tooltip_attr is None:
                   node.set_tooltip(str(node.get_label()))
                 else:
-                  node.set_tooltip(str(node.get(tooltip_attr)))  
-                if label_attr is not None:
-                  node_label = node.get(label_attr)
+                  node.set_tooltip(str(node.get(node_tooltip_attr)))  
+                if node_label_attr is not None:
+                  node_label = node.get(node_label_attr)
                   node.set("label", node_label)
-                node.set_style('"filled"')
-                node.set_fillcolor('"white"')
             for (m_name, n_name) in edge_names:
                 edge = self.get_edge(m_name, n_name)
-                edge.set_edgetooltip('"Arc"')
+                if edge_tooltip_attr is None:
+                  edge.set_tooltip(str(edge.get_label()))
+                else:
+                  edge.set_tooltip(str(edge.get(node_tooltip_attr)))  
+                if edge_label_attr is not None:
+                  edge_label = edge.get(edge_label_attr)
+                  edge.set("label", edge_label)
 
             try:
                 
@@ -2829,11 +2835,9 @@ class Tree(Graph):
             for name in node_names:
                 node = self.get_node(name)
                 node.set_tooltip('%s' % node.get_label())
-                node.set_style('"filled"')
-                node.set_fillcolor('"white"')
             for (m_name, n_name) in edge_names:
                 edge = self.get_edge(m_name, n_name)
-                edge.set_edgetooltip('"Arc"')
+                edge.set_tooltip('%s' % edge.get_label())
 
             try:
                 
