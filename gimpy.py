@@ -3073,23 +3073,28 @@ class BBTree(BinaryTree):
                 node_names = self.get_node_list()
                 for name in node_names:
                     node = self.get_node(name)
-                    step = node.get_label()
-                    next = "%s" % (atoi(step) + 1)
-                    n = graph.addNode(node.get_label(), node.get_label(), 
-                                      start=step)
+                    if node.get("step") is None:
+                        raise Exception("Node without step in BBTree", 
+                                        "node =", node)
+                    curr_step = '%s' % node.get("step")
+                    next_step = "%s" % (node.get("step") + 1)
+                    n = graph.addNode(name, node.get_label(), start=curr_step)
 
                     if node.get("obj") is None:
                         raise Exception("Node without objective in BBTree", 
                                         "node =", node)
                     
                     n.addAttribute(objAtt, "%s" % node.get("obj"))
-                    n.addAttribute(currAtt, "1", start=step, end=next)
-                    n.addAttribute(currAtt, "0", start=next)
+                    n.addAttribute(currAtt, "1", start=curr_step, end=next_step)
+                    n.addAttribute(currAtt, "0", start=next_step)
                 edge_names = self.get_edge_list()
                 for i, (m_name, n_name) in enumerate(edge_names):
                     edge = self.get_edge(m_name, n_name)
-                    graph.addEdge(i, edge.get_source(), edge.get_destination(),
-                                  start=edge.get_destination())
+                    if edge.get("step") is None:
+                        raise Exception("Edge without step in BBTree", 
+                                        "edge =", (m_name, n_name))
+                    curr_step = "%s" % edge.get("step")
+                    graph.addEdge(i, m_name, n_name, start=curr_step)
                 output_file = open(filename + ".gexf", "w")
                 gexf.write(output_file)
                 
@@ -3097,7 +3102,7 @@ class BBTree(BinaryTree):
                 print e
                 print "No .gexf file created"
         else:
-            raise Exception("Only Dot mode supported in write_bb_as_gexf")
+            raise Exception("Only Dot mode supported in write_as_dynamic_gexf")
 
 if __name__ == '__main__':
         
