@@ -17,10 +17,29 @@ from pulp import *
 import math
 import time
 from gimpy import BBTree, gexf_installed, etree_installed, pygame_installed, xdot_installed
+try:
+    from baktree import BAKTree
+    grumpy_installed = True
+except ImportError:
+    grumpy_installed = False
+    
 from Queues import PriorityQueue
 from random import random, randint, seed
 
-import_instance = True
+display_mode = 'pygame'
+layout = 'bak'
+display_interval = 100
+if not grumpy_installed:
+    layout = 'dot'
+
+if layout == 'bak' and grumpy_installed:
+    T = BAKTree()
+else:
+    T = BBTree()
+T.set_display_mode(display_mode)
+T.set_layout(layout)
+
+import_instance = False
 if import_instance:
     from milp2 import CONSTRAINTS, VARIABLES, OBJ, MAT, RHS
 
@@ -29,8 +48,8 @@ if import_instance:
     numCons = len(CONSTRAINTS)
 else:
     seed(2)
-    numVars = 80
-    numCons = 40
+    numVars = 40
+    numCons = 20
     density = 0.2
     maxObjCoeff = 10
     maxConsCoeff = 10
@@ -73,9 +92,6 @@ node_count = 1
 iter_count = 0
 lp_count = 0
 
-#Mode for displaying tree
-display_mode = 'xdot'
-
 #List of incumbent solution variable values
 opt = dict([(i, 0) for i in VARIABLES]) 
 
@@ -98,10 +114,6 @@ else:
 
 print "==========================================="
 
-T = BBTree()
-if display_mode == 'xdot' or display_mode == 'pygame':
-    T.set_display_mode(display_mode)
-
 # List of candidate nodes
 Q = PriorityQueue()
 
@@ -112,12 +124,12 @@ cur_index = 0
 # Timer
 timer = time.time()
 
-Q.push((0, None, None, None), INFINITY)
+Q.push((0, None, None, None, None), INFINITY)
 
 # Branch and Bound Loop
 while not Q.isEmpty():
 
-    cur_index, parent, branch_var, branch_value = Q.pop()
+    cur_index, parent, branch_var, sense, rhs = Q.pop()
     if cur_index is not 0:
         cur_depth = T.get_node_attr(parent, 'level') + 1
     else:
@@ -139,19 +151,26 @@ while not Q.isEmpty():
             CONSTRAINTS[j]
 
     #Fix all prescribed variables
-    fixed_vars = []
+    branch_vars = []
     if cur_index is not 0:
-        sys.stdout.write("Fixed variables: ")
-        fixed_vars. append(branch_var)
-        prob += LpConstraint(lpSum(var[branch_var]) == branch_value)   
+        sys.stdout.write("Branching variables: ")
+        branch_vars.append(branch_var)
+        if sense == '>=':
+            prob += LpConstraint(lpSum(var[branch_var]) >= rhs)
+        else:
+            prob += LpConstraint(lpSum(var[branch_var]) <= rhs)   
         print branch_var,
         pred = parent
         while str(pred) is not '0':
-            fixed_var = T.get_node_attr(pred, 'branch_var')
-            fixed_value = T.get_node_attr(pred, 'branch_value')
-            prob += LpConstraint(lpSum(var[fixed_var]) == fixed_value)
-            print fixed_var,
-            fixed_vars.append(fixed_var)
+            pred_branch_var = T.get_node_attr(pred, 'branch_var')
+            pred_rhs = T.get_node_attr(pred, 'rhs')
+            pred_sense = T.get_node_attr(pred, 'sense')
+            if pred_sense == '<=':
+                prob += LpConstraint(lpSum(var[pred_branch_var]) <= pred_rhs)
+            else:
+                prob += LpConstraint(lpSum(var[pred_branch_var]) >= pred_rhs)
+            print pred_branch_var,
+            branch_vars.append(pred_branch_var)
             pred = T.get_node_attr(pred, 'parent')
         
     print ""
@@ -214,20 +233,25 @@ while not Q.isEmpty():
     if integer_solution:
         print "Integer solution"
         status = 'S'
+        BAKstatus = 'integer'
         color = 'lightblue'
     elif infeasible:
         print "Infeasible node"
         status = 'I'
+        BAKstatus = 'infeasible'
         color = 'orange'
     elif not complete_enumeration and relax <= LB:
         print "Node pruned by bound (obj: %s, UB: %s)" %(relax,LB)
         status = 'P'
+        BAKstatus = 'fathomed'
         color = 'red'
     elif cur_depth >= numVars :
         print "Reached a leaf"
+        BAKstatus = 'fathomed'
         status = 'L'
     else:
         status = 'C'
+        BAKstatus = 'candidate'
         color = 'yellow'
 
     if status is not 'I':
@@ -236,18 +260,31 @@ while not Q.isEmpty():
         label = 'I'
 
     if iter_count == 0:
-        T.add_root(0, label = label, status = status, obj = relax, color = color,
-                   style = 'filled', fillcolor = color)
+        if layout == 'bak':
+            T.AddOrUpdateNode(0, -1, None, BAKstatus, -relax, None, None)
+        else:
+            T.add_root(0, label = label, status = status, obj = relax, color = color,
+                       style = 'filled', fillcolor = color)
         if etree_installed and display_mode == 'svg':
             T.write_as_svg(filename = "node%d" % iter_count, 
                            nextfile = "node%d" % (iter_count + 1), 
                            highlight = cur_index)
     else:
-        T.add_child(cur_index, parent, label = label, branch_var = branch_var,
-                    branch_value = branch_value, status = status, obj = relax,
-                    color = color, style = 'filled', fillcolor = color)
-        T.set_edge_attr(parent, cur_index, 'label', 
-                        str(branch_var) + ': ' + str(branch_value))
+        if layout == 'bak':
+            if sense == '<=':
+                T.AddOrUpdateNode(cur_index, parent, 'L', 'candidate', 
+                                  -relax, None, None, branch_var = branch_var,
+                                  sense = sense, rhs = rhs)
+            else:
+                T.AddOrUpdateNode(cur_index, parent, 'R', 'candidate', 
+                                  -relax, None, None, branch_var = branch_var,
+                                  sense = sense, rhs = rhs)
+        else:
+            T.add_child(cur_index, parent, label = label, branch_var = branch_var,
+                        sense = sense, rhs = rhs, status = status, obj = relax,
+                        color = color, style = 'filled', fillcolor = color)
+            T.set_edge_attr(parent, cur_index, 'label', 
+                            str(branch_var) + sense + str(rhs))
         if etree_installed and display_mode == 'svg':
             T.write_as_svg(filename = "node%d" % iter_count, 
                            prevfile = "node%d" % (iter_count - 1), 
@@ -255,8 +292,11 @@ while not Q.isEmpty():
                            highlight = cur_index)
     iter_count += 1
 
-    if pygame_installed and display_mode == 'pygame':
-        T.display(highlight = [cur_index])
+    if ((pygame_installed and display_mode == 'pygame')
+         or (xdot_installed and display_mode == 'xdot')):
+        numNodes = len(T.get_node_list())
+        if numNodes % display_interval == 0:
+            T.display(highlight = [cur_index])
 #    if xdot_installed and display_mode == 'xdot':
 #        T.display(highlight = [cur_index])
     elif gexf_installed and display_mode == 'gexf':
@@ -270,23 +310,21 @@ while not Q.isEmpty():
         if branch_strategy == FIXED:
             #fixed order
             for i in VARIABLES:
-                if i not in fixed_vars:
-                    frac = min(var[i].varValue-math.floor(var[i].varValue), 
-                               math.ceil(var[i].varValue) - var[i].varValue)
-                    if (frac > 0):
-                        min_frac = frac
-                        branching_var = i
-                        break
+                frac = min(var[i].varValue-math.floor(var[i].varValue), 
+                           math.ceil(var[i].varValue) - var[i].varValue)
+                if (frac > 0):
+                    min_frac = frac
+                    branching_var = i
+                    break
         elif branch_strategy == MOST_FRAC:
             #most fractional variable
             min_frac = -1
             for i in VARIABLES:
-                if i not in fixed_vars:
-                    frac = min(var[i].varValue-math.floor(var[i].varValue), 
-                               math.ceil(var[i].varValue)- var[i].varValue )
-                    if (frac> min_frac):
-                        min_frac = frac
-                        branching_var = i
+                frac = min(var[i].varValue-math.floor(var[i].varValue), 
+                           math.ceil(var[i].varValue)- var[i].varValue )
+                if (frac> min_frac):
+                    min_frac = frac
+                    branching_var = i
 
         else:
             print "Unknown branching strategy %s" %branch_strategy
@@ -301,10 +339,12 @@ while not Q.isEmpty():
         elif search_strategy == BEST_FIRST:
             priority = relax
         node_count += 1
-        Q.push((node_count, cur_index, branching_var, math.floor(var[branching_var].varValue)), priority)
+        Q.push((node_count, cur_index, branching_var, '<=', math.floor(var[branching_var].varValue)), priority)
         node_count += 1
-        Q.push((node_count, cur_index, branching_var, math.ceil(var[branching_var].varValue)), priority)
+        Q.push((node_count, cur_index, branching_var, '>=', math.ceil(var[branching_var].varValue)), priority)
         T.set_node_attr(cur_index, color, 'green')
+        if layout == 'bak':
+            T.set_node_attr(cur_index, 'status', 'branched')
  
 timer = int(math.ceil((time.time()-timer)*1000))
 
