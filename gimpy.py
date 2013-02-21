@@ -1404,7 +1404,10 @@ class Graph(Dot):
                 print "Pygame module not found, graphical display disabled"
         else:
             self.display_mode = display
-        
+
+    def set_layout(self, layout):
+        self.layout = layout
+
     def display(self, highlight = None, filename = 'graph.png', format = 'png',
                 pause = True):
         if self.display_mode == 'off':
@@ -2704,7 +2707,7 @@ class Tree(Graph):
     def add_root(self, root, **attrs):
         attrs['level'] = 0
         self.add_node(root, **attrs)
-        self.root = root
+        self.root = str(root)
         
     def add_child(self, n, parent, **attrs):
         attrs['level'] = self.get_node_attr(parent, 'level') + 1
@@ -2864,14 +2867,14 @@ class BinaryTree(Tree):
         if self.get_right_child(parent) is not None:
             raise Exception("Right child already exists for node " + parent)
         attrs['direction'] = 'R'
-        self.set_node_attr(parent, 'Rchild', n)
+        self.set_node_attr(parent, 'Rchild', str(n))
         self.add_child(n, parent, **attrs)
         
     def add_left_child(self, n, parent, **attrs):
         if self.get_left_child(parent) is not None:
             raise Exception("Left child already exists for node " + parent)
         attrs['direction'] = 'L'
-        self.set_node_attr(parent, 'Lchild', n)
+        self.set_node_attr(parent, 'Lchild', str(n))
         self.add_child(n, parent, **attrs)
         
     def get_right_child(self, n):
