@@ -16,7 +16,7 @@ variable can be used to turn off fathoming by bound.
 from pulp import *
 import math
 import time
-from gimpy import BBTree, gexf_installed, etree_installed, pygame_installed, xdot_installed
+from gimpy import BBTree, Cluster, gexf_installed, etree_installed, pygame_installed, xdot_installed
 try:
     from baktree import BAKTree
     grumpy_installed = True
@@ -26,8 +26,8 @@ except ImportError:
 from Queues import PriorityQueue
 from random import random, randint, seed
 
-display_mode = 'pygame'
-layout = 'bak'
+display_mode = 'xdot'
+layout = 'dot'
 display_interval = 100
 if not grumpy_installed:
     layout = 'dot'
@@ -38,6 +38,18 @@ else:
     T = BBTree()
 T.set_display_mode(display_mode)
 T.set_layout(layout)
+format_for_ladot = False
+
+#Add key
+C = Cluster(graph_name = 'Key', label = 'Key', fontsize = '12')
+C.add_node('C', label = 'Candidate', style = 'filled', color = 'yellow', fillcolor = 'yellow')
+C.add_node('I', label = 'Infeasible', style = 'filled', color = 'orange', fillcolor = 'orange')
+C.add_node('S', label = 'Solution', style = 'filled', color = 'lightblue', fillcolor = 'lightblue')
+C.add_node('P', label = 'Pruned', style = 'filled', color = 'red', fillcolor = 'red')
+C.add_edge('C', 'I', style = 'invisible', arrowhead = 'none')
+C.add_edge('I', 'S', style = 'invisible', arrowhead = 'none')
+C.add_edge('S', 'P', style = 'invisible', arrowhead = 'none')
+T.add_subgraph(C)
 
 import_instance = False
 if import_instance:
@@ -54,7 +66,10 @@ else:
     maxObjCoeff = 10
     maxConsCoeff = 10
     CONSTRAINTS = ["C"+str(i) for i in range(numCons)]
-    VARIABLES = ["x"+str(i) for i in range(numVars)]
+    if format_for_ladot:
+        VARIABLES = ["x_{"+str(i)+"}" for i in range(numVars)]
+    else:
+        VARIABLES = ["x"+str(i) for i in range(numVars)]
     OBJ = {i : randint(1, maxObjCoeff) for i in VARIABLES}
     MAT = {i : [randint(1, maxConsCoeff) if random() <= density else 0
                 for j in CONSTRAINTS] for i in VARIABLES}
@@ -255,7 +270,8 @@ while not Q.isEmpty():
         color = 'yellow'
 
     if status is not 'I':
-        label = status + ": " + "%.1f"%relax
+#        label = status + ": " + "%.1f"%relax
+        label = "%.1f"%relax
     else:
         label = 'I'
 
@@ -283,8 +299,16 @@ while not Q.isEmpty():
             T.add_child(cur_index, parent, label = label, branch_var = branch_var,
                         sense = sense, rhs = rhs, status = status, obj = relax,
                         color = color, style = 'filled', fillcolor = color)
-            T.set_edge_attr(parent, cur_index, 'label', 
-                            str(branch_var) + sense + str(rhs))
+            if format_for_ladot:
+                if sense == '>=':
+                    T.set_edge_attr(parent, cur_index, 'label', 
+                                    "$"+str(branch_var) + " \geq " + str(rhs) + "$")
+                else:
+                    T.set_edge_attr(parent, cur_index, 'label', 
+                                    "$"+str(branch_var) + " \leq " + str(rhs) + "$")
+            else:
+                T.set_edge_attr(parent, cur_index, 'label', 
+                                str(branch_var) + sense + str(rhs))
         if etree_installed and display_mode == 'svg':
             T.write_as_svg(filename = "node%d" % iter_count, 
                            prevfile = "node%d" % (iter_count - 1), 
@@ -295,7 +319,7 @@ while not Q.isEmpty():
     if ((pygame_installed and display_mode == 'pygame')
          or (xdot_installed and display_mode == 'xdot')):
         numNodes = len(T.get_node_list())
-        if numNodes % display_interval == 0:
+        if numNodes % display_interval == 0 and not format_for_ladot:
             T.display(highlight = [cur_index])
 #    if xdot_installed and display_mode == 'xdot':
 #        T.display(highlight = [cur_index])
@@ -348,8 +372,11 @@ while not Q.isEmpty():
  
 timer = int(math.ceil((time.time()-timer)*1000))
 
-if xdot_installed and display_mode == 'xdot':
+if ((xdot_installed and display_mode == 'xdot' and not format_for_ladot) or
+    layout == 'bak'):
     T.display()
+if format_for_ladot:
+    print T.write_as_dot(filename = 'graph')
     
 print ""
 print "==========================================="
