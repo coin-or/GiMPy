@@ -13,12 +13,12 @@ variable can be used to turn off fathoming by bound.
 
 '''
 
-from pulp import *
+from pulp import LpVariable, lpSum, LpProblem, LpMaximize, LpConstraint, LpStatus, value
 import math
 import time
-from gimpy import BBTree, Cluster, gexf_installed, etree_installed, pygame_installed, xdot_installed
+from gimpy import BinaryTree, Cluster, etree_installed, pygame_installed, xdot_installed
 try:
-    from baktree import BAKTree
+    from grumpy import BBTree, gexf_installed
     grumpy_installed = True
 except ImportError:
     grumpy_installed = False
@@ -33,12 +33,11 @@ if not grumpy_installed:
     layout = 'dot'
 
 if layout == 'bak' and grumpy_installed:
-    T = BAKTree()
-else:
     T = BBTree()
+else:
+    T = BinaryTree()
 T.set_display_mode(display_mode)
 T.set_layout(layout)
-format_for_ladot = False
 
 #Add key
 C = Cluster(graph_name = 'Key', label = 'Key', fontsize = '12')
@@ -66,7 +65,7 @@ else:
     maxObjCoeff = 10
     maxConsCoeff = 10
     CONSTRAINTS = ["C"+str(i) for i in range(numCons)]
-    if format_for_ladot:
+    if layout == 'ladot':
         VARIABLES = ["x_{"+str(i)+"}" for i in range(numVars)]
     else:
         VARIABLES = ["x"+str(i) for i in range(numVars)]
@@ -168,7 +167,7 @@ while not Q.isEmpty():
     #Fix all prescribed variables
     branch_vars = []
     if cur_index is not 0:
-        sys.stdout.write("Branching variables: ")
+        print "Branching variables: "
         branch_vars.append(branch_var)
         if sense == '>=':
             prob += LpConstraint(lpSum(var[branch_var]) >= rhs)
@@ -299,7 +298,7 @@ while not Q.isEmpty():
             T.add_child(cur_index, parent, label = label, branch_var = branch_var,
                         sense = sense, rhs = rhs, status = status, obj = relax,
                         color = color, style = 'filled', fillcolor = color)
-            if format_for_ladot:
+            if layout == 'ladot':
                 if sense == '>=':
                     T.set_edge_attr(parent, cur_index, 'label', 
                                     "$"+str(branch_var) + " \geq " + str(rhs) + "$")
@@ -319,10 +318,8 @@ while not Q.isEmpty():
     if ((pygame_installed and display_mode == 'pygame')
          or (xdot_installed and display_mode == 'xdot')):
         numNodes = len(T.get_node_list())
-        if numNodes % display_interval == 0 and not format_for_ladot:
+        if numNodes % display_interval == 0 and not layout != 'ladot':
             T.display(highlight = [cur_index])
-#    if xdot_installed and display_mode == 'xdot':
-#        T.display(highlight = [cur_index])
     elif gexf_installed and display_mode == 'gexf':
         T.write_as_dynamic_gexf("graph")
 
@@ -372,11 +369,13 @@ while not Q.isEmpty():
  
 timer = int(math.ceil((time.time()-timer)*1000))
 
-if ((xdot_installed and display_mode == 'xdot' and not format_for_ladot) or
+if ((xdot_installed and display_mode == 'xdot' and layout != 'ladot') or
     layout == 'bak'):
     T.display()
-if format_for_ladot:
-    print T.write_as_dot(filename = 'graph')
+if layout == 'ladot':
+    T.write_as_dot(filename = 'graph')
+
+T.write_as_dot(filename = 'graph2')
     
 print ""
 print "==========================================="
