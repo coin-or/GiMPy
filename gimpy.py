@@ -26,6 +26,16 @@ from StringIO import StringIO
 from Queues import PriorityQueue
 from operator import itemgetter
 from string import atoi
+from subprocess import call
+
+try:
+    from dot2tex import dot2tex
+except ImportError:
+    dot2tex_installed = False
+    print 'dot2tex not installed'
+else:
+    dot2tex_installed = True
+    print 'Found dot2tex'
 
 try:
     from PIL import Image
@@ -66,14 +76,53 @@ else:
     etree_installed = True
     print 'Found etree in lxml'
 
-try:
-    from gexf import Gexf
-except ImportError:
-    gexf_installed = False
-    print 'Gexf not installed'
-else:
-    gexf_installed = True
-    print 'Found gexf installation'
+dot2tex_template = r'''
+\documentclass[landscape]{article}
+\usepackage[x11names, rgb]{xcolor}
+\usepackage[<<textencoding>>]{inputenc}
+\usepackage{tikz}
+\usetikzlibrary{snakes,arrows,shapes}
+\usepackage{amsmath}
+<<startpreprocsection>>%
+\usepackage[active,auctex]{preview}
+<<endpreprocsection>>%
+<<gvcols>>%
+<<cropcode>>%
+<<docpreamble>>%
+
+\begin{document}
+\pagestyle{empty}
+%
+<<startpreprocsection>>%
+<<preproccode>>
+<<endpreprocsection>>%
+%
+<<startoutputsection>>
+\enlargethispage{100cm}
+% Start of code
+% \begin{tikzpicture}[anchor=mid,>=latex',join=bevel,<<graphstyle>>]
+\resizebox{\textwidth}{!}{
+\begin{tikzpicture}[>=latex',join=bevel,<<graphstyle>>]
+\pgfsetlinewidth{1bp}
+<<figpreamble>>%
+<<drawcommands>>
+<<figpostamble>>%
+\end{tikzpicture}
+% End of code
+}
+<<endoutputsection>>
+%
+\end{document}
+%
+<<startfigonlysection>>
+\begin{tikzpicture}[>=latex,join=bevel,<<graphstyle>>]
+\pgfsetlinewidth{1bp}
+<<figpreamble>>%
+<<drawcommands>>
+<<figpostamble>>%
+\end{tikzpicture}
+<<endfigonlysection>>
+'''
 
 class Graph(Dot):
     
@@ -1408,7 +1457,7 @@ class Graph(Dot):
     def set_layout(self, layout):
         self.layout = layout
 
-    def display(self, highlight = None, filename = 'graph.png', format = 'png',
+    def display(self, highlight = None, basename = 'graph', format = 'png',
                 pause = True):
         if self.display_mode == 'off':
             return
@@ -1418,10 +1467,30 @@ class Graph(Dot):
                     m = self.get_node(n)
                 m.set('color', 'red')    
         if self.display_mode == 'file':
-            self.write(filename, self.get_layout(), format)
+            if (self.get_layout() == 'dot2tex' and dot2tex_installed and
+                format == 'pdf' or format == 'ps'):
+                self.set_layout('dot')
+                tex = dot2tex(self.to_string(), autosize=True, texmode = 'math', template = dot2tex_template)
+                basename = 'graph'
+                f = open(basename+'.tex', 'w')
+                f.write(tex)
+                f.close()
+                call(['latex', basename])
+                call(['dvips', basename])
+                if format == 'pdf': 
+                    call(['ps2pdf', basename + '.ps'])
+            else:
+                if not dot2tex_installed:
+                    print "Dot2tex not installed, falling back to graphviz"
+                    self.set_layout('dot')
+                if format != 'pdf' or format != 'ps':
+                    print "Dot2tex only supports pdf and ps formats, falling back to graphviz"
+                    self.set_layout('dot')
+                self.write(basename+'.'+format, self.get_layout(), format)
             return
         elif self.get_layout() != 'bak':
             im = StringIO(self.create(self.get_layout(), format))
+
         else:
             im = StringIO(self.GenerateTreeImage())
         if highlight != None:
@@ -2672,9 +2741,9 @@ class Subgraph(Dotsubgraph, Graph):
 
 class Cluster(Dotcluster, Graph):
     
-    def __init__(self, display = 'off', type = 'digraph', **attrs):
+    def __init__(self, display = 'off', graph_type = 'digraph', **attrs):
         self.display_mode = display
-        self.graph_type = type
+        self.graph_type = graph_type
         self.num_components = None
         if self.graph_type == 'digraph':
             self.in_neighbor_lists = {}
@@ -2761,21 +2830,21 @@ class Tree(Graph):
             for name in node_names:
                 node = self.get_node(name)
                 if node_tooltip_attr is None:
-                  node.set_tooltip(str(node.get_label()))
+                    node.set_tooltip(str(node.get_label()))
                 else:
-                  node.set_tooltip(str(node.get(node_tooltip_attr)))  
+                    node.set_tooltip(str(node.get(node_tooltip_attr)))  
                 if node_label_attr is not None:
-                  node_label = node.get(node_label_attr)
-                  node.set("label", node_label)
+                    node_label = node.get(node_label_attr)
+                    node.set("label", node_label)
             for (m_name, n_name) in edge_names:
                 edge = self.get_edge(m_name, n_name)
                 if edge_tooltip_attr is None:
-                  edge.set_tooltip(str(edge.get_label()))
+                    edge.set_tooltip(str(edge.get_label()))
                 else:
-                  edge.set_tooltip(str(edge.get(node_tooltip_attr)))  
+                    edge.set_tooltip(str(edge.get(node_tooltip_attr)))  
                 if edge_label_attr is not None:
-                  edge_label = edge.get(edge_label_attr)
-                  edge.set("label", edge_label)
+                    edge_label = edge.get(edge_label_attr)
+                    edge.set("label", edge_label)
 
             try:
                 
@@ -3054,58 +3123,6 @@ class DisjointSet(Graph):
                     self.del_edge(e[0], e[1])                   
                     self.add_edge(e[0], current)
         return current
-
-class BBTree(BinaryTree):
-    
-    def __init__(self, display = False, **attrs):
-        BinaryTree.__init__(self, display, **attrs)
-
-    def write_as_dynamic_gexf(self, filename, mode = "Dot"):
-        if not gexf_installed:
-            print 'Gexf not installed. Exiting.'
-            return
-        if mode == 'Dot':
-            try:
-                
-                gexf = Gexf("Mike O'Sullivan", "Dynamic graph file")
-                graph = gexf.addGraph("directed", "dynamic", "Dynamic graph")
-                objAtt = graph.addNodeAttribute("obj", "0.0", "float")
-                currAtt = graph.addNodeAttribute("current", "1.0", 
-                                                 "integer", "dynamic") 
-                
-                node_names = self.get_node_list()
-                for name in node_names:
-                    node = self.get_node(name)
-                    if node.get("step") is None:
-                        raise Exception("Node without step in BBTree", 
-                                        "node =", node)
-                    curr_step = '%s' % node.get("step")
-                    next_step = "%s" % (node.get("step") + 1)
-                    n = graph.addNode(name, node.get_label(), start=curr_step)
-
-                    if node.get("obj") is None:
-                        raise Exception("Node without objective in BBTree", 
-                                        "node =", node)
-                    
-                    n.addAttribute(objAtt, "%s" % node.get("obj"))
-                    n.addAttribute(currAtt, "1", start=curr_step, end=next_step)
-                    n.addAttribute(currAtt, "0", start=next_step)
-                edge_names = self.get_edge_list()
-                for i, (m_name, n_name) in enumerate(edge_names):
-                    edge = self.get_edge(m_name, n_name)
-                    if edge.get("step") is None:
-                        raise Exception("Edge without step in BBTree", 
-                                        "edge =", (m_name, n_name))
-                    curr_step = "%s" % edge.get("step")
-                    graph.addEdge(i, m_name, n_name, start=curr_step)
-                output_file = open(filename + ".gexf", "w")
-                gexf.write(output_file)
-                
-            except Exception as e:
-                print e
-                print "No .gexf file created"
-        else:
-            raise Exception("Only Dot mode supported in write_as_dynamic_gexf")
 
 if __name__ == '__main__':
         
