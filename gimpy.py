@@ -2728,7 +2728,7 @@ class Graph(Dot):
         if 'algo' in args:
             algorithm = args['algo']
         else:
-            algorithm = 'simlex'
+            algorithm = 'simplex'
         if algorithm is 'simplex':
             if 'pivot' in args:
                 if not self.network_simplex(display, args['pivot']):
