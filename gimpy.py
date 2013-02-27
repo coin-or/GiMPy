@@ -83,6 +83,7 @@ dot2tex_template = r'''
 \usepackage{tikz}
 \usetikzlibrary{snakes,arrows,shapes}
 \usepackage{amsmath}
+\usepackage[margin=2cm,nohead]{geometry}%
 <<startpreprocsection>>%
 \usepackage[active,auctex]{preview}
 <<endpreprocsection>>%
@@ -1450,9 +1451,15 @@ class Graph(Dot):
                     init()
                 self.display_mode = display
             else:
-                print "Pygame module not found, graphical display disabled"
-        else:
-            self.display_mode = display
+                print "Pygame module not found, display mode not changed"
+            return
+        if display == 'svg' and not etree_installed:
+            print "Etree module not found, display mode not changed"
+            return
+        if display == 'xdot' and not xdot_installed:
+            print "Xdot module not found, display mode not changed"
+            return        
+        self.display_mode = display
 
     def set_layout(self, layout):
         self.layout = layout
@@ -1467,18 +1474,21 @@ class Graph(Dot):
                     m = self.get_node(n)
                 m.set('color', 'red')    
         if self.display_mode == 'file':
-            if (self.get_layout() == 'dot2tex' and dot2tex_installed and
-                format == 'pdf' or format == 'ps'):
+            if self.get_layout() == 'dot2tex' and dot2tex_installed:
+                if format != 'pdf' or format != 'ps':
+                    print "Dot2tex only supports pdf and ps formats, falling back to pdf"
+                    format = 'pdf'
                 self.set_layout('dot')
                 tex = dot2tex(self.to_string(), autosize=True, texmode = 'math', template = dot2tex_template)
-                basename = 'graph'
                 f = open(basename+'.tex', 'w')
                 f.write(tex)
                 f.close()
                 call(['latex', basename])
-                call(['dvips', basename])
-                if format == 'pdf': 
-                    call(['ps2pdf', basename + '.ps'])
+                if format == 'ps':
+                    call(['dvips', basename])
+                elif format == 'pdf': 
+                    call(['pdflatex', basename])
+                self.set_layout('dot2tex')
             else:
                 if not dot2tex_installed:
                     print "Dot2tex not installed, falling back to graphviz"
@@ -1488,11 +1498,25 @@ class Graph(Dot):
                     self.set_layout('dot')
                 self.write(basename+'.'+format, self.get_layout(), format)
             return
-        elif self.get_layout() != 'bak':
-            im = StringIO(self.create(self.get_layout(), format))
-
-        else:
+        elif self.get_layout() == 'bak':
             im = StringIO(self.GenerateTreeImage())
+#        elif self.get_layout() == 'dot2tex' and dot2tex_installed:
+#            self.set_layout('dot')
+#            tex = dot2tex(self.to_string(), autosize=True, texmode = 'math', template = dot2tex_template)
+#            f = open(basename+'.tex', 'w')
+#            f.write(tex)
+#            f.close()
+#            call(['latex', basename])
+#            call(['pdflatex', basename])
+#            #call(['convert', basename+'.pdf', basename+'.png'])
+#            self.set_layout('dot')            
+#            im = open(basename + '.png', 'r')
+#            format = 'png'
+        else:
+            if self.get_layout() == 'dot2tex' and not dot2tex_installed:
+                print "Dot2tex not installed, falling back to graphviz"
+                self.set_layout('dot')
+            im = StringIO(self.create(self.get_layout(), format))
         if highlight != None:
             for n in highlight:
                 if not isinstance(n, Node):
@@ -2784,19 +2808,25 @@ class Tree(Graph):
         self.add_node(n, **attrs)
         self.add_edge(parent, n)
         
-    def dfs(self, root = None, display = 'dot'):
+    def dfs(self, root = None, display = None):
         if root == None:
             root = self.root
+        if display == None:
+            display = self.display_mode
         self.traverse(root, display, Stack())
 
-    def bfs(self, root = None, display = 'dot'):
+    def bfs(self, root = None, display = None):
         if root == None:
             root = self.root
+        if display == None:
+            display = self.display_mode
         self.traverse(root, display, Queue())
 
-    def traverse(self, display = 'dot', root = None, q = Stack()):
+    def traverse(self, root = None, display = None, q = Stack()):
         if root == None:
             root = self.root
+        if display == None:
+            display = self.display_mode
         if isinstance(q, Queue):
             addToQ = q.enqueue
             removeFromQ = q.dequeue
@@ -2805,14 +2835,11 @@ class Tree(Graph):
             removeFromQ = q.pop
     
         addToQ(root)
-#        while not q.isEmpty():
-        while not q.empty():
+        while not q.isEmpty():
             current = removeFromQ()
-            print current
+            print current                
             if display:
-                current.set('color', 'red')
-                self.display()
-                current.set('color', '')
+                self.display(highlight = [current])
             for n in self.get_children(current):
                 addToQ(n)
                 
