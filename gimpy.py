@@ -227,6 +227,18 @@ class Graph(object):
         '''        
         return self.node[name]
 
+    def get_node_attr(self, name, attr):
+        '''
+        Returns attribute attr of node name.
+        '''
+        return self.get_node(name).get_attr()
+
+    def get_edge_attr(self, n, m, attr):
+        '''
+        Returns attribute attr of edge (n,m).
+        '''
+        return self.edge_attr[(n,m)][attr]
+
     def get_neighbor(self, name):
         return self.neighbor[name]
 
