@@ -1539,7 +1539,7 @@ class Graph(object):
                     pred = {n:None}
                     visited = []
                     component_nr = int(n)
-                    self.get_node(n).set_attr(component, component_nr)
+                    self.get_node(n).set_attr('component', component_nr)
                     flag = True
                     break
             if not flag:
