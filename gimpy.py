@@ -148,36 +148,36 @@ class Graph(object):
         else:
             self.graph_type = UNDIRECTED_GRAPH
         # adjacency list of nodes, it is a dictionary of lists
-        self.neighbor = {}
+        self.neighbors = {}
         # if the graph is undirected we do not need in_neighbor
         if self.graph_type is DIRECTED_GRAPH:
-            self.in_neighbor = {}
-        self.node = {}
+            self.in_neighbors = {}
+        self.nodes = {}
         self.edge_connect_symbol = EDGE_CONNECT_SYMBOL[self.graph_type]
-
+        self.out_neighbors = self.neighbors
 
     def __repr__(self):
         data = str()
-        for n in self.node:
+        for n in self.nodes:
             data += str(n)
             data += ' -> '
-            data += self.neighbor[n].__repr__()
+            data += self.neighbors[n].__repr__()
             data += '\n'
         data = data[:-1]
         return data
 
     def add_node(self, name, **attr):
-        if name in self.neighbor:
+        if name in self.neighbors:
             raise MultipleNodeException
-        self.neighbor[name] = FlexList()
+        self.neighbors[name] = FlexList()
         if self.graph_type is DIRECTED_GRAPH:
-            self.in_neighbor[name] = FlexList()
-        self.node[name] = Node(name, **attr)
+            self.in_neighbors[name] = FlexList()
+        self.nodes[name] = Node(name, **attr)
 
     def del_node(self, name):
-        if name not in self.neighbor:
+        if name not in self.neighbors:
             raise Exception('Node %s does not exist!' %str(name))
-        del self.neighbor[name]
+        del self.neighbors[name]
         el = self.edge_attr.keys()
         for e in el:
             if e[0] is name or e[1] is name:
@@ -191,15 +191,15 @@ class Graph(object):
         self.edge_attr[(name1,name2)] = copy.deepcopy(DEFAULT_EDGE_ATTRIBUTES)
         for a in attr:
             self.edge_attr[(name1,name2)][a] = attr[a]
-        if name1 not in self.node:
+        if name1 not in self.nodes:
             self.add_node(name1)
-        if name2 not in self.node:
+        if name2 not in self.nodes:
             self.add_node(name2)
-        self.neighbor[name1].append(name2)
+        self.neighbors[name1].append(name2)
         if self.graph_type is UNDIRECTED_GRAPH:
-            self.neighbor[name2].append(name1)
+            self.neighbors[name2].append(name1)
         else:
-            self.in_neighbor[name2].append(name1)
+            self.in_neighbors[name2].append(name1)
 
     def del_edge(self, e):
         if self.graph_type is DIRECTED_GRAPH:
@@ -207,8 +207,8 @@ class Graph(object):
                 del self.edge_attr[e]
             except KeyError:
                 raise Exception('Edge %s does not exists!' %str(e))
-            self.neighbor[e[0]].remove(e[1])
-            self.in_neighbor[e[1]].remove(e[0])
+            self.neighbors[e[0]].remove(e[1])
+            self.in_neighbors[e[1]].remove(e[0])
         else:
             try:
                 del self.edge_attr[e]
@@ -217,15 +217,28 @@ class Graph(object):
                     del self.edge_attr[(e[1],e[0])]
                 except KeyError:
                     raise Exception('Edge %s does not exists!' %str(e))
-            self.neighbor[e[0]].remove(e[1])
-            self.neighbor[e[1]].remove(e[0])
+            self.neighbors[e[0]].remove(e[1])
+            self.neighbors[e[1]].remove(e[0])
 
 
     def get_node(self, name):
         '''
         Let exceptions rise if node does not exist.
         '''        
-        return self.node[name]
+        return self.nodes[name]
+
+    def get_node_list(self):
+        return self.neighbors.keys()
+
+    def get_edge_list(self):
+        return self.edge_attr.keys()
+
+    def get_node_num(self):
+        return len(self.neighbors)
+
+    def get_edge_num(self):
+        return len(self.edge_attr)
+
 
     def get_node_attr(self, name, attr):
         '''
@@ -240,10 +253,10 @@ class Graph(object):
         return self.edge_attr[(n,m)][attr]
 
     def get_neighbor(self, name):
-        return self.neighbor[name]
+        return self.neighbors[name]
 
     def get_in_neighbor(self, name):
-        return self.in_neighbor[name]
+        return self.in_neighbors[name]
 
     def get_parent_graph(self):
         '''
@@ -285,7 +298,7 @@ class Graph(object):
                 graph.append(a)
             graph.append( ';\n' )
         # process nodes
-        for n in self.neighbor:
+        for n in self.neighbors:
             data = self.get_node(n).to_string()
             graph.append(data + ';\n')
         # process edges
@@ -314,9 +327,9 @@ class Graph(object):
 
     def dfs(self, root, disc_count = 0, finish_count = 1, component = None,
             transpose = False):
-        neighbors = self.neighbor
+        neighbors = self.neighbors
         if self.graph_type == DIRECTED_GRAPH and transpose:
-            neighbors = self.in_neighbor
+            neighbors = self.in_neighbors
         self.get_node(root).set_attr('component', component)
         disc_count += 1
         self.get_node(root).set_attr('disc_time', disc_count)
@@ -371,18 +384,18 @@ class Graph(object):
             q = Queue()
         elif algo == 'Dijkstra':
             q = PriorityQueue()
-            for n in self.neighbor:
+            for n in self.neighbors:
                 self.get_node(n).set_attr('label', '-')
             self.display()
         elif algo == 'Prim':
             q = PriorityQueue()
-            for n in self.neighbor:
+            for n in self.neighbors:
                 self.get_node(n).set_attr('label', '-')
             self.display()
-        neighbors = self.neighbor
+        neighbors = self.neighbors
         if self.graph_type == 'digraph' and reverse:
-            neighbors = self.in_neighbor
-        for i in self.neighbor:
+            neighbors = self.in_neighbors
+        for i in self.neighbors:
             self.get_node(i).set_attr('color', 'black')
             for j in neighbors[i]:
                 if reverse:
@@ -540,7 +553,7 @@ class Graph(object):
         '''
         # establish a feasible flow in the network, to do this add nodes s and
         # t and solve a max flow problem.
-        nl = self.neighbor.keys()
+        nl = self.get_node_list()
         for i in nl:
             b_i = self.get_node(i).get_attr('demand')
             if b_i > 0:
@@ -553,7 +566,7 @@ class Graph(object):
         self.max_flow('s', 't')
         # check if all demand is satisfied, i.e. the min cost problem is
         # feasible or not
-        for i in self.neighbor['s']:
+        for i in self.neighbors['s']:
             flow = self.edge_attr[('s',i)]['flow']
             capacity = self.edge_attr[('s', i)]['capacity']
             if flow != capacity:
@@ -587,7 +600,7 @@ class Graph(object):
        
         post: The 'flow" attribute of each arc gives a maximum flow.
         '''
-        nl = self.neighbor.keys()
+        nl = self.neighbors.keys()
         # set flow of all edges to 0
         for e in self.edge_attr:
             self.edge_attr[e]['flow'] = 0
@@ -613,8 +626,8 @@ class Graph(object):
                 current = dfs_stack.pop()
                 if current == sink:
                     break
-                out_neighbor = self.neighbor[current]
-                in_neighbor = self.in_neighbor[current]
+                out_neighbor = self.neighbors[current]
+                in_neighbor = self.in_neighbors[current]
                 neighbor = out_neighbor+in_neighbor
                 for m in neighbor:
                     if m in explored:
@@ -726,7 +739,7 @@ class Graph(object):
             Returns a list of nodes in the cycle if a negative cycle exists,
             returns None otherwise.
         '''
-        nl = self.neighbor.keys()
+        nl = self.get_node_list()
         i = nl[0]
         r_value = self.fifo_label_correcting(i)
         if r_value[0] is False:
@@ -783,14 +796,14 @@ class Graph(object):
         pred = {}
         self.get_node(source).set_attr('distance', 0)
         pred[source] = None
-        for n in self.neighbor:
+        for n in self.neighbors:
             if n!=source:
                 self.get_node(n).set_attr('distance', 'inf')
         q = [source]
         while q:
             i = q[0]
             q = q[1:]
-            for j in self.neighbor[i]:
+            for j in self.neighbors[i]:
                 distance_j = self.get_node(j).get_attr('distance')
                 distance_i = self.get_node(i).get_attr('distance')
                 c_ij = self.edge_attr[(i, j)]['cost']
@@ -824,7 +837,7 @@ class Graph(object):
             cycle, otherwise it returns to None.
         '''
         labelled = {}
-        for n in self.neighbor:
+        for n in self.neighbors:
             labelled[n] = None
         current = j
         while current != None:
@@ -1110,8 +1123,8 @@ class Graph(object):
         Return:
             Returns a graph same as self.
         '''
-        nl = self.neighbor.keys()
-        el = self.edge_attr.keys()
+        nl = self.get_node_list()
+        el = self.get_edge_list()
         new = Graph(type=DIRECTED_GRAPH, layout='dot', display=display)
         pred_i = self.get_node(root).get_attr('pred')
         thread_i = self.get_node(root).get_attr('thread')
@@ -1122,7 +1135,7 @@ class Graph(object):
         while q:
             name = q.pop()
             visited.append(name)
-            neighbors = self.neighbor[name] + self.in_neighbor[name]
+            neighbors = self.neighbors[name] + self.in_neighbors[name]
             for n in neighbors:
                 if n not in new.neighbor:
                     pred_i = self.get_node(n).get_attr('pred')
@@ -1407,13 +1420,13 @@ class Graph(object):
         pred = {source:None}
         depth = {source:0}
         sequence = []
-        for n in self.neighbor:
+        for n in self.neighbors:
             self.get_node(n).set_attr('component', None)
         while q:
             current = q.pop()
             self.get_node(current).set_attr('component', component_nr)
             sequence.append(current)
-            neighbors = self.in_neighbor[current] + self.neighbor[current]
+            neighbors = self.in_neighbors[current] + self.neighbors[current]
             for n in neighbors:
                 if n in pred:
                     continue
@@ -1480,7 +1493,7 @@ class Graph(object):
         '''
         # make a dfs, if you identify an arc to a lower depth node we have a
         # cycle
-        nl = self.neighbor.keys()
+        nl = self.get_node_list()
         q = [nl[0]]
         visited = []
         depth = {nl[0]:0}
@@ -1493,8 +1506,8 @@ class Graph(object):
             while q:
                 current = q.pop()
                 visited.append(current)
-                neighbors = self.in_neighbor[current] +\
-                    self.neighbor[current]
+                neighbors = self.in_neighbors[current] +\
+                    self.neighbors[current]
                 for n in neighbors:
                     if n==pred[current]:
                         continue
@@ -1556,7 +1569,7 @@ class Graph(object):
             capacity_e = self.edge_attr[e]['capacity']
             if flow_e>0 and flow_e<capacity_e:
                 simplex_g.add_edge(e[0], e[1])
-            for i in self.neighbor:
+            for i in self.neighbors:
                 if i in simplex_g.neighbor:
                     continue
                 else:
@@ -1695,7 +1708,7 @@ class Graph(object):
             if 'root' in args:
                 root = args['root']
             else:
-                for k in self.neighbor:
+                for k in self.neighbors:
                     root = k
                     break
             if 'pivot' in args:
