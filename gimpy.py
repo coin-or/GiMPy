@@ -68,8 +68,6 @@ splines=true;
 
 '''
 
-import sys
-sys.path.append('/home/aykut/project_coin/pydot')
 from pydot import quote_if_necessary
 import copy
 from gimpy_global_constants import *
