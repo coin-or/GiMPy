@@ -71,6 +71,8 @@ splines=true;
 from pydot import quote_if_necessary
 import copy
 from gimpy_global_constants import *
+from Stack import Stack
+from Queues import Queue, PriorityQueue
 
 FlexList = list
 
