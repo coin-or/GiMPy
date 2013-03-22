@@ -69,10 +69,60 @@ splines=true;
 '''
 
 from pydot import quote_if_necessary
-import copy
 from gimpy_global_constants import *
 from Stack import Stack
 from Queues import Queue, PriorityQueue
+import subprocess # for call()
+import StringIO # for StringIO()
+import copy # for deepcopy()
+import sys # for exit()
+
+try:
+    import pygame # for locals.QUIT, locals.KEYDOWN,display,image,event,init
+except ImportError:
+    PYGAME_INSTALLED = False
+    print 'Pygame not installed'
+else:
+    PYGAME_INSTALLED = True
+    print 'Found pygame installation'
+
+try:
+    import dot2tex # for dot2tex method
+except ImportError:
+    DOT2TEX_INSTALLED = False
+    print 'dot2tex not installed'
+else:
+    DOT2TEX_INSTALLED = True
+    print 'Found dot2tex'
+
+try:
+    import PIL # for Image
+except ImportError:
+    PIL_INSTALLED = False
+    print 'Python Image Library not installed'
+else:
+    PIL_INSTALLED = True
+    print 'Found Python Image Library'
+
+try:
+    import pygtk
+    import gtk
+    import xdot
+except ImportError:
+    XDOT_INSTALLED = False
+    print 'Xdot not installed'
+else:
+    XDOT_INSTALLED = True
+    print 'Found xdot installation'
+
+try:
+    import lxml # for etree
+except ImportError:
+    ETREE_INSTALLED = False
+    print 'Etree could not be imported from lxml'
+else:
+    ETREE_INSTALLED = True
+    print 'Found etree in lxml'
 
 FlexList = list
 
@@ -155,6 +205,13 @@ class Graph(object):
         self.nodes = {}
         self.edge_connect_symbol = EDGE_CONNECT_SYMBOL[self.graph_type]
         self.out_neighbors = self.neighbors
+        if 'display' in self.attr and self.attr['display']=='pygame':
+            if PYGAME_INSTALLED:
+                pygame.init()
+            else:
+                print "Pygame module not installed, graphical display disabled"
+        else:
+            self.attr['display']='off'
 
     def __repr__(self):
         data = str()
@@ -252,11 +309,26 @@ class Graph(object):
         '''
         return self.edge_attr[(n,m)][attr]
 
-    def get_neighbor(self, name):
+    def set_node_attr(self, name, attr, value):
+        '''
+        Sets attr attribute of node named name to value.
+        '''
+        self.get_node(name).set_attr(attr, value)
+
+    def set_edge_attr(self, n, m, attr, value):
+        '''
+        Sets attr attribute of edge (n,m) to value.
+        '''
+        self.edge_attr[(n,m)][attr] = value
+        
+    def get_neighbors(self, name):
         return self.neighbors[name]
 
-    def get_in_neighbor(self, name):
+    def get_in_neighbors(self, name):
         return self.in_neighbors[name]
+
+    def get_out_neighbors(self, name):
+        return self.neighbors[name]
 
     def get_parent_graph(self):
         '''
@@ -324,6 +396,32 @@ class Graph(object):
             if self.get_node(n).get_attr('component') == None:
                 self.dfs(n, component = self.num_components)
                 self.num_components += 1 
+
+    def label_strong_component(self, root, disc_count = 0, finish_count = 1, 
+                               component = None):
+        '''
+        This method labels the nodes of a directed graph with component 
+        numbers so that each node has the same label as all nodes in the 
+        same component
+        '''
+        if self.graph_type == UNDIRECTED_GRAPH:
+            raise Exception("label_strong_componentsis only for ",
+                            "directed graphs")
+        if self.num_components != None:
+            return
+        self.num_components = 0
+        for n in self.get_node_list():
+            self.get_node(n).set_attr('component', None)
+        for n in self.get_node_list():
+            if self.get_node(n).get_attr('disc_time') == None:
+                self.dfs(n, component = self.num_components)
+        self.num_components = 0
+        for n in self.get_node_list():
+            self.set_node(n).set_attr('component', None)
+        for n in self.get_node_list():
+            if self.get_node(n).get_attr('component') == None:
+                self.dfs(n, component = self.num_components, transpose = True)
+                self.num_components += 1
 
     def dfs(self, root, disc_count = 0, finish_count = 1, component = None,
             transpose = False):
@@ -578,11 +676,134 @@ class Graph(object):
         self.del_node('t')
         return True
 
-    def display(self):
+    def get_layout(self):
+        '''
+        TODO(aykut)
+        '''
         pass
 
-    def set_display_mode(self, display):
+    def set_layout(self, value):
+        '''
+        TODO(aykut)
+        '''
         pass
+
+    def write(self, file_name, layout, format):
+        '''
+        TODO(aykut)
+        '''
+        pass
+
+    def create(self, layout, format):
+        '''
+        TODO(aykut)
+        '''
+        pass
+
+    def generateTreeImage(self):
+        '''
+        TODO(aykut)
+        '''
+        pass        
+
+    def display(self, highlight = None, basename = 'graph', format = 'png',
+                pause = True):
+        '''
+        TODO(aykut): using pipe and to_string and pygame get this done.
+        '''
+        if self.attr['display'] == 'off':
+            return
+        if highlight != None:
+            for n in highlight:
+                if not isinstance(n, Node):
+                    m = self.get_node(n)
+                m.set('color', 'red')    
+        if self.attr['display'] == 'file':
+            if self.get_layout() == 'dot2tex' and DOT2TEX_INSTALLED:
+                if format != 'pdf' or format != 'ps':
+                    print "Dot2tex only supports pdf and ps formats, falling back to pdf"
+                    format = 'pdf'
+                self.set_layout('dot')
+                tex = dot2tex.dot2tex(self.to_string(), autosize=True, texmode = 'math', template = dot2tex_template)
+                f = open(basename+'.tex', 'w')
+                f.write(tex)
+                f.close()
+                subprocess.call(['latex', basename])
+                if format == 'ps':
+                    subprocess.call(['dvips', basename])
+                elif format == 'pdf': 
+                    subprocess.call(['pdflatex', basename])
+                self.set_layout('dot2tex')
+            else:
+                if not DOT2TEX_INSTALLED:
+                    print "Dot2tex not installed, falling back to graphviz"
+                    self.set_layout('dot')
+                if format != 'pdf' or format != 'ps':
+                    print "Dot2tex only supports pdf and ps formats, falling back to graphviz"
+                    self.set_layout('dot')
+                self.write(basename+'.'+format, self.get_layout(), format)
+            return
+        elif self.get_layout() == 'bak':
+            im = StringIO.StringIO(self.GenerateTreeImage())
+#        elif self.get_layout() == 'dot2tex' and dot2tex_installed:
+#            self.set_layout('dot')
+#            tex = dot2tex(self.to_string(), autosize=True, texmode = 'math', template = dot2tex_template)
+#            f = open(basename+'.tex', 'w')
+#            f.write(tex)
+#            f.close()
+#            subprocess.call(['latex', basename])
+#            subprocess.call(['pdflatex', basename])
+#            #subprocess.call(['convert', basename+'.pdf', basename+'.png'])
+#            self.set_layout('dot')            
+#            im = open(basename + '.png', 'r')
+#            format = 'png'
+        else:
+            if self.get_layout() == 'dot2tex' and not dot2tex_installed:
+                print "Dot2tex not installed, falling back to graphviz"
+                self.set_layout('dot')
+            im = StringIO.StringIO(self.create(self.get_layout(), format))
+        if highlight != None:
+            for n in highlight:
+                if not isinstance(n, Node):
+                    m = self.get_node(n)
+                m.set_attr('color', 'black')
+        if self.attr['display'] == 'pygame':
+            picture = pygame.image.load(im, format)
+            screen = pygame.display.set_mode(picture.get_size())
+            screen.blit(picture, picture.get_rect())
+            pygame.display.flip()
+            while pause:
+                e = pygame.event.poll()
+                if e.type == pygame.locals.KEYDOWN:
+                    break
+                if e.type == pygame.locals.QUIT:
+                    sys.exit()
+        elif self.attr['display'] == 'PIL':
+            if PIL_INSTALLED:
+                im2 = PIL.Image.open(im)
+                im2.show()
+            else:
+                print 'Error: PIL not installed. Display disabled.'
+                self.attr['display'] = 'off'
+        elif self.attr['display'] == 'xdot':
+            if XDOT_INSTALLED:
+                window = xdot.DotWindow()
+                window.set_dotcode(self.to_string())
+                window.connect('destroy', gtk.main_quit)
+                gtk.main()
+            else:
+                print 'Error: xdot not installed. Display disabled.'
+                self.attr['display'] = 'off'
+        elif self.attr['display'] == 'svg':
+            if not ETREE_INSTALLED:
+                print 'Error: etree not installed (display mode: svg). Display disabled.'
+                self.attr['display'] = 'off'
+        else:
+            print "Unknown display mode: ",
+            print self.attr['display']
+
+    def set_display_mode(self, value):
+        self.attr['display'] = value
 
     def max_flow(self, source, sink, display=None):
         '''
