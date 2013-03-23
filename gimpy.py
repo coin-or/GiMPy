@@ -211,7 +211,9 @@ class Graph(object):
             else:
                 print "Pygame module not installed, graphical display disabled"
         else:
-            self.attr['display']='off'
+            self.attr['display'] = 'off'
+        if 'layout' not in self.attr:
+            self.attr['layout'] = 'dot'
 
     def __repr__(self):
         data = str()
@@ -544,19 +546,11 @@ class Graph(object):
             #calculate distance lines
             #distance = 0
             #for i in range(len(path)-1):
-            #    distance += self.get_edge_attr(path[i],path[i+1],'cost')
+            #    distance += self.edge_attr[(path[i],path[i+1])]['cost']
             #return distance
             #end of calculate distance lines
             return path
         return pred
-
-
-
-
-
-
-
-
 
     def create_residual_graph(self):
         '''
@@ -677,28 +671,35 @@ class Graph(object):
         return True
 
     def get_layout(self):
-        '''
-        TODO(aykut)
-        '''
-        pass
+        return self.attr['layout']
 
     def set_layout(self, value):
-        '''
-        TODO(aykut)
-        '''
-        pass
+        self.attr['layout']=value
 
-    def write(self, file_name, layout, format):
+    def create(self, layout, format, **args):
         '''
         TODO(aykut)
+        Returns postscript representation of self.
+        layout specifies the executable to be used.
+        im = StringIO.StringIO(self.create(self.get_layout(), format))
+        return image representing string in specified format. Do this by
+        calling graphviz executable. (piping)
+        We don not have support for shape files.
         '''
-        pass
-
-    def create(self, layout, format):
-        '''
-        TODO(aykut)
-        '''
-        pass
+        #decide a default program
+        #decide where to do file operations, write here for now.
+        #cmdline = [self.progs[prog], '-T'+format, tmp_name] + args
+        p = subprocess.Popen([layout, '-T'+format],
+                             stdin=subprocess.PIPE,
+                             stdout=subprocess.PIPE,
+                             stderr=subprocess.PIPE)
+        stdout_output, stderr_output = p.communicate(input=self.to_string())
+        if p.returncode != 0 :
+            raise Exception('Graphviz executable terminated with status: %d. stderr follows: %s' % (
+                    p.returncode, stderr_output))
+        elif stderr_output:
+            print stderr_output
+        return stdout_output
 
     def generateTreeImage(self):
         '''
@@ -717,7 +718,7 @@ class Graph(object):
             for n in highlight:
                 if not isinstance(n, Node):
                     m = self.get_node(n)
-                m.set('color', 'red')    
+                m.set_attr('color', 'red')    
         if self.attr['display'] == 'file':
             if self.get_layout() == 'dot2tex' and DOT2TEX_INSTALLED:
                 if format != 'pdf' or format != 'ps':
@@ -774,9 +775,9 @@ class Graph(object):
             pygame.display.flip()
             while pause:
                 e = pygame.event.poll()
-                if e.type == pygame.locals.KEYDOWN:
+                if e.type == pygame.KEYDOWN:
                     break
-                if e.type == pygame.locals.QUIT:
+                if e.type == pygame.QUIT:
                     sys.exit()
         elif self.attr['display'] == 'PIL':
             if PIL_INSTALLED:
