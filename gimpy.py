@@ -73,10 +73,10 @@ from gimpy_global_constants import *
 from Stack import Stack
 from Queues import Queue, PriorityQueue
 import subprocess # for call()
-import StringIO # for StringIO()
-import copy # for deepcopy()
-import sys # for exit()
-
+import StringIO   # for StringIO()
+import copy       # for deepcopy()
+import sys        # for exit()
+import random     # for seed, random, randint
 try:
     import pygame # for locals.QUIT, locals.KEYDOWN,display,image,event,init
 except ImportError:
@@ -152,6 +152,7 @@ class Node(object):
 
     def to_string(self):
         '''
+        TODO(aykut): try to get rid of quote_if_necessary
         return string representation of node in dot language.
         '''
         node = list()
@@ -161,7 +162,7 @@ class Node(object):
         for a in self.dot_attr:
             node.append(a)
             node.append('=')
-            node.append(str(self.dot_attr[a]))
+            node.append(quote_if_necessary(str(self.dot_attr[a])))
             node.append(', ')
         if flag is True:
             node = node[:-1]
@@ -350,7 +351,7 @@ class Graph(object):
         for a in self.edge_attr[e]:
             edge.append(a)
             edge.append('=')
-            edge.append(str(self.edge_attr[e][a]))
+            edge.append(quote_if_necessary(str(self.edge_attr[e][a])))
             edge.append(', ')
         edge = edge[:-1]
         edge.append(']')
@@ -822,7 +823,7 @@ class Graph(object):
        
         post: The 'flow" attribute of each arc gives a maximum flow.
         '''
-        nl = self.neighbors.keys()
+        nl = self.get_node_list()
         # set flow of all edges to 0
         for e in self.edge_attr:
             self.edge_attr[e]['flow'] = 0
@@ -1359,7 +1360,7 @@ class Graph(object):
             visited.append(name)
             neighbors = self.neighbors[name] + self.in_neighbors[name]
             for n in neighbors:
-                if n not in new.neighbor:
+                if n not in new.get_node_list():
                     pred_i = self.get_node(n).get_attr('pred')
                     thread_i = self.get_node(n).get_attr('thread')
                     depth_i = self.get_node(n).get_attr('depth')
@@ -1598,7 +1599,7 @@ class Graph(object):
         Return:
             Returns True if an arc is added, returns False otherwise.
         '''
-        nl = solution_g.neighbor.keys()
+        nl = solution_g.get_node_list()
         current = nl[0]
         pred = solution_g.simplex_search(current, current)
         separated = pred.keys()
@@ -1792,7 +1793,7 @@ class Graph(object):
             if flow_e>0 and flow_e<capacity_e:
                 simplex_g.add_edge(e[0], e[1])
             for i in self.neighbors:
-                if i in simplex_g.neighbor:
+                if i in simplex_g.neighbors:
                     continue
                 else:
                     simplex_g.add_node(i)
@@ -1945,3 +1946,94 @@ class Graph(object):
         else:
             print args['algo'], 'is not a defined algorithm. Exiting.'
             return
+
+    def random(self, numnodes = 10, degree_range = None, length_range = None,
+               density = None, edge_format = None, node_format = None, 
+               Euclidean = False, seedInput = None):
+        if seedInput is not None:
+            random.seed(seedInput)
+        random.seed(seedInput)
+        if edge_format == None:
+            edge_format = {'fontsize':10,
+                           'fontcolor':'blue'}
+        if node_format == None:
+            node_format = {'height':0.5,
+                           'width':0.5,
+                           'fixedsize':'true',
+                           'fontsize':10,
+                           'fontcolor':'red',
+                           'shape':'circle',
+                           }
+        if Euclidean == False:
+            for m in range(numnodes):
+                self.add_node(m, **node_format)
+            if degree_range is not None:
+                for m in range(numnodes):
+                    for i in range(random.randint(degree_range[0], degree_range[1])):
+                        n = random.randint(1, numnodes)
+                        if (m,n) not in self.edge_attr and (n,m) not in self.edge_attr and m != n:
+                            if length_range is not None:
+                                length = random.randint(length_range[0], 
+                                                 length_range[1])
+                                self.add_edge(m, n, cost = length, 
+                                              label = str(length), 
+                                              **edge_format)
+                            else:
+                                self.add_edge(m, n, **edge_format)
+            if density != None:
+                for m in range(numnodes):
+                    if self.graph_type == DIRECTED_GRAPH:
+                        numnodes2 = numnodes
+                    else:
+                        numnodes2 = m
+                    for n in range(numnodes2):
+                        if random() < density and m != n:
+                            if length_range is not None:
+                                length = random.randint(length_range[0], 
+                                                 length_range[1])
+                                self.add_edge(m, n, cost = length, 
+                                              label = str(length), 
+                                              **edge_format)
+                            else:
+                                self.add_edge(m, n, **edge_format)
+            else:
+                print "Must set either degree range or density"
+        else:
+            for m in range(numnodes):
+                ''' Assigns random coordinates (between 1 and 20) to the nodes 
+                '''
+                self.add_node(m, locationx = randint(1, 20), 
+                              locationy = random.randint(1, 20), **node_format)
+            if degree_range is not None:
+                for m in range(numnodes):
+                    for i in range(randint(degree_range[0], degree_range[1])):
+                        n = random.randint(1, numnodes)
+                        if (m,n) not in self.edge_attr and (n,m) not in self.edge_attr and m != n:
+                            if length_range is None:
+                                ''' calculates the euclidean norm and round it 
+                                to three decimal places '''
+                                length = round((((self.get_node(n).get_attr('locationx') - self.get_node(m).get_attr('locationx')) ** 2 + (self.get_node(n).get_attr('locationy') - self.get_node(m).get_attr('locationy')) ** 2) ** 0.5), 3) 
+                                self.add_edge(m, n, cost = length, 
+                                             label = str(length), 
+                                              **edge_format)
+                            else:
+                                self.add_edge(m, n, **edge_format)
+            elif density != None:
+                for m in range(numnodes):
+                    if self.graph_type == DIRECTED_GRAPH:
+                        numnodes2 = numnodes
+                    else:
+                        numnodes2 = m
+                    for n in range(numnodes2):
+                        if random.random() < density:
+                            if length_range is None:
+                                ''' calculates the euclidean norm and round it 
+                                to three decimal places '''
+                                length = round((((self.get_node(n).get_attr('locationx') - self.get_node(m).get_attr('locationx')) ** 2 + (self.get_node(n).get_attr('locationy') - self.get_node(m).get_attr('locationy')) ** 2) ** 0.5), 3) 
+                                self.add_edge(m, n, cost = length, 
+                                             label = str(length), 
+                                              **edge_format)
+                            else:
+                                self.add_edge(m, n, **edge_format)
+            else:
+                print "Must set either degree range or density"
