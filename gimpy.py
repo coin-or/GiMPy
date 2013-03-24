@@ -66,6 +66,11 @@ splines=true;
 5 -> 0  [color=blue, flow=5, cost=42, capacity=19, label="5/19/42"];
 }
 
+
+TODO(aykut):
+-> when we look for an attr and it does not exist we return None for Node class
+get_attr() method. Should we change this?
+
 '''
 
 from pydot import quote_if_necessary
@@ -145,7 +150,10 @@ class Node(object):
                 self.dot_attr[a] = attr[a]
 
     def get_attr(self, attr):
-        return self.attr[attr]
+        if attr in self.attr:
+            return self.attr[attr]
+        else:
+            return None
 
     def set_attr(self, attr, value):
         self.attr[attr] = value
@@ -238,6 +246,7 @@ class Graph(object):
         if name not in self.neighbors:
             raise Exception('Node %s does not exist!' %str(name))
         del self.neighbors[name]
+        del self.nodes[name]
         el = self.edge_attr.keys()
         for e in el:
             if e[0] is name or e[1] is name:
@@ -476,7 +485,7 @@ class Graph(object):
         returned
         '''
         if display == None:
-            display = self.display_mode
+            display = self.attr['display']
         else:
             self.set_display_mode(display)
         if algo == 'DFS':
@@ -496,7 +505,7 @@ class Graph(object):
         neighbors = self.neighbors
         if self.graph_type == 'digraph' and reverse:
             neighbors = self.in_neighbors
-        for i in self.neighbors:
+        for i in self.get_node_list():
             self.get_node(i).set_attr('color', 'black')
             for j in neighbors[i]:
                 if reverse:
@@ -507,18 +516,18 @@ class Graph(object):
         self.process_edge_search(None, source, pred, q, component, algo, 
                                  **kargs)
         found = True
-        if str(source) != str(destination):
+        if source != destination:
             found = False
         while not q.isEmpty() and not found:
             current = q.peek()
             self.process_node_search(current, q)
             self.get_node(current).set_attr('color', 'blue')
-            if current != str(source):
+            if current != source:
                 if reverse:
                     self.edge_attr[(current, pred[current])]['color'] = 'green'
                 else:
                     self.edge_attr[(pred[current], current)]['color'] = 'green'
-            if current == str(destination):
+            if current == destination:
                 found = True
                 break
             self.display()
@@ -539,9 +548,9 @@ class Graph(object):
             self.get_node(current).set_attr('color', 'green')
             self.display()
         if found:
-            path = [str(destination)]
-            current = str(destination)        
-            while current != str(source):
+            path = [destination]
+            current = destination
+            while current != source:
                 path.insert(0, pred[current])
                 current = pred[current]            
             #calculate distance lines
@@ -552,6 +561,73 @@ class Graph(object):
             #end of calculate distance lines
             return path
         return pred
+
+    def process_node_search(self, node, q):
+        if isinstance(q, PriorityQueue):
+            self.get_node(node).set_attr('priority', q.get_priority(node))
+
+    def process_edge_dijkstra(self, current, neighbor, pred, q, component):
+        if current is None:
+            self.get_node(neighbor).set_attr('color', 'red')
+            self.get_node(neighbor).set_attr('label', 0)
+            q.push(neighbor, 0)
+            self.display()
+            self.get_node(neighbor).set_attr('color', 'black')
+            return
+        new_estimate = (q.get_priority(current) + 
+                        self.edge_attr[(current, neighbor)]['cost'])
+        if neighbor not in pred or new_estimate < q.get_priority(neighbor):
+            pred[neighbor] = current
+            self.get_node(neighbor).set_attr('color', 'red')
+            self.get_node(neighbor).set_attr('label', new_estimate)
+            q.push(neighbor, new_estimate)
+            self.display()
+            self.get_node(neighbor).set_attr('color', 'black')
+
+    def process_edge_prim(self, current, neighbor, pred, q, component):
+        if current is None:
+            self.get_node(neighbor).set_attr('color', 'red')
+            self.get_node(neighbor).set_attr('label', 0)
+            q.push(neighbor, 0)
+            self.display()
+            self.get_node(neighbor).set_attr('color', 'black')
+            return
+        new_estimate = self.edge_attr[(current, neighbor)]['cost']
+        if not neighbor in pred or new_estimate < q.get_priority(neighbor):
+            pred[neighbor] = current
+            self.get_node(neighbor).set_attr('color', 'red')
+            self.get_node(neighbor).set_attr('label', new_estimate)
+            q.push(neighbor, new_estimate)
+            self.display()
+            self.get_node(neighbor).set_attr('color', 'black')
+
+    def process_edge_search(self, current, neighbor, pred, q, component, algo, 
+                            **kargs):
+        if algo == 'Dijkstra':
+            return self.process_edge_dijkstra(current, neighbor, pred, q, 
+                                              component)
+        if algo == 'Prim':
+            return self.process_edge_prim(current, neighbor, pred, q, 
+                                          component)
+        if algo == 'UnweightedSPT':
+            if current == None:
+                self.get_node(neighbor).set_attr('distance', 0)
+            else:                
+                self.get_node(neighbor).set_attr('distance',
+                                   self.get_node(current).get_attr('distance') + 1)
+        if current == None:
+            q.push(neighbor)
+            return
+        if not neighbor in pred:
+            pred[neighbor] = current
+            self.get_node(neighbor).set_attr('color', 'red')
+            self.display()
+            if component != None:
+                self.get_node(neighbor).set_attr('component', component)
+                self.get_node(neighbor).set_attr('label', component)
+            self.get_node(neighbor).set_attr('color', 'black')
+            self.display()
+            q.push(neighbor)
 
     def create_residual_graph(self):
         '''
@@ -583,7 +659,7 @@ class Graph(object):
                                     capacity=capacity_e-flow_e)
         return residual_g
 
-    def cycle_canceling(self):
+    def cycle_canceling(self, display):
         '''
         API:
             cycle_canceling(self)
