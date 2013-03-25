@@ -1479,7 +1479,8 @@ class Graph(Dot):
                     print "Dot2tex only supports pdf and ps formats, falling back to pdf"
                     format = 'pdf'
                 self.set_layout('dot')
-                tex = dot2tex(self.to_string(), autosize=True, texmode = 'math', template = dot2tex_template)
+                tex = dot2tex(self.to_string(), autosize=True, 
+                              texmode='math', template = dot2tex_template)
                 f = open(basename+'.tex', 'w')
                 f.write(tex)
                 f.close()
@@ -2561,24 +2562,6 @@ class Graph(Dot):
                 self.set_edge_attr(j, i, 'color', 'red')
             index += 1
 
-    def relabel(self):
-        '''
-        API:
-            relabel(self)
-        Description:
-            Updates label attributes of edges to cost/flow/capacity
-        Pre:
-            (1) Arcs should have 'cost', 'flow' and 'capacity' attributes
-        Post:
-            Changes 'label' attributes of arcs.
-        '''
-        for e in self.get_edge_list():
-            cost = self.get_edge_attr(e[0], e[1], 'cost')
-            flow = self.get_edge_attr(e[0], e[1], 'flow')
-            capacity = self.get_edge_attr(e[0], e[1], 'capacity')
-            self.set_edge_attr(e[0], e[1], 'label', '%d/%d/%d'
-                               %(cost, flow, capacity))
-
     #TODO(aykut): this is a game changer, all algorithms that depend on
     # residual graph can be better implemented using this method. Create
     # residual graph and use existing search/traverse methods on residual graph
@@ -3153,14 +3136,14 @@ class DisjointSet(Graph):
 
 if __name__ == '__main__':
         
-    G = Graph(graph_type = 'graph', splines='false', layout = 'dot', K = 1)
-    G.random(numnodes = 7, density = 0.7, length_range = (-5, 5), seedInput = 5)
-#    G.random(numnodes = 10, density = 0.7, seedInput = 5)
+    G = Graph(graph_type = 'graph', splines = 'true')
+#    G.random(numnodes = 7, density = 0.7, length_range = (-5, 5), seedInput = 5)
+    G.random(numnodes = 10, density = 0.5, seedInput = 5)
 
-    G.set_display_mode('off')
+    G.set_display_mode('pygame')
 
     G.display()
 
 #    G.search(0, display = 'pygame', algo = 'DFS')
 #    G.minimum_spanning_tree_kruskal(display = 'pygame')
-    G.search(source = '0', algo = 'Prim')
+    G.search(0, display = 'pygame')
