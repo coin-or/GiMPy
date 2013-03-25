@@ -2063,7 +2063,7 @@ class Graph(object):
                     else:
                         numnodes2 = m
                     for n in range(numnodes2):
-                        if random() < density and m != n:
+                        if random.random() < density and m != n:
                             if length_range is not None:
                                 length = random.randint(length_range[0], 
                                                  length_range[1])
@@ -2078,11 +2078,11 @@ class Graph(object):
             for m in range(numnodes):
                 ''' Assigns random coordinates (between 1 and 20) to the nodes 
                 '''
-                self.add_node(m, locationx = randint(1, 20), 
+                self.add_node(m, locationx = random.randint(1, 20), 
                               locationy = random.randint(1, 20), **node_format)
             if degree_range is not None:
                 for m in range(numnodes):
-                    for i in range(randint(degree_range[0], degree_range[1])):
+                    for i in range(random.randint(degree_range[0], degree_range[1])):
                         n = random.randint(1, numnodes)
                         if (m,n) not in self.edge_attr and (n,m) not in self.edge_attr and m != n:
                             if length_range is None:
@@ -2113,3 +2113,17 @@ class Graph(object):
                                 self.add_edge(m, n, **edge_format)
             else:
                 print "Must set either degree range or density"
+
+if __name__ == '__main__':
+        
+    G = Graph(graph_type = 'graph', splines = 'true')
+#    G.random(numnodes = 7, density = 0.7, length_range = (-5, 5), seedInput = 5)
+    G.random(numnodes = 10, density = 0.5, seedInput = 5)
+
+    G.set_display_mode('pygame')
+
+    G.display()
+
+#    G.search(0, display = 'pygame', algo = 'DFS')
+#    G.minimum_spanning_tree_kruskal(display = 'pygame')
+    G.search(0, display = 'pygame')
