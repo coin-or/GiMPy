@@ -145,7 +145,7 @@ class Node(object):
         self.attr = dict()
         self.dot_attr = copy.deepcopy(DEFAULT_NODE_ATTRIBUTES)
         for a in attr:
-            self.attr = attr[a]
+            self.attr[a] = attr[a]
             if a in NODE_ATTRIBUTES:
                 self.dot_attr[a] = attr[a]
 
@@ -247,7 +247,7 @@ class Graph(object):
             raise Exception('Node %s does not exist!' %str(name))
         del self.neighbors[name]
         del self.nodes[name]
-        el = self.edge_attr.keys()
+        el = self.get_edge_list()
         for e in el:
             if e[0] is name or e[1] is name:
                 del self.edge_attr[e]
@@ -319,7 +319,13 @@ class Graph(object):
         '''
         Returns attribute attr of edge (n,m).
         '''
-        return self.edge_attr[(n,m)][attr]
+        if self.graph_type is DIRECTED_GRAPH:
+            return self.edge_attr[(n,m)][attr]
+        else:
+            try:
+                return self.edge_attr[(n,m)][attr]
+            except KeyError:
+                return self.edge_attr[(m,n)][attr]
 
     def set_node_attr(self, name, attr, value):
         '''
@@ -331,8 +337,14 @@ class Graph(object):
         '''
         Sets attr attribute of edge (n,m) to value.
         '''
-        self.edge_attr[(n,m)][attr] = value
-        
+        if self.graph_type is DIRECTED_GRAPH:
+            self.edge_attr[(n,m)][attr] = value
+        else:
+            try:
+                self.edge_attr[(n,m)][attr] = value
+            except KeyError:
+                self.edge_attr[(m,n)][attr] = value
+
     def get_neighbors(self, name):
         return self.neighbors[name]
 
@@ -503,15 +515,15 @@ class Graph(object):
                 self.get_node(n).set_attr('label', '-')
             self.display()
         neighbors = self.neighbors
-        if self.graph_type == 'digraph' and reverse:
+        if self.graph_type == DIRECTED_GRAPH and reverse:
             neighbors = self.in_neighbors
         for i in self.get_node_list():
             self.get_node(i).set_attr('color', 'black')
             for j in neighbors[i]:
                 if reverse:
-                    self.edge_attr[(j,i)]['color'] = 'black'
+                    self.set_edge_attr(j, i, 'color', 'black')
                 else:
-                    self.edge_attr[(i,j)]['color'] = 'black'
+                    self.set_edge_attr(i, j, 'color', 'black')
         pred = {}
         self.process_edge_search(None, source, pred, q, component, algo, 
                                  **kargs)
@@ -524,9 +536,9 @@ class Graph(object):
             self.get_node(current).set_attr('color', 'blue')
             if current != source:
                 if reverse:
-                    self.edge_attr[(current, pred[current])]['color'] = 'green'
+                    self.set_edge_attr(current, pred[current], 'color', 'green')
                 else:
-                    self.edge_attr[(pred[current], current)]['color'] = 'green'
+                    self.set_edge_attr(pred[current], current, 'color', 'green')
             if current == destination:
                 found = True
                 break
@@ -534,16 +546,16 @@ class Graph(object):
             for n in neighbors[current]:
                 if self.get_node(n).get_attr('color') != 'green':
                     if reverse:
-                        self.edge_attr[(n, current)]['color'] = 'yellow'
+                        self.set_edge_attr(n, current, 'color', 'yellow')
                     else:
-                        self.edge_attr[(current, n)]['color'] = 'yellow'
+                        self.set_edge_attr(current, n, 'color', 'yellow')
                     self.display()
                     self.process_edge_search(current, n, pred, q, component, 
                                              algo, **kargs)
                     if reverse:
-                        self.edge_attr[(n, current)]['color'] = 'black'
+                        self.set_edge_attr(n, current, 'color', 'black')
                     else:
-                        self.edge_attr[(current, n)]['color'] = 'black'
+                        self.set_edge_attr(current, n, 'color', 'black')
             q.remove(current)
             self.get_node(current).set_attr('color', 'green')
             self.display()
@@ -575,7 +587,7 @@ class Graph(object):
             self.get_node(neighbor).set_attr('color', 'black')
             return
         new_estimate = (q.get_priority(current) + 
-                        self.edge_attr[(current, neighbor)]['cost'])
+                        self.get_edge_attr(current, neighbor, 'cost'))
         if neighbor not in pred or new_estimate < q.get_priority(neighbor):
             pred[neighbor] = current
             self.get_node(neighbor).set_attr('color', 'red')
@@ -592,7 +604,7 @@ class Graph(object):
             self.display()
             self.get_node(neighbor).set_attr('color', 'black')
             return
-        new_estimate = self.edge_attr[(current, neighbor)]['cost']
+        new_estimate = self.get_edge_attr(current, neighbor, 'cost')
         if not neighbor in pred or new_estimate < q.get_priority(neighbor):
             pred[neighbor] = current
             self.get_node(neighbor).set_attr('color', 'red')
@@ -647,10 +659,10 @@ class Graph(object):
         if self.graph_type is UNDIRECTED_GRAPH:
             raise Exception('residual graph is defined for directed graphs.')
         residual_g = Graph(type = DIRECTED_GRAPH)
-        for e in self.edge_attr:
-            capacity_e = self.edge_attr[e]['capacity']
-            flow_e = self.edge_attr[e]['flow']
-            cost_e = self.edge_attr[e]['cost']
+        for e in self.get_edge_list():
+            capacity_e = self.get_edge_attr(e[0], e[1], 'capacity')
+            flow_e = self.get_edge_attr(e[0], e[1], 'flow')
+            cost_e = self.get_edge_attr(e[0], e[1], 'cost')
             if flow_e > 0:
                 residual_g.add_edge(e[1], e[0], cost=-1*cost_e,
                                     capacity=flow_e)
@@ -736,8 +748,8 @@ class Graph(object):
         # check if all demand is satisfied, i.e. the min cost problem is
         # feasible or not
         for i in self.neighbors['s']:
-            flow = self.edge_attr[('s',i)]['flow']
-            capacity = self.edge_attr[('s', i)]['capacity']
+            flow = self.get_edge_attr('s', i, 'flow')
+            capacity = self.get_edge_attr('s', i, 'capacity')
             if flow != capacity:
                 self.del_node('s')
                 self.del_node('t')
@@ -933,41 +945,41 @@ class Graph(object):
                         continue
                     self.get_node(m).set_attr('color', 'yellow')
                     if m in out_neighbor:
-                        self.edge_attr[(current, m)]['color'] = 'yellow'
+                        self.set_edge_attr(current, m, 'color', 'yellow')
                         available_capacity = (
-                            self.edge_attr[(current, m)]['capacity']-
-                            self.edge_attr[(current, m)]['flow'])
+                            self.get_edge_attr(current, m, 'capacity')-
+                            self.get_edge_attr(current, m, 'flow'))
                     else:
-                        self.edge_attr[(m, current)]['color'] = 'yellow'
-                        available_capacity=self.edge_attr[(m, current)]['flow']
+                        self.set_edge_attr(m, current, 'color', 'yellow')
+                        available_capacity=self.get_edge_attr(m, current, 'flow')
                     self.display()
                     if available_capacity > 0:
                         self.get_node(m).set_attr('color', 'blue')
                         if m in out_neighbor:
-                            self.edge_attr[(current, m)]['color'] = 'blue'
+                            self.set_edge_attr(current, m, 'color', 'blue')
                         else:
-                            self.edge_attr[(m, current)]['color'] = 'blue'
+                            self.set_edge_attr(m, current, 'color', 'blue')
                         explored.append(m)
                         pred[m] = current
                         dfs_stack.append(m)
                     else:
                         self.get_node(m).set_attr('color', 'black')
                         if m in out_neighbor:
-                            if (self.edge_attr[(current, m)]['flow'] == 
-                                self.edge_attr[(current, m)]['capacity']):
-                                self.edge_attr[(current, m)]['color'] = 'red'
-                            elif self.edge_attr[(current, m)]['flow'] == 0:
-                                self.edge_attr[(current, m)]['color'] = 'black'
+                            if (self.get_edge_attr(current, m, 'flow') == 
+                                self.get_edge_attr(current, m, 'capacity')):
+                                self.set_edge_attr(current, m, 'color', 'red')
+                            elif self.get_edge_attr(current, m, 'flow') == 0:
+                                self.set_edge_attr(current, m, 'color', 'black')
                             else:
-                                self.edge_attr[(current, m)]['color'] = 'green'
+                                self.set_edge_attr(current, m, 'color', 'green')
                         else:
-                            if (self.edge_attr[(m, current)]['flow'] == 
-                                self.edge_attr[(m, current)]['capacity']):
-                                self.edge_attr[(m, current)]['color'] = 'red'
-                            elif self.edge_attr[(m, current)]['flow'] == 0:
-                                self.edge_attr[(m, current)]['color'] = 'black'
+                            if (self.get_edge_attr(m, current, 'flow') == 
+                                self.get_edge_attr(m, current, 'capacity')):
+                                self.set_edge_attr(m, current, 'color', 'red')
+                            elif self.get_edge_attr(m, current, 'flow') == 0:
+                                self.set_edge_attr(m, current, 'color', 'black')
                             else:
-                                self.edge_attr[(m, current)]['color'] = 'green'
+                                self.set_edge_attr(m, current, 'color', 'green')
                     self.display()
             # if no path with positive capacity from source sink exists, stop
             if sink not in pred:
@@ -1061,11 +1073,11 @@ class Graph(object):
         '''
         index = 0
         k = len(cycle)
-        capacity = self.edge_attr[(cycle[k-1], cycle[0])]['capacity']
+        capacity = self.get_edge_attr(cycle[k-1], cycle[0], 'capacity')
         while index<(k-1):
             i = cycle[index]
             j = cycle[index+1]
-            capacity_ij = self.edge_attr[(i, j)]['capacity']
+            capacity_ij = self.get_edge_attr(i, j, 'capacity')
             if capacity > capacity_ij:
                 capacity = capacity_ij
             index += 1
@@ -1105,7 +1117,7 @@ class Graph(object):
             for j in self.neighbors[i]:
                 distance_j = self.get_node(j).get_attr('distance')
                 distance_i = self.get_node(i).get_attr('distance')
-                c_ij = self.edge_attr[(i, j)]['cost']
+                c_ij = self.get_edge_attr(i, j, 'cost')
                 if distance_j > distance_i + c_ij:
                     self.get_node(j).set_attr('distance', distance_i+c_ij)
                     if j in pred:
@@ -1286,7 +1298,7 @@ class Graph(object):
         Post:
             Changes color attribute of leaving arc.
         '''
-        self.edge_attr[(p, q)]['color'] = 'red'
+        self.set_edge_attr(p, q, 'color', 'red')
 
     def simplex_determine_leaving_arc(self, t, k, l):
         '''
@@ -1304,8 +1316,8 @@ class Graph(object):
         '''
         # k,l are the first two elements of the cycle
         cycle = self.simplex_identify_cycle(t, k, l)
-        flow_kl = self.edge_attr[(k, l)]['flow']
-        capacity_kl = self.edge_attr[(k, l)]['capacity']
+        flow_kl = self.get_edge_attr(k, l, 'flow')
+        capacity_kl = self.get_edge_attr(k, l, 'capacity')
         min_capacity = capacity_kl
         # check if k,l is in U or L
         if flow_kl==capacity_kl:
@@ -1315,7 +1327,7 @@ class Graph(object):
         index = 0
         # determine last blocking arc
         t.add_edge(k, l)
-        tel = t.edge_attr.keys()
+        tel = t.get_edge_list()
         while index < (n-1):
             if (cycle[index], cycle[index+1]) in tel:
                 flow = self.edge_attr[(cycle[index], cycle[index+1])]['flow']
@@ -1356,7 +1368,7 @@ class Graph(object):
         Post:
             (1) color attribute of the arc (k,l)
         '''
-        self.edge_attr[(k, l)]['color'] = 'green'
+        self.set_edge_attr(k, l, 'color', 'green')
 
     def simplex_mark_st_arcs(self, t):
         '''
@@ -1375,7 +1387,7 @@ class Graph(object):
             (1) color attribute of edges.
         '''
         tel = t.edge_attr.keys()
-        for e in self.edge_attr:
+        for e in self.get_edge_list():
             flow_e = self.edge_attr[e]['flow']
             capacity_e = self.edge_attr[e]['capacity']
             if e in tel:
@@ -1502,11 +1514,11 @@ class Graph(object):
         # remove leaving arc
         t.del_edge((p, q))
         # set label of removed arc
-        flow_pq = self.edge_attr[(p, q)]['flow']
-        capacity_pq = self.edge_attr[(p, q)]['capacity']
-        cost_pq = self.edge_attr[(p, q)]['cost']
-        self.edge_attr[(p, q)]['label'] =\
-            "%d/%d/%d" %(flow_pq,capacity_pq,cost_pq)
+        flow_pq = self.get_edge_attr(p, q, 'flow')
+        capacity_pq = self.get_edge_attr(p, q, 'capacity')
+        cost_pq = self.edge_attr(p, q, 'cost')
+        self.set_edge_attr(p, q, 'label',
+                           "%d/%d/%d" %(flow_pq,capacity_pq,cost_pq))
         for e in t.edge_attr:
             flow = self.edge_attr[e]['flow']
             capacity = self.edge_attr[e]['capacity']
@@ -1516,7 +1528,6 @@ class Graph(object):
             t.edge_attr[e]['cost'] = cost
             t.edge_attr[e]['label'] = "%d/%d/%d" %(flow,capacity,cost)
             self.edge_attr[e]['label'] = "%d/%d/%d" %(flow,capacity,cost)
-
 
     def simplex_select_entering_arc(self, t, pivot):
         '''
