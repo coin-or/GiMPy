@@ -167,10 +167,11 @@ class Node(object):
         node.append(str(self.name))
         node.append(' [')
         flag = False
-        for a in self.dot_attr:
+        for a in self.attr:
+            flag = True
             node.append(a)
             node.append('=')
-            node.append(quote_if_necessary(str(self.dot_attr[a])))
+            node.append(quote_if_necessary(str(self.attr[a])))
             node.append(', ')
         if flag is True:
             node = node[:-1]
@@ -292,9 +293,22 @@ class Graph(object):
 
     def get_node(self, name):
         '''
-        Let exceptions rise if node does not exist.
-        '''        
-        return self.nodes[name]
+        Return none if node does not exist.
+        '''
+        if name in self.nodes:
+            return self.nodes[name]
+        else:
+            return None
+
+    def check_edge(self, name1, name2):
+        '''
+        Return True if edge exists, false otherwise.
+        '''
+        if self.graph_type is DIRECTED_GRAPH:
+            return (name1, name2) in self.edge_attr
+        else:
+            return ((name1, name2) in self.edge_attr or
+                    (name2, name1) in self.edge_attr)
 
     def get_node_list(self):
         return self.neighbors.keys()
@@ -368,6 +382,9 @@ class Graph(object):
         edge.append(str(e[0]))
         edge.append(self.edge_connect_symbol)
         edge.append(str(e[1]))
+        # return if there is nothing in self.edge_attr[e]
+        if len(self.edge_attr[e]) is 0:
+            return ''.join(edge)
         edge.append('  [')
         for a in self.edge_attr[e]:
             edge.append(a)
@@ -765,6 +782,11 @@ class Graph(object):
     def set_layout(self, value):
         self.attr['layout']=value
 
+    def write(self, basename, layout, format='png'):
+        f = open(basename, 'w')
+        f.write(self.create(layout, format))
+        f.close()
+
     def create(self, layout, format, **args):
         '''
         TODO(aykut)
@@ -831,7 +853,10 @@ class Graph(object):
                 if format != 'pdf' or format != 'ps':
                     print "Dot2tex only supports pdf and ps formats, falling back to graphviz"
                     self.set_layout('dot')
-                self.write(basename+'.'+format, self.get_layout(), format)
+                if format == 'png':
+                    # write supports only png currently
+                    self.write(basename, self.get_layout(), 'png')
+                self.write(basename, self.get_layout(), format)
             return
         elif self.get_layout() == 'bak':
             im = StringIO.StringIO(self.GenerateTreeImage())
@@ -2132,7 +2157,7 @@ if __name__ == '__main__':
     G.random(numnodes = 10, density = 0.5, seedInput = 5)
 
     G.set_display_mode('pygame')
-
+    print G.to_string()
     G.display()
 
 #    G.search(0, display = 'pygame', algo = 'DFS')
