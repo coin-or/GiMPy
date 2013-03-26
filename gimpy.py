@@ -220,8 +220,6 @@ class Graph(object):
                 pygame.init()
             else:
                 print "Pygame module not installed, graphical display disabled"
-        else:
-            self.attr['display'] = 'off'
         if 'layout' not in self.attr:
             self.attr['layout'] = 'dot'
 
@@ -846,13 +844,10 @@ class Graph(object):
                 elif format == 'pdf': 
                     subprocess.call(['pdflatex', basename])
                 self.set_layout('dot2tex')
+            elif self.get_layout() == 'dot2tex' and not DOT2TEX_INSTALLED:
+                print "Dot2tex not installed, falling back to graphviz"
+                self.set_layout('dot')
             else:
-                if not DOT2TEX_INSTALLED:
-                    print "Dot2tex not installed, falling back to graphviz"
-                    self.set_layout('dot')
-                if format != 'pdf' or format != 'ps':
-                    print "Dot2tex only supports pdf and ps formats, falling back to graphviz"
-                    self.set_layout('dot')
                 if format == 'png':
                     # write supports only png currently
                     self.write(basename, self.get_layout(), 'png')
