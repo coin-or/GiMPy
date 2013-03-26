@@ -784,7 +784,7 @@ class Graph(object):
         self.attr['layout']=value
 
     def write(self, basename, layout, format='png'):
-        f = open(basename, 'w')
+        f = file(basename, "w+b")
         f.write(self.create(layout, format))
         f.close()
 
@@ -2159,10 +2159,10 @@ if __name__ == '__main__':
 #    G.random(numnodes = 7, density = 0.7, length_range = (-5, 5), seedInput = 5)
     G.random(numnodes = 10, density = 0.5, seedInput = 5)
 
-    G.set_display_mode('pygame')
+    G.set_display_mode('file')
     print G.to_string()
-    G.display()
+    G.display(basename='try.png', format='png')
 
 #    G.search(0, display = 'pygame', algo = 'DFS')
 #    G.minimum_spanning_tree_kruskal(display = 'pygame')
-    G.search(0, display = 'pygame')
+    #G.search(0, display = 'pygame')
