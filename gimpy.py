@@ -82,6 +82,9 @@ import StringIO   # for StringIO()
 import copy       # for deepcopy()
 import sys        # for exit()
 import random     # for seed, random, randint
+import tempfile   # for mkstemp()
+import os         # for close()
+
 try:
     import pygame # for locals.QUIT, locals.KEYDOWN,display,image,event,init
 except ImportError:
@@ -795,14 +798,21 @@ class Graph(object):
         calling graphviz executable. (piping)
         We don not have support for shape files.
         '''
-        #decide a default program
-        #decide where to do file operations, write here for now.
-        #cmdline = [self.progs[prog], '-T'+format, tmp_name] + args
-        p = subprocess.Popen([layout, '-T'+format],
-                             stdin=subprocess.PIPE,
+        #p = subprocess.Popen([layout, '-T'+format],
+        #                     stdin=subprocess.PIPE,
+        #                     stdout=subprocess.PIPE,
+        #                     stderr=subprocess.PIPE)
+        tmp_fd, tmp_name = tempfile.mkstemp()
+        tmp_file = os.fdopen(tmp_fd, 'w')
+        tmp_file.write(self.to_string())
+        # ne need for os.close(tmp_fd), since we have tmp_file.close(tmp_file)
+        tmp_file.close()
+        tmp_dir = os.path.dirname(tmp_name)
+        p = subprocess.Popen([layout, '-T'+format, tmp_name],
+                             cwd=tmp_dir,
                              stdout=subprocess.PIPE,
                              stderr=subprocess.PIPE)
-        stdout_output, stderr_output = p.communicate(input=self.to_string())
+        stdout_output, stderr_output = p.communicate()
         if p.returncode != 0 :
             raise Exception('Graphviz executable terminated with status: %d. stderr follows: %s' % (
                     p.returncode, stderr_output))
@@ -849,9 +859,7 @@ class Graph(object):
                 self.set_layout('dot')
             else:
                 if format == 'png':
-                    # write supports only png currently
                     self.write(basename, self.get_layout(), 'png')
-                self.write(basename, self.get_layout(), format)
             return
         elif self.get_layout() == 'bak':
             im = StringIO.StringIO(self.GenerateTreeImage())
