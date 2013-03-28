@@ -223,6 +223,8 @@ class Graph(object):
                 pygame.init()
             else:
                 print "Pygame module not installed, graphical display disabled"
+        elif 'display' not in self.attr:
+            self.attr['display']='off'
         if 'layout' not in self.attr:
             self.attr['layout'] = 'dot'
 
@@ -1544,7 +1546,7 @@ class Graph(object):
         # set label of removed arc
         flow_pq = self.get_edge_attr(p, q, 'flow')
         capacity_pq = self.get_edge_attr(p, q, 'capacity')
-        cost_pq = self.edge_attr(p, q, 'cost')
+        cost_pq = self.get_edge_attr(p, q, 'cost')
         self.set_edge_attr(p, q, 'label',
                            "%d/%d/%d" %(flow_pq,capacity_pq,cost_pq))
         for e in t.edge_attr:
