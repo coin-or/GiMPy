@@ -29,28 +29,62 @@ import matplotlib.pyplot as pyplot
 # cost_range = (30,50)
 # capacity_range = (10,20)
 sparse_generator = [
-(20, 0.2, 3, 2, (5,10), (30,50), (10,20)),
-(20, 0.2, 3, 2, (5,10), (30,50), (10,20)),
-(22, 0.2, 4, 3, (5,10), (30,50), (10,20)),
-(22, 0.2, 4, 3, (5,10), (30,50), (10,20)),
-(25, 0.2, 5, 3, (5,10), (30,50), (10,20)),
-(25, 0.2, 5, 3, (5,10), (30,50), (10,20)),
-(28, 0.15, 6, 4, (5,10), (30,50), (10,20)),
-(28, 0.15, 6, 4, (5,10), (30,50), (10,20)),
-(30, 0.1, 7, 5, (5,10), (30,50), (10,20)),
-(30, 0.1, 7, 5, (5,10), (30,50), (10,20))
+(24, 0.2, 3, 2, (5,10), (30,50), (10,20)),
+(28, 0.2, 3, 2, (5,10), (30,50), (10,20)),
+(32, 0.2, 4, 3, (5,10), (30,50), (10,20)),
+(36, 0.1, 4, 3, (5,10), (30,50), (10,20)),
+(40, 0.1, 5, 3, (5,10), (30,50), (10,20)),
+(44, 0.1, 5, 3, (5,10), (30,50), (10,20)),
+(48, 0.1, 6, 4, (5,10), (30,50), (10,20)),
+(52, 0.1, 6, 4, (5,10), (30,50), (10,20)),
+(56, 0.1, 7, 5, (5,10), (30,50), (10,20)),
+(60, 0.1, 7, 5, (5,10), (30,50), (10,20)),
+(64, 0.1, 7, 5, (5,10), (30,50), (10,20)),
+(68, 0.1, 7, 5, (5,10), (30,50), (10,20)),
+(72, 0.1, 7, 5, (5,10), (30,50), (10,20)),
+(76, 0.1, 7, 5, (5,10), (30,50), (10,20)),
+(80, 0.1, 7, 5, (5,10), (30,50), (10,20)),
+(84, 0.1, 7, 5, (5,10), (30,50), (10,20)),
+(88, 0.1, 7, 5, (5,10), (30,50), (10,20)),
+(92, 0.1, 7, 5, (5,10), (30,50), (10,20)),
+(96, 0.1, 7, 5, (5,10), (30,50), (10,20)),
+(100, 0.1, 7, 5, (5,10), (30,50), (10,20)),
+(104, 0.1, 7, 5, (5,10), (30,50), (10,20)),
+(108, 0.1, 7, 5, (5,10), (30,50), (10,20)),
+(112, 0.1, 7, 5, (5,10), (30,50), (10,20)),
+(116, 0.1, 7, 5, (5,10), (30,50), (10,20)),
+(120, 0.1, 7, 5, (5,10), (30,50), (10,20)),
+(124, 0.1, 7, 5, (5,10), (30,50), (10,20)),
+(128, 0.1, 7, 5, (5,10), (30,50), (10,20))
 ]
 dense_generator = [
-(10, 0.6, 3, 2, (5,10), (30,50), (10,20)),
-(10, 0.6, 3, 2, (5,10), (30,50), (10,20)),
-(12, 0.6, 4, 3, (5,10), (30,50), (10,20)),
-(12, 0.6, 4, 3, (5,10), (30,50), (10,20)),
-(15, 0.6, 5, 3, (5,10), (30,50), (10,20)),
-(15, 0.6, 5, 3, (5,10), (30,50), (10,20)),
-(18, 0.6, 6, 4, (5,10), (30,50), (10,20)),
-(18, 0.6, 6, 4, (5,10), (30,50), (10,20)),
-(20, 0.6, 7, 5, (5,10), (30,50), (10,20)),
-(20, 0.6, 7, 5, (5,10), (30,50), (10,20))
+(24, 0.6, 3, 2, (5,10), (30,50), (10,20)),
+(28, 0.6, 3, 2, (5,10), (30,50), (10,20)),
+(32, 0.6, 4, 3, (5,10), (30,50), (10,20)),
+(36, 0.6, 4, 3, (5,10), (30,50), (10,20)),
+(40, 0.6, 5, 3, (5,10), (30,50), (10,20)),
+(44, 0.6, 5, 3, (5,10), (30,50), (10,20)),
+(48, 0.6, 6, 4, (5,10), (30,50), (10,20)),
+(52, 0.6, 6, 4, (5,10), (30,50), (10,20)),
+(56, 0.6, 7, 5, (5,10), (30,50), (10,20)),
+(60, 0.6, 7, 5, (5,10), (30,50), (10,20)),
+(64, 0.6, 7, 5, (5,10), (30,50), (10,20)),
+(68, 0.6, 7, 5, (5,10), (30,50), (10,20)),
+(72, 0.6, 7, 5, (5,10), (30,50), (10,20)),
+(76, 0.6, 7, 5, (5,10), (30,50), (10,20)),
+(80, 0.6, 7, 5, (5,10), (30,50), (10,20)),
+(84, 0.6, 7, 5, (5,10), (30,50), (10,20)),
+(88, 0.6, 7, 5, (5,10), (30,50), (10,20)),
+(92, 0.6, 7, 5, (5,10), (30,50), (10,20)),
+(96, 0.6, 7, 5, (5,10), (30,50), (10,20)),
+(100, 0.6, 7, 5, (5,10), (30,50), (10,20)),
+(104, 0.6, 7, 5, (5,10), (30,50), (10,20)),
+(108, 0.6, 7, 5, (5,10), (30,50), (10,20)),
+(112, 0.6, 7, 5, (5,10), (30,50), (10,20)),
+(116, 0.6, 7, 5, (5,10), (30,50), (10,20)),
+(120, 0.6, 7, 5, (5,10), (30,50), (10,20)),
+(124, 0.6, 7, 5, (5,10), (30,50), (10,20)),
+(128, 0.6, 7, 5, (5,10), (30,50), (10,20))
 ]
 
 # algorithms to be tested
@@ -138,7 +172,7 @@ def generate_graph(seed_i):
 def test_DFS(g, rg):
     root = rg.get_node_list()[0]
     gtime = time.time()
-    g.dfs(root)
+    #g.dfs(root)
     gtime = time.time() - gtime
     rgtime = time.time()
     rg.dfs(root)
@@ -149,7 +183,7 @@ def test_DFS(g, rg):
 def test_BFS(g, rg):
     root = rg.get_node_list()[0]
     gtime = time.time()
-    g.bfs(root)
+    #g.bfs(root)
     gtime = time.time() - gtime
     rgtime = time.time()
     rg.bfs(root)
@@ -161,7 +195,7 @@ def test_augmenting_path(g, rg):
     source = rg.get_node_list()[0]
     sink = rg.get_node_list()[-1]
     gtime = time.time()
-    g.max_flow(source, sink)
+    #g.max_flow(source, sink)
     gtime = time.time() - gtime
     rgtime = time.time()
     rg.max_flow(source, sink)
@@ -171,7 +205,7 @@ def test_augmenting_path(g, rg):
 
 def test_cycle_canceling(g, rg):
     gtime = time.time()
-    g.min_cost_flow(algo="cycle_canceling")
+    #g.min_cost_flow(algo="cycle_canceling")
     gtime = time.time() - gtime
     rgtime = time.time()
     rg.min_cost_flow(algo="cycle_canceling")
@@ -181,7 +215,7 @@ def test_cycle_canceling(g, rg):
 
 def test_network_simplex(g, rg):
     gtime = time.time()
-    g.min_cost_flow(algo="simplex", pivot='dantzig')
+    #g.min_cost_flow(algo="simplex", pivot='dantzig')
     gtime = time.time() - gtime
     rgtime = time.time()
     rg.min_cost_flow(algo="simplex", pivot='dantzig')
@@ -244,34 +278,50 @@ def insert_theoretical_runing_times(rg):
 
 def produce_graphs():
     '''
-    compare runing time of reimplementation with theoretical
+    Compare runing time of reimplementation with theoretical and old gimpy with
+    theoretical.
     '''
     # get number of runs, common for all graphs
     n = range(len(run_time['DFS']['theoretical']))
     for a in algo:
+        # ========= reimplementation
         # create graph for algorithm a
         scale = run_time[a]['regimpy'][-1] / run_time[a]['theoretical'][-1]
         scaled_theoretical = [scale*t for t in run_time[a]['theoretical']]
         pyplot.plot(n, run_time[a]['regimpy'], 'bs', label='actual running time')
         pyplot.plot(n, scaled_theoretical, 'g^', label='theoretical running time')
         pyplot.legend(loc='lower right')
-        pyplot.title(a+' running time vs theoretical')
+        pyplot.title('regimpy '+a+' running time vs theoretical')
         pyplot.xlabel('instances')
         pyplot.ylabel('running time')
-        print a+".png"+" written to disk."
-        pyplot.savefig(a+'.png')
+        print a+"_regimpy.png written to disk."
+        pyplot.savefig(a+'_regimpy.png')
+        pyplot.close()
+        # ========= old gimpy
+        # create graph for algorithm a
+        scale = run_time[a]['gimpy'][-1] / run_time[a]['theoretical'][-1]
+        scaled_theoretical = [scale*t for t in run_time[a]['theoretical']]
+        pyplot.plot(n, run_time[a]['gimpy'], 'bs', label='actual running time')
+        pyplot.plot(n, scaled_theoretical, 'g^', label='theoretical running time')
+        pyplot.legend(loc='lower right')
+        pyplot.title('old gimpy '+a+' running time vs theoretical')
+        pyplot.xlabel('instances')
+        pyplot.ylabel('running time')
+        print a+"_gimpy.png written to disk."
+        pyplot.savefig(a+'_gimpy.png')
         pyplot.close()
 
 if __name__=='__main__':
-    nr_seed = 4
+    nr_seed = 1
     for i in range(nr_seed):
         print "Seed", i
-        for gen in sparse_generator:
+        for gen in dense_generator:
+            print gen
             # unzip generator
             (numnodes, density, demand_numnodes, supply_numnodes,
              demand_range, cost_range, capacity_range) = gen
             # generate graphs
-            g, rg = generate_graph(i)
+            g, rg = generate_graph(i+1)
             print "Testing DFS..."
             test_DFS(g, rg)
             print "Testing BFS..."
