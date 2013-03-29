@@ -1875,7 +1875,7 @@ class Graph(object):
                         q.append(n)
             flag = False
             for n in nl:
-                if self.get_node(n).get_attr('component'):
+                if self.get_node(n).get_attr('component') is None:
                     q.append(n)
                     depth = {n:0}
                     pred = {n:None}
@@ -1904,16 +1904,13 @@ class Graph(object):
             between 0 and capacity.
         '''
         simplex_g = Graph(type=DIRECTED_GRAPH)
+        for i in self.neighbors:
+            simplex_g.add_node(i)
         for e in self.edge_attr:
             flow_e = self.edge_attr[e]['flow']
             capacity_e = self.edge_attr[e]['capacity']
             if flow_e>0 and flow_e<capacity_e:
                 simplex_g.add_edge(e[0], e[1])
-            for i in self.neighbors:
-                if i in simplex_g.neighbors:
-                    continue
-                else:
-                    simplex_g.add_node(i)
         return simplex_g
 
     def simplex_compute_potentials(self, t, root):
