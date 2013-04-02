@@ -51,3 +51,52 @@ DOT2TEX_INSTALLED = None # it wil be set when we try to import
 PIL_INSTALLED = None
 XDOT_INSTALLED = None
 ETREE_INSTALLED = None
+
+DOT2TEX_TEMPLATE = r'''
+\documentclass[landscape]{article}
+\usepackage[x11names, rgb]{xcolor}
+\usepackage[<<textencoding>>]{inputenc}
+\usepackage{tikz}
+\usetikzlibrary{snakes,arrows,shapes}
+\usepackage{amsmath}
+\usepackage[margin=2cm,nohead]{geometry}%
+<<startpreprocsection>>%
+\usepackage[active,auctex]{preview}
+<<endpreprocsection>>%
+<<gvcols>>%
+<<cropcode>>%
+<<docpreamble>>%
+
+\begin{document}
+\pagestyle{empty}
+%
+<<startpreprocsection>>%
+<<preproccode>>
+<<endpreprocsection>>%
+%
+<<startoutputsection>>
+\enlargethispage{100cm}
+% Start of code
+% \begin{tikzpicture}[anchor=mid,>=latex',join=bevel,<<graphstyle>>]
+\resizebox{\textwidth}{!}{
+\begin{tikzpicture}[>=latex',join=bevel,<<graphstyle>>]
+\pgfsetlinewidth{1bp}
+<<figpreamble>>%
+<<drawcommands>>
+<<figpostamble>>%
+\end{tikzpicture}
+% End of code
+}
+<<endoutputsection>>
+%
+\end{document}
+%
+<<startfigonlysection>>
+\begin{tikzpicture}[>=latex,join=bevel,<<graphstyle>>]
+\pgfsetlinewidth{1bp}
+<<figpreamble>>%
+<<drawcommands>>
+<<figpostamble>>%
+\end{tikzpicture}
+<<endfigonlysection>>
+'''
