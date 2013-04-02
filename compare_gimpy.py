@@ -7,7 +7,7 @@ for following algorithms DFS, BFS, augmenting flow, cycle canceling, simplex.
 import gimpy as regimpy
 # import gimpy
 import imp
-gimpy = imp.load_source('reimplementation', '../../trunk/gimpy.py')
+gimpy = imp.load_source('reimplementation', '../gimpy.py')
 import time
 from random import seed, random, randint
 import math
