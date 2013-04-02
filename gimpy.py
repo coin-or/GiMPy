@@ -84,6 +84,7 @@ import sys        # for exit()
 import random     # for seed, random, randint
 import tempfile   # for mkstemp()
 import os         # for close()
+import operator
 
 try:
     import pygame # for locals.QUIT, locals.KEYDOWN,display,image,event,init
@@ -479,7 +480,7 @@ class Graph(object):
             fTime = []
             for n in neighbors[root]:
                 fTime.append((n,self.get_node(n).get_attr('finish_time')))
-            neighbor_list = sorted(fTime, key=itemgetter(1))
+            neighbor_list = sorted(fTime, key=operator.itemgetter(1))
             neighbor_list = list(t[0] for t in neighbor_list)
             neighbor_list.reverse()
         else:
@@ -865,7 +866,7 @@ class Graph(object):
             return
         elif self.get_layout() == 'bak':
             im = StringIO.StringIO(self.GenerateTreeImage())
-#        elif self.get_layout() == 'dot2tex' and dot2tex_installed:
+#        elif self.get_layout() == 'dot2tex' and DOT2TEX_INSTALLED:
 #            self.set_layout('dot')
 #            tex = dot2tex(self.to_string(), autosize=True, texmode = 'math', template = DOT2TEX_TEMPLATE)
 #            f = open(basename+'.tex', 'w')
@@ -878,7 +879,7 @@ class Graph(object):
 #            im = open(basename + '.png', 'r')
 #            format = 'png'
         else:
-            if self.get_layout() == 'dot2tex' and not dot2tex_installed:
+            if self.get_layout() == 'dot2tex' and not DOT2TEX_INSTALLED:
                 print "Dot2tex not installed, falling back to graphviz"
                 self.set_layout('dot')
             im = StringIO.StringIO(self.create(self.get_layout(), format))
@@ -909,7 +910,7 @@ class Graph(object):
             if XDOT_INSTALLED:
                 window = xdot.DotWindow()
                 window.set_dotcode(self.to_string())
-                window.connect('destroy', gtk.main_quit)
+                window.connect('destroy', gtk.main_quit())
                 gtk.main()
             else:
                 print 'Error: xdot not installed. Display disabled.'
