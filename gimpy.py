@@ -331,7 +331,7 @@ class Graph(object):
         '''
         Returns attribute attr of node name.
         '''
-        return self.get_node(name).get_attr()
+        return self.get_node(name).get_attr(attr)
 
     def get_edge_attr(self, n, m, attr):
         '''
@@ -2370,14 +2370,14 @@ class BinaryTree(Tree):
             return int(self.get_node_attr(root, 'label'))
 
 if __name__ == '__main__':
-    G = Graph(graph_type = 'graph', splines = 'true')
-#    G.random(numnodes = 7, density = 0.7, length_range = (-5, 5), seedInput = 5)
-    G.random(numnodes = 10, density = 0.5, seedInput = 5)
+    G = Graph(graph_type = DIRECTED_GRAPH, splines = 'true')
+    G.random(numnodes = 7, density = 0.7, length_range = (1, 10), seedInput = 5)
+#    G.random(numnodes = 10, density = 0.5, seedInput = 5)
 
-    G.set_display_mode('file')
-    print G.to_string()
-    G.display(basename='try.png', format='png')
+#    G.set_display_mode('file')
+#    print G.to_string()
+#    G.display(basename='try.png', format='png')
 
-#    G.search(0, display = 'pygame', algo = 'DFS')
+    G.search(0, display = 'pygame', algo = 'Dijkstra')
 #    G.minimum_spanning_tree_kruskal(display = 'pygame')
     #G.search(0, display = 'pygame')
