@@ -88,7 +88,7 @@ dense_generator = [
 ]
 
 # algorithms to be tested
-algo = ['DFS', 'BFS', 'AugmentingPath', 'CycleCanceling', 'Simplex']
+algo = ['DFS', 'BFS', 'Dijkstra', 'AugmentingPath', 'CycleCanceling', 'Simplex']
 module = ['gimpy', 'regimpy', 'theoretical']
 # run_time dictionary keys are modules and values are {algo: list of run-time
 # in secs}
@@ -175,7 +175,7 @@ def test_DFS(g, rg):
     #g.dfs(root)
     gtime = time.time() - gtime
     rgtime = time.time()
-    rg.dfs(root)
+    #rg.dfs(root)
     rgtime = time.time() - rgtime
     run_time['DFS']['gimpy'].append(gtime)
     run_time['DFS']['regimpy'].append(rgtime)
@@ -186,10 +186,21 @@ def test_BFS(g, rg):
     #g.bfs(root)
     gtime = time.time() - gtime
     rgtime = time.time()
-    rg.bfs(root)
+    #rg.bfs(root)
     rgtime = time.time() - rgtime
     run_time['BFS']['gimpy'].append(gtime)
     run_time['BFS']['regimpy'].append(rgtime)
+
+def test_dijkstra(g, rg):
+    root = rg.get_node_list()[0]
+    gtime = time.time()
+    #g.search(root, algo='Dijkstra')
+    gtime = time.time() - gtime
+    rgtime = time.time()
+    rg.search(root, algo = 'Dijkstra')
+    rgtime = time.time() - rgtime
+    run_time['Dijkstra']['gimpy'].append(gtime)
+    run_time['Dijkstra']['regimpy'].append(rgtime)
 
 def test_augmenting_path(g, rg):
     source = rg.get_node_list()[0]
@@ -198,7 +209,7 @@ def test_augmenting_path(g, rg):
     #g.max_flow(source, sink)
     gtime = time.time() - gtime
     rgtime = time.time()
-    rg.max_flow(source, sink)
+    #rg.max_flow(source, sink)
     rgtime = time.time() - rgtime
     run_time['AugmentingPath']['gimpy'].append(gtime)
     run_time['AugmentingPath']['regimpy'].append(rgtime)
@@ -208,7 +219,7 @@ def test_cycle_canceling(g, rg):
     #g.min_cost_flow(algo="cycle_canceling")
     gtime = time.time() - gtime
     rgtime = time.time()
-    rg.min_cost_flow(algo="cycle_canceling")
+    #rg.min_cost_flow(algo="cycle_canceling")
     rgtime = time.time() - rgtime
     run_time['CycleCanceling']['gimpy'].append(gtime)
     run_time['CycleCanceling']['regimpy'].append(rgtime)
@@ -218,7 +229,7 @@ def test_network_simplex(g, rg):
     #g.min_cost_flow(algo="simplex", pivot='dantzig')
     gtime = time.time() - gtime
     rgtime = time.time()
-    rg.min_cost_flow(algo="simplex", pivot='dantzig')
+    #rg.min_cost_flow(algo="simplex", pivot='dantzig')
     rgtime = time.time() - rgtime
     run_time['Simplex']['gimpy'].append(gtime)
     run_time['Simplex']['regimpy'].append(rgtime)
@@ -266,6 +277,9 @@ def insert_theoretical_runing_times(rg):
     run_time['DFS']['theoretical'].append(tt)
     # insert BFS O(n+m)
     run_time['BFS']['theoretical'].append(tt)
+    # insert Dijsktra with binary heap O((n+m) log n)
+    tt = (n+m) * math.log(n)
+    run_time['Dijkstra']['theoretical'].append(tt)
     # insert AugmentingPath O(n m^2)
     tt = n*m*m
     run_time['AugmentingPath']['theoretical'].append(tt)
@@ -326,6 +340,8 @@ if __name__=='__main__':
             test_DFS(g, rg)
             print "Testing BFS..."
             test_BFS(g, rg)
+            print "Testing Dijkstra..."
+            test_dijkstra(g, rg)
             print "Testing augmenting path..."
             test_augmenting_path(g, rg)
             print "Testing cycle canceling..."

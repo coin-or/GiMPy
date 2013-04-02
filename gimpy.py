@@ -506,15 +506,15 @@ class Graph(object):
                component = None, q = Stack(),
                algo = 'DFS', reverse = False, **kargs):
         '''
-        This method determines all nodes reachable from "source" if 
-        "destination" is not given. Otherwise, it determines whether there is 
-        a path from "source" to "destination". Optionally, it marks all nodes 
-        reachable from "source" with a component number. The variable "q" 
-        determines the order in which the nodes are searched. 
-        
-        post: The return value should be a list of nodes on the path from 
-        "source" to "destination" if one is found. Otherwise, "None" is 
-        returned
+        if destination is not specified:
+           This method determines all nodes reachable from "source" ie. creates
+           precedence tree and returns it (dictionary).
+        if destionation is given:
+           If there exists a path from "source" to "destination" it will return
+           list of the nodes is this path. If there is no such path, it will
+           return the precedence tree constructed from source (dictionary).
+        Optionally, it marks all nodes reachable from "source" with a component
+        number. The variable "q" determines the order in which the nodes are searched. 
         '''
         if display == None:
             display = self.attr['display']
@@ -846,7 +846,7 @@ class Graph(object):
                     print "Dot2tex only supports pdf and ps formats, falling back to pdf"
                     format = 'pdf'
                 self.set_layout('dot')
-                tex = dot2tex.dot2tex(self.to_string(), autosize=True, texmode = 'math', template = dot2tex_template)
+                tex = dot2tex.dot2tex(self.to_string(), autosize=True, texmode = 'math', template = DOT2TEX_TEMPLATE)
                 f = open(basename+'.tex', 'w')
                 f.write(tex)
                 f.close()
@@ -867,7 +867,7 @@ class Graph(object):
             im = StringIO.StringIO(self.GenerateTreeImage())
 #        elif self.get_layout() == 'dot2tex' and dot2tex_installed:
 #            self.set_layout('dot')
-#            tex = dot2tex(self.to_string(), autosize=True, texmode = 'math', template = dot2tex_template)
+#            tex = dot2tex(self.to_string(), autosize=True, texmode = 'math', template = DOT2TEX_TEMPLATE)
 #            f = open(basename+'.tex', 'w')
 #            f.write(tex)
 #            f.close()
