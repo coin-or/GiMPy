@@ -1474,30 +1474,28 @@ class Graph(Dot):
                     m = self.get_node(n)
                 m.set('color', 'red')    
         if self.display_mode == 'file':
-            if self.get_layout() == 'dot2tex' and dot2tex_installed:
-                if format != 'pdf' or format != 'ps':
-                    print "Dot2tex only supports pdf and ps formats, falling back to pdf"
-                    format = 'pdf'
-                self.set_layout('dot')
-                tex = dot2tex(self.to_string(), autosize=True, 
-                              texmode='math', template = dot2tex_template)
-                f = open(basename+'.tex', 'w')
-                f.write(tex)
-                f.close()
-                call(['latex', basename])
-                if format == 'ps':
-                    call(['dvips', basename])
-                elif format == 'pdf': 
-                    call(['pdflatex', basename])
-                self.set_layout('dot2tex')
-            else:
-                if not dot2tex_installed:
+            if self.get_layout() == 'dot2tex':
+                if dot2tex_installed:
+                    if format != 'pdf' or format != 'ps':
+                        print "Dot2tex only supports pdf and ps formats, falling back to pdf"
+                        format = 'pdf'
+                    self.set_layout('dot')
+                    tex = dot2tex(self.to_string(), autosize=True, 
+                                  texmode='math', template = dot2tex_template)
+                    f = open(basename+'.tex', 'w')
+                    f.write(tex)
+                    f.close()
+                    call(['latex', basename])
+                    if format == 'ps':
+                        call(['dvips', basename])
+                    elif format == 'pdf': 
+                        call(['pdflatex', basename])
+                    self.set_layout('dot2tex')
+                    return
+                else:
                     print "Dot2tex not installed, falling back to graphviz"
                     self.set_layout('dot')
-                if format != 'pdf' or format != 'ps':
-                    print "Dot2tex only supports pdf and ps formats, falling back to graphviz"
-                    self.set_layout('dot')
-                self.write(basename+'.'+format, self.get_layout(), format)
+            self.write(basename+'.'+format, self.get_layout(), format)
             return
         elif self.get_layout() == 'bak':
             im = StringIO(self.GenerateTreeImage())
