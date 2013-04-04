@@ -1,2 +1,2 @@
 import gimpy, Stack, LinkedList, Queues
-from gimpy import Graph, Subgraph, Cluster, Tree, BinaryTree, DisjointSet, BBTree, etree_installed, pygame_installed, gexf_installed, PIL_installed, xdot_installed 
+from gimpy import Graph, BinaryTree, ETREE_INSTALLED, PYGAME_INSTALLED, PIL_INSTALLED, XDOT_INSTALLED 
