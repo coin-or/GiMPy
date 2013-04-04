@@ -73,8 +73,6 @@ get_attr() method. Should we change this?
 
 '''
 
-import pydot
-
 from gimpy_global_constants import *
 from Stack import Stack
 from Queues import Queue, PriorityQueue
@@ -175,7 +173,7 @@ class Node(object):
             flag = True
             node.append(a)
             node.append('=')
-            node.append(pydot.quote_if_necessary(str(self.attr[a])))
+            node.append(quote_if_necessary(str(self.attr[a])))
             node.append(', ')
         if flag is True:
             node = node[:-1]
