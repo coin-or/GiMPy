@@ -308,7 +308,7 @@ class Graph(object):
        '''
        Returns cost attr of edge, required for minimum_spanning_tree_kruskal().
        '''
-       return self.edge_attr[edge]['cost']
+       return self.get_edge_attr(edge[0], edge[1], 'cost')
 
     def check_edge(self, name1, name2):
         '''
@@ -679,7 +679,7 @@ class Graph(object):
         if components is None:
             components = DisjointSet(display = 'pygame', layout = 'dot', 
                                      optimize = False)
-        sorted_edge_list = self.get_edge_list().sort(key=self.get_edge_cost)
+        sorted_edge_list = sorted(self.get_edge_list(), key=self.get_edge_cost)
         edges = []
         for n in self.get_node_list():
             components.add([n])
@@ -2350,7 +2350,7 @@ class Graph(object):
 
 class Tree(Graph):    
     def __init__(self, **attrs):
-        attrs['graph_type'] = DIRECTED_GRAPH
+        attrs['type'] = DIRECTED_GRAPH
         if 'layout' not in attrs:
             attrs['layout'] = 'dot'
         Graph.__init__(self, **attrs)
@@ -2565,7 +2565,7 @@ class BinaryTree(Tree):
 
 class DisjointSet(Graph):    
     def __init__(self, optimize = True, **attrs):
-        attrs['graph_type'] = DIRECTED_GRAPH
+        attrs['type'] = DIRECTED_GRAPH
         Graph.__init__(self, **attrs)
         self.sizes = {}
         self.optimize = optimize
@@ -2612,6 +2612,6 @@ if __name__ == '__main__':
 #    print G.to_string()
 #    G.display(basename='try.png', format='png')
 
-    G.search(0, display = 'pygame', algo = 'Dijkstra')
-#    G.minimum_spanning_tree_kruskal(display = 'pygame')
+#    G.search(0, display = 'pygame', algo = 'Dijkstra')
+    G.minimum_spanning_tree_kruskal(display='pygame')
     #G.search(0, display = 'pygame')
