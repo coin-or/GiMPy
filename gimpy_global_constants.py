@@ -1,3 +1,9 @@
+'''
+This file has global constants required for GIMPy.
+'''
+
+import re     # for compile()
+
 GRAPH_ATTRIBUTES = set( ['Damping', 'K', 'URL', 'aspect', 'bb', 'bgcolor',
     'center', 'charset', 'clusterrank', 'colorscheme', 'comment', 'compound',
     'concentrate', 'defaultdist', 'dim', 'dimen', 'diredgeconstraints',
@@ -100,3 +106,57 @@ DOT2TEX_TEMPLATE = r'''
 \end{tikzpicture}
 <<endfigonlysection>>
 '''
+
+# following globals and two methods are from pydot
+DOT_KEYWORDS = ['graph', 'subgraph', 'digraph', 'node', 'edge', 'strict']
+ID_RE_ALPHA_NUMS = re.compile('^[_a-zA-Z][a-zA-Z0-9_,]*$', re.UNICODE)
+ID_RE_ALPHA_NUMS_WITH_PORTS = re.compile('^[_a-zA-Z][a-zA-Z0-9_,:\"]*[a-zA-Z0-9_,\"]+$', re.UNICODE)
+ID_RE_NUM = re.compile('^[0-9,]+$', re.UNICODE)
+ID_RE_WITH_PORT = re.compile('^([^:]*):([^:]*)$', re.UNICODE)
+ID_RE_DBL_QUOTED = re.compile('^\".*\"$', re.S|re.UNICODE)
+ID_RE_HTML = re.compile('^<.*>$', re.S|re.UNICODE)
+
+def quote_if_necessary(s):
+    if isinstance(s, bool):
+        if s is True:
+            return 'True'
+        return 'False'
+    if not isinstance(s, basestring):
+        return s
+    if not s:
+        return s
+    if needs_quotes(s):
+        replace = {'"'  : r'\"',
+                   "\n" : r'\n',
+                   "\r" : r'\r'}
+        for (a,b) in replace.items():
+            s = s.replace(a, b)
+        return '"' + s + '"'
+    return s
+
+def needs_quotes(s):
+    """Checks whether a string is a dot language ID.
+    It will check whether the string is solely composed
+    by the characters allowed in an ID or not.
+    If the string is one of the reserved keywords it will
+    need quotes too but the user will need to add them
+    manually.
+    """
+    # If the name is a reserved keyword it will need quotes but pydot
+    # can't tell when it's being used as a keyword or when it's simply
+    # a name. Hence the user needs to supply the quotes when an element
+    # would use a reserved keyword as name. This function will return
+    # false indicating that a keyword string, if provided as-is, won't
+    # need quotes.
+    if s in DOT_KEYWORDS:
+        return False
+    chars = [ord(c) for c in s if ord(c)>0x7f or ord(c)==0]
+    if chars and not ID_RE_DBL_QUOTED.match(s) and not ID_RE_HTML.match(s):
+        return True
+    for test_re in [ID_RE_ALPHA_NUMS, ID_RE_NUM, ID_RE_DBL_QUOTED, ID_RE_HTML, ID_RE_ALPHA_NUMS_WITH_PORTS]:
+        if test_re.match(s):
+            return False
+    m = ID_RE_WITH_PORT.match(s)
+    if m:
+        return needs_quotes(m.group(1)) or needs_quotes(m.group(2))
+    return True
