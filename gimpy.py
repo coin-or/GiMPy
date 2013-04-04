@@ -668,6 +668,48 @@ class Graph(object):
             self.display()
             q.push(neighbor)
 
+    def minimum_spanning_tree_prim(self, source, display = None,
+                                   q = PriorityQueue()):
+        '''
+        This method determines a minimum spanning tree of all nodes reachable
+        from "source" using Prim's Algorithm
+        '''
+        if display == None:
+            display = self.attr['display']
+        else:
+            self.set_display_mode(display)
+        if isinstance(q, PriorityQueue):
+            addToQ = q.push
+            removeFromQ = q.pop
+            peek = q.peek
+            isEmpty = q.isEmpty
+        neighbors = self.get_neighbors
+        pred = {}
+        addToQ(source)
+        done = False
+        while not isEmpty() and not done:
+            current = removeFromQ()
+            self.set_node_attr(current, 'color', 'blue')
+            if current != source:
+                self.set_edge_attr(pred[current], current, 'color', 'green')
+            self.display()
+            for n in neighbors(current):
+                if self.get_node_attr(n, 'color') != 'green':
+                    self.set_edge_attr(current, n, 'color', 'yellow')
+                    self.display()
+                    new_estimate = self.get_edge_attr(current, n, 'cost')
+                    if not n in pred or new_estimate < peek(n)[0]:
+                        pred[n] = current
+                        self.set_node_attr(n, 'color', 'red')
+                        self.set_node_attr(n, 'label', new_estimate)
+                        addToQ(n, new_estimate)
+                        self.display()
+                        self.set_node_attr(n, 'color', 'black')
+                    self.set_edge_attr(current, n, 'color', 'black')
+            self.set_node_attr(current, 'color', 'green')
+            self.display()
+        return pred
+
     def minimum_spanning_tree_kruskal(self, display = None, components = None):
         '''
         This method determines a minimum spanning tree using Kruskal's Algorithm
@@ -677,7 +719,7 @@ class Graph(object):
         else:
             self.set_display_mode(display)
         if components is None:
-            components = DisjointSet(display = 'pygame', layout = 'dot', 
+            components = DisjointSet(display = display, layout = 'dot', 
                                      optimize = False)
         sorted_edge_list = sorted(self.get_edge_list(), key=self.get_edge_cost)
         edges = []
@@ -685,7 +727,6 @@ class Graph(object):
             components.add([n])
         components.display()   
         for e in sorted_edge_list:
-            print e
             if len(edges) == len(self.get_node_list()) - 1:
                 break
             self.set_edge_attr(e[0], e[1], 'color', 'yellow')
@@ -2613,5 +2654,5 @@ if __name__ == '__main__':
 #    G.display(basename='try.png', format='png')
 
 #    G.search(0, display = 'pygame', algo = 'Dijkstra')
-    G.minimum_spanning_tree_kruskal(display='pygame')
+    G.minimum_spanning_tree_kruskal(display='off')
     #G.search(0, display = 'pygame')
