@@ -73,7 +73,8 @@ get_attr() method. Should we change this?
 
 '''
 
-from pydot import quote_if_necessary
+import pydot
+
 from gimpy_global_constants import *
 from Stack import Stack
 from Queues import Queue, PriorityQueue
@@ -84,7 +85,7 @@ import sys        # for exit()
 import random     # for seed, random, randint
 import tempfile   # for mkstemp()
 import os         # for close()
-import operator
+import operator   # for itemgetter()
 
 try:
     import pygame # for locals.QUIT, locals.KEYDOWN,display,image,event,init
@@ -164,7 +165,6 @@ class Node(object):
 
     def to_string(self):
         '''
-        TODO(aykut): try to get rid of quote_if_necessary
         return string representation of node in dot language.
         '''
         node = list()
@@ -175,7 +175,7 @@ class Node(object):
             flag = True
             node.append(a)
             node.append('=')
-            node.append(quote_if_necessary(str(self.attr[a])))
+            node.append(pydot.quote_if_necessary(str(self.attr[a])))
             node.append(', ')
         if flag is True:
             node = node[:-1]
@@ -303,6 +303,12 @@ class Graph(object):
             return self.nodes[name]
         else:
             return None
+
+    def get_edge_cost(self, edge):
+       '''
+       Returns cost attr of edge, required for minimum_spanning_tree_kruskal().
+       '''
+       return self.edge_attr[edge]['cost']
 
     def check_edge(self, name1, name2):
         '''
@@ -661,6 +667,194 @@ class Graph(object):
             self.get_node(neighbor).set_attr('color', 'black')
             self.display()
             q.push(neighbor)
+
+    def minimum_spanning_tree_kruskal(self, display = None, components = None):
+        '''
+        This method determines a minimum spanning tree using Kruskal's Algorithm
+        '''
+        if display == None:
+            display = self.attr['display']
+        else:
+            self.set_display_mode(display)
+        if components is None:
+            components = DisjointSet(display = 'pygame', layout = 'dot', 
+                                     optimize = False)
+        sorted_edge_list = self.get_edge_list().sort(key=self.get_edge_cost)
+        edges = []
+        for n in self.get_node_list():
+            components.add([n])
+        components.display()   
+        for e in sorted_edge_list:
+            print e
+            if len(edges) == len(self.get_node_list()) - 1:
+                break
+            self.set_edge_attr(e[0], e[1], 'color', 'yellow')
+            self.display()
+            if components.union(e[0], e[1]):
+                self.set_edge_attr(e[0], e[1], 'color', 'green')
+                self.display()
+                edges.append(e)
+            else:
+                self.set_edge_attr(e[0], e[1], 'color', 'black')
+                self.display()
+            components.display()
+        return edges
+
+    def max_flow_preflowpush(self, source, sink, algo = 'FIFO', display = None):
+        '''
+        API: max_flow(self, source, sink, display=None)
+        Finds maximum flow from source to sink by a depth-first search based 
+        augmenting path algorithm. 
+        
+        pre: Assumes a directed graph in which each arc has a 'capacity' 
+        attribute and for which there does does not exist both arcs (i, j) and 
+        (j, i) for any pair of nodes i and j.
+        inputs:
+            source: source node, integer or string
+            sink: sink node, integer or string
+            display: 
+       
+        post: The 'flow' attribute of each arc gives a maximum flow.
+        '''
+        if display == None:
+            display = self.attr['display']
+        else:
+            self.set_display_mode(display)
+        nl = self.get_node_list()
+        # set excess of all nodes to 0
+        for n in nl:
+            self.set_node_attr(n, 'excess', 0)
+        # set flow of all edges to 0
+        for e in self.edge_attr:
+           self.edge_attr[e]['flow'] = 0
+           self.edge_attr[e]['label'] = str(self.edge_attr[e]['capacity'])+'/0'
+        self.display()
+        self.set_display_mode('off')
+        self.search(sink, algo = 'UnweightedSPT', reverse = True)
+        self.set_display_mode(display)
+        disconnect = False
+        for n in nl:
+            if self.get_node_attr(n, 'distance') is None:
+                disconnect = True
+                self.set_node_attr(n, 'distance',
+                                   2*len(nl) + 1)
+        if disconnect:
+            print 'Warning: graph contains nodes not connected to the sink...'
+        if algo == 'FIFO':
+            q = Queue()
+        elif algo == 'SAP':
+            q = Stack()
+        elif algo == 'HighestLabel':
+            q = PriorityQueue()
+        for n in self.get_neighbors(source):
+            capacity = self.get_edge_attr(source, n, 'capacity')
+            self.set_edge_attr(source, n, 'flow', capacity)
+            self.set_node_attr(n, 'excess', capacity)
+            excess = self.get_node_attr(source, 'excess')
+            self.set_node_attr(source, 'excess', excess - capacity)
+            if algo == 'FIFO' or algo == 'SAP':
+                q.push(n)
+            elif algo == 'HighestLabel':
+                q.push(n, -1)
+        self.set_node_attr(source, 'distance', len(nl))
+        self.show_flow()
+        while not q.isEmpty():
+            relabel = True
+            current = q.peek()
+            neighbors = (self.get_neighbors(current) + 
+                         self.get_in_neighbors(current))
+            for n in neighbors:
+                pushed = self.process_edge_flow(source, sink, current, n, algo,
+                                                q)
+                if pushed:
+                    self.show_flow()                    
+                    if algo == 'FIFO':
+                        '''With FIFO, we need to add the neighbors to the queue
+                        before the current is added back in or the nodes will 
+                        be out of order
+                        '''
+                        if q.peek(n) is None and n != source and n != sink:
+                            q.push(n)
+                        '''Keep pushing while there is excess'''
+                        if self.get_node_attr(current, 'excess') > 0:
+                            continue
+                    '''If we were able to push, then there we should not 
+                    relabel
+                    '''
+                    relabel = False
+                    break
+            q.remove(current)
+            if current != sink:
+                if relabel:
+                    self.relabel(current)
+                    self.show_flow()                    
+                if self.get_node_attr(current, 'excess') > 0:
+                    if algo == 'FIFO' or algo == 'SAP':
+                        q.push(current)
+                    elif algo == 'HighestLabel':
+                        q.push(current, -self.get_node_attr(current, 
+                                                            'distance'))
+            if pushed and q.peek(n) is None and n != source:
+                if algo == 'SAP':
+                    q.push(n)
+                elif algo == 'HighestLabel':
+                    q.push(n, -self.get_node_attr(n, 'distance'))
+        return
+
+    def process_edge_flow(self, source, sink, i, j, algo, q):
+        if (self.get_node_attr(i, 'distance') != 
+            self.get_node_attr(j, 'distance') + 1):
+            return False
+        if (i, j) in self.edge_attr:
+            edge = (i, j)
+            capacity = self.get_edge_attr(i, j, 'capacity')
+            mult = 1
+        else:
+            edge = (j, i)
+            capacity = 0
+            mult = -1
+        flow = mult*self.edge_attr[edge]['flow']
+        residual_capacity = capacity - flow
+        if residual_capacity == 0:
+            return False
+        excess_i = self.get_node_attr(i, 'excess')
+        excess_j = self.get_node_attr(j, 'excess')
+        push_amount = min(excess_i, residual_capacity)
+        self.edge_attr[edge]['flow'] = mult*(flow + push_amount)
+        self.set_node_attr(i, 'excess', excess_i - push_amount)
+        self.set_node_attr(j, 'excess', excess_j + push_amount)
+        return True
+
+    def relabel(self, i):
+        min_distance = 2*len(self.get_node_list()) + 1
+        for j in self.get_neighbors(i):
+            if (self.get_node_attr(j, 'distance') < min_distance and 
+                (self.get_edge_attr(i, j, 'flow') < 
+                 self.get_edge_attr(i, j, 'capacity'))):
+                min_distance = self.get_node_attr(j, 'distance')
+        for j in self.get_in_neighbors(i):
+            if (self.get_node_attr(j, 'distance') < min_distance and 
+                self.get_edge_attr(j, i, 'flow') > 0):
+                min_distance = self.get_node_attr(j, 'distance')
+        self.set_node_attr(i, 'distance', min_distance + 1)
+
+    def show_flow(self):
+        for n in self.get_node_list():
+            excess = self.get_node_attr(n, 'excess')
+            distance = self.get_node_attr(n, 'distance')
+            self.set_node_attr(n, 'label', str(excess)+'/'+str(distance))
+            for neighbor in self.get_neighbors(n):
+                capacity = self.get_edge_attr(n, neighbor, 'capacity')
+                flow = self.get_edge_attr(n, neighbor, 'flow')
+                self.set_edge_attr(n, neighbor, 'label', 
+                                   str(capacity)+'/'+str(flow))
+                if capacity == flow:
+                    self.set_edge_attr(n, neighbor, 'color', 'red')
+                elif flow > 0:
+                    self.set_edge_attr(n, neighbor, 'color', 'green')
+                else:
+                    self.set_edge_attr(n, neighbor, 'color', 'black')
+        self.display()
 
     def create_residual_graph(self):
         '''
@@ -2368,6 +2562,46 @@ class BinaryTree(Tree):
             return opers[self.get_node_attr(root, 'label')](res1 , res2)
         else:
             return int(self.get_node_attr(root, 'label'))
+
+class DisjointSet(Graph):    
+    def __init__(self, optimize = True, **attrs):
+        attrs['graph_type'] = DIRECTED_GRAPH
+        Graph.__init__(self, **attrs)
+        self.sizes = {}
+        self.optimize = optimize
+        
+    def add(self, aList):
+        self.add_node(aList[0])
+        for i in range(1, len(aList)):
+            self.add_edge(aList[i], aList[0])
+        self.sizes[aList[0]] = len(aList)
+        
+    def union(self, i, j):
+        roots = (self.find(i), self.find(j))
+        if roots[0] == roots[1]:
+            return False
+        if self.sizes[roots[0]] <= self.sizes[roots[1]] or not self.optimize:
+            self.add_edge(roots[0], roots[1])
+            self.sizes[roots[1]] += self.sizes[roots[0]]
+            return True
+        else:
+            self.add_edge(roots[1], roots[0])
+            self.sizes[roots[0]] += self.sizes[roots[1]]
+            return True
+        
+    def find(self, i):
+        current = i
+        edge_list = []
+        while len(self.get_neighbors(current)) != 0:
+            successor = self.get_neighbors(current)[0]
+            edge_list.append((current, successor))
+            current = successor
+        if self.optimize:
+            for e in edge_list:
+                if e[1] != current:
+                    self.del_edge(e[0], e[1])                   
+                    self.add_edge(e[0], current)
+        return current
 
 if __name__ == '__main__':
     G = Graph(graph_type = DIRECTED_GRAPH, splines = 'true')
