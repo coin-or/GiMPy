@@ -11,7 +11,7 @@ One deviation from standart Graph implementations is to keep in neighbors in
 an other adjacency list. We do this for efficiency resons considering
 traversing residual graphs.
 
-We have a class for Graph and a class for Node. Edges are not represented as 
+We have a class for Graph and a class for Node. Edges are not represented as
 objects. They are kept in a dictionary which also keeps their attributes.
 
 Node objects should be used to get an attribute of a Node. We do not have a
@@ -23,7 +23,6 @@ Some portion of code is written using Pydot source code.
 
 There are two attribute sets for Graph and node classes.
 1. attributes to keep data (attr), ie for edges cost, capacity etc.
-2. attributes for dot (dot_attr)
 These two attribute sets should not e considered
 They may have commons. It is users responsibility to keep coherency of attributes.
 
@@ -32,12 +31,9 @@ For edges we only have edge_attr. User should be aware of this.
 Edges are not objects in this implementation and if a user wants to change an edge attribute she should do it directly on edge_attr.
 
 For constructor attr arguments:
-If it is a valid dot_argument dot_attr will be updated and attr will ALSO added to attr.
-If it is not a valid dot_attr it will be kept in attr ONLY. 
+They will all be in self.attr
 
 Default is an undirected graph.
-
-Get and set attribute methods works on self.attr ONLY (they do not read/write self.dot_attr). This means the only way to specify dot_attr is to use constructor (except setting it directly using self.dot_attr)
 
 We will not raise exception when the user tries to get in_neighbors of an undirected graph. She should be aware of this.
 
@@ -104,7 +100,7 @@ else:
     print 'Found dot2tex'
 
 try:
-    import PIL # for Image
+    from PIL import Image as PIL_Image
 except ImportError:
     PIL_INSTALLED = False
     print 'Python Image Library not installed'
@@ -145,12 +141,9 @@ class Node(object):
     '''
     def __init__(self, name, **attr):
         self.name = name
-        self.attr = dict()
-        self.dot_attr = copy.deepcopy(DEFAULT_NODE_ATTRIBUTES)
+        self.attr = copy.deepcopy(DEFAULT_NODE_ATTRIBUTES)
         for a in attr:
             self.attr[a] = attr[a]
-            if a in NODE_ATTRIBUTES:
-                self.dot_attr[a] = attr[a]
 
     def get_attr(self, attr):
         if attr in self.attr:
@@ -189,14 +182,10 @@ class Graph(object):
     '''
     def __init__(self, **attr):
         # graph attributes
-        self.attr = dict()
-        # dot attributes of graph
-        self.dot_attr = copy.deepcopy(DEFAULT_GRAPH_ATTRIBUTES)
+        self.attr = copy.deepcopy(DEFAULT_GRAPH_ATTRIBUTES)
         # set attributes using constructor
         for a in attr:
             self.attr[a] = attr[a]
-            if a in GRAPH_ATTRIBUTES:
-                self.dot_attr[a] = attr[a]
         # set name
         if 'name' in self.attr:
             self.name = self.attr['name']
@@ -330,7 +319,6 @@ class Graph(object):
     def get_edge_num(self):
         return len(self.edge_attr)
 
-
     def get_node_attr(self, name, attr):
         '''
         Returns attribute attr of node name.
@@ -411,8 +399,10 @@ class Graph(object):
         """
         graph = list()
         graph.append('%s %s {\n' %(self.graph_type, self.name))
-        for a in self.dot_attr:
-            val = self.dot_attr[a]
+        for a in self.attr:
+            if a not in GRAPH_ATTRIBUTES:
+               continue
+            val = self.attr[a]
             if val is not None:
                 graph.append( '%s=%s' % (a, quote_if_necessary(val)) )
             else:
@@ -431,8 +421,8 @@ class Graph(object):
 
     def label_components(self, display = None):
         '''
-        This method labels the nodes of an undirected graph with component 
-        numbers so that each node has the same label as all nodes in the 
+        This method labels the nodes of an undirected graph with component
+        numbers so that each node has the same label as all nodes in the
         same component
         '''
         if self.graph_type == DIRECTED_GRAPH:
@@ -444,13 +434,13 @@ class Graph(object):
         for n in self.get_node_list():
             if self.get_node(n).get_attr('component') == None:
                 self.dfs(n, component = self.num_components)
-                self.num_components += 1 
+                self.num_components += 1
 
-    def label_strong_component(self, root, disc_count = 0, finish_count = 1, 
+    def label_strong_component(self, root, disc_count = 0, finish_count = 1,
                                component = None):
         '''
-        This method labels the nodes of a directed graph with component 
-        numbers so that each node has the same label as all nodes in the 
+        This method labels the nodes of a directed graph with component
+        numbers so that each node has the same label as all nodes in the
         same component
         '''
         if self.graph_type == UNDIRECTED_GRAPH:
@@ -492,13 +482,13 @@ class Graph(object):
         for i in neighbor_list:
             if not transpose:
                 if self.get_node(i).get_attr('disc_time') is None:
-                    disc_count, finish_count = self.dfs(i, disc_count, 
-                                                        finish_count, 
+                    disc_count, finish_count = self.dfs(i, disc_count,
+                                                        finish_count,
                                                         component, transpose)
             else:
                 if self.get_node(i).get_attr('component') is None:
-                    disc_count, finish_count = self.dfs(i, disc_count, 
-                                                        finish_count, 
+                    disc_count, finish_count = self.dfs(i, disc_count,
+                                                        finish_count,
                                                         component, transpose)
         finish_count += 1
         self.get_node(root).set_attr('finish_time', finish_count)
@@ -507,7 +497,7 @@ class Graph(object):
     def bfs(self, root, display = None, component = None):
         self.search(root, display = display, component = component, q = Queue())
 
-    def search(self, source, destination = None, display = None, 
+    def search(self, source, destination = None, display = None,
                component = None, q = Stack(),
                algo = 'DFS', reverse = False, **kargs):
         '''
@@ -519,7 +509,7 @@ class Graph(object):
            list of the nodes is this path. If there is no such path, it will
            return the precedence tree constructed from source (dictionary).
         Optionally, it marks all nodes reachable from "source" with a component
-        number. The variable "q" determines the order in which the nodes are searched. 
+        number. The variable "q" determines the order in which the nodes are searched.
         '''
         if display == None:
             display = self.attr['display']
@@ -550,14 +540,14 @@ class Graph(object):
                 else:
                     self.set_edge_attr(i, j, 'color', 'black')
         pred = {}
-        self.process_edge_search(None, source, pred, q, component, algo, 
+        self.process_edge_search(None, source, pred, q, component, algo,
                                  **kargs)
         found = True
         if source != destination:
             found = False
         while not q.isEmpty() and not found:
             current = q.peek()
-            self.process_node_search(current, q)
+            self.process_node_search(current, q, **kargs)
             self.get_node(current).set_attr('color', 'blue')
             if current != source:
                 if reverse:
@@ -575,7 +565,7 @@ class Graph(object):
                     else:
                         self.set_edge_attr(current, n, 'color', 'yellow')
                     self.display()
-                    self.process_edge_search(current, n, pred, q, component, 
+                    self.process_edge_search(current, n, pred, q, component,
                                              algo, **kargs)
                     if reverse:
                         self.set_edge_attr(n, current, 'color', 'black')
@@ -589,7 +579,7 @@ class Graph(object):
             current = destination
             while current != source:
                 path.insert(0, pred[current])
-                current = pred[current]            
+                current = pred[current]
             #calculate distance lines
             #distance = 0
             #for i in range(len(path)-1):
@@ -599,7 +589,7 @@ class Graph(object):
             return path
         return pred
 
-    def process_node_search(self, node, q):
+    def process_node_search(self, node, q, **kwargs):
         if isinstance(q, PriorityQueue):
             self.get_node(node).set_attr('priority', q.get_priority(node))
 
@@ -611,7 +601,7 @@ class Graph(object):
             self.display()
             self.get_node(neighbor).set_attr('color', 'black')
             return
-        new_estimate = (q.get_priority(current) + 
+        new_estimate = (q.get_priority(current) +
                         self.get_edge_attr(current, neighbor, 'cost'))
         if neighbor not in pred or new_estimate < q.get_priority(neighbor):
             pred[neighbor] = current
@@ -638,18 +628,18 @@ class Graph(object):
             self.display()
             self.get_node(neighbor).set_attr('color', 'black')
 
-    def process_edge_search(self, current, neighbor, pred, q, component, algo, 
+    def process_edge_search(self, current, neighbor, pred, q, component, algo,
                             **kargs):
         if algo == 'Dijkstra':
-            return self.process_edge_dijkstra(current, neighbor, pred, q, 
+            return self.process_edge_dijkstra(current, neighbor, pred, q,
                                               component)
         if algo == 'Prim':
-            return self.process_edge_prim(current, neighbor, pred, q, 
+            return self.process_edge_prim(current, neighbor, pred, q,
                                           component)
         if algo == 'UnweightedSPT':
             if current == None:
                 self.get_node(neighbor).set_attr('distance', 0)
-            else:                
+            else:
                 self.get_node(neighbor).set_attr('distance',
                                    self.get_node(current).get_attr('distance') + 1)
         if current == None:
@@ -717,13 +707,13 @@ class Graph(object):
         else:
             self.set_display_mode(display)
         if components is None:
-            components = DisjointSet(display = display, layout = 'dot', 
+            components = DisjointSet(display = display, layout = 'dot',
                                      optimize = False)
         sorted_edge_list = sorted(self.get_edge_list(), key=self.get_edge_cost)
         edges = []
         for n in self.get_node_list():
             components.add([n])
-        components.display()   
+        components.display()
         for e in sorted_edge_list:
             if len(edges) == len(self.get_node_list()) - 1:
                 break
@@ -742,17 +732,17 @@ class Graph(object):
     def max_flow_preflowpush(self, source, sink, algo = 'FIFO', display = None):
         '''
         API: max_flow(self, source, sink, display=None)
-        Finds maximum flow from source to sink by a depth-first search based 
-        augmenting path algorithm. 
-        
-        pre: Assumes a directed graph in which each arc has a 'capacity' 
-        attribute and for which there does does not exist both arcs (i, j) and 
+        Finds maximum flow from source to sink by a depth-first search based
+        augmenting path algorithm.
+
+        pre: Assumes a directed graph in which each arc has a 'capacity'
+        attribute and for which there does does not exist both arcs (i, j) and
         (j, i) for any pair of nodes i and j.
         inputs:
             source: source node, integer or string
             sink: sink node, integer or string
-            display: 
-       
+            display:
+
         post: The 'flow' attribute of each arc gives a maximum flow.
         '''
         if display == None:
@@ -800,16 +790,16 @@ class Graph(object):
         while not q.isEmpty():
             relabel = True
             current = q.peek()
-            neighbors = (self.get_neighbors(current) + 
+            neighbors = (self.get_neighbors(current) +
                          self.get_in_neighbors(current))
             for n in neighbors:
                 pushed = self.process_edge_flow(source, sink, current, n, algo,
                                                 q)
                 if pushed:
-                    self.show_flow()                    
+                    self.show_flow()
                     if algo == 'FIFO':
                         '''With FIFO, we need to add the neighbors to the queue
-                        before the current is added back in or the nodes will 
+                        before the current is added back in or the nodes will
                         be out of order
                         '''
                         if q.peek(n) is None and n != source and n != sink:
@@ -817,7 +807,7 @@ class Graph(object):
                         '''Keep pushing while there is excess'''
                         if self.get_node_attr(current, 'excess') > 0:
                             continue
-                    '''If we were able to push, then there we should not 
+                    '''If we were able to push, then there we should not
                     relabel
                     '''
                     relabel = False
@@ -826,12 +816,12 @@ class Graph(object):
             if current != sink:
                 if relabel:
                     self.relabel(current)
-                    self.show_flow()                    
+                    self.show_flow()
                 if self.get_node_attr(current, 'excess') > 0:
                     if algo == 'FIFO' or algo == 'SAP':
                         q.push(current)
                     elif algo == 'HighestLabel':
-                        q.push(current, -self.get_node_attr(current, 
+                        q.push(current, -self.get_node_attr(current,
                                                             'distance'))
             if pushed and q.peek(n) is None and n != source:
                 if algo == 'SAP':
@@ -841,7 +831,7 @@ class Graph(object):
         return
 
     def process_edge_flow(self, source, sink, i, j, algo, q):
-        if (self.get_node_attr(i, 'distance') != 
+        if (self.get_node_attr(i, 'distance') !=
             self.get_node_attr(j, 'distance') + 1):
             return False
         if (i, j) in self.edge_attr:
@@ -867,12 +857,12 @@ class Graph(object):
     def relabel(self, i):
         min_distance = 2*len(self.get_node_list()) + 1
         for j in self.get_neighbors(i):
-            if (self.get_node_attr(j, 'distance') < min_distance and 
-                (self.get_edge_attr(i, j, 'flow') < 
+            if (self.get_node_attr(j, 'distance') < min_distance and
+                (self.get_edge_attr(i, j, 'flow') <
                  self.get_edge_attr(i, j, 'capacity'))):
                 min_distance = self.get_node_attr(j, 'distance')
         for j in self.get_in_neighbors(i):
-            if (self.get_node_attr(j, 'distance') < min_distance and 
+            if (self.get_node_attr(j, 'distance') < min_distance and
                 self.get_edge_attr(j, i, 'flow') > 0):
                 min_distance = self.get_node_attr(j, 'distance')
         self.set_node_attr(i, 'distance', min_distance + 1)
@@ -885,7 +875,7 @@ class Graph(object):
             for neighbor in self.get_neighbors(n):
                 capacity = self.get_edge_attr(n, neighbor, 'capacity')
                 flow = self.get_edge_attr(n, neighbor, 'flow')
-                self.set_edge_attr(n, neighbor, 'label', 
+                self.set_edge_attr(n, neighbor, 'label',
                                    str(capacity)+'/'+str(flow))
                 if capacity == flow:
                     self.set_edge_attr(n, neighbor, 'color', 'red')
@@ -1056,16 +1046,17 @@ class Graph(object):
             print stderr_output
         return stdout_output
 
-    def generateTreeImage(self):
-        '''
-        TODO(aykut)
-        '''
-        pass        
-
     def display(self, highlight = None, basename = 'graph', format = 'png',
                 pause = True):
         '''
-        TODO(aykut): using pipe and to_string and pygame get this done.
+        TODO(aykut):
+        current display modes: off, file, pygame, PIL, xdot, svg
+        current layout modes: layouts provided by graphviz, dot2tex, bak
+        current formats: formats provided by graphviz (ps pdf png )
+        problems:
+            layout bak is not supported.
+            display mode svg is not supported.
+
         '''
         if self.attr['display'] == 'off':
             return
@@ -1073,55 +1064,35 @@ class Graph(object):
             for n in highlight:
                 if not isinstance(n, Node):
                     m = self.get_node(n)
-                m.set_attr('color', 'red')    
+                m.set_attr('color', 'red')
         if self.attr['display'] == 'file':
-            if self.get_layout() == 'dot2tex' and DOT2TEX_INSTALLED:
-                if format != 'pdf' or format != 'ps':
-                    print "Dot2tex only supports pdf and ps formats, falling back to pdf"
-                    format = 'pdf'
-                self.set_layout('dot')
-                tex = dot2tex.dot2tex(self.to_string(), autosize=True, texmode = 'math', template = DOT2TEX_TEMPLATE)
-                f = open(basename+'.tex', 'w')
-                f.write(tex)
-                f.close()
-                subprocess.call(['latex', basename])
-                if format == 'ps':
-                    subprocess.call(['dvips', basename])
-                elif format == 'pdf': 
-                    subprocess.call(['pdflatex', basename])
-                self.set_layout('dot2tex')
-            elif self.get_layout() == 'dot2tex' and not DOT2TEX_INSTALLED:
-                print "Dot2tex not installed, falling back to graphviz"
-                self.set_layout('dot')
+            if self.get_layout() == 'dot2tex':
+                if DOT2TEX_INSTALLED:
+                    if format != 'pdf' or format != 'ps':
+                        print "Dot2tex only supports pdf and ps formats, falling back to pdf"
+                        format = 'pdf'
+                    #self.set_layout('dot')
+                    tex = dot2tex.dot2tex(self.to_string(), autosize=True, texmode = 'math', template = DOT2TEX_TEMPLATE)
+                    f = open(basename+'.tex', 'w')
+                    f.write(tex)
+                    f.close()
+                    subprocess.call(['latex', basename])
+                    if format == 'ps':
+                        subprocess.call(['dvips', basename])
+                    elif format == 'pdf':
+                        subprocess.call(['pdflatex', basename])
+                    #self.set_layout('dot2tex')
+                else:
+                    print "Dot2tex not installed, falling back to graphviz"
+                    self.set_layout('dot')
+                    self.write(basename+'.'+format, self.get_layout(), format)
+            elif self.get_layout() == 'bak':
+                im = StringIO.StringIO(self.GenerateTreeImage())
             else:
-                if format == 'png':
-                    self.write(basename, self.get_layout(), 'png')
+                self.write(basename+'.'+format, self.get_layout(), format)
             return
-        elif self.get_layout() == 'bak':
-            im = StringIO.StringIO(self.GenerateTreeImage())
-#        elif self.get_layout() == 'dot2tex' and DOT2TEX_INSTALLED:
-#            self.set_layout('dot')
-#            tex = dot2tex(self.to_string(), autosize=True, texmode = 'math', template = DOT2TEX_TEMPLATE)
-#            f = open(basename+'.tex', 'w')
-#            f.write(tex)
-#            f.close()
-#            subprocess.call(['latex', basename])
-#            subprocess.call(['pdflatex', basename])
-#            #subprocess.call(['convert', basename+'.pdf', basename+'.png'])
-#            self.set_layout('dot')            
-#            im = open(basename + '.png', 'r')
-#            format = 'png'
-        else:
-            if self.get_layout() == 'dot2tex' and not DOT2TEX_INSTALLED:
-                print "Dot2tex not installed, falling back to graphviz"
-                self.set_layout('dot')
+        elif self.attr['display'] == 'pygame':
             im = StringIO.StringIO(self.create(self.get_layout(), format))
-        if highlight != None:
-            for n in highlight:
-                if not isinstance(n, Node):
-                    m = self.get_node(n)
-                m.set_attr('color', 'black')
-        if self.attr['display'] == 'pygame':
             picture = pygame.image.load(im, format)
             screen = pygame.display.set_mode(picture.get_size())
             screen.blit(picture, picture.get_rect())
@@ -1133,8 +1104,9 @@ class Graph(object):
                 if e.type == pygame.QUIT:
                     sys.exit()
         elif self.attr['display'] == 'PIL':
+            im = StringIO.StringIO(self.create(self.get_layout(), format))
             if PIL_INSTALLED:
-                im2 = PIL.Image.open(im)
+                im2 = PIL_Image.open(im)
                 im2.show()
             else:
                 print 'Error: PIL not installed. Display disabled.'
@@ -1155,6 +1127,11 @@ class Graph(object):
         else:
             print "Unknown display mode: ",
             print self.attr['display']
+        if highlight != None:
+            for n in highlight:
+                if not isinstance(n, Node):
+                    m = self.get_node(n)
+                m.set_attr('color', 'black')
 
     def set_display_mode(self, value):
         self.attr['display'] = value
@@ -1162,17 +1139,17 @@ class Graph(object):
     def max_flow(self, source, sink, display=None):
         '''
         API: max_flow(self, source, sink, display=None)
-        Finds maximum flow from source to sink by a depth-first search based 
-        augmenting path algorithm. 
-        
-        pre: Assumes a directed graph in which each arc has a 'capacity' 
-        attribute and for which there does does not exist both arcs (i, j) 
+        Finds maximum flow from source to sink by a depth-first search based
+        augmenting path algorithm.
+
+        pre: Assumes a directed graph in which each arc has a 'capacity'
+        attribute and for which there does does not exist both arcs (i, j)
         and (j, i) for any pair of nodes i and j.
         inputs:
             source: source node, integer or string
             sink: sink node, integer or string
-            display: 
-       
+            display:
+
         post: The 'flow" attribute of each arc gives a maximum flow.
         '''
         nl = self.get_node_list()
@@ -1229,7 +1206,7 @@ class Graph(object):
                     else:
                         self.get_node(m).set_attr('color', 'black')
                         if m in out_neighbor:
-                            if (self.get_edge_attr(current, m, 'flow') == 
+                            if (self.get_edge_attr(current, m, 'flow') ==
                                 self.get_edge_attr(current, m, 'capacity')):
                                 self.set_edge_attr(current, m, 'color', 'red')
                             elif self.get_edge_attr(current, m, 'flow') == 0:
@@ -1237,7 +1214,7 @@ class Graph(object):
                             else:
                                 self.set_edge_attr(current, m, 'color', 'green')
                         else:
-                            if (self.get_edge_attr(m, current, 'flow') == 
+                            if (self.get_edge_attr(m, current, 'flow') ==
                                 self.get_edge_attr(m, current, 'capacity')):
                                 self.set_edge_attr(m, current, 'color', 'red')
                             elif self.get_edge_attr(m, current, 'flow') == 0:
@@ -1677,7 +1654,7 @@ class Graph(object):
         Description:
             Prints all positive flows to stdout. This method can be used for
             debugging purposes.
-        ''' 
+        '''
         print 'printing current edge, flow, capacity'
         for e in self.edge_attr:
             if self.edge_attr[e]['flow']!=0:
@@ -2296,10 +2273,8 @@ class Graph(object):
             return
 
     def random(self, numnodes = 10, degree_range = None, length_range = None,
-               density = None, edge_format = None, node_format = None, 
-               Euclidean = False, seedInput = None):
-        if seedInput is not None:
-            random.seed(seedInput)
+               density = None, edge_format = None, node_format = None,
+               Euclidean = False, seedInput = 0):
         random.seed(seedInput)
         if edge_format == None:
             edge_format = {'fontsize':10,
@@ -2321,14 +2296,14 @@ class Graph(object):
                         n = random.randint(1, numnodes)
                         if (m,n) not in self.edge_attr and (n,m) not in self.edge_attr and m != n:
                             if length_range is not None:
-                                length = random.randint(length_range[0], 
+                                length = random.randint(length_range[0],
                                                  length_range[1])
-                                self.add_edge(m, n, cost = length, 
-                                              label = str(length), 
+                                self.add_edge(m, n, cost = length,
+                                              label = str(length),
                                               **edge_format)
                             else:
                                 self.add_edge(m, n, **edge_format)
-            if density != None:
+            elif density != None:
                 for m in range(numnodes):
                     if self.graph_type == DIRECTED_GRAPH:
                         numnodes2 = numnodes
@@ -2337,10 +2312,10 @@ class Graph(object):
                     for n in range(numnodes2):
                         if random.random() < density and m != n:
                             if length_range is not None:
-                                length = random.randint(length_range[0], 
+                                length = random.randint(length_range[0],
                                                  length_range[1])
-                                self.add_edge(m, n, cost = length, 
-                                              label = str(length), 
+                                self.add_edge(m, n, cost = length,
+                                              label = str(length),
                                               **edge_format)
                             else:
                                 self.add_edge(m, n, **edge_format)
@@ -2348,9 +2323,9 @@ class Graph(object):
                 print "Must set either degree range or density"
         else:
             for m in range(numnodes):
-                ''' Assigns random coordinates (between 1 and 20) to the nodes 
+                ''' Assigns random coordinates (between 1 and 20) to the nodes
                 '''
-                self.add_node(m, locationx = random.randint(1, 20), 
+                self.add_node(m, locationx = random.randint(1, 20),
                               locationy = random.randint(1, 20), **node_format)
             if degree_range is not None:
                 for m in range(numnodes):
@@ -2358,11 +2333,11 @@ class Graph(object):
                         n = random.randint(1, numnodes)
                         if (m,n) not in self.edge_attr and (n,m) not in self.edge_attr and m != n:
                             if length_range is None:
-                                ''' calculates the euclidean norm and round it 
+                                ''' calculates the euclidean norm and round it
                                 to three decimal places '''
-                                length = round((((self.get_node(n).get_attr('locationx') - self.get_node(m).get_attr('locationx')) ** 2 + (self.get_node(n).get_attr('locationy') - self.get_node(m).get_attr('locationy')) ** 2) ** 0.5), 3) 
-                                self.add_edge(m, n, cost = length, 
-                                             label = str(length), 
+                                length = round((((self.get_node(n).get_attr('locationx') - self.get_node(m).get_attr('locationx')) ** 2 + (self.get_node(n).get_attr('locationy') - self.get_node(m).get_attr('locationy')) ** 2) ** 0.5), 3)
+                                self.add_edge(m, n, cost = length,
+                                             label = str(length),
                                               **edge_format)
                             else:
                                 self.add_edge(m, n, **edge_format)
@@ -2375,37 +2350,83 @@ class Graph(object):
                     for n in range(numnodes2):
                         if random.random() < density:
                             if length_range is None:
-                                ''' calculates the euclidean norm and round it 
+                                ''' calculates the euclidean norm and round it
                                 to three decimal places '''
-                                length = round((((self.get_node(n).get_attr('locationx') - self.get_node(m).get_attr('locationx')) ** 2 + (self.get_node(n).get_attr('locationy') - self.get_node(m).get_attr('locationy')) ** 2) ** 0.5), 3) 
-                                self.add_edge(m, n, cost = length, 
-                                             label = str(length), 
+                                length = round((((self.get_node(n).get_attr('locationx') - self.get_node(m).get_attr('locationx')) ** 2 + (self.get_node(n).get_attr('locationy') - self.get_node(m).get_attr('locationy')) ** 2) ** 0.5), 3)
+                                self.add_edge(m, n, cost = length,
+                                             label = str(length),
                                               **edge_format)
                             else:
                                 self.add_edge(m, n, **edge_format)
             else:
                 print "Must set either degree range or density"
 
+    def page_rank(self, damping_factor=0.85, max_iterations=100,
+                  min_delta=0.00001):
+        """
+        Compute and return the PageRank in a directed graph.
 
-class Tree(Graph):    
+        This function was originally taken from here and modified for this
+        graph class:
+        http://code.google.com/p/python-graph/source/browse/trunk/core/pygraph/algorithms/pagerank.py
+
+        @type  graph: digraph
+        @param graph: Digraph.
+
+        @type  damping_factor: number
+        @param damping_factor: PageRank dumping factor.
+
+        @type  max_iterations: number
+        @param max_iterations: Maximum number of iterations.
+
+        @type  min_delta: number
+        @param min_delta: Smallest variation required to have a new iteration.
+
+        @rtype:  Dict
+        @return: Dict containing all the nodes PageRank.
+        """
+        nodes = self.get_node_list()
+        graph_size = len(nodes)
+        if graph_size == 0:
+            return {}
+        #value for nodes without inbound links
+        min_value = (1.0-damping_factor)/graph_size
+        # itialize the page rank dict with 1/N for all nodes
+        pagerank = dict.fromkeys(nodes, 1.0/graph_size)
+        for i in range(max_iterations):
+            diff = 0 #total difference compared to last iteraction
+            # computes each node PageRank based on inbound links
+            for node in nodes:
+                rank = min_value
+                for referring_page in self.get_in_neighbors(node):
+                    rank += (damping_factor * pagerank[referring_page] /
+                             len(self.get_neighbors(referring_page)))
+                diff += abs(pagerank[node] - rank)
+                pagerank[node] = rank
+            #stop if PageRank has converged
+            if diff < min_delta:
+                break
+        return pagerank
+
+class Tree(Graph):
     def __init__(self, **attrs):
         attrs['type'] = DIRECTED_GRAPH
         if 'layout' not in attrs:
             attrs['layout'] = 'dot'
         Graph.__init__(self, **attrs)
         self.root = None
-        
+
     def get_children(self, n):
         return self.get_neighbors(n)
 
     def get_parent(self, n):
         return self.get_node_attr(n, 'parent')
-        
+
     def add_root(self, root, **attrs):
         attrs['level'] = 0
         self.add_node(root, **attrs)
         self.root = root
-        
+
     def add_child(self, n, parent, **attrs):
         attrs['level'] = self.get_node_attr(parent, 'level') + 1
         attrs['parent'] = parent
@@ -2446,34 +2467,34 @@ class Tree(Graph):
             for n in self.get_children(current):
                 addToQ(n)
 
-        
+
 class BinaryTree(Tree):
     def __init__(self, **attrs):
         Tree.__init__(self, **attrs)
 
     def add_root(self, root, **attrs):
         Tree.add_root(self, root, **attrs)
-    
+
     def add_right_child(self, n, parent, **attrs):
         if self.get_right_child(parent) is not None:
             raise Exception("Right child already exists for node " + parent)
         attrs['direction'] = 'R'
         self.set_node_attr(parent, 'Rchild', n)
         self.add_child(n, parent, **attrs)
-        
+
     def add_left_child(self, n, parent, **attrs):
         if self.get_left_child(parent) is not None:
             raise Exception("Left child already exists for node " + parent)
         attrs['direction'] = 'L'
         self.set_node_attr(parent, 'Lchild', n)
         self.add_child(n, parent, **attrs)
-        
+
     def get_right_child(self, n):
         return self.get_node_attr(n, 'Rchild')
 
     def get_left_child(self, n):
         return self.get_node_attr(n, 'Lchild')
-                
+
     def del_node(self, n):
         parent = self.get_node_attr(n, 'parent')
         if self.get_node_attr(n, 'direction') == 'R':
@@ -2481,8 +2502,8 @@ class BinaryTree(Tree):
         else:
             self.set_node_attr(parent, 'Lchild', None)
         Graph.del_node(self, n)
-            
-    def print_nodes(self, order = 'in', priority = 'L', display = None, 
+
+    def print_nodes(self, order = 'in', priority = 'L', display = None,
                     root = None):
         if root == None:
             root = self.root
@@ -2525,7 +2546,7 @@ class BinaryTree(Tree):
             display = self.display_mode
         self.traverse(root, display, Queue(), priority, order)
 
-    def traverse(self, root = None, display = None, q = Stack(), 
+    def traverse(self, root = None, display = None, q = Stack(),
                  priority = 'L',  order = 'in'):
         if root == None:
             root = self.root
@@ -2542,11 +2563,11 @@ class BinaryTree(Tree):
             second_child = self.get_right_child
         else:
             first_child = self.get_right_child
-            second_child = self.get_left_child    
+            second_child = self.get_left_child
         addToQ(root)
         while not q.isEmpty():
             current = removeFromQ()
-            print current                
+            print current
             if display:
                 self.display(highlight = [current])
             n = first_child(current)
@@ -2580,7 +2601,7 @@ class BinaryTree(Tree):
             root = self.root
         if display == None:
             display = self.attr['display']
-        opers = {'+':operator.add, '-':operator.sub, '*':operator.mul, 
+        opers = {'+':operator.add, '-':operator.sub, '*':operator.mul,
                  '/':operator.truediv}
         res1 = None
         res2 = None
@@ -2592,7 +2613,7 @@ class BinaryTree(Tree):
         if display:
                 self.display(highlight = [root])
         if self.get_right_child(root):
-            res2 = self.postordereval(display, self.get_right_child(root)) 
+            res2 = self.postordereval(display, self.get_right_child(root))
         if res1 and res2:
             print '=', opers[self.get_node_attr(root, 'label')](res1 , res2)
             if display:
@@ -2602,19 +2623,19 @@ class BinaryTree(Tree):
         else:
             return int(self.get_node_attr(root, 'label'))
 
-class DisjointSet(Graph):    
+class DisjointSet(Graph):
     def __init__(self, optimize = True, **attrs):
         attrs['type'] = DIRECTED_GRAPH
         Graph.__init__(self, **attrs)
         self.sizes = {}
         self.optimize = optimize
-        
+
     def add(self, aList):
         self.add_node(aList[0])
         for i in range(1, len(aList)):
             self.add_edge(aList[i], aList[0])
         self.sizes[aList[0]] = len(aList)
-        
+
     def union(self, i, j):
         roots = (self.find(i), self.find(j))
         if roots[0] == roots[1]:
@@ -2627,7 +2648,7 @@ class DisjointSet(Graph):
             self.add_edge(roots[1], roots[0])
             self.sizes[roots[0]] += self.sizes[roots[1]]
             return True
-        
+
     def find(self, i):
         current = i
         edge_list = []
@@ -2638,7 +2659,7 @@ class DisjointSet(Graph):
         if self.optimize:
             for e in edge_list:
                 if e[1] != current:
-                    self.del_edge(e[0], e[1])                   
+                    self.del_edge(e[0], e[1])
                     self.add_edge(e[0], current)
         return current
 
