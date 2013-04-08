@@ -1343,15 +1343,17 @@ class Graph(Dot):
                             if length_range is None:
                                 ''' calculates the euclidean norm and round it
                                 to three decimal places '''
-                                length = round((((self.get_node_attr(n, 'locationx') - self.get_node_attr(m, 'locationx')) ** 2 + (self.get_node_attr(n, 'locationy') - self.get_node_attr(m, 'locationy')) ** 2) ** 0.5), 3)
-                                self.add_edge(m, n, cost = length,
-                                             label = str(length),
+                                length = round((((self.get_node_attr(n, 'locationx') - 
+                                                  self.get_node_attr(m, 'locationx')) ** 2 + 
+                                                 (self.get_node_attr(n, 'locationy') - 
+                                                  self.get_node_attr(m, 'locationy')) ** 2) ** 0.5), 0) 
+                                self.add_edge(m, n, cost = int(length), label = str(int(length)), 
                                               **edge_format)
                             else:
                                 self.add_edge(m, n, **edge_format)
             if density != None:
                 for m in range(numnodes):
-                    if self.type == 'digraph':
+                    if self.graph_type == 'digraph':
                         numnodes2 = numnodes
                     else:
                         numnodes2 = m
@@ -1360,9 +1362,11 @@ class Graph(Dot):
                             if length_range is None:
                                 ''' calculates the euclidean norm and round it
                                 to three decimal places '''
-                                length = round((((self.get_node_attr(n, 'locationx') - self.get_node_attr(m, 'locationx')) ** 2 + (self.get_node_attr(n, 'locationy') - self.get_node_attr(m, 'locationy')) ** 2) ** 0.5), 3)
-                                self.add_edge(m, n, cost = length,
-                                             label = str(length),
+                                length = round((((self.get_node_attr(n, 'locationx') - 
+                                                  self.get_node_attr(m, 'locationx')) ** 2 + 
+                                                 (self.get_node_attr(n, 'locationy') - 
+                                                  self.get_node_attr(m, 'locationy')) ** 2) ** 0.5), 0) 
+                                self.add_edge(m, n, cost = int(length), label = str(int(length)), 
                                               **edge_format)
                             else:
                                 self.add_edge(m, n, **edge_format)
@@ -3134,14 +3138,14 @@ class DisjointSet(Graph):
 
 if __name__ == '__main__':
 
-    G = Graph(graph_type = 'graph', splines = 'true')
+    G = Graph(graph_type = 'graph', splines = 'true', K = 1.8)
 #    G.random(numnodes = 7, density = 0.7, length_range = (-5, 5), seedInput = 5)
-    G.random(numnodes = 10, density = 0.5, seedInput = 5)
+    G.random(numnodes = 10, density = 0.5, seedInput = 6, Euclidean = True)
 
     G.set_display_mode('pygame')
 
     G.display()
 
-#    G.search(0, display = 'pygame', algo = 'DFS')
-#    G.minimum_spanning_tree_kruskal(display = 'pygame')
-    G.search(0, display = 'pygame')
+#    G.search(6, display = 'pygame', algo = 'Prim')
+    G.minimum_spanning_tree_kruskal(display = 'pygame')
+#    G.search(0, display = 'pygame')
