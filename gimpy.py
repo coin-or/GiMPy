@@ -2334,10 +2334,12 @@ class Graph(object):
                         if (m,n) not in self.edge_attr and (n,m) not in self.edge_attr and m != n:
                             if length_range is None:
                                 ''' calculates the euclidean norm and round it
-                                to three decimal places '''
-                                length = round((((self.get_node(n).get_attr('locationx') - self.get_node(m).get_attr('locationx')) ** 2 + (self.get_node(n).get_attr('locationy') - self.get_node(m).get_attr('locationy')) ** 2) ** 0.5), 3)
-                                self.add_edge(m, n, cost = length,
-                                             label = str(length),
+                                to an integer '''
+                                length = round((((self.get_node(n).get_attr('locationx') - 
+                                                  self.get_node(m).get_attr('locationx')) ** 2 + 
+                                                 (self.get_node(n).get_attr('locationy') - 
+                                                  self.get_node(m).get_attr('locationy')) ** 2) ** 0.5), 0) 
+                                self.add_edge(m, n, cost = int(length), label = str(int(length)), 
                                               **edge_format)
                             else:
                                 self.add_edge(m, n, **edge_format)
@@ -2351,10 +2353,12 @@ class Graph(object):
                         if random.random() < density:
                             if length_range is None:
                                 ''' calculates the euclidean norm and round it
-                                to three decimal places '''
-                                length = round((((self.get_node(n).get_attr('locationx') - self.get_node(m).get_attr('locationx')) ** 2 + (self.get_node(n).get_attr('locationy') - self.get_node(m).get_attr('locationy')) ** 2) ** 0.5), 3)
-                                self.add_edge(m, n, cost = length,
-                                             label = str(length),
+                                to an integer '''
+                                length = round((((self.get_node(n).get_attr('locationx') - 
+                                                  self.get_node(m).get_attr('locationx')) ** 2 + 
+                                                 (self.get_node(n).get_attr('locationy') - 
+                                                  self.get_node(m).get_attr('locationy')) ** 2) ** 0.5), 0) 
+                                self.add_edge(m, n, cost = int(length), label = str(int(length)), 
                                               **edge_format)
                             else:
                                 self.add_edge(m, n, **edge_format)
@@ -2665,13 +2669,14 @@ class DisjointSet(Graph):
 
 if __name__ == '__main__':
     G = Graph(graph_type = DIRECTED_GRAPH, splines = 'true')
-    G.random(numnodes = 7, density = 0.7, length_range = (1, 10), seedInput = 5)
+#    G.random(numnodes = 7, density = 0.7, length_range = (1, 10), seedInput = 5)
+    G.random(numnodes = 7, density = 0.7, Euclidean = True, seedInput = 5)
 #    G.random(numnodes = 10, density = 0.5, seedInput = 5)
 
 #    G.set_display_mode('file')
 #    print G.to_string()
 #    G.display(basename='try.png', format='png')
 
-#    G.search(0, display = 'pygame', algo = 'Dijkstra')
-    G.minimum_spanning_tree_kruskal(display='off')
+    G.search(0, display = 'pygame', algo = 'Prims')
+#    G.minimum_spanning_tree_kruskal(display = 'pygame')
     #G.search(0, display = 'pygame')
