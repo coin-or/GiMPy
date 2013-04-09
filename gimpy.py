@@ -401,7 +401,7 @@ class Graph(object):
         graph.append('%s %s {\n' %(self.graph_type, self.name))
         for a in self.attr:
             if a not in GRAPH_ATTRIBUTES:
-               continue
+                continue
             val = self.attr[a]
             if val is not None:
                 graph.append( '%s=%s' % (a, quote_if_necessary(val)) )
@@ -708,7 +708,7 @@ class Graph(object):
             self.set_display_mode(display)
         if components is None:
             components = DisjointSet(display = display, layout = 'dot',
-                                     optimize = False)
+                                     optimize = True)
         sorted_edge_list = sorted(self.get_edge_list(), key=self.get_edge_cost)
         edges = []
         for n in self.get_node_list():
@@ -1011,7 +1011,10 @@ class Graph(object):
 
     def write(self, basename, layout, format='png'):
         f = file(basename, "w+b")
-        f.write(self.create(layout, format))
+        if format == 'dot':
+            f.write(self.to_string())
+        else:
+            f.write(self.create(layout, format))
         f.close()
 
     def create(self, layout, format, **args):
@@ -2663,12 +2666,12 @@ class DisjointSet(Graph):
         if self.optimize:
             for e in edge_list:
                 if e[1] != current:
-                    self.del_edge(e[0], e[1])
+                    self.del_edge((e[0], e[1]))
                     self.add_edge(e[0], current)
         return current
 
 if __name__ == '__main__':
-    G = Graph(graph_type = DIRECTED_GRAPH, splines = 'true')
+    G = Graph(type = DIRECTED_GRAPH, splines = 'true')
 #    G.random(numnodes = 7, density = 0.7, length_range = (1, 10), seedInput = 5)
     G.random(numnodes = 7, density = 0.7, Euclidean = True, seedInput = 5)
 #    G.random(numnodes = 10, density = 0.5, seedInput = 5)
@@ -2677,6 +2680,6 @@ if __name__ == '__main__':
 #    print G.to_string()
 #    G.display(basename='try.png', format='png')
 
-    G.search(0, display = 'pygame', algo = 'Prims')
-#    G.minimum_spanning_tree_kruskal(display = 'pygame')
+#    G.search(0, display = 'pygame', algo = 'Prims')
+    G.minimum_spanning_tree_kruskal(display = 'pygame')
     #G.search(0, display = 'pygame')
