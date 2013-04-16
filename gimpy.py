@@ -2338,11 +2338,11 @@ class Graph(object):
                             if length_range is None:
                                 ''' calculates the euclidean norm and round it
                                 to an integer '''
-                                length = round((((self.get_node(n).get_attr('locationx') - 
-                                                  self.get_node(m).get_attr('locationx')) ** 2 + 
-                                                 (self.get_node(n).get_attr('locationy') - 
-                                                  self.get_node(m).get_attr('locationy')) ** 2) ** 0.5), 0) 
-                                self.add_edge(m, n, cost = int(length), label = str(int(length)), 
+                                length = round((((self.get_node(n).get_attr('locationx') -
+                                                  self.get_node(m).get_attr('locationx')) ** 2 +
+                                                 (self.get_node(n).get_attr('locationy') -
+                                                  self.get_node(m).get_attr('locationy')) ** 2) ** 0.5), 0)
+                                self.add_edge(m, n, cost = int(length), label = str(int(length)),
                                               **edge_format)
                             else:
                                 self.add_edge(m, n, **edge_format)
@@ -2357,11 +2357,11 @@ class Graph(object):
                             if length_range is None:
                                 ''' calculates the euclidean norm and round it
                                 to an integer '''
-                                length = round((((self.get_node(n).get_attr('locationx') - 
-                                                  self.get_node(m).get_attr('locationx')) ** 2 + 
-                                                 (self.get_node(n).get_attr('locationy') - 
-                                                  self.get_node(m).get_attr('locationy')) ** 2) ** 0.5), 0) 
-                                self.add_edge(m, n, cost = int(length), label = str(int(length)), 
+                                length = round((((self.get_node(n).get_attr('locationx') -
+                                                  self.get_node(m).get_attr('locationx')) ** 2 +
+                                                 (self.get_node(n).get_attr('locationy') -
+                                                  self.get_node(m).get_attr('locationy')) ** 2) ** 0.5), 0)
+                                self.add_edge(m, n, cost = int(length), label = str(int(length)),
                                               **edge_format)
                             else:
                                 self.add_edge(m, n, **edge_format)
@@ -2574,7 +2574,6 @@ class BinaryTree(Tree):
         addToQ(root)
         while not q.isEmpty():
             current = removeFromQ()
-            print current
             if display:
                 self.display(highlight = [current])
             n = first_child(current)
