@@ -4,6 +4,12 @@ This file has global constants required for GIMPy.
 
 import re     # for compile()
 
+class MultipleNodeException(Exception):
+    pass
+
+class MultipleEdgeException(Exception):
+    pass
+
 GRAPH_ATTRIBUTES = set( ['Damping', 'K', 'URL', 'aspect', 'bb', 'bgcolor',
     'center', 'charset', 'clusterrank', 'colorscheme', 'comment', 'compound',
     'concentrate', 'defaultdist', 'dim', 'dimen', 'diredgeconstraints',
@@ -16,9 +22,9 @@ GRAPH_ATTRIBUTES = set( ['Damping', 'K', 'URL', 'aspect', 'bb', 'bgcolor',
     'overlap_scaling', 'pack', 'packmode', 'pad', 'page', 'pagedir',
     'quadtree', 'quantum', 'rankdir', 'ranksep', 'ratio', 'remincross',
     'repulsiveforce', 'resolution', 'root', 'rotate', 'searchsize', 'sep',
-    'showboxes', 'size', 'smoothing', 'sortv', 'splines', 'start', 
+    'showboxes', 'size', 'smoothing', 'sortv', 'splines', 'start',
     'stylesheet', 'target', 'truecolor', 'viewport', 'voro_margin',
-    # for subgraphs 
+    # for subgraphs
     'rank'])
 DEFAULT_GRAPH_ATTRIBUTES = {}
 EDGE_ATTRIBUTES = set( ['URL', 'arrowhead', 'arrowsize', 'arrowtail',
@@ -53,7 +59,7 @@ UNDIRECTED_GRAPH = 'graph'
 #DEFAULT_ATTR = {'strict':None, 'name':'graph'}
 EDGE_CONNECT_SYMBOL = {DIRECTED_GRAPH:' -> ', UNDIRECTED_GRAPH:' -- '}
 PYGAME_INSTALLED = None # it wil be set when we try to import pygame
-DOT2TEX_INSTALLED = None # it wil be set when we try to import 
+DOT2TEX_INSTALLED = None # it wil be set when we try to import
 PIL_INSTALLED = None
 XDOT_INSTALLED = None
 ETREE_INSTALLED = None
