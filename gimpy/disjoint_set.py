@@ -3,6 +3,9 @@ disjoint_set.py
 Module that has DisjointSet class, which is built on top of Graph class.
 '''
 
+from graph import Graph
+from global_constants import *
+
 class DisjointSet(Graph):
     def __init__(self, optimize = True, **attrs):
         attrs['type'] = DIRECTED_GRAPH
