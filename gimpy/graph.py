@@ -69,9 +69,10 @@ get_attr() method. Should we change this?
 
 '''
 
-from gimpy_global_constants import *
-from Stack import Stack
-from Queues import Queue, PriorityQueue
+from global_constants import *
+from basic_structures import Stack
+from basic_structures import Queue, PriorityQueue
+from disjoint_set import DisjointSet
 import subprocess # for call()
 import StringIO   # for StringIO()
 import copy       # for deepcopy()

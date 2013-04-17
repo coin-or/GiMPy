@@ -1,73 +1,11 @@
 '''
-A new Graph class implementation. The aim for this implementation is
-1. To reflect implementation methods in leterature as much as possible
-2. Removing superflous stuff that comes with pydot
-3. To have a more object oriented design
-
-This implementation can be considered as a comprimise between pydot graph
-class and an efficient graph data structure.
-
-One deviation from standart Graph implementations is to keep in neighbors in
-an other adjacency list. We do this for efficiency resons considering
-traversing residual graphs.
-
-We have a class for Graph and a class for Node. Edges are not represented as
-objects. They are kept in a dictionary which also keeps their attributes.
-
-Node objects should be used to get an attribute of a Node. We do not have a
-get_node_attr() method in Graph class.
-
-It is user's responsibility to name nodes properly (according to dot standarts), Graph class will not check that.
-
-Some portion of code is written using Pydot source code.
-
-There are two attribute sets for Graph and node classes.
-1. attributes to keep data (attr), ie for edges cost, capacity etc.
-These two attribute sets should not e considered
-They may have commons. It is users responsibility to keep coherency of attributes.
-
-For edges we only have edge_attr. User should be aware of this.
-
-Edges are not objects in this implementation and if a user wants to change an edge attribute she should do it directly on edge_attr.
-
-For constructor attr arguments:
-They will all be in self.attr
-
-Default is an undirected graph.
-
-We will not raise exception when the user tries to get in_neighbors of an undirected graph. She should be aware of this.
-
-Graph type should be given by g = Graph(type=DIRECTED_GRAPH)
-
-
-
-an example graph dot file
-
-digraph G {
-layout=dot;
-splines=true;
-0 [color=black, demand=-5, label=0];
-1 [color=black, demand=10, label=1];
-0 -> 1  [color=black, flow=0, cost=38, capacity=11, label="0/11/38"];
-2 [color=black, demand=-8, label=2];
-0 -> 2  [color=black, flow=0, cost=38, capacity=10, label="0/10/38"];
-1 -> 2  [color=blue, flow=8, cost=35, capacity=15, label="8/15/35"];
-3 [color=black, demand=-5, label=3];
-1 -> 3  [color=blue, flow=10, cost=34, capacity=11, label="10/11/34"];
-5 [color=black, demand=0, label=5];
-2 -> 5  [color=black, flow=0, cost=43, capacity=13, label="0/13/43"];
-3 -> 5  [color=blue, flow=5, cost=44, capacity=16, label="5/16/44"];
-4 [color=black, demand=8, label=4];
-4 -> 1  [color=blue, flow=8, cost=31, capacity=15, label="8/15/31"];
-5 -> 0  [color=blue, flow=5, cost=42, capacity=19, label="5/19/42"];
-}
-
-
-TODO(aykut):
--> when we look for an attr and it does not exist we return None for Node class
-get_attr() method. Should we change this?
-
+Tree class built on top of Graph class.
 '''
+
+from graph import Graph
+from global_constants import *
+from basic_structures import *
+import operator
 
 class Tree(Graph):
     def __init__(self, **attrs):
