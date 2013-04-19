@@ -168,7 +168,6 @@ class Node(object):
         node.append(']')
         return ''.join(node)
 
-
 class Graph(object):
     '''
     Graph class. Felxible enough to let any standart graph implementation,
@@ -228,8 +227,11 @@ class Graph(object):
         if self.graph_type is DIRECTED_GRAPH:
             self.in_neighbors[name] = FlexList()
         self.nodes[name] = Node(name, **attr)
+        return self.nodes[name]
 
     def del_node(self, name):
+        if isinstance (Node, name):
+            name = name.name
         if name not in self.neighbors:
             raise Exception('Node %s does not exist!' %str(name))
         for n in self.neighbors[name]:
@@ -251,6 +253,10 @@ class Graph(object):
             raise MultipleEdgeException
         if self.graph_type is UNDIRECTED_GRAPH and (name2,name1) in self.edge_attr:
             raise MultipleEdgeException
+        if isinstance(name1, Node):
+            name1 = name1.name
+        if isinstance(name2, Node):
+            name2 = name2.name
         self.edge_attr[(name1,name2)] = copy.deepcopy(DEFAULT_EDGE_ATTRIBUTES)
         for a in attr:
             self.edge_attr[(name1,name2)][a] = attr[a]
