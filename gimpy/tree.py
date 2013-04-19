@@ -24,7 +24,7 @@ class Tree(Graph):
     def get_parent(self, n):
         if not isinstance(n, Node):
             n = self.get_node(n)
-        return self.get_node(self.get_node_attr(n, 'parent'))
+        return self.get_node(n.get_attr('parent'))
 
     def add_root(self, root, **attrs):
         attrs['level'] = 0
