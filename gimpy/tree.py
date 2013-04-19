@@ -4,7 +4,7 @@ Tree class built on top of Graph class.
 
 from graph import Graph
 from global_constants import *
-from basic_structures import *
+from list import *
 import operator
 
 class Tree(Graph):
