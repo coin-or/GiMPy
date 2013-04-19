@@ -2,9 +2,9 @@
 Tree class built on top of Graph class.
 '''
 
-from graph import Graph
+from graph import Graph, Node
 from global_constants import *
-from list import *
+from list import Stack, Queue
 import operator
 
 class Tree(Graph):
@@ -16,22 +16,30 @@ class Tree(Graph):
         self.root = None
 
     def get_children(self, n):
-        return self.get_neighbors(n)
+        if isinstance(n, Node):
+            return self.get_neighbors(n.name)
+        else:
+            return self.get_neighbors(n)
 
     def get_parent(self, n):
-        return self.get_node_attr(n, 'parent')
+        if not isinstance(n, Node):
+            n = self.get_node(n)
+        return self.get_node(self.get_node_attr(n, 'parent'))
 
     def add_root(self, root, **attrs):
         attrs['level'] = 0
-        self.add_node(root, **attrs)
-        self.root = root
+        self.root = self.add_node(root, **attrs)
+        return self.root
 
     def add_child(self, n, parent, **attrs):
-        attrs['level'] = self.get_node_attr(parent, 'level') + 1
-        attrs['parent'] = parent
+        if not isinstance(parent, Node):
+            parent = self.get_node(parent)
+        attrs['level'] = parent.get_attr('level') + 1
+        attrs['parent'] = parent.name
         self.add_node(n, **attrs)
         self.add_edge(parent, n)
-
+        return self.get_node(n)
+    
     def dfs(self, root = None, display = None):
         if root == None:
             root = self.root
@@ -223,4 +231,4 @@ class BinaryTree(Tree):
 
 
 if __name__ == '__main__':
-   pass
+    pass
