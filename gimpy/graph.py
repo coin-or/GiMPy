@@ -70,8 +70,8 @@ get_attr() method. Should we change this?
 '''
 
 from global_constants import *
-from basic_structures import Stack
-from basic_structures import Queue, PriorityQueue
+from lists import Stack
+from lists import Queue, PriorityQueue
 import subprocess # for call()
 import StringIO   # for StringIO()
 import copy       # for deepcopy()
