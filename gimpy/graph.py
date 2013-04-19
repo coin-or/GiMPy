@@ -294,10 +294,10 @@ class Graph(object):
             return None
 
     def get_edge_cost(self, edge):
-       '''
-       Returns cost attr of edge, required for minimum_spanning_tree_kruskal().
-       '''
-       return self.get_edge_attr(edge[0], edge[1], 'cost')
+        '''
+        Returns cost attr of edge, required for minimum_spanning_tree_kruskal().
+        '''
+        return self.get_edge_attr(edge[0], edge[1], 'cost')
 
     def check_edge(self, name1, name2):
         '''
@@ -757,8 +757,8 @@ class Graph(object):
             self.set_node_attr(n, 'excess', 0)
         # set flow of all edges to 0
         for e in self.edge_attr:
-           self.edge_attr[e]['flow'] = 0
-           self.edge_attr[e]['label'] = str(self.edge_attr[e]['capacity'])+'/0'
+            self.edge_attr[e]['flow'] = 0
+            self.edge_attr[e]['label'] = str(self.edge_attr[e]['capacity'])+'/0'
         self.display()
         self.set_display_mode('off')
         self.search(sink, algo = 'UnweightedSPT', reverse = True)
