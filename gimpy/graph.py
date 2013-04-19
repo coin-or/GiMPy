@@ -232,12 +232,19 @@ class Graph(object):
     def del_node(self, name):
         if name not in self.neighbors:
             raise Exception('Node %s does not exist!' %str(name))
+        for n in self.neighbors[name]:
+            del self.edge_attr[(name, n)]
+            if self.graph_type == UNDIRECTED_GRAPH:
+                self.neighbors[n].remove(name)
+            else:
+                self.in_neighbors[n].remove(name)
+        if self.graph_type is DIRECTED_GRAPH:
+            for n in self.in_neighbors[name]:
+                del self.edge_attr[(n, name)]
+                self.neighbors[n].remove(name)
         del self.neighbors[name]
+        del self.in_neighbors[name]
         del self.nodes[name]
-        el = self.get_edge_list()
-        for e in el:
-            if e[0] is name or e[1] is name:
-                del self.edge_attr[e]
 
     def add_edge(self, name1, name2, **attr):
         if (name1, name2) in self.edge_attr:
@@ -1004,7 +1011,9 @@ class Graph(object):
     def set_layout(self, value):
         self.attr['layout']=value
 
-    def write(self, basename, layout, format='png'):
+    def write(self, basename = 'graph', layout = None, format='png'):
+        if layout == None:
+            layout = self.get_layout()
         f = file(basename, "w+b")
         if format == 'dot':
             f.write(self.to_string())
@@ -1113,7 +1122,7 @@ class Graph(object):
             if XDOT_INSTALLED:
                 window = xdot.DotWindow()
                 window.set_dotcode(self.to_string())
-                window.connect('destroy', gtk.main_quit())
+                window.connect('destroy', gtk.main_quit)
                 gtk.main()
             else:
                 print 'Error: xdot not installed. Display disabled.'
@@ -2333,11 +2342,11 @@ class Graph(object):
                             if length_range is None:
                                 ''' calculates the euclidean norm and round it
                                 to an integer '''
-                                length = round((((self.get_node(n).get_attr('locationx') -
-                                                  self.get_node(m).get_attr('locationx')) ** 2 +
-                                                 (self.get_node(n).get_attr('locationy') -
-                                                  self.get_node(m).get_attr('locationy')) ** 2) ** 0.5), 0)
-                                self.add_edge(m, n, cost = int(length), label = str(int(length)),
+                                length = round((((self.get_node(n).get_attr('locationx') - 
+                                                  self.get_node(m).get_attr('locationx')) ** 2 + 
+                                                 (self.get_node(n).get_attr('locationy') - 
+                                                  self.get_node(m).get_attr('locationy')) ** 2) ** 0.5), 0) 
+                                self.add_edge(m, n, cost = int(length), label = str(int(length)), 
                                               **edge_format)
                             else:
                                 self.add_edge(m, n, **edge_format)
@@ -2352,11 +2361,11 @@ class Graph(object):
                             if length_range is None:
                                 ''' calculates the euclidean norm and round it
                                 to an integer '''
-                                length = round((((self.get_node(n).get_attr('locationx') -
-                                                  self.get_node(m).get_attr('locationx')) ** 2 +
-                                                 (self.get_node(n).get_attr('locationy') -
-                                                  self.get_node(m).get_attr('locationy')) ** 2) ** 0.5), 0)
-                                self.add_edge(m, n, cost = int(length), label = str(int(length)),
+                                length = round((((self.get_node(n).get_attr('locationx') - 
+                                                  self.get_node(m).get_attr('locationx')) ** 2 + 
+                                                 (self.get_node(n).get_attr('locationy') - 
+                                                  self.get_node(m).get_attr('locationy')) ** 2) ** 0.5), 0) 
+                                self.add_edge(m, n, cost = int(length), label = str(int(length)), 
                                               **edge_format)
                             else:
                                 self.add_edge(m, n, **edge_format)
