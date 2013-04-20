@@ -230,8 +230,6 @@ class Graph(object):
         return self.nodes[name]
 
     def del_node(self, name):
-        if isinstance (name, Node):
-            name = name.name
         if name not in self.neighbors:
             raise Exception('Node %s does not exist!' %str(name))
         for n in self.neighbors[name]:
@@ -253,10 +251,6 @@ class Graph(object):
             raise MultipleEdgeException
         if self.graph_type is UNDIRECTED_GRAPH and (name2,name1) in self.edge_attr:
             raise MultipleEdgeException
-        if isinstance(name1, Node):
-            name1 = name1.name
-        if isinstance(name2, Node):
-            name2 = name2.name
         self.edge_attr[(name1,name2)] = copy.deepcopy(DEFAULT_EDGE_ATTRIBUTES)
         for a in attr:
             self.edge_attr[(name1,name2)][a] = attr[a]
@@ -364,18 +358,12 @@ class Graph(object):
                 self.edge_attr[(m,n)][attr] = value
 
     def get_neighbors(self, name):
-        if isinstance (name, Node):
-            name = name.name
         return self.neighbors[name]
 
     def get_in_neighbors(self, name):
-        if isinstance (name, Node):
-            name = name.name
         return self.in_neighbors[name]
 
     def get_out_neighbors(self, name):
-        if isinstance (name, Node):
-            name = name.name
         return self.neighbors[name]
 
     def get_parent_graph(self):
