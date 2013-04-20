@@ -16,15 +16,11 @@ class Tree(Graph):
         self.root = None
 
     def get_children(self, n):
-        if isinstance(n, Node):
-            return self.get_neighbors(n.name)
-        else:
-            return self.get_neighbors(n)
+        return self.get_neighbors(n)
 
     def get_parent(self, n):
-        if not isinstance(n, Node):
-            n = self.get_node(n)
-        return self.get_node(n.get_attr('parent'))
+        n = self.get_node(n)
+        return n.get_attr('parent')
 
     def add_root(self, root, **attrs):
         attrs['level'] = 0
@@ -32,10 +28,8 @@ class Tree(Graph):
         return self.root
 
     def add_child(self, n, parent, **attrs):
-        if not isinstance(parent, Node):
-            parent = self.get_node(parent)
-        attrs['level'] = parent.get_attr('level') + 1
-        attrs['parent'] = parent.name
+        attrs['level'] = self.get_node(parent).get_attr('level') + 1
+        attrs['parent'] = parent
         self.add_node(n, **attrs)
         self.add_edge(parent, n)
         return self.get_node(n)
