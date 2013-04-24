@@ -168,6 +168,10 @@ class Node(object):
         node.append(']')
         return ''.join(node)
 
+    def __repr__(self):
+       return self.to_string()
+
+
 class Graph(object):
     '''
     Graph class. Felxible enough to let any standart graph implementation,
@@ -2342,11 +2346,11 @@ class Graph(object):
                             if length_range is None:
                                 ''' calculates the euclidean norm and round it
                                 to an integer '''
-                                length = round((((self.get_node(n).get_attr('locationx') - 
-                                                  self.get_node(m).get_attr('locationx')) ** 2 + 
-                                                 (self.get_node(n).get_attr('locationy') - 
-                                                  self.get_node(m).get_attr('locationy')) ** 2) ** 0.5), 0) 
-                                self.add_edge(m, n, cost = int(length), label = str(int(length)), 
+                                length = round((((self.get_node(n).get_attr('locationx') -
+                                                  self.get_node(m).get_attr('locationx')) ** 2 +
+                                                 (self.get_node(n).get_attr('locationy') -
+                                                  self.get_node(m).get_attr('locationy')) ** 2) ** 0.5), 0)
+                                self.add_edge(m, n, cost = int(length), label = str(int(length)),
                                               **edge_format)
                             else:
                                 self.add_edge(m, n, **edge_format)
@@ -2361,11 +2365,11 @@ class Graph(object):
                             if length_range is None:
                                 ''' calculates the euclidean norm and round it
                                 to an integer '''
-                                length = round((((self.get_node(n).get_attr('locationx') - 
-                                                  self.get_node(m).get_attr('locationx')) ** 2 + 
-                                                 (self.get_node(n).get_attr('locationy') - 
-                                                  self.get_node(m).get_attr('locationy')) ** 2) ** 0.5), 0) 
-                                self.add_edge(m, n, cost = int(length), label = str(int(length)), 
+                                length = round((((self.get_node(n).get_attr('locationx') -
+                                                  self.get_node(m).get_attr('locationx')) ** 2 +
+                                                 (self.get_node(n).get_attr('locationy') -
+                                                  self.get_node(m).get_attr('locationy')) ** 2) ** 0.5), 0)
+                                self.add_edge(m, n, cost = int(length), label = str(int(length)),
                                               **edge_format)
                             else:
                                 self.add_edge(m, n, **edge_format)
