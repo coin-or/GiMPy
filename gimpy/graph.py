@@ -212,7 +212,7 @@ class Graph(object):
         elif 'display' not in self.attr:
             self.attr['display']='off'
         if 'layout' not in self.attr:
-            self.attr['layout'] = 'dot'
+            self.attr['layout'] = 'fdp'
 
     def __repr__(self):
         data = str()
@@ -442,6 +442,51 @@ class Graph(object):
                 self.dfs(n, component = self.num_components)
                 self.num_components += 1
 
+    def tarjan(self):
+       '''
+       Implements Tarjan's algorithm for determining strongly connected set of
+       nodes.
+       Pre: self should be a directed graph.
+       Post: Changes component and index attribute of nodes.
+       '''
+       index = 0
+       component = 0
+       q = []
+       for n in self.get_node_list():
+          if self.get_node_attr(n, 'index') is None:
+             index, component = self.strong_connect(q, n, index, component)
+
+    def strong_connect(self, q, node, index, component):
+       '''
+       Used by tarjan method.
+       Pre: Should be called by tarjan and itself (recursive) only.
+       Post: Changes component attribute of nodes.
+       Return: Returns new index and component numbers.
+       '''
+       self.set_node_attr(node, 'index', index)
+       self.set_node_attr(node, 'lowlink', index)
+       index += 1
+       q.append(node)
+       for m in self.get_neighbors(node):
+          if self.get_node_attr(m, 'index') is None:
+             index, component = self.strong_connect(q, m, index, component)
+             self.set_node_attr(node, 'lowlink',
+                                min([self.get_node_attr(node, 'lowlink'),
+                                     self.get_node_attr(m, 'lowlink')]))
+          elif m in q:
+             self.set_node_attr(node, 'lowlink',
+                                min([self.get_node_attr(node, 'lowlink'),
+                                     self.get_node_attr(m, 'index')]))
+       if self.get_node_attr(node, 'lowlink')==\
+              self.get_node_attr(node, 'index'):
+          m = q.pop()
+          self.set_node_attr(m, 'component', component)
+          while (node!=m):
+             m = q.pop()
+             self.set_node_attr(m, 'component', component)
+       component += 1
+       return (index, component)
+
     def label_strong_component(self, root, disc_count = 0, finish_count = 1,
                                component = None):
         '''
@@ -449,24 +494,7 @@ class Graph(object):
         numbers so that each node has the same label as all nodes in the
         same component
         '''
-        if self.graph_type == UNDIRECTED_GRAPH:
-            raise Exception("label_strong_componentsis only for ",
-                            "directed graphs")
-        if self.num_components != None:
-            return
-        self.num_components = 0
-        for n in self.get_node_list():
-            self.get_node(n).set_attr('component', None)
-        for n in self.get_node_list():
-            if self.get_node(n).get_attr('disc_time') == None:
-                self.dfs(n, component = self.num_components)
-        self.num_components = 0
-        for n in self.get_node_list():
-            self.set_node(n).set_attr('component', None)
-        for n in self.get_node_list():
-            if self.get_node(n).get_attr('component') == None:
-                self.dfs(n, component = self.num_components, transpose = True)
-                self.num_components += 1
+        self.tarjan()
 
     def dfs(self, root, disc_count = 0, finish_count = 1, component = None,
             transpose = False):
@@ -1067,7 +1095,6 @@ class Graph(object):
         problems:
             layout bak is not supported.
             display mode svg is not supported.
-
         '''
         if self.attr['display'] == 'off':
             return
