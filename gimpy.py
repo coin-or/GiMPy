@@ -32,19 +32,15 @@ try:
     from dot2tex import dot2tex
 except ImportError:
     dot2tex_installed = False
-    print 'dot2tex not installed'
 else:
     dot2tex_installed = True
-    print 'Found dot2tex'
 
 try:
     from PIL import Image
 except ImportError:
     PIL_installed = False
-    print 'Python Image Library not installed'
 else:
     PIL_installed = True
-    print 'Found Python Image Library'
 
 try:
     import pygtk
@@ -52,29 +48,23 @@ try:
     import xdot
 except ImportError:
     xdot_installed = False
-    print 'Xdot not installed'
 else:
     xdot_installed = True
-    print 'Found xdot installation'
 
 try:
     from pygame.locals import QUIT, KEYDOWN
     from pygame import display, image, event, init
 except ImportError:
     pygame_installed = False
-    print 'Pygame not installed'
 else:
     pygame_installed = True
-    print 'Found pygame installation'
 
 try:
     from lxml import etree
 except ImportError:
     etree_installed = False
-    print 'Etree could not be imported from lxml'
 else:
     etree_installed = True
-    print 'Found etree in lxml'
 
 dot2tex_template = r'''
 \documentclass[landscape]{article}
