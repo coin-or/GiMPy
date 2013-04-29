@@ -37,36 +37,6 @@ Default is an undirected graph.
 
 We will not raise exception when the user tries to get in_neighbors of an undirected graph. She should be aware of this.
 
-Graph type should be given by g = Graph(type=DIRECTED_GRAPH)
-
-
-
-an example graph dot file
-
-digraph G {
-layout=dot;
-splines=true;
-0 [color=black, demand=-5, label=0];
-1 [color=black, demand=10, label=1];
-0 -> 1  [color=black, flow=0, cost=38, capacity=11, label="0/11/38"];
-2 [color=black, demand=-8, label=2];
-0 -> 2  [color=black, flow=0, cost=38, capacity=10, label="0/10/38"];
-1 -> 2  [color=blue, flow=8, cost=35, capacity=15, label="8/15/35"];
-3 [color=black, demand=-5, label=3];
-1 -> 3  [color=blue, flow=10, cost=34, capacity=11, label="10/11/34"];
-5 [color=black, demand=0, label=5];
-2 -> 5  [color=black, flow=0, cost=43, capacity=13, label="0/13/43"];
-3 -> 5  [color=blue, flow=5, cost=44, capacity=16, label="5/16/44"];
-4 [color=black, demand=8, label=4];
-4 -> 1  [color=blue, flow=8, cost=31, capacity=15, label="8/15/31"];
-5 -> 0  [color=blue, flow=5, cost=42, capacity=19, label="5/19/42"];
-}
-
-
-TODO(aykut):
--> when we look for an attr and it does not exist we return None for Node class
-get_attr() method. Should we change this?
-
 '''
 
 from global_constants import *
@@ -928,8 +898,6 @@ class Graph(object):
             itself.
         Pre:
             (1) Arcs should have 'flow', 'capacity' and 'cost' attribute
-            TODO(aykut): this can be generalized by skipping 'cost' when it is
-            not relevant.
             (2) Graph should be a directed graph
         Return:
             returns residual graph, which is a Graph instance.
@@ -1055,18 +1023,13 @@ class Graph(object):
 
     def create(self, layout, format, **args):
         '''
-        TODO(aykut)
         Returns postscript representation of self.
         layout specifies the executable to be used.
         im = StringIO.StringIO(self.create(self.get_layout(), format))
         return image representing string in specified format. Do this by
         calling graphviz executable. (piping)
-        We don not have support for shape files.
+        We do not have support for shape files.
         '''
-        #p = subprocess.Popen([layout, '-T'+format],
-        #                     stdin=subprocess.PIPE,
-        #                     stdout=subprocess.PIPE,
-        #                     stderr=subprocess.PIPE)
         tmp_fd, tmp_name = tempfile.mkstemp()
         tmp_file = os.fdopen(tmp_fd, 'w')
         tmp_file.write(self.to_string())
@@ -1088,13 +1051,10 @@ class Graph(object):
     def display(self, highlight = None, basename = 'graph', format = 'png',
                 pause = True):
         '''
-        TODO(aykut):
         current display modes: off, file, pygame, PIL, xdot, svg
-        current layout modes: layouts provided by graphviz, dot2tex, bak
-        current formats: formats provided by graphviz (ps pdf png )
-        problems:
-            layout bak is not supported.
-            display mode svg is not supported.
+        current layout modes: layouts provided by graphviz, dot2tex
+        current formats: formats provided by graphviz (ps, pdf, png, etc.)
+        TODO(aykut): display mode svg is not supported.
         '''
         if self.attr['display'] == 'off':
             return
@@ -1124,8 +1084,6 @@ class Graph(object):
                     print "Dot2tex not installed, falling back to graphviz"
                     self.set_layout('dot')
                     self.write(basename+'.'+format, self.get_layout(), format)
-            elif self.get_layout() == 'bak':
-                im = StringIO.StringIO(self.GenerateTreeImage())
             else:
                 self.write(basename+'.'+format, self.get_layout(), format)
             return
@@ -2001,9 +1959,6 @@ class Graph(object):
             values are junk if the graph is not a tree.
         Return:
             Returns predecessor dictionary.
-        TODO(aykut): usual search is bugged, it does not set component number
-        for source. If you fix that update this method (since it sets component
-        number of source after search).
         '''
         q = [source]
         pred = {source:None}
@@ -2449,6 +2404,40 @@ class Graph(object):
             if diff < min_delta:
                 break
         return pagerank
+
+    def get_degree(self):
+        degree = {}
+        if self.attr['type'] is UNDIRECTED_GRAPH:
+            for n in self.get_node_list():
+                degree[n] = len(self.get_neighbors(n))
+        elif self.attr['type'] is DIRECTED_GRAPH:
+            for n in self.get_node_list():
+                degree[n] = (len(self.get_in_neighbors(n)) +
+                         len(self.get_out_neighbors(n)))
+        return degree
+
+    def get_diameter(self):
+        '''
+        distance(n,m): shortest unweighted path from n to m
+        eccentricity(n) = max_m distance(n,m)
+        diameter = min_n eccentricity(n) = min_n max_m distance(n,m)
+        '''
+        diameter = 'infinity'
+        eccentricity_n = 0
+        for n in self.get_node_list():
+            for m in self.get_node_list():
+                path_n_m = self.shortest_unweighted_path(n, m)
+                if isinstance(path_n_m, dict):
+                    # this indicates there is no path from n to m, no diameter
+                    # is defined, since the graph is not connected, return
+                    # 'infinity'
+                    return 'infinity'
+                disntance_n_m = len(path_n_m)-1
+                if distance_n_m > eccentricity_n:
+                    eccentricity_n = distance_n_m
+            if diameter is 'infinity' or diameter > eccentricity_n:
+                diameter = eccentricity_n
+        return diameter
 
 
 class DisjointSet(Graph):
