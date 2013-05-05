@@ -1069,7 +1069,7 @@ class Graph(object):
                     if format != 'pdf' or format != 'ps':
                         print "Dot2tex only supports pdf and ps formats, falling back to pdf"
                         format = 'pdf'
-                    #self.set_layout('dot')
+                    self.set_layout('dot')
                     tex = dot2tex.dot2tex(self.to_string(), autosize=True, texmode = 'math', template = DOT2TEX_TEMPLATE)
                     f = open(basename+'.tex', 'w')
                     f.write(tex)
@@ -1079,7 +1079,7 @@ class Graph(object):
                         subprocess.call(['dvips', basename])
                     elif format == 'pdf':
                         subprocess.call(['pdflatex', basename])
-                    #self.set_layout('dot2tex')
+                    self.set_layout('dot2tex')
                 else:
                     print "Dot2tex not installed, falling back to graphviz"
                     self.set_layout('dot')
@@ -1098,7 +1098,11 @@ class Graph(object):
                 if e.type == pygame.KEYDOWN:
                     break
                 if e.type == pygame.QUIT:
-                    sys.exit()
+                    pause = False
+                    pygame.display.quit()
+                    # sys.exit() exits the whole program and I (aykut) guess it is
+                    # not appropriate here.
+                    #sys.exit()
         elif self.attr['display'] == 'PIL':
             im = StringIO.StringIO(self.create(self.get_layout(), format))
             if PIL_INSTALLED:
