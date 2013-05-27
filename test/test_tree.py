@@ -1,4 +1,4 @@
-from gimpy import Tree
+from gimpy import BinaryTree
 import random
 
 if __name__=='__main__':
