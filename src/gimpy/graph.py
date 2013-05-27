@@ -40,9 +40,9 @@ We will not raise exception when the user tries to get in_neighbors of an undire
 '''
 
 from global_constants import *
-from list import Stack
-from list import Queue
-from list import PriorityQueue
+from blimpy import Stack
+from blimpy import Queue
+from blimpy import PriorityQueue
 import subprocess # for call()
 import StringIO   # for StringIO()
 import copy       # for deepcopy()
@@ -1062,7 +1062,7 @@ class Graph(object):
             for n in highlight:
                 if not isinstance(n, Node):
                     m = self.get_node(n)
-                m.set_attr('color', 'red')
+                    m.set_attr('color', 'red')
         if self.attr['display'] == 'file':
             if self.get_layout() == 'dot2tex':
                 if DOT2TEX_INSTALLED:
@@ -1131,7 +1131,7 @@ class Graph(object):
             for n in highlight:
                 if not isinstance(n, Node):
                     m = self.get_node(n)
-                m.set_attr('color', 'black')
+                    m.set_attr('color', 'black')
 
     def set_display_mode(self, value):
         self.attr['display'] = value

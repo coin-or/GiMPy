@@ -4,7 +4,7 @@ Tree class built on top of Graph class.
 
 from graph import Graph, Node
 from global_constants import *
-from list import Stack, Queue
+from blimpy import Stack, Queue
 import operator
 
 class Tree(Graph):
@@ -33,7 +33,7 @@ class Tree(Graph):
         self.add_node(n, **attrs)
         self.add_edge(parent, n)
         return self.get_node(n)
-    
+
     def dfs(self, root = None, display = None):
         if root == None:
             root = self.root
@@ -91,9 +91,13 @@ class BinaryTree(Tree):
         self.add_child(n, parent, **attrs)
 
     def get_right_child(self, n):
+        if isinstance(n, Node):
+            return n.get_attr('Rchild')
         return self.get_node_attr(n, 'Rchild')
 
     def get_left_child(self, n):
+        if isinstance(n, Node):
+            return n.get_attr('Lchild')
         return self.get_node_attr(n, 'Lchild')
 
     def del_node(self, n):
@@ -144,7 +148,7 @@ class BinaryTree(Tree):
         if root == None:
             root = self.root
         if display == None:
-            display = self.display_mode
+            display = self.attr['display']
         self.traverse(root, display, Queue(), priority, order)
 
     def traverse(self, root = None, display = None, q = Stack(),
