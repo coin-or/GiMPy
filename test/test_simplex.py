@@ -2,13 +2,23 @@
 import cProfile
 import pstats
 
-from compare import generate_graph
+from test_gimpy import generate_graph
+
+# a generator is in the following form (numnode, density, demand_numnode,
+# supply_numnode, demand_range, cost_range, capacity_range)
+# The following is an example for individual elements in a generator tuple
+# numnodes = 10
+# density = 0.5
+# demand_numnodes = 3
+# supply_numnodes = 2
+# demand_range = (5,10)
+# cost_range = (30,50)
+# capacity_range = (10,20)
 
 if __name__=='__main__':
-    gen = (38, 0.6, 7, 5, (5,10), (30,50), (10,20))
-    #gen = (35, 0.2, 6, 4, (5,10), (30,50), (0,100))
-    g, rg = generate_graph(1, gen)
-    rg.min_cost_flow(algo="simplex", pivot="dantzig")
+    generator = (38, 0.6, 7, 5, (5,10), (30,50), (10,20))
+    g = generate_graph(1, generator)
+    g.min_cost_flow(algo="simplex", pivot="dantzig")
     #pycallgraph.start_trace()
     #cProfile.run('rg.min_cost_flow(algo="simplex", pivot="dantzig")', 'cprof.out')
     #p = pstats.Stats('cprof.out')
