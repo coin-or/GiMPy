@@ -21,6 +21,7 @@ if __name__=='__main__':
     c.add_edge('b0', 'b1')
     c.add_edge('b1', 'b2')
     c.add_edge('b2', 'b3')
+    c.add_edge('b2', 'a3')
     c.add_edge('a3', 'end')
     c.add_edge('b3', 'end')
     c.add_edge('a3', 'a0')
@@ -31,7 +32,7 @@ if __name__=='__main__':
     # create clusters
     # create dictionaries with cluster attributes and node attributes
     cluster_attrs = {'name':'0', 'style':'filled', 'color':'lightgrey', 'label':'process #1'}
-    node_attrs = {'style':'filled', 'color':'lightgrey'}
+    node_attrs = {'style':'filled', 'color':'white'}
     # create cluster
     c.create_cluster(['a0', 'a1', 'a2', 'a3'], cluster_attrs, node_attrs)
     # modify attributes for the second cluster
