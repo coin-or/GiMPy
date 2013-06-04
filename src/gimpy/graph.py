@@ -183,6 +183,8 @@ class Graph(object):
             self.attr['display']='off'
         if 'layout' not in self.attr:
             self.attr['layout'] = 'fdp'
+        self.attr['cluster_count'] = 0
+        self.cluster = {}
 
     def __repr__(self):
         data = str()
@@ -374,6 +376,7 @@ class Graph(object):
         It will return the graph and all its subelements in string form.
         """
         graph = list()
+        processed_edges = {}
         graph.append('%s %s {\n' %(self.graph_type, self.name))
         for a in self.attr:
             if a not in GRAPH_ATTRIBUTES:
@@ -384,12 +387,41 @@ class Graph(object):
             else:
                 graph.append(a)
             graph.append( ';\n' )
-        # process nodes
+        # clusters
+        for c in self.cluster:
+            graph.append('subgraph cluster_%s {\n' %c)
+            for a in self.cluster[c]['attrs']:
+                if a=='label':
+                    graph.append(a+'='+'"'+self.cluster[c]['attrs'][a]+'";\n')
+                    continue
+                graph.append(a+'='+self.cluster[c]['attrs'][a]+';\n')
+            if len(self.cluster[c]['node_attrs'])!=0:
+                graph.append('node [')
+            for a in self.cluster[c]['node_attrs']:
+                graph.append(a+'='+self.cluster[c]['node_attrs'][a])
+                graph.append(',')
+            if len(self.cluster[c]['node_attrs'])!=0:
+                graph.pop()
+                graph.append('];\n')
+            for n in self.cluster[c]['node_list']:
+                for m in self.cluster[c]['node_list']:
+                    if self.check_edge(n,m):
+                        data = self.edge_to_string((n,m))
+                        graph.append(data + ';\n')
+                        processed_edges[(n,m)]=None
+            graph.append('}\n')
+        # process remaining (non-cluster) nodes
         for n in self.neighbors:
-            data = self.get_node(n).to_string()
-            graph.append(data + ';\n')
+            for c in self.cluster:
+                if n in self.cluster[c]['node_list']:
+                    break
+            else:
+               data = self.get_node(n).to_string()
+               graph.append(data + ';\n')
         # process edges
         for e in self.edge_attr:
+            if e in processed_edges:
+                continue
             data = self.edge_to_string(e)
             graph.append(data + ';\n')
         graph.append( '}\n' )
@@ -2442,6 +2474,22 @@ class Graph(object):
             if diameter is 'infinity' or diameter > eccentricity_n:
                 diameter = eccentricity_n
         return diameter
+
+    def create_cluster(self, node_list, cluster_attrs, node_attrs):
+        '''
+        Creates a cluster from the node given in the node list.
+        '''
+        if 'name' in cluster_attrs:
+            if 'name' in self.cluster:
+                raise Exception('A cluster with name %s already exists!' %cluster_attrs['name'])
+            else:
+                name = cluster_attrs['name']
+        else:
+            name = 'cluster_%d' %self.attr['cluster_count']
+            self.attr['cluster_count'] += 1
+        self.cluster[name] = {'node_list':node_list,
+                              'attrs':copy.deepcopy(cluster_attrs),
+                              'node_attrs':copy.deepcopy(node_attrs)}
 
 
 class DisjointSet(Graph):
