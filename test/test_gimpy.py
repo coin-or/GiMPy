@@ -314,10 +314,10 @@ if __name__=='__main__':
         for gen in dense_generator:
             print gen
             # unzip generator
-            (numnodes, density, demand_numnodes, supply_numnodes,
-             demand_range, cost_range, capacity_range) = gen
+            #(numnodes, density, demand_numnodes, supply_numnodes,
+            # demand_range, cost_range, capacity_range) = gen
             # generate graphs
-            rg = generate_graph(i+1)
+            rg = generate_graph(i+1, gen)
             print "Testing DFS..."
             test_DFS(rg)
             print "Testing BFS..."
