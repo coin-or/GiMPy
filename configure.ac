@@ -29,7 +29,7 @@ AC_COPYRIGHT([
 # GiMPy is distributed under the Eclipse Public License as part of the       #
 # COIN-OR repository (http://www.coin-or.org).                               #
 #                                                                            #
-# Authors: Ayukut Bulut, Lehigh University (ayb211@lehigh.edu)               #
+# Authors: Aykut Bulut, Lehigh University (ayb211@lehigh.edu)                #
 #          Ted Ralphs, Lehigh University (ted@lehigh.edu)                    #
 #                                                                            #
 #                                                                            #
