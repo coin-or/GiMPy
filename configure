@@ -15,7 +15,7 @@
 # # GiMPy is distributed under the Eclipse Public License as part of the       #
 # # COIN-OR repository (http://www.coin-or.org).                               #
 # #                                                                            #
-# # Authors: Ayukut Bulut, Lehigh University (ayb211@lehigh.edu)               #
+# # Authors: Aykut Bulut, Lehigh University (ayb211@lehigh.edu)                #
 # #          Ted Ralphs, Lehigh University (ted@lehigh.edu)                    #
 # #                                                                            #
 # #                                                                            #
@@ -1251,7 +1251,7 @@ gives unlimited permission to copy, distribute and modify it.
 # GiMPy is distributed under the Eclipse Public License as part of the       #
 # COIN-OR repository (http://www.coin-or.org).                               #
 #                                                                            #
-# Authors: Ayukut Bulut, Lehigh University (ayb211@lehigh.edu)               #
+# Authors: Aykut Bulut, Lehigh University (ayb211@lehigh.edu)                #
 #          Ted Ralphs, Lehigh University (ted@lehigh.edu)                    #
 #                                                                            #
 #                                                                            #
@@ -2818,14 +2818,14 @@ rm -f conftest.err conftest.$ac_objext \
         case "$CC" in
           clang* ) ;;
           cl* | */cl* | CL* | */CL*)
-            coin_opt_cflags='-MT -O2'
+            coin_opt_cflags='-MD -O2'
             coin_add_cflags='-nologo -wd4996 -D_CRT_SECURE_NO_DEPRECATE'
-            coin_dbg_cflags='-MTd'
+            coin_dbg_cflags='-MDd'
             ;;
           icl* | */icl* | ICL* | */ICL*)
-            coin_opt_cflags='-MT -Ox'
+            coin_opt_cflags='-MD -Ox'
             coin_add_cflags='-nologo -D_CRT_SECURE_NO_DEPRECATE'
-            coin_dbg_cflags='-MTd -debug'
+            coin_dbg_cflags='-MDd -debug'
             ;;
         esac
         ;;
@@ -3837,15 +3837,15 @@ rm -f conftest.err conftest.$ac_objext \
           clang* ) ;;
           cl* | */cl* | CL* | */CL*)
 	    # The MT and MTd options are mutually exclusive
-            coin_opt_cxxflags='-MT -O2'
+            coin_opt_cxxflags='-MD -O2'
             coin_add_cxxflags='-nologo -EHsc -GR -wd4996 -D_CRT_SECURE_NO_DEPRECATE'
-            coin_dbg_cxxflags='-MTd'
+            coin_dbg_cxxflags='-MDd'
             ;;
           icl* | */icl* | ICL* | */ICL*)
 	    # The MT and MTd options are mutually exclusive
-            coin_opt_cxxflags='-MT -Ox'
+            coin_opt_cxxflags='-MD -Ox'
             coin_add_cxxflags='-nologo -EHsc -GR -D_CRT_SECURE_NO_DEPRECATE'
-            coin_dbg_cxxflags='-MTd -debug'
+            coin_dbg_cxxflags='-MDd -debug'
             ;;
         esac
         ;;

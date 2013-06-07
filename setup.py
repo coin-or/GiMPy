@@ -2,7 +2,7 @@
 
 from distutils.core import setup
 
-setup(name='Distutils',
+setup(name='GiMPy',
       version='1.0',
       description='Graph Methods in Python (GiMPy)',
       author='Aykut Bulut, Ted Ralphs',
