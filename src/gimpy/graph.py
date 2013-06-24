@@ -406,8 +406,8 @@ class Graph(object):
                 if n in self.cluster[c]['node_list']:
                     break
             else:
-               data = self.get_node(n).to_string()
-               graph.append(data + ';\n')
+                data = self.get_node(n).to_string()
+                graph.append(data + ';\n')
         # process edges
         for e in self.edge_attr:
             if e in processed_edges:
@@ -2524,15 +2524,16 @@ class DisjointSet(Graph):
 
 
 if __name__ == '__main__':
-    G = Graph(type = DIRECTED_GRAPH, splines = 'true')
+    G = Graph(type = UNDIRECTED_GRAPH, splines = 'true', K = 1.5)
 #    G.random(numnodes = 7, density = 0.7, length_range = (1, 10), seedInput = 5)
-    G.random(numnodes = 7, density = 0.7, Euclidean = True, seedInput = 5)
+    G.random(numnodes = 7, density = 0.7, Euclidean = True, seedInput = 9)
 #    G.random(numnodes = 10, density = 0.5, seedInput = 5)
 
 #    G.set_display_mode('file')
 #    print G.to_string()
 #    G.display(basename='try.png', format='png')
 
-#    G.search(0, display = 'pygame', algo = 'Prims')
-    G.minimum_spanning_tree_kruskal(display = 'pygame')
+    G.search(0, display = 'pygame', algo = 'Dijkstra')
+#    G.minimum_spanning_tree_kruskal(display = 'pygame')
     #G.search(0, display = 'pygame')
+
