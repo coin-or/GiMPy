@@ -11,10 +11,10 @@ red  : the flow equals to the arc capacity
 green: there is positive flow on the arc, less then capacity.
 '''
 
-from gimpy import Graph
+from gimpy import Graph, DIRECTED_GRAPH
 
 if __name__=='__main__':
-    g = Graph(graph_type='digraph', display = 'pygame')
+    g = Graph(type = DIRECTED_GRAPH, display = 'pygame')
     g.add_node(1,pos='"0,2!"')
     
     g.add_node(3,pos='"2,4!"')
@@ -44,5 +44,5 @@ if __name__=='__main__':
     nl.sort()
     for n in nl:
         for m in nl:
-            if g.get_edge(n, m)!=None:
+            if g.check_edge(n, m):
                 print n, m, g.get_edge_attr(n, m, 'flow')
