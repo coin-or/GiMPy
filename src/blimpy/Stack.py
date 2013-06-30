@@ -1,6 +1,5 @@
-#stacks.py
 '''
-A basic stack implementation using a linked list
+A basic stack implementation using a linked list.
 '''
 
 __version__    = '1.0.0'
@@ -15,7 +14,7 @@ from LinkedList import LinkedList
 
 class Stack(object):
     '''
-    This stack class is built on top of a linked list data structure
+    This stack class is built on top of a linked list data structure.
     '''
     def __init__(self):
         self.items = LinkedList()
@@ -42,20 +41,17 @@ class Stack(object):
         else:
             for i in self.items:
                 if i == item:
-                    return i            
+                    return i
         return None
 
     def size(self):
         return len(self.items)
 
 if __name__ == '__main__':
-    
+
     s = Stack()
-    
+
     for i in range(10):
         s.push(i)
-        
-    print s.pop()
-    
 
-    
+    print s.pop()
