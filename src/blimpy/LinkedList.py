@@ -51,6 +51,7 @@ class Node(object):
     def __str__(self):
         return str(self.data)
 
+
 class LinkedList(object):
     '''implementation of link list data structure.
     The behavior is designed to be the same as a Python list.
