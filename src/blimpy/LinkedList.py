@@ -3,7 +3,6 @@ Lists Module
 A basic linked list implementation conforming to the Python list API.
 It can be used as a drop-in replacement for the built-in list class.
 Created on Jan 29, 2012
-
 '''
 
 __version__    = '1.0.0'
@@ -18,10 +17,9 @@ from copy import deepcopy
 
 class Node(object):
     ''' Basic data type that LinkedList will contain
-    pre: data that node will contain 
+    pre: data that node will contain
     post: Node type object
     '''
-
     def __init__(self, initdata, nextNode = None):
         '''constructor of Node class
         pre: Node class object (self), initial data (initdata)'''
@@ -46,21 +44,21 @@ class Node(object):
         ''' class method that changes the next Node
         pre: self, new next'''
         self.nextNode = newnext
- 
+
     def __repr__(self):
         return 'Node instance, data:%s, nextNode:%s' %(self.getData(), self.getNext())
 
     def __str__(self):
         return str(self.data)
-        
+
 class LinkedList(object):
     '''implementation of link list data structure.
     The behavior is designed to be the same as a Python list.
     For efficiency when using the list as a stack, the list is stored
-    such that the last item in the list is the head node. Thus, the 
+    such that the last item in the list is the head node. Thus, the
     append, push, pop, and most other methods are efficient, but
     forward iteration is not. Reverse iteration is efficient, however,
-    pre:  Node is the head node of a linked list and length is the length of 
+    pre:  Node is the head node of a linked list and length is the length of
           that list
     post: creates a LinkedList type object
     '''
@@ -105,7 +103,7 @@ class LinkedList(object):
             previous.setNext(current.getNext())
         self.length -= 1
         return True
-    
+
     def __delitem__(self, item):
         if not self.remove(item):
             raise KeyError, "Key not found in list"
@@ -140,7 +138,7 @@ class LinkedList(object):
 
     def pop(self, index = None):
         ''' class method that removes the item at the given position
-        in the list, and returns it. If no index is specified 
+        in the list, and returns it. If no index is specified
         removes and returns the last item in the list
         pre: self, position (optional), position should be less than length
         of the list, list should not be empty
@@ -279,7 +277,7 @@ class LinkedList(object):
             s += str(current.getData())+' ,'
             current = current.getNext()
         return '[]'
-    
+
     def forward(self):
         for i in range(self.length):
             yield self[i]
@@ -298,19 +296,19 @@ class LinkedList(object):
 
 
 if __name__ == '__main__':
-    o = LinkedList() 
+    o = LinkedList()
     for i in range(100):
         o.append(i)
-        
+
     for i in reversed(o):
         print i
     print 100000 in o
-    
+
     print o.pop()
     print o.pop(0)
     o.insert(0, 'a')
-    print o.pop(0)    
-    
+    print o.pop(0)
+
     a = o[:50]
     for i in a:
         print i
