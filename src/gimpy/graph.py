@@ -1,8 +1,9 @@
 '''
-A new Graph class implementation. The aim for this implementation is
+A Graph class implementation. The aim for this implementation is
 1. To reflect implementation methods in leterature as much as possible
-2. Removing superflous stuff that comes with pydot
-3. To have a more object oriented design
+2. Removing superflous stuff that comes with pydot (compared to previous
+versions)
+3. To have a more object oriented design (compared to previous versions)
 
 This implementation can be considered as a comprimise between pydot graph
 class and an efficient graph data structure.
@@ -14,30 +15,47 @@ traversing residual graphs.
 We have a class for Graph and a class for Node. Edges are not represented as
 objects. They are kept in a dictionary which also keeps their attributes.
 
-Node objects should be used to get an attribute of a Node. We do not have a
-get_node_attr() method in Graph class.
+Graph display related methods are inspired from Pydot. They are re-written
+considering GIMPy needs. We also borrow two methods from Pydot, see
+global_constants.py for details.
 
-It is user's responsibility to name nodes properly (according to dot standarts), Graph class will not check that.
+Default graph type is an undirected graph.
 
-Some portion of code is written using Pydot source code.
+No custom exception will raise when the user tries to get in_neighbors of an
+undirected graph. She should be aware of this. Python will raise an exception
+since user is trying to read an attribute that does not exits.
 
-There are two attribute sets for Graph and node classes.
-1. attributes to keep data (attr), ie for edges cost, capacity etc.
-These two attribute sets should not e considered
-They may have commons. It is users responsibility to keep coherency of attributes.
+Methods that implement algorithms has display argument in their API. If this
+argument is not specified global display setting will be used for display
+purposes of the algortihm method implements. You can use display argument to
+get visualization of algorithm without changing global display behavior of your
+Graph/Tree object.
 
-For edges we only have edge_attr. User should be aware of this.
+Method documentation strings are orginized as follows.
+API: method_name(arguments)
+Description: Description of the method.
+Input: Arguments and their explanation.
+Pre: Necessary class attributes that should exists, methods to be called
+     before this method.
+Post: Class attributes changed within the method.
+Return: Return value of the method.
 
-Edges are not objects in this implementation and if a user wants to change an edge attribute she should do it directly on edge_attr.
 
-For constructor attr arguments:
-They will all be in self.attr
-
-Default is an undirected graph.
-
-We will not raise exception when the user tries to get in_neighbors of an undirected graph. She should be aware of this.
-
+TODO(aykut):
+-> label_components display argument is ineffective.
+-> label_strong_components() API change. Check backward compatibilty.
+-> dfs should use search()?
+-> display mode svg is not supported.
+-> The solution we find is not strongly feasible. Fix this.
 '''
+
+__version__    = '1.0.0'
+__author__     = 'Ted Ralphs, Aykut Bulut (ted@lehigh.edu, aykut@lehigh.edu)'
+__license__    = 'BSD'
+__maintainer__ = 'Aykut Bulut'
+__email__      = 'aykut@lehigh.edu'
+__url__        = None
+__title__      = 'Linked list data structure'
 
 from global_constants import *
 from blimpy import Stack
@@ -89,29 +107,62 @@ except ImportError:
 else:
     ETREE_INSTALLED = True
 
-FlexList = list
-
 class Node(object):
     '''
+    Node class. A node object keeps node attributes. Has a method to write
+    node in Dot language grammer.
     '''
     def __init__(self, name, **attr):
+        '''
+        API: __init__(self, name, **attrs)
+        Description:
+        Node class constructor. Sets name and attributes using arguments.
+        Input:
+            name: Name of node.
+            **attrs: Node attributes.
+        Post:
+            Sets self.name and self.attr.
+        '''
         self.name = name
         self.attr = copy.deepcopy(DEFAULT_NODE_ATTRIBUTES)
         for a in attr:
             self.attr[a] = attr[a]
 
     def get_attr(self, attr):
+        '''
+        API: get_attr(self, attr)
+        Description:
+        Returns node attribute attr.
+        Input:
+            attr: Node attribute to get.
+        Return:
+            Returns Node attribute attr if exists returns None, otherwise.
+        '''
         if attr in self.attr:
             return self.attr[attr]
         else:
             return None
 
     def set_attr(self, attr, value):
+        '''
+        API: set_attr(self, attr, value)
+        Description:
+        Sets node attribute attr to value.
+        Input:
+            attr: Node attribute to set.
+            value: New value of the attribute.
+        Post:
+            Updates self.attr[attr].
+        '''
         self.attr[attr] = value
 
     def to_string(self):
         '''
-        return string representation of node in dot language.
+        API: to_string(self)
+        Description:
+        Returns string representation of node in dot language.
+        Return:
+            String representation of node.
         '''
         node = list()
         node.append(str(self.name))
@@ -129,16 +180,34 @@ class Node(object):
         return ''.join(node)
 
     def __repr__(self):
-       return self.to_string()
+        '''
+        API: __repr__(self)
+        Description:
+        Returns string representation of node in dot language.
+        Return:
+            String representation of node.
+        '''
+        return self.to_string()
 
 
 class Graph(object):
     '''
-    Graph class. Felxible enough to let any standart graph implementation,
-    adjecency list, incidence list, adjecency matrix, incidence matrix, etc.
-    Currently we only have adjacency list.
+    Graph class, implemented using adjacency list. See GIMPy README for more
+    information.
     '''
     def __init__(self, **attr):
+        '''
+        API: __init__(self, **attrs)
+        Description:
+        Graph class constructor. Sets attributes using argument.
+        Input:
+            **attrs: Graph attributes.
+        Post:
+            Sets following attributes using **attrs; self.attr,
+            self.graph_type. Creates following initial attributes;
+            self.neighbors, self.in_neighbors, self.nodes, self.out_neighbors,
+            self.cluster
+        '''
         # graph attributes
         self.attr = copy.deepcopy(DEFAULT_GRAPH_ATTRIBUTES)
         # set attributes using constructor
@@ -177,6 +246,13 @@ class Graph(object):
         self.cluster = {}
 
     def __repr__(self):
+        '''
+        API: __repr__(self)
+        Description:
+        Returns string representation of the graph.
+        Return:
+            String representation of the graph.
+        '''
         data = str()
         for n in self.nodes:
             data += str(n)
@@ -187,15 +263,41 @@ class Graph(object):
         return data
 
     def add_node(self, name, **attr):
+        '''
+        API: add_node(self, name, **attr)
+        Description:
+        Adds node to the graph.
+        Pre:
+            Graph should not contain a node with this name. We do not allow
+            multiple nodes with the same name.
+        Input:
+            name: Name of the node.
+            attr: Node attributes.
+        Post:
+            self.neighbors, self.nodes and self.in_neighbors are updated.
+        Return:
+            Node (a Node class instance) added to the graph.
+        '''
         if name in self.neighbors:
             raise MultipleNodeException
-        self.neighbors[name] = FlexList()
+        self.neighbors[name] = list()
         if self.graph_type is DIRECTED_GRAPH:
-            self.in_neighbors[name] = FlexList()
+            self.in_neighbors[name] = list()
         self.nodes[name] = Node(name, **attr)
         return self.nodes[name]
 
     def del_node(self, name):
+        '''
+        API: del_node(self, name)
+        Description:
+        Removes node from Graph.
+        Input:
+            name: Name of the node.
+        Pre:
+            Graph should contain a node with this name.
+        Post:
+            self.neighbors, self.nodes and self.in_neighbors are updated.
+        '''
         if name not in self.neighbors:
             raise Exception('Node %s does not exist!' %str(name))
         for n in self.neighbors[name]:
@@ -213,6 +315,22 @@ class Graph(object):
         del self.nodes[name]
 
     def add_edge(self, name1, name2, **attr):
+        '''
+        API: add_edge(self, name1, name2, **attr)
+        Description:
+        Adds edge to the graph. Sets edge attributes using attr argument.
+        Input:
+            name1: Name of the source node (if directed).
+            name2: Name of the sink node (if directed).
+            attr: Edge attributes.
+        Pre:
+            Graph should not already contain this edge. We do not allow
+            multiple edges with same source and sink nodes.
+        Post:
+            self.edge_attr is updated.
+            self.neighbors, self.nodes and self.in_neighbors are updated if
+            graph was missing at least one of the nodes.
+        '''
         if (name1, name2) in self.edge_attr:
             raise MultipleEdgeException
         if self.graph_type is UNDIRECTED_GRAPH and (name2,name1) in self.edge_attr:
@@ -231,6 +349,17 @@ class Graph(object):
             self.in_neighbors[name2].append(name1)
 
     def del_edge(self, e):
+        '''
+        API: del_edge(self, e)
+        Description:
+        Removes edge from graph.
+        Input:
+            e: Tuple that represents edge, in (source,sink) form.
+        Pre:
+            Graph should contain this edge.
+        Post:
+            self.edge_attr, self.neighbors and self.in_neighbors are updated.
+        '''
         if self.graph_type is DIRECTED_GRAPH:
             try:
                 del self.edge_attr[e]
@@ -249,10 +378,15 @@ class Graph(object):
             self.neighbors[e[0]].remove(e[1])
             self.neighbors[e[1]].remove(e[0])
 
-
     def get_node(self, name):
         '''
-        Return none if node does not exist.
+        API: get_node(self, name)
+        Description:
+        Returns node object with the provided name.
+        Input:
+            name: Name of the node.
+        Return:
+            Returns node object if node exists, returns None otherwise.
         '''
         if name in self.nodes:
             return self.nodes[name]
@@ -261,13 +395,26 @@ class Graph(object):
 
     def get_edge_cost(self, edge):
         '''
+        API: get_edge_cost(self, edge)
+        Description:
         Returns cost attr of edge, required for minimum_spanning_tree_kruskal().
+        Input:
+            edge: Tuple that represents edge, in (source,sink) form.
+        Return:
+            Returns cost attribute value of the edge.
         '''
         return self.get_edge_attr(edge[0], edge[1], 'cost')
 
     def check_edge(self, name1, name2):
         '''
-        Return True if edge exists, false otherwise.
+        API: check_cost(self, name1, name2)
+        Description:
+        Return True if edge exists, False otherwise.
+        Input:
+            name1: name of the source node.
+            name2: name of the sink node.
+        Return:
+            Returns True if edge exists, False otherwise.
         '''
         if self.graph_type is DIRECTED_GRAPH:
             return (name1, name2) in self.edge_attr
@@ -276,26 +423,73 @@ class Graph(object):
                     (name2, name1) in self.edge_attr)
 
     def get_node_list(self):
+        '''
+        API: get_node_list(self)
+        Description:
+        Returns node list.
+        Return:
+            List of nodes.
+        '''
         return self.neighbors.keys()
 
     def get_edge_list(self):
+        '''
+        API: get_edge_list(self)
+        Description:
+        Returns edge list.
+        Return:
+            List of edges, edges are tuples and in (source,sink) format.
+        '''
         return self.edge_attr.keys()
 
     def get_node_num(self):
+        '''
+        API: get_node_num(self)
+        Description:
+        Returns number of nodes.
+        Return:
+            Number of nodes.
+        '''
         return len(self.neighbors)
 
     def get_edge_num(self):
+        '''
+        API: get_edge_num(self)
+        Description:
+        Returns number of edges.
+        Return:
+            Number of edges.
+        '''
         return len(self.edge_attr)
 
     def get_node_attr(self, name, attr):
         '''
-        Returns attribute attr of node name.
+        API: get_node_attr(self, name, attr)
+        Description:
+        Returns attribute attr of given node.
+        Input:
+            name: Name of node.
+            attr: Attribute of node.
+        Pre:
+            Graph should have this node.
+        Return:
+            Value of node attribute attr.
         '''
         return self.get_node(name).get_attr(attr)
 
     def get_edge_attr(self, n, m, attr):
         '''
+        API: get_edge_attr(self, n, m, attr)
+        Description:
         Returns attribute attr of edge (n,m).
+        Input:
+            n: Source node name.
+            m: Sink node name.
+            attr: Attribute of edge.
+        Pre:
+            Graph should have this edge.
+        Return:
+            Value of edge attribute attr.
         '''
         if self.graph_type is DIRECTED_GRAPH:
             return self.edge_attr[(n,m)][attr]
@@ -307,13 +501,33 @@ class Graph(object):
 
     def set_node_attr(self, name, attr, value):
         '''
+        API: set_node_attr(self, name, attr)
+        Description:
         Sets attr attribute of node named name to value.
+        Input:
+            name: Name of node.
+            attr: Attribute of node to set.
+        Pre:
+            Graph should have this node.
+        Post:
+            Node attribute will be updated.
         '''
         self.get_node(name).set_attr(attr, value)
 
     def set_edge_attr(self, n, m, attr, value):
         '''
+        API: set_edge_attr(self, n, m, attr, value)
+        Description:
         Sets attr attribute of edge (n,m) to value.
+        Input:
+            n: Source node name.
+            m: Sink node name.
+            attr: Attribute of edge to set.
+            value: New value of attribute.
+        Pre:
+            Graph should have this edge.
+        Post:
+            Edge attribute will be updated.
         '''
         if self.graph_type is DIRECTED_GRAPH:
             self.edge_attr[(n,m)][attr] = value
@@ -324,23 +538,58 @@ class Graph(object):
                 self.edge_attr[(m,n)][attr] = value
 
     def get_neighbors(self, name):
+        '''
+        API: get_neighbors(self, name)
+        Description:
+        Returns list of neighbors of given node.
+        Input:
+            name: Node name.
+        Pre:
+            Graph should have this node.
+        Return:
+            List of neighbor node names.
+        '''
         return self.neighbors[name]
 
     def get_in_neighbors(self, name):
+        '''
+        API: get_in_neighbors(self, name)
+        Description:
+        Returns list of in neighbors of given node.
+        Input:
+            name: Node name.
+        Pre:
+            Graph should have this node.
+        Return:
+            List of in-neighbor node names.
+        '''
         return self.in_neighbors[name]
 
     def get_out_neighbors(self, name):
+        '''
+        API: get_out_neighbors(self, name)
+        Description:
+        Returns list of out-neighbors of given node.
+        Input:
+            name: Node name.
+        Pre:
+            Graph should have this node.
+        Return:
+            List of out-neighbor node names.
+        '''
         return self.neighbors[name]
-
-    def get_parent_graph(self):
-        '''
-        this method may be implemented, it is used by to_string()
-        '''
-        pass
 
     def edge_to_string(self, e):
         '''
-        return string that represents edge e in dot language.
+        API: edge_to_string(self, e)
+        Description:
+        Return string that represents edge e in dot language.
+        Input:
+            e: Edge tuple in (source,sink) format.
+        Pre:
+            Graph should have this edge.
+        Return:
+            String that represents given edge.
         '''
         edge = list()
         edge.append(str(e[0]))
@@ -360,11 +609,15 @@ class Graph(object):
         return ''.join(edge)
 
     def to_string(self):
-        """
+        '''
+        API: to_string(self)
+        Description:
         This method is based on pydot Graph class with the same name.
         Returns a string representation of the graph in dot language.
         It will return the graph and all its subelements in string form.
-        """
+        Return:
+            String that represents graph in dot language.
+        '''
         graph = list()
         processed_edges = {}
         graph.append('%s %s {\n' %(self.graph_type, self.name))
@@ -419,9 +672,19 @@ class Graph(object):
 
     def label_components(self, display = None):
         '''
+        API: label_components(self, display=None)
+        Description:
         This method labels the nodes of an undirected graph with component
         numbers so that each node has the same label as all nodes in the
-        same component
+        same component. It will display the algortihm if display argument is
+        provided.
+        Input:
+            display: display method.
+        Pre:
+            self.graph_type should be UNDIRECTED_GRAPH.
+        Post:
+            Nodes will have 'component' attribute that will have component
+            number as value.
         '''
         if self.graph_type == DIRECTED_GRAPH:
             raise Exception("label_components only works for ",
@@ -435,61 +698,104 @@ class Graph(object):
                 self.num_components += 1
 
     def tarjan(self):
-       '''
-       Implements Tarjan's algorithm for determining strongly connected set of
-       nodes.
-       Pre: self should be a directed graph.
-       Post: Changes component and index attribute of nodes.
-       '''
-       index = 0
-       component = 0
-       q = []
-       for n in self.get_node_list():
-          if self.get_node_attr(n, 'index') is None:
-             index, component = self.strong_connect(q, n, index, component)
+        '''
+        API: tarjan(self)
+        Description:
+        Implements Tarjan's algorithm for determining strongly connected set of
+        nodes.
+        Pre:
+            self.graph_type should be DIRECTED_GRAPH.
+        Post:
+            Nodes will have 'component' attribute that will have component
+            number as value. Changes 'index' attribute of nodes.
+        '''
+        index = 0
+        component = 0
+        q = []
+        for n in self.get_node_list():
+            if self.get_node_attr(n, 'index') is None:
+                index, component = self.strong_connect(q, n, index, component)
 
     def strong_connect(self, q, node, index, component):
-       '''
-       Used by tarjan method.
-       Pre: Should be called by tarjan and itself (recursive) only.
-       Post: Changes component attribute of nodes.
-       Return: Returns new index and component numbers.
-       '''
-       self.set_node_attr(node, 'index', index)
-       self.set_node_attr(node, 'lowlink', index)
-       index += 1
-       q.append(node)
-       for m in self.get_neighbors(node):
-          if self.get_node_attr(m, 'index') is None:
-             index, component = self.strong_connect(q, m, index, component)
-             self.set_node_attr(node, 'lowlink',
-                                min([self.get_node_attr(node, 'lowlink'),
-                                     self.get_node_attr(m, 'lowlink')]))
-          elif m in q:
-             self.set_node_attr(node, 'lowlink',
-                                min([self.get_node_attr(node, 'lowlink'),
-                                     self.get_node_attr(m, 'index')]))
-       if self.get_node_attr(node, 'lowlink')==\
-              self.get_node_attr(node, 'index'):
-          m = q.pop()
-          self.set_node_attr(m, 'component', component)
-          while (node!=m):
-             m = q.pop()
-             self.set_node_attr(m, 'component', component)
-       component += 1
-       return (index, component)
-
-    def label_strong_component(self, root, disc_count = 0, finish_count = 1,
-                               component = None):
         '''
+        API: strong_connect (self, q, node, index, component)
+        Description:
+        Used by tarjan method. This method should not be called directly by
+        user.
+        Input:
+            q: Node list.
+            node: Node that is being connected to nodes in q.
+            index: Index used by tarjan method.
+            component: Current component number.
+        Pre:
+            Should be called by tarjan and itself (recursive) only.
+        Post:
+            Nodes will have 'component' attribute that will have component
+            number as value. Changes 'index' attribute of nodes.
+        Return:
+            Returns new index and component numbers.
+        '''
+        self.set_node_attr(node, 'index', index)
+        self.set_node_attr(node, 'lowlink', index)
+        index += 1
+        q.append(node)
+        for m in self.get_neighbors(node):
+            if self.get_node_attr(m, 'index') is None:
+                index, component = self.strong_connect(q, m, index, component)
+                self.set_node_attr(node, 'lowlink',
+                                   min([self.get_node_attr(node, 'lowlink'),
+                                        self.get_node_attr(m, 'lowlink')]))
+            elif m in q:
+                self.set_node_attr(node, 'lowlink',
+                                   min([self.get_node_attr(node, 'lowlink'),
+                                        self.get_node_attr(m, 'index')]))
+        if self.get_node_attr(node, 'lowlink')==\
+                self.get_node_attr(node, 'index'):
+            m = q.pop()
+            self.set_node_attr(m, 'component', component)
+            while (node!=m):
+                m = q.pop()
+                self.set_node_attr(m, 'component', component)
+        component += 1
+        return (index, component)
+
+    def label_strong_component(self):
+        '''
+        API: label_strong_component(self)
+        Description:
         This method labels the nodes of a directed graph with component
         numbers so that each node has the same label as all nodes in the
-        same component
+        same component.
+        Pre:
+            self.graph_type should be DIRECTED_GRAPH.
+        Post:
+            Nodes will have 'component' attribute that will have component
+            number as value. Changes 'index' attribute of nodes.
         '''
         self.tarjan()
 
     def dfs(self, root, disc_count = 0, finish_count = 1, component = None,
             transpose = False):
+        '''
+        API: dfs(self, root, disc_count = 0, finish_count = 1, component=None,
+            transpose=False)
+        Description:
+        Make a depth-first search starting from node with name root.
+        Input:
+            root: Starting node name.
+            disc_count: Discovery time.
+            finish_count: Finishing time.
+            component: component number.
+            transpose: Goes in the reverse direction along edges if transpose
+            is True.
+        Post:
+            Nodes will have 'component' attribute that will have component
+            number as value. Updates 'disc_time' and 'finish_time' attributes
+            of nodes which represents discovery time and finishing time.
+        Return:
+            Returns a tuple that has discovery time and finish time of the
+            last node in the following form (disc_time,finish_time).
+        '''
         neighbors = self.neighbors
         if self.graph_type == DIRECTED_GRAPH and transpose:
             neighbors = self.in_neighbors
@@ -521,12 +827,30 @@ class Graph(object):
         return disc_count, finish_count
 
     def bfs(self, root, display = None, component = None):
+        '''
+        API: bfs(self, root, display = None, component=None)
+        Description:
+        Make a breadth-first search starting from node with name root.
+        Input:
+            root: Starting node name.
+            display: display method.
+            component: component number.
+        Post:
+            Nodes will have 'component' attribute that will have component
+            number as value.
+        '''
         self.search(root, display = display, component = component, q = Queue())
 
     def search(self, source, destination = None, display = None,
                component = None, q = Stack(),
                algo = 'DFS', reverse = False, **kargs):
         '''
+        API: search(self, source, destination = None, display = None,
+               component = None, q = Stack(),
+               algo = 'DFS', reverse = False, **kargs)
+        Description:
+        Generic search method. Changes behavior (dfs,bfs,dijkstra,prim)
+        according to algo argument.
         if destination is not specified:
            This method determines all nodes reachable from "source" ie. creates
            precedence tree and returns it (dictionary).
@@ -535,7 +859,26 @@ class Graph(object):
            list of the nodes is this path. If there is no such path, it will
            return the precedence tree constructed from source (dictionary).
         Optionally, it marks all nodes reachable from "source" with a component
-        number. The variable "q" determines the order in which the nodes are searched.
+        number. The variable "q" determines the order in which the nodes are
+        searched.
+        Input:
+            source: Search starts from node with this name.
+            destination: Destination node name.
+            display: Display method.
+            algo: Algortihm that specifies search. Available algortihms are
+            'DFS', 'BFS', 'Dijkstra' and 'Prim'.
+            reverse: Search goes in reverse arc directions if True.
+            kargs: Additional keyword arguments.
+        Post:
+            Nodes will have 'component' attribute that will have component
+            number as value (if component argument provided). Color attribute
+            of nodes and edges may change.
+        Return:
+            Returns predecessor tree in dictionary form if destination is
+            not specified, returns list of node names in the path from source
+            to destionation if destionation is specified and there is a path.
+            If there is no path returns predecessor tree in dictionary form.
+            See description section.
         '''
         if display == None:
             display = self.attr['display']
@@ -606,20 +949,41 @@ class Graph(object):
             while current != source:
                 path.insert(0, pred[current])
                 current = pred[current]
-            #calculate distance lines
-            #distance = 0
-            #for i in range(len(path)-1):
-            #    distance += self.edge_attr[(path[i],path[i+1])]['cost']
-            #return distance
-            #end of calculate distance lines
             return path
         return pred
 
     def process_node_search(self, node, q, **kwargs):
+        '''
+        API: process_node_search(self, node, q, **kwargs)
+        Description:
+        Used by search() method. Process nodes along the search. Should not be
+        called by user directly.
+        Input:
+            node: Name of the node being processed.
+            q: Queue data structure.
+            kwargs: Keyword arguments.
+        Post:
+            'priority' attribute of the node may get updated.
+        '''
         if isinstance(q, PriorityQueue):
             self.get_node(node).set_attr('priority', q.get_priority(node))
 
     def process_edge_dijkstra(self, current, neighbor, pred, q, component):
+        '''
+        API: process_edge_dijkstra(self, current, neighbor, pred, q, component)
+        Description:
+        Used by search() method if the algo argument is 'Dijkstra'. Processes
+        edges along Dijkstra's algorithm. User does not need to call this
+        method directly.
+        Input:
+            current: Name of the current node.
+            neighbor: Name of the neighbor node.
+            pred: Predecessor tree.
+            q: Data structure that holds nodes to be processed in a queue.
+            component: component number.
+        Post:
+            'color' attribute of nodes and edges may change.
+        '''
         if current is None:
             self.get_node(neighbor).set_attr('color', 'red')
             self.get_node(neighbor).set_attr('label', 0)
@@ -638,6 +1002,21 @@ class Graph(object):
             self.get_node(neighbor).set_attr('color', 'black')
 
     def process_edge_prim(self, current, neighbor, pred, q, component):
+        '''
+        API: process_edge_prim(self, current, neighbor, pred, q, component)
+        Description:
+        Used by search() method if the algo argument is 'Prim'. Processes
+        edges along Prim's algorithm. User does not need to call this method
+        directly.
+        Input:
+            current: Name of the current node.
+            neighbor: Name of the neighbor node.
+            pred: Predecessor tree.
+            q: Data structure that holds nodes to be processed in a queue.
+            component: component number.
+        Post:
+            'color' attribute of nodes and edges may change.
+        '''
         if current is None:
             self.get_node(neighbor).set_attr('color', 'red')
             self.get_node(neighbor).set_attr('label', 0)
@@ -656,6 +1035,24 @@ class Graph(object):
 
     def process_edge_search(self, current, neighbor, pred, q, component, algo,
                             **kargs):
+        '''
+        API: process_edge_search(self, current, neighbor, pred, q, component,
+                                 algo, **kargs)
+        Description:
+        Used by search() method. Processes edges according to the underlying
+        algortihm. User does not need to call this method directly.
+        Input:
+            current: Name of the current node.
+            neighbor: Name of the neighbor node.
+            pred: Predecessor tree.
+            q: Data structure that holds nodes to be processed in a queue.
+            component: component number.
+            algo: Search algorithm. See search() documentation.
+            kwargs: Keyword arguments.
+        Post:
+            'color', 'distance', 'component' attribute of nodes and edges may
+            change.
+        '''
         if algo == 'Dijkstra':
             return self.process_edge_dijkstra(current, neighbor, pred, q,
                                               component)
@@ -685,8 +1082,20 @@ class Graph(object):
     def minimum_spanning_tree_prim(self, source, display = None,
                                    q = PriorityQueue()):
         '''
-        This method determines a minimum spanning tree of all nodes reachable
-        from "source" using Prim's Algorithm
+        API: minimum_spanning_tree_prim(self, source, display = None,
+                                        q = PriorityQueue())
+        Description:
+        Determines a minimum spanning tree of all nodes reachable
+        from source using Prim's Algorithm.
+        Input:
+            source: Name of source node.
+            display: Display method.
+            q: Data structure that holds nodes to be processed in a queue.
+        Post:
+            'color', 'distance', 'component' attribute of nodes and edges may
+            change.
+        Return:
+            Returns predecessor tree in dictionary format.
         '''
         if display == None:
             display = self.attr['display']
@@ -726,7 +1135,18 @@ class Graph(object):
 
     def minimum_spanning_tree_kruskal(self, display = None, components = None):
         '''
-        This method determines a minimum spanning tree using Kruskal's Algorithm
+        API: minimum_spanning_tree_kruskal(self, display = None,
+                                           components = None)
+        Description:
+        Determines a minimum spanning tree using Kruskal's Algorithm.
+        Input:
+            display: Display method.
+            component: component number.
+        Post:
+            'color' attribute of nodes and edges may change.
+        Return:
+            Returns list of edges where edges are tuples in (source,sink)
+            format.
         '''
         if display == None:
             display = self.attr['display']
@@ -757,19 +1177,22 @@ class Graph(object):
 
     def max_flow_preflowpush(self, source, sink, algo = 'FIFO', display = None):
         '''
-        API: max_flow(self, source, sink, display=None)
+        API: max_flow_preflowpush(self, source, sink, algo = 'FIFO',
+                                  display = None)
+        Description:
         Finds maximum flow from source to sink by a depth-first search based
         augmenting path algorithm.
-
-        pre: Assumes a directed graph in which each arc has a 'capacity'
-        attribute and for which there does does not exist both arcs (i, j) and
-        (j, i) for any pair of nodes i and j.
-        inputs:
-            source: source node, integer or string
-            sink: sink node, integer or string
-            display:
-
-        post: The 'flow' attribute of each arc gives a maximum flow.
+        Pre:
+             Assumes a directed graph in which each arc has a 'capacity'
+             attribute and for which there does does not exist both arcs (i,j)
+             and (j,i) for any pair of nodes i and j.
+        Input:
+            source: Source node name.
+            sink: Sink node name.
+            algo: Algorithm choice, 'FIFO', 'SAP' or 'HighestLabel'.
+            display: display method.
+        Post:
+            The 'flow' attribute of each arc gives a maximum flow.
         '''
         if display == None:
             display = self.attr['display']
@@ -854,9 +1277,23 @@ class Graph(object):
                     q.push(n)
                 elif algo == 'HighestLabel':
                     q.push(n, -self.get_node_attr(n, 'distance'))
-        return
 
     def process_edge_flow(self, source, sink, i, j, algo, q):
+        '''
+        API: process_edge_flow(self, source, sink, i, j, algo, q)
+        Description:
+        Used by by max_flow_preflowpush() method. Processes edges along
+        prefolow push.
+        Input:
+            source: Source node name of flow graph.
+            sink: Sink node name of flow graph.
+            i: Source node in the processed edge (tail of arc).
+            j: Sink node in the processed edge (head of arc).
+        Post:
+            The 'flow' and 'excess' attributes of nodes may get updated.
+        Return:
+            Returns False if residual capacity is 0, True otherwise.
+        '''
         if (self.get_node_attr(i, 'distance') !=
             self.get_node_attr(j, 'distance') + 1):
             return False
@@ -881,6 +1318,15 @@ class Graph(object):
         return True
 
     def relabel(self, i):
+        '''
+        API: relabel(self, i)
+        Description:
+        Used by max_flow_preflowpush() method for relabelling node i.
+        Input:
+            i: Node that is being relabelled.
+        Post:
+            'distance' attribute of node i is updated.
+        '''
         min_distance = 2*len(self.get_node_list()) + 1
         for j in self.get_neighbors(i):
             if (self.get_node_attr(j, 'distance') < min_distance and
@@ -894,6 +1340,13 @@ class Graph(object):
         self.set_node_attr(i, 'distance', min_distance + 1)
 
     def show_flow(self):
+        '''
+        API: relabel(self, i)
+        Description:
+        Used by max_flow_preflowpush() method for display purposed.
+        Post:
+            'color' and 'label' attribute of edges/nodes are updated.
+        '''
         for n in self.get_node_list():
             excess = self.get_node_attr(n, 'excess')
             distance = self.get_node_attr(n, 'distance')
@@ -913,16 +1366,15 @@ class Graph(object):
 
     def create_residual_graph(self):
         '''
-        API:
-            create_residual_graph(self)
+        API: create_residual_graph(self)
         Description:
-            Creates and returns residual graph, which is a Graph instance
-            itself.
+        Creates and returns residual graph, which is a Graph instance
+        itself.
         Pre:
             (1) Arcs should have 'flow', 'capacity' and 'cost' attribute
             (2) Graph should be a directed graph
         Return:
-            returns residual graph, which is a Graph instance.
+            Returns residual graph, which is a Graph instance.
         '''
         if self.graph_type is UNDIRECTED_GRAPH:
             raise Exception('residual graph is defined for directed graphs.')
@@ -942,12 +1394,14 @@ class Graph(object):
     def cycle_canceling(self, display):
         '''
         API:
-            cycle_canceling(self)
+            cycle_canceling(self, display)
         Description:
             Solves minimum cost feasible flow problem using cycle canceling
             algorithm. Returns True when an optimal solution is found, returns
             False otherwise. 'flow' attribute values of arcs should be
             considered as junk when returned False.
+        Input:
+            display: Display method.
         Pre:
             (1) Arcs should have 'capacity' and 'cost' attribute.
             (2) Nodes should have 'demand' attribute, this value should be
@@ -1028,12 +1482,40 @@ class Graph(object):
         return True
 
     def get_layout(self):
+        '''
+        API:
+            get_layout(self)
+        Description:
+        Returns layout attribute of the graph.
+        Return:
+            Returns layout attribute of the graph.
+        '''
         return self.attr['layout']
 
     def set_layout(self, value):
+        '''
+        API:
+            set_layout(self, value)
+        Description:
+        Sets layout attribute of the graph to value.
+        Input:
+            value: New value of the layout.
+        '''
         self.attr['layout']=value
 
     def write(self, basename = 'graph', layout = None, format='png'):
+        '''
+        API:
+            write(self, basename = 'graph', layout = None, format='png')
+        Description:
+        Writes graph to dist using layout and format.
+        Input:
+            basename: name of the file that will be written.
+            layout: Dot layout for generating graph image.
+            format: Image format, all format supported by Dot are wellcome.
+        Post:
+            File will be written to disk.
+        '''
         if layout == None:
             layout = self.get_layout()
         f = file(basename, "w+b")
@@ -1045,12 +1527,15 @@ class Graph(object):
 
     def create(self, layout, format, **args):
         '''
-        Returns postscript representation of self.
-        layout specifies the executable to be used.
-        im = StringIO.StringIO(self.create(self.get_layout(), format))
-        return image representing string in specified format. Do this by
-        calling graphviz executable. (piping)
-        We do not have support for shape files.
+        API:
+            create(self, layout, format, **args)
+        Description:
+            Returns postscript representation of graph.
+        Input:
+            layout: Dot layout for generating graph image.
+            format: Image format, all format supported by Dot are wellcome.
+        Return:
+            Returns postscript representation of graph.
         '''
         tmp_fd, tmp_name = tempfile.mkstemp()
         tmp_file = os.fdopen(tmp_fd, 'w')
@@ -1073,10 +1558,27 @@ class Graph(object):
     def display(self, highlight = None, basename = 'graph', format = 'png',
                 pause = True):
         '''
-        current display modes: off, file, pygame, PIL, xdot, svg
-        current layout modes: layouts provided by graphviz, dot2tex
-        current formats: formats provided by graphviz (ps, pdf, png, etc.)
-        TODO(aykut): display mode svg is not supported.
+        API:
+            display(self, highlight = None, basename = 'graph', format = 'png',
+                pause = True)
+        Description:
+            Displays graph according to the arguments provided.
+            Current display modes: 'off', 'file', 'pygame', 'PIL', 'xdot',
+            'svg'
+            Current layout modes: Layouts provided by graphviz ('dot', 'fdp',
+            'circo', etc.) and 'dot2tex'.
+            Current formats: Formats provided by graphviz ('ps', 'pdf', 'png',
+            etc.)
+        Input:
+            highlight: List of nodes to be highlighted.
+            basename: File name. It will be used if display mode is 'file'.
+            format: Image format, all format supported by Dot are wellcome.
+            pause: If display is 'pygame' and pause is True pygame will pause
+            and wait for user input before closing the display. It will close
+            display window straightaway otherwise.
+        Post:
+            A display window will pop up or a file will be written depending
+            on display mode.
         '''
         if self.attr['display'] == 'off':
             return
@@ -1156,23 +1658,34 @@ class Graph(object):
                     m.set_attr('color', 'black')
 
     def set_display_mode(self, value):
+        '''
+        API:
+            set_display_mode(self, value)
+        Description:
+            Sets display mode to value.
+        Input:
+            value: New display mode.
+        Post:
+            Display mode attribute of graph is updated.
+        '''
         self.attr['display'] = value
 
     def max_flow(self, source, sink, display=None):
         '''
         API: max_flow(self, source, sink, display=None)
+        Description:
         Finds maximum flow from source to sink by a depth-first search based
         augmenting path algorithm.
-
-        pre: Assumes a directed graph in which each arc has a 'capacity'
-        attribute and for which there does does not exist both arcs (i, j)
-        and (j, i) for any pair of nodes i and j.
-        inputs:
-            source: source node, integer or string
-            sink: sink node, integer or string
-            display:
-
-        post: The 'flow" attribute of each arc gives a maximum flow.
+        Pre:
+            Assumes a directed graph in which each arc has a 'capacity'
+            attribute and for which there does does not exist both arcs (i,j)
+            and (j, i) for any pair of nodes i and j.
+        Input:
+            source: Source node name.
+            sink: Sink node name.
+            display: Display mode.
+        Post:
+            The 'flow" attribute of each arc gives a maximum flow.
         '''
         nl = self.get_node_list()
         # set flow of all edges to 0
@@ -1329,7 +1842,7 @@ class Graph(object):
             Finds capacity of the cycle input.
         Pre:
             (1) Arcs should have 'capacity' attribute.
-        Inputs:
+        Input:
             cycle: a list representing a cycle
         Return:
             Returns an integer number representing capacity of cycle.
@@ -1433,10 +1946,10 @@ class Graph(object):
         Pre:
             This method should be called from label_correcting_check_cycle(),
             unless you are sure about what you are doing.
-        Inputs:
-            j: node that predecessor is recently updated. We know that it is
+        Input:
+            j: Node that predecessor is recently updated. We know that it is
             in the cycle
-            pred: predecessor dictionary that contains a cycle
+            pred: Predecessor dictionary that contains a cycle
         Post:
             Returns a list of nodes that represents cycle. It is in
             [n_1, n_2, ..., n_k] form where the cycle has k nodes.
@@ -1459,8 +1972,8 @@ class Graph(object):
         Pre:
             Arcs should have 'flow' attribute.
         Inputs:
-            amount: an integer representing the amount to augment
-            cycle: a list representing a cycle
+            amount: An integer representing the amount to augment
+            cycle: A list representing a cycle
         Post:
             Changes 'flow' attributes of arcs.
         '''
@@ -1488,7 +2001,7 @@ class Graph(object):
     def network_simplex(self, display, pivot, root):
         '''
         API:
-            network_simplex(self, display, pivot)
+            network_simplex(self, display, pivot, root)
         Description:
             Solves minimum cost feasible flow problem using network simplex
             algorithm. It is recommended to use min_cost_flow(algo='simplex')
@@ -1497,10 +2010,12 @@ class Graph(object):
             values of arcs should be considered as junk when returned False.
         Pre:
             (1) check Pre section of min_cost_flow()
-        Inputs:
+        Input:
             pivot: specifies pivot rule. Check min_cost_flow()
             display: 'off' for no display, 'pygame' for live update of
             spanning tree.
+            root: Root node for the underlying spanning trees that will be
+            generated by network simplex algorthm.
         Post:
             (1) Changes 'flow' attribute of edges.
         Return:
@@ -1555,7 +2070,7 @@ class Graph(object):
             simplex_mark_leving_arc(self, p, q)
         Description:
             Marks leaving arc.
-        Inputs:
+        Input:
             p: tail of the leaving arc
             q: head of the leaving arc
         Post:
@@ -1569,7 +2084,7 @@ class Graph(object):
             simplex_determine_leaving_arc(self, t, k, l)
         Description:
             Determines and returns the leaving arc.
-        Inputs:
+        Input:
             t: current spanning tree solution.
             k: tail of the entering arc.
             l: head of the entering arc.
@@ -1691,7 +2206,7 @@ class Graph(object):
             Returns a new graph instance that is same as self but adds nodes
             and arcs in a way that the resulting tree will be displayed
             properly.
-        Inputs:
+        Input:
             display: display mode
             root: root node in tree.
         Return:
@@ -1741,7 +2256,7 @@ class Graph(object):
         Description:
             Removes arc (p,q), updates t, updates flows, where (k,l) is
             the entering arc.
-        Inputs:
+        Input:
             t: tree solution to be updated.
             p: tail of the leaving arc.
             q: head of the leaving arc.
@@ -1894,7 +2409,6 @@ class Graph(object):
             Assumes a feasible flow solution stored in 'flow' attribute's of
             arcs and converts this solution to a feasible spanning tree
             solution.
-        TODO(aykut): The solution we find is not strongly feasible. Fix this.
         Pre:
             (1) 'flow' attributes represents a feasible flow solution.
         Post:
@@ -2146,7 +2660,7 @@ class Graph(object):
     def simplex_compute_potentials(self, t, root):
         '''
         API:
-            simplex_compute_potentials(self, root)
+            simplex_compute_potentials(self, t, root)
         Description:
             Computes node potentials for a minimum cost flow problem and stores
             them as node attribute 'potential'. Based on pseudocode given in
@@ -2155,7 +2669,7 @@ class Graph(object):
             (1) Assumes a directed graph in which each arc has a 'cost'
             attribute.
             (2) Uses 'thread' and 'pred' attributes of nodes.
-        Inputs:
+        Input:
             t: Current spanning tree solution, its type is Graph.
             root: root node of the tree.
         Post:
@@ -2183,7 +2697,7 @@ class Graph(object):
             nodes.
         Pre:
             (1) t is spanning tree solution, (k,l) is the entering arc.
-        Inputs:
+        Input:
             t: current spanning tree solution
             k: tail of the entering arc
             l: head of the entering arc
@@ -2219,7 +2733,7 @@ class Graph(object):
     def min_cost_flow(self, display = 'off', **args):
         '''
         API:
-            min_cost_flow(self, **args)
+            min_cost_flow(self, display='off', **args)
         Description:
             Solves minimum cost flow problem using node/edge attributes with
             the algorithm specified.
@@ -2233,7 +2747,7 @@ class Graph(object):
             (4) Assumes (i,j) and (j,i) does not exist together. Needed when
             solving max flow. (max flow problem is solved to get a feasible
             flow).
-        Inputs:
+        Input:
             display: 'off' for no display, 'pygame' for live update of tree
             args: may have the following
                 display: display method, if not given current mode (the one
@@ -2294,6 +2808,31 @@ class Graph(object):
     def random(self, numnodes = 10, degree_range = None, length_range = None,
                density = None, edge_format = None, node_format = None,
                Euclidean = False, seedInput = 0):
+        '''
+        API:
+            random(self, numnodes = 10, degree_range = None, length_range = None,
+               density = None, edge_format = None, node_format = None,
+               Euclidean = False, seedInput = 0)
+        Description:
+            Populates graph with random edges and nodes.
+        Input:
+            numnodes: Number of nodes to add.
+            degree_range: A tuple that has lower and upper bounds of degree for
+            a node.
+            length_range: A tuple that has lower and upper bounds for 'cost'
+            attribute of edges.
+            density: Density of edges, ie. 0.5 indicates a node will
+            approximately have edge to half of the other nodes.
+            edge_format: Dictionary that specifies attribute values for edges.
+            node_format: Dictionary that specifies attribute values for nodes.
+            Euclidean: Creates an Euclidean graph (Euclidean distance between
+            nodes) if True.
+            seedInput: Seed that will be used for random number generation.
+        Pre:
+            It is recommended to call this method on empty Graph objects.
+        Post:
+            Graph will be populated by nodes and edges.
+        '''
         random.seed(seedInput)
         if edge_format == None:
             edge_format = {'fontsize':10,
@@ -2386,28 +2925,25 @@ class Graph(object):
 
     def page_rank(self, damping_factor=0.85, max_iterations=100,
                   min_delta=0.00001):
-        """
-        Compute and return the PageRank in a directed graph.
-
-        This function was originally taken from here and modified for this
-        graph class:
-        http://code.google.com/p/python-graph/source/browse/trunk/core/pygraph/algorithms/pagerank.py
-
-        @type  graph: digraph
-        @param graph: Digraph.
-
-        @type  damping_factor: number
-        @param damping_factor: PageRank dumping factor.
-
-        @type  max_iterations: number
-        @param max_iterations: Maximum number of iterations.
-
-        @type  min_delta: number
-        @param min_delta: Smallest variation required to have a new iteration.
-
-        @rtype:  Dict
-        @return: Dict containing all the nodes PageRank.
-        """
+        '''
+        API:
+            page_rank(self, damping_factor=0.85, max_iterations=100,
+                  min_delta=0.00001)
+        Description:
+            Compute and return the page-rank of a directed graph.
+            This function was originally taken from here and modified for this
+            graph class: http://code.google.com/p/python-graph/source/browse/
+            trunk/core/pygraph/algorithms/pagerank.py
+        Input:
+            damping_factor: Damping factor.
+            max_iterations: Maximum number of iterations.
+            min_delta: Smallest variation required to have a new iteration.
+        Pre:
+            Graph should be a directed graph.
+        Return:
+            Returns dictionary of page-ranks. Keys are node names, values are
+            corresponding page-ranks.
+        '''
         nodes = self.get_node_list()
         graph_size = len(nodes)
         if graph_size == 0:
@@ -2432,6 +2968,15 @@ class Graph(object):
         return pagerank
 
     def get_degree(self):
+        '''
+        API:
+            get_degree(self)
+        Description:
+            Returns degrees of nodes in dictionary format.
+        Return:
+            Returns a dictionary of node degrees. Keys are node names, values
+            are corresponding degrees.
+        '''
         degree = {}
         if self.attr['type'] is UNDIRECTED_GRAPH:
             for n in self.get_node_list():
@@ -2444,9 +2989,15 @@ class Graph(object):
 
     def get_diameter(self):
         '''
-        distance(n,m): shortest unweighted path from n to m
-        eccentricity(n) = max_m distance(n,m)
-        diameter = min_n eccentricity(n) = min_n max_m distance(n,m)
+        API:
+            get_diameter(self)
+        Description:
+            Returns diameter of the graph. Diameter is defined as follows.
+            distance(n,m): shortest unweighted path from n to m
+            eccentricity(n) = $\max _m distance(n,m)$
+            diameter = $\min _n eccentricity(n) = \min _n \max _m distance(n,m)$
+        Return:
+            Returns diameter of the graph.
         '''
         diameter = 'infinity'
         eccentricity_n = 0
@@ -2467,7 +3018,19 @@ class Graph(object):
 
     def create_cluster(self, node_list, cluster_attrs, node_attrs):
         '''
-        Creates a cluster from the node given in the node list.
+        API:
+            create_cluster(self, node_list, cluster_attrs, node_attrs)
+        Description:
+            Creates a cluster from the node given in the node list.
+        Input:
+            node_list: List of nodes in the cluster.
+            cluster_attrs: Dictionary of cluster attributes, see Dot language
+            grammer documentation for details.
+            node_attrs: Dictionary of node attributes. It will overwrite
+            previous attributes of the nodes in the cluster.
+        Post:
+            A cluster will be created. Attributes of the nodes in the cluster
+            may change.
         '''
         if 'name' in cluster_attrs:
             if 'name' in self.cluster:
@@ -2483,19 +3046,54 @@ class Graph(object):
 
 
 class DisjointSet(Graph):
+    '''
+    Disjoint set data structure. Inherits Graph class.
+    '''
     def __init__(self, optimize = True, **attrs):
+        '''
+        API:
+            __init__(self, optimize = True, **attrs):
+        Description:
+            Class constructor.
+        Input:
+            optimize: Optimizes find() if True.
+            attrs: Graph attributes.
+        Post:
+            self.optimize will be updated.
+        '''
         attrs['type'] = DIRECTED_GRAPH
         Graph.__init__(self, **attrs)
         self.sizes = {}
         self.optimize = optimize
 
     def add(self, aList):
+        '''
+        API:
+            add(self, aList)
+        Description:
+            Adds items in the list to the set.
+        Input:
+            aList: List of items.
+        Post:
+            self.sizes will be updated.
+        '''
         self.add_node(aList[0])
         for i in range(1, len(aList)):
             self.add_edge(aList[i], aList[0])
         self.sizes[aList[0]] = len(aList)
 
     def union(self, i, j):
+        '''
+        API:
+            union(self, i, j):
+        Description:
+            Finds sets of i and j and unites them.
+        Input:
+            i: Item.
+            j: Item.
+        Post:
+            self.sizes will be updated.
+        '''
         roots = (self.find(i), self.find(j))
         if roots[0] == roots[1]:
             return False
@@ -2509,6 +3107,16 @@ class DisjointSet(Graph):
             return True
 
     def find(self, i):
+        '''
+        API:
+            find(self, i)
+        Description:
+            Returns root of set that has i.
+        Input:
+            i: Item.
+        Return:
+            Returns root of set that has i.
+        '''
         current = i
         edge_list = []
         while len(self.get_neighbors(current)) != 0:
@@ -2536,4 +3144,3 @@ if __name__ == '__main__':
     G.search(0, display = 'pygame', algo = 'Dijkstra')
 #    G.minimum_spanning_tree_kruskal(display = 'pygame')
     #G.search(0, display = 'pygame')
-
