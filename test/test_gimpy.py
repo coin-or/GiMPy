@@ -1,6 +1,8 @@
 '''
-Test algorithms provided by gimpy.
+This script runs algorithms provided by gimpy. Measures running times of
+algorithms and compares it to theoretical running times (after scaling).
 '''
+
 import gimpy
 import time
 from random import seed, random, randint
@@ -82,14 +84,21 @@ dense_generator = [
 ]
 
 # algorithms to be tested
-algo = ['DFS', 'BFS', 'Dijkstra', 'Kruskal', 'Prim', 'PreflowPush', 'AugmentingPath', 'CycleCanceling', 'Simplex']
+algo = ['DFS', 'BFS', 'Dijkstra', 'Kruskal', 'Prim', 'PreflowPush',
+        'AugmentingPath', 'CycleCanceling', 'Simplex']
+# we will compare gimpy time to theoretical running time.
 module = ['gimpy', 'theoretical']
-# run_time dictionary keys are modules and values are {algo: list of run-time
-# in secs}
+# run_time: Dictionary. Keys are algorithms and values are {module: list of
+# run-time in secs}
 run_time = dict([(a,dict([(m,[]) for m in module])) for a in algo])
-# keys are algo values are file objects that are in the following form
-# instance    gimpy_time    regimpy_time    theoretical_time
-# 0       10            10              5
+# result_file: Dictionary. Keys are algorithms, values are file objects that
+# has text in the following form
+# instance    gimpy_time    theoretical_time
+# 0           10.6          5.4
+# .           .
+# .           .
+# .           .
+# 10          8.2           4.9
 result_file = dict([(a, None) for a in algo])
 #
 
@@ -300,11 +309,11 @@ def produce_graphs():
         pyplot.plot(n, run_time[a]['gimpy'], 'bs', label='actual runtime')
         pyplot.plot(n, scaled_theoretical, 'g^', label='theoretical runtime')
         pyplot.legend(loc='lower right')
-        pyplot.title('gimpy '+a+' running time vs theoretical')
+        pyplot.title(a+' running time vs theoretical')
         pyplot.xlabel('instances')
         pyplot.ylabel('running time')
         pyplot.savefig(a+'.png')
-        print a+"_gimpy.png written to disk."
+        print a+".png written to disk."
         pyplot.close()
 
 if __name__=='__main__':
@@ -313,9 +322,8 @@ if __name__=='__main__':
         print "Seed", i
         for gen in dense_generator:
             print gen
-            # unzip generator
-            #(numnodes, density, demand_numnodes, supply_numnodes,
-            # demand_range, cost_range, capacity_range) = gen
+            #gen = (numnodes, density, demand_numnodes, supply_numnodes,
+            #       demand_range, cost_range, capacity_range)
             # generate graphs
             rg = generate_graph(i+1, gen)
             print "Testing DFS..."
