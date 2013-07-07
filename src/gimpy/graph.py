@@ -46,6 +46,7 @@ TODO(aykut):
 -> label_strong_components() API change. Check backward compatibilty.
 -> dfs should use search()?
 -> display mode svg is not supported.
+future:
 -> The solution we find is not strongly feasible. Fix this.
 '''
 
