@@ -1,5 +1,9 @@
 '''
 Tree class built on top of Graph class.
+
+TODO(aykut):
+-> root argument in DFS, BFS and traverse. Is it a Node instance or string?
+-> Is self.root a Node() or string?
 '''
 
 from graph import Graph, Node
@@ -8,7 +12,18 @@ from blimpy import Stack, Queue
 import operator
 
 class Tree(Graph):
+    '''
+    Tree class. It inherits from Graph class. Provides DFS, BFS and traverse
+    methods.
+    '''
     def __init__(self, **attrs):
+        '''
+        API: __init__(self, **attrs)
+        Description:
+            Constructor. Sets attrbutes of class using argument.
+        Input:
+            attrs: Attributes in keyword arguments format.
+        '''
         attrs['type'] = DIRECTED_GRAPH
         if 'layout' not in attrs:
             attrs['layout'] = 'dot'
@@ -16,18 +31,70 @@ class Tree(Graph):
         self.root = None
 
     def get_children(self, n):
+        '''
+        API: get_children(self, n)
+        Description:
+            Returns list of children of node n.
+        Pre:
+            Node with name n should exist.
+        Input:
+            n: Node name.
+        Return:
+            Returns list of names of children nodes of n.
+        '''
         return self.get_neighbors(n)
 
     def get_parent(self, n):
+        '''
+        API: get_parent(self, n)
+        Description:
+            Returns parent node name if n's parent exists, returns
+            None otherwise.
+        Pre:
+            Node with name n should exist.
+        Input:
+            n: Node name.
+        Return:
+            Returns parent name of n if its parent exists, returns None
+            otherwise.
+        '''
         n = self.get_node(n)
         return n.get_attr('parent')
 
     def add_root(self, root, **attrs):
+        '''
+        API: add_root(self, root, **attrs)
+        Description:
+            Adds root node to the tree with name root and returns root Node
+            instance.
+        Input:
+            root: Root node name.
+            attrs: Root node attributes.
+        Post:
+            Changes self.root.
+        Return:
+            Returns root Node instance.
+        '''
         attrs['level'] = 0
         self.root = self.add_node(root, **attrs)
         return self.root
 
     def add_child(self, n, parent, **attrs):
+        '''
+        API: add_child(self, n, parent, **attrs)
+        Description:
+            Adds child n to node parent and return Node n.
+        Pre:
+            Node with name parent should exist.
+        Input:
+            n: Child node name.
+            parent: Parent node name.
+            attrs: Attributes of node being added.
+        Post:
+            Updates Graph related graph data attributes.
+        Return:
+            Returns n Node instance.
+        '''
         attrs['level'] = self.get_node(parent).get_attr('level') + 1
         attrs['parent'] = parent
         self.add_node(n, **attrs)
@@ -35,6 +102,18 @@ class Tree(Graph):
         return self.get_node(n)
 
     def dfs(self, root = None, display = None):
+        '''
+        API: dfs(self, root = None, display = None)
+        Description:
+            Searches tree starting from node named root using depth-first
+            strategy if root argument is provided. Starts search from root node
+            of the tree otherwise.
+        Pre:
+            Node indicated by root argument should exist.
+        Input:
+            root: Starting node name.
+            display: Display argument.
+        '''
         if root == None:
             root = self.root
         if display == None:
@@ -42,6 +121,18 @@ class Tree(Graph):
         self.traverse(root, display, Stack())
 
     def bfs(self, root = None, display = None):
+        '''
+        API: bfs(self, root = None, display = None)
+        Description:
+            Searches tree starting from node named root using breadth-first
+            strategy if root argument is provided. Starts search from root node
+            of the tree otherwise.
+        Pre:
+            Node indicated by root argument should exist.
+        Input:
+            root: Starting node name.
+            display: Display argument.
+        '''
         if root == None:
             root = self.root
         if display == None:
@@ -49,6 +140,21 @@ class Tree(Graph):
         self.traverse(root, display, Queue())
 
     def traverse(self, root = None, display = None, q = Stack()):
+        '''
+        API: traverse(self, root = None, display = None, q = Stack())
+        Description:
+            Traverses tree starting from node named root. Used strategy (BFS,
+            DFS) is controlled by argument q. It is a DFS if q is Queue(), BFS
+            if q is Stack(). Starts search from root argument if it is given.
+            Starts from root node of the tree otherwise.
+        Pre:
+            Node indicated by root argument should exist.
+        Input:
+            root: Starting node name.
+            display: Display argument.
+            q: Queue data structure instance. It is either a Stack() or
+            Queue().
+        '''
         if root == None:
             root = self.root
         if display == None:
@@ -70,10 +176,30 @@ class Tree(Graph):
 
 
 class BinaryTree(Tree):
+    '''
+    Binary tree class. Inherits Tree class. Provides methods for adding
+    left/right childs and binary tree specific DFS and BFS methods.
+    '''
     def __init__(self, **attrs):
+        '''
+        API: __init__(self, **attrs)
+        Description:
+            Class constructor.
+        Input:
+            attrs: Tree attributes in keyword arguments format. See Graph and
+            Tree class for details.
+        '''
         Tree.__init__(self, **attrs)
 
     def add_root(self, root, **attrs):
+        '''
+        API: __init__(self, **attrs)
+        Description:
+            Class constructor.
+        Input:
+            attrs: Tree attributes in keyword arguments format. See Graph and
+            Tree class for details.
+        '''
         Tree.add_root(self, root, **attrs)
 
     def add_right_child(self, n, parent, **attrs):
