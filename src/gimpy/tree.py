@@ -4,6 +4,9 @@ Tree class built on top of Graph class.
 TODO(aykut):
 -> root argument in DFS, BFS and traverse. Is it a Node instance or string?
 -> Is self.root a Node() or string?
+-> display argument in print_nodes() is ineffective.
+-> display argument of dfs, bfs.
+-> order argument in traverse is useless, remove it.
 '''
 
 from graph import Graph, Node
@@ -193,16 +196,29 @@ class BinaryTree(Tree):
 
     def add_root(self, root, **attrs):
         '''
-        API: __init__(self, **attrs)
+        API: add_root(self, root, **attrs)
         Description:
-            Class constructor.
+            Adds root node to the binary tree.
         Input:
-            attrs: Tree attributes in keyword arguments format. See Graph and
-            Tree class for details.
+            root: Name of the root node.
+            attrs: Attributes of the root node.
+        Post:
+            Changes self.root attribute.
         '''
         Tree.add_root(self, root, **attrs)
 
     def add_right_child(self, n, parent, **attrs):
+        '''
+        API: add_right_child(self, n, parent, **attrs)
+        Description:
+            Adds right child n to node parent.
+        Pre:
+            Right child of parent should not exist.
+        Input:
+            n: Node name.
+            parent: Parent node name.
+            attrs: Attributes of node n.
+        '''
         if self.get_right_child(parent) is not None:
             raise Exception("Right child already exists for node " + parent)
         attrs['direction'] = 'R'
@@ -210,6 +226,17 @@ class BinaryTree(Tree):
         self.add_child(n, parent, **attrs)
 
     def add_left_child(self, n, parent, **attrs):
+        '''
+        API: add_left_child(self, n, parent, **attrs)
+        Description:
+            Adds left child n to node parent.
+        Pre:
+            Left child of parent should not exist.
+        Input:
+            n: Node name.
+            parent: Parent node name.
+            attrs: Attributes of node n.
+        '''
         if self.get_left_child(parent) is not None:
             raise Exception("Left child already exists for node " + parent)
         attrs['direction'] = 'L'
@@ -217,16 +244,49 @@ class BinaryTree(Tree):
         self.add_child(n, parent, **attrs)
 
     def get_right_child(self, n):
+        '''
+        API: get_right_child(self, n)
+        Description:
+            Returns right child of node n. n can be Node() instance or string
+            (name of node).
+        Pre:
+            Node n should be present in the tree.
+        Input:
+            n: Node name or Node() instance.
+        Return:
+            Returns name of the right child of n.
+        '''
         if isinstance(n, Node):
             return n.get_attr('Rchild')
         return self.get_node_attr(n, 'Rchild')
 
     def get_left_child(self, n):
+        '''
+        API: get_left_child(self, n)
+        Description:
+            Returns left child of node n. n can be Node() instance or string
+            (name of node).
+        Pre:
+            Node n should be present in the tree.
+        Input:
+            n: Node name or Node() instance.
+        Return:
+            Returns name of the left child of n.
+        '''
         if isinstance(n, Node):
             return n.get_attr('Lchild')
         return self.get_node_attr(n, 'Lchild')
 
     def del_node(self, n):
+        '''
+        API: del_node(self, n)
+        Description:
+            Removes node n from tree.
+        Pre:
+            Node n should be present in the tree.
+        Input:
+            n: Node name.
+        '''
         parent = self.get_node_attr(n, 'parent')
         if self.get_node_attr(n, 'direction') == 'R':
             self.set_node_attr(parent, 'Rchild', None)
@@ -236,8 +296,22 @@ class BinaryTree(Tree):
 
     def print_nodes(self, order = 'in', priority = 'L', display = None,
                     root = None):
+        '''
+        API: print_nodes(self, order = 'in', priority = 'L', display = None,
+                    root = None)
+        Description:
+            A recursive function that prints nodes to stdout starting from
+            root.
+        Input:
+            order: Order of printing. Acceptable arguments are 'pre', 'in',
+            'post'.
+            priority: Priority of printing, acceptable arguments are 'L' and
+            'R'.
+            display: Display mode.
+            root: Starting node.
+        '''
         if root == None:
-            root = self.root
+            root = self.root.name
         if display == None:
             display = self.attr['display']
         if priority == 'L':
@@ -264,6 +338,19 @@ class BinaryTree(Tree):
             self.display(highlight = [root])
 
     def dfs(self, root = None, display = None, priority = 'L', order = 'in'):
+        '''
+        API: dfs(self, root=None, display=None, priority='L', order='in')
+        Description:
+            Searches tree starting from node named root using depth-first
+            strategy if root argument is provided. Starts search from root node
+            of the tree otherwise.
+        Input:
+            root: Starting node.
+            display: Display mode.
+            priority: Priority used when exploring children of the node.
+            Acceptable arguments are 'L' and 'R'.
+            order: Ineffective, will be removed.
+        '''
         if root == None:
             root = self.root
         if display == None:
@@ -271,6 +358,19 @@ class BinaryTree(Tree):
         self.traverse(root, display, Stack(), priority, order)
 
     def bfs(self, root = None, display = None, priority = 'L', order = 'in'):
+        '''
+        API: bfs(self, root=None, display=None, priority='L', order='in')
+        Description:
+            Searches tree starting from node named root using breadth-first
+            strategy if root argument is provided. Starts search from root node
+            of the tree otherwise.
+        Input:
+            root: Starting node.
+            display: Display mode.
+            priority: Priority used when exploring children of the node.
+            Acceptable arguments are 'L' and 'R'.
+            order: Ineffective, will be removed.
+        '''
         if root == None:
             root = self.root
         if display == None:
@@ -279,6 +379,22 @@ class BinaryTree(Tree):
 
     def traverse(self, root = None, display = None, q = Stack(),
                  priority = 'L',  order = 'in'):
+        '''
+        API: traverse(self, root=None, display=None, q=Stack(), priority='L',
+                      order='in')
+        Description:
+            Traverses tree starting from node named root if root argument is
+            provided. Starts search from root node of the tree otherwise. Search
+            strategy is determined by q data structure. It is DFS if q is
+            Stack() and BFS if Queue().
+        Input:
+            root: Starting node.
+            display: Display mode.
+            q: Queue data structure, either Queue() or Stack().
+            priority: Priority used when exploring children of the node.
+            Acceptable arguments are 'L' and 'R'.
+            order: Ineffective, will be removed.
+        '''
         if root == None:
             root = self.root
         if display == None:
