@@ -8,4 +8,7 @@ if __name__=='__main__':
     t.add_right_child(2, 0, label='rc', color='red')
     t.add_right_child(3, 2, label='rrc', color='green')
     t.dfs()
+    # check postordereval
+    # check printexp
+
 
