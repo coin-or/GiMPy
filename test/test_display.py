@@ -1,9 +1,10 @@
 from gimpy import Graph
 
 if __name__=="__main__":
-    g = Graph(display='pygame', layout='dot')
+    g = Graph(display='off', layout='dot')
     g.random(numnodes= 20, density =0.2)
     # test pygame
+    g.set_display_mode('pygame')
     g.display()
     # test xdot
     g.set_display_mode('xdot')
@@ -18,5 +19,8 @@ if __name__=="__main__":
     # test PIL
     g.set_layout('dot')
     g.set_display_mode('PIL')
+    g.display()
+    # test svg
+    g.set_display_mode('svg')
     g.display()
 

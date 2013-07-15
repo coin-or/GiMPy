@@ -43,11 +43,7 @@ if __name__=='__main__':
     del node_attrs['color']
     # create second cluster
     c.create_cluster(['b0', 'b1', 'b2', 'b3'], cluster_attrs, node_attrs)
+    # print graph in dot language to stdout
     print c.to_string()
     c.set_display_mode('pygame')
     c.display()
-
-# Add create_cluster method.
-# Update to_string method.
-#
-#

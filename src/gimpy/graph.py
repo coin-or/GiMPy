@@ -42,7 +42,7 @@ Return: Return value of the method.
 
 
 TODO(aykut):
--> label_components display argument is ineffective.
+-> svg display mode
 -> label_strong_components() API change. Check backward compatibilty.
 -> dfs should use search()?
 -> display mode svg is not supported.
@@ -647,6 +647,11 @@ class Graph(object):
             if len(self.cluster[c]['node_attrs'])!=0:
                 graph.pop()
                 graph.append('];\n')
+            # process cluster nodes
+            for n in self.cluster[c]['node_list']:
+                data = self.get_node(n).to_string()
+                graph.append(data + ';\n')
+            # process cluster edges
             for n in self.cluster[c]['node_list']:
                 for m in self.cluster[c]['node_list']:
                     if self.check_edge(n,m):
@@ -695,7 +700,8 @@ class Graph(object):
             self.get_node(n).set_attr('component', None)
         for n in self.get_node_list():
             if self.get_node(n).get_attr('component') == None:
-                self.dfs(n, component = self.num_components)
+                self.search(n, display=display,
+                            component=self.num_components, algo='DFS')
                 self.num_components += 1
 
     def tarjan(self):
@@ -3017,7 +3023,7 @@ class Graph(object):
                 diameter = eccentricity_n
         return diameter
 
-    def create_cluster(self, node_list, cluster_attrs, node_attrs):
+    def create_cluster(self, node_list, cluster_attrs={}, node_attrs={}):
         '''
         API:
             create_cluster(self, node_list, cluster_attrs, node_attrs)

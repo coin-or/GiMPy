@@ -1,12 +1,5 @@
 '''
 Tree class built on top of Graph class.
-
-TODO(aykut):
--> root argument in DFS, BFS and traverse. Is it a Node instance or string?
--> Is self.root a Node() or string?
--> display argument in print_nodes() is ineffective.
--> display argument of dfs, bfs.
--> order argument in traverse is useless, remove it.
 '''
 
 from graph import Graph, Node
@@ -220,7 +213,8 @@ class BinaryTree(Tree):
             attrs: Attributes of node n.
         '''
         if self.get_right_child(parent) is not None:
-            raise Exception("Right child already exists for node " + parent)
+            msg = "Right child already exists for node " + str(parent)
+            raise Exception(msg)
         attrs['direction'] = 'R'
         self.set_node_attr(parent, 'Rchild', n)
         self.add_child(n, parent, **attrs)
@@ -238,7 +232,8 @@ class BinaryTree(Tree):
             attrs: Attributes of node n.
         '''
         if self.get_left_child(parent) is not None:
-            raise Exception("Left child already exists for node " + parent)
+            msg = "Right child already exists for node " + str(parent)
+            raise Exception(msg)
         attrs['direction'] = 'L'
         self.set_node_attr(parent, 'Lchild', n)
         self.add_child(n, parent, **attrs)
@@ -310,10 +305,14 @@ class BinaryTree(Tree):
             display: Display mode.
             root: Starting node.
         '''
+        old_display = None
         if root == None:
             root = self.root.name
         if display == None:
             display = self.attr['display']
+        else:
+            old_display = self.attr['display']
+            self.attr['display'] = display
         if priority == 'L':
             first_child = self.get_left_child
             second_child = self.get_right_child
@@ -336,6 +335,8 @@ class BinaryTree(Tree):
             print root
         if display:
             self.display(highlight = [root])
+        if old_display:
+            self.attr['display'] = old_display
 
     def dfs(self, root = None, display = None, priority = 'L', order = 'in'):
         '''
@@ -353,8 +354,6 @@ class BinaryTree(Tree):
         '''
         if root == None:
             root = self.root
-        if display == None:
-            display = self.attr['display']
         self.traverse(root, display, Stack(), priority, order)
 
     def bfs(self, root = None, display = None, priority = 'L', order = 'in'):
@@ -373,12 +372,10 @@ class BinaryTree(Tree):
         '''
         if root == None:
             root = self.root
-        if display == None:
-            display = self.attr['display']
         self.traverse(root, display, Queue(), priority, order)
 
     def traverse(self, root = None, display = None, q = Stack(),
-                 priority = 'L',  order = 'in'):
+                 priority = 'L'):
         '''
         API: traverse(self, root=None, display=None, q=Stack(), priority='L',
                       order='in')
@@ -395,10 +392,14 @@ class BinaryTree(Tree):
             Acceptable arguments are 'L' and 'R'.
             order: Ineffective, will be removed.
         '''
+        old_display = None
         if root == None:
             root = self.root
         if display == None:
-            display = self.display_mode
+            display = self.attr['display']
+        else:
+            old_display = self.attr['display']
+            self.attr['display'] = display
         if isinstance(q, Queue):
             addToQ = q.enqueue
             removeFromQ = q.dequeue
@@ -422,6 +423,8 @@ class BinaryTree(Tree):
             n = second_child(current)
             if n is not None:
                 addToQ(n)
+        if old_display:
+            self.attr['display'] = old_display
 
     def printexp(self, display = None, root = None):
         if root == None:
@@ -433,7 +436,10 @@ class BinaryTree(Tree):
             if display:
                 self.display(highlight = [root])
             self.printexp(display, self.get_left_child(root))
-        print self.get_node_attr(root, 'label'),
+        if isinstance(root, Node):
+            print root.get_attr('label')
+        else:
+            print self.get_node_attr(root, 'label'),
         if display:
                 self.display(highlight = [root])
         if self.get_right_child(root):
@@ -455,17 +461,24 @@ class BinaryTree(Tree):
             if display:
                 self.display(highlight = [root])
             res1 = self.postordereval(display, self.get_left_child(root))
-        print self.get_node_attr(root, 'label'),
+        if isinstance(root, Node):
+            print root.get_attr('label')
+        else:
+            print self.get_node_attr(root, 'label'),
         if display:
                 self.display(highlight = [root])
         if self.get_right_child(root):
             res2 = self.postordereval(display, self.get_right_child(root))
         if res1 and res2:
-            print '=', opers[self.get_node_attr(root, 'label')](res1 , res2)
+            if isinstance(root, Node):
+                val = root.get_attr('label')
+            else:
+                val = self.get_node_attr(root, 'label')
+            print '=', opers[val](res1 , res2)
             if display:
                 self.display(highlight = [root])
-            print opers[self.get_node_attr(root, 'label')](res1 , res2),
-            return opers[self.get_node_attr(root, 'label')](res1 , res2)
+            print opers[val](res1 , res2),
+            return opers[val](res1 , res2)
         else:
             return int(self.get_node_attr(root, 'label'))
 
