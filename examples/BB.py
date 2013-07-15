@@ -1,5 +1,5 @@
 '''
-Original Authors : Murat H. Mut, Serdar Yildiz, 
+Original Authors : Murat H. Mut, Serdar Yildiz,
                    Lehigh University ISE Department 05/07/2010
 Edited by Victor Pillac on Aug 5 2010
 Edited by Ted Ralphs September 15, 2011
@@ -16,14 +16,18 @@ variable can be used to turn off fathoming by bound.
 from pulp import LpVariable, lpSum, LpProblem, LpMaximize, LpConstraint, LpStatus, value
 import math
 import time
-from gimpy import BinaryTree, Cluster, etree_installed, pygame_installed, xdot_installed
+from gimpy import BinaryTree, ETREE_INSTALLED, PYGAME_INSTALLED, XDOT_INSTALLED
+
+#from gimpy import etree_installed, pygame_installed, xdot_installed
+#from gimpy import Cluster
+
 try:
     from grumpy import BBTree, gexf_installed
     grumpy_installed = True
 except ImportError:
     grumpy_installed = False
-    
-from Queues import PriorityQueue
+
+from blimpy import PriorityQueue
 from random import random, randint, seed
 
 display_mode = 'xdot'
@@ -39,6 +43,7 @@ else:
 T.set_display_mode(display_mode)
 T.set_layout(layout)
 
+'''
 #Add key
 C = Cluster(graph_name = 'Key', label = 'Key', fontsize = '12')
 C.add_node('C', label = 'Candidate', style = 'filled', color = 'yellow', fillcolor = 'yellow')
@@ -49,6 +54,17 @@ C.add_edge('C', 'I', style = 'invisible', arrowhead = 'none')
 C.add_edge('I', 'S', style = 'invisible', arrowhead = 'none')
 C.add_edge('S', 'P', style = 'invisible', arrowhead = 'none')
 T.add_subgraph(C)
+'''
+
+T.add_node('C', label = 'Candidate', style = 'filled', color = 'yellow', fillcolor = 'yellow')
+T.add_node('I', label = 'Infeasible', style = 'filled', color = 'orange', fillcolor = 'orange')
+T.add_node('S', label = 'Solution', style = 'filled', color = 'lightblue', fillcolor = 'lightblue')
+T.add_node('P', label = 'Pruned', style = 'filled', color = 'red', fillcolor = 'red')
+T.add_edge('C', 'I', style = 'invisible', arrowhead = 'none')
+T.add_edge('I', 'S', style = 'invisible', arrowhead = 'none')
+T.add_edge('S', 'P', style = 'invisible', arrowhead = 'none')
+cluster_attrs = {'name':'Key', 'label':'Key', 'fontsize':'12'}
+T.create_cluster(['C', 'I', 'S', 'P'], cluster_attrs)
 
 import_instance = False
 if import_instance:
@@ -93,12 +109,12 @@ search_strategy = BEST_FIRST
 # 1 to force complete enumeration of nodes (no fathoming by bounding)
 complete_enumeration = 0
 
-# List shows if the corresponding variable is fixed to 0 or 1 or if it is not 
+# List shows if the corresponding variable is fixed to 0 or 1 or if it is not
 # fixed when the corresponding value is 2.
 # Initially each variable is assigned to be unfixed
 INFINITY = 9999
 
-#The initial lower bound 
+#The initial lower bound
 LB = -INFINITY
 
 #The number of LP's solved, and the number of nodes solved
@@ -107,11 +123,11 @@ iter_count = 0
 lp_count = 0
 
 #List of incumbent solution variable values
-opt = dict([(i, 0) for i in VARIABLES]) 
+opt = dict([(i, 0) for i in VARIABLES])
 
 print "==========================================="
 print "Starting Branch and Bound"
- 
+
 if branch_strategy == MOST_FRAC:
     print "Most fractional variable"
 elif branch_strategy == FIXED:
@@ -172,7 +188,7 @@ while not Q.isEmpty():
         if sense == '>=':
             prob += LpConstraint(lpSum(var[branch_var]) >= rhs)
         else:
-            prob += LpConstraint(lpSum(var[branch_var]) <= rhs)   
+            prob += LpConstraint(lpSum(var[branch_var]) <= rhs)
         print branch_var,
         pred = parent
         while str(pred) is not '0':
@@ -186,33 +202,33 @@ while not Q.isEmpty():
             print pred_branch_var,
             branch_vars.append(pred_branch_var)
             pred = T.get_node_attr(pred, 'parent')
-        
+
     print ""
 
-    # Solve the LP relaxation    
+    # Solve the LP relaxation
     prob.solve()
-    
+
     lp_count = lp_count +1
-    
+
     # Check infeasibility
     infeasible = LpStatus[prob.status] == "Infeasible"
- 
+
     # Print status
     if infeasible:
         print "LP Solved, status: Infeasible"
     else:
         print "LP Solved, status: %s, obj: %s" %(LpStatus[prob.status],
                                                  value(prob.objective))
-    
- 
+
+
     if(LpStatus[prob.status] == "Optimal"):
         relax = value(prob.objective)
     else:
         relax = INFINITY
-        
+
     integer_solution = 0
-    
-    if (LpStatus[prob.status] == "Optimal"):        
+
+    if (LpStatus[prob.status] == "Optimal"):
         var_values = dict([(i, var[i].varValue) for i in VARIABLES])
         integer_solution = 1
         for i in VARIABLES:
@@ -222,15 +238,15 @@ while not Q.isEmpty():
         if (integer_solution and relax>LB):
             LB = relax
             for i in VARIABLES:
-                #these two have different data structures first one list 
+                #these two have different data structures first one list
                 #second one dictionary
-                opt[i] = var_values[i] 
-            print "New best solution found, objective: %s" %relax 
+                opt[i] = var_values[i]
+            print "New best solution found, objective: %s" %relax
             for i in VARIABLES:
                 if var_values[i] > 0:
                     print "%s = %s" %(i, var_values[i])
         elif (integer_solution and relax<=LB):
-            print "New integer solution found, objective: %s" %relax 
+            print "New integer solution found, objective: %s" %relax
             for i in VARIABLES:
                 if var_values[i] > 0:
                     print "%s = %s" %(i, var_values[i])
@@ -243,7 +259,7 @@ while not Q.isEmpty():
     #For complete enumeration
     if complete_enumeration:
         relax = LB - 1
-      
+
     if integer_solution:
         print "Integer solution"
         status = 'S'
@@ -280,18 +296,18 @@ while not Q.isEmpty():
         else:
             T.add_root(0, label = label, status = status, obj = relax, color = color,
                        style = 'filled', fillcolor = color)
-        if etree_installed and display_mode == 'svg':
-            T.write_as_svg(filename = "node%d" % iter_count, 
-                           nextfile = "node%d" % (iter_count + 1), 
+        if ETREE_INSTALLED and display_mode == 'svg':
+            T.write_as_svg(filename = "node%d" % iter_count,
+                           nextfile = "node%d" % (iter_count + 1),
                            highlight = cur_index)
     else:
         if layout == 'bak':
             if sense == '<=':
-                T.AddOrUpdateNode(cur_index, parent, 'L', 'candidate', 
+                T.AddOrUpdateNode(cur_index, parent, 'L', 'candidate',
                                   -relax, None, None, branch_var = branch_var,
                                   sense = sense, rhs = rhs)
             else:
-                T.AddOrUpdateNode(cur_index, parent, 'R', 'candidate', 
+                T.AddOrUpdateNode(cur_index, parent, 'R', 'candidate',
                                   -relax, None, None, branch_var = branch_var,
                                   sense = sense, rhs = rhs)
         else:
@@ -300,23 +316,23 @@ while not Q.isEmpty():
                         color = color, style = 'filled', fillcolor = color)
             if layout == 'ladot':
                 if sense == '>=':
-                    T.set_edge_attr(parent, cur_index, 'label', 
+                    T.set_edge_attr(parent, cur_index, 'label',
                                     "$"+str(branch_var) + " \geq " + str(rhs) + "$")
                 else:
-                    T.set_edge_attr(parent, cur_index, 'label', 
+                    T.set_edge_attr(parent, cur_index, 'label',
                                     "$"+str(branch_var) + " \leq " + str(rhs) + "$")
             else:
-                T.set_edge_attr(parent, cur_index, 'label', 
+                T.set_edge_attr(parent, cur_index, 'label',
                                 str(branch_var) + sense + str(rhs))
-        if etree_installed and display_mode == 'svg':
-            T.write_as_svg(filename = "node%d" % iter_count, 
-                           prevfile = "node%d" % (iter_count - 1), 
-                           nextfile = "node%d" % (iter_count + 1), 
+        if ETREE_INSTALLED and display_mode == 'svg':
+            T.write_as_svg(filename = "node%d" % iter_count,
+                           prevfile = "node%d" % (iter_count - 1),
+                           nextfile = "node%d" % (iter_count + 1),
                            highlight = cur_index)
     iter_count += 1
 
-    if ((pygame_installed and display_mode == 'pygame')
-         or (xdot_installed and display_mode == 'xdot')):
+    if ((PYGAME_INSTALLED and display_mode == 'pygame')
+         or (XDOT_INSTALLED and display_mode == 'xdot')):
         numNodes = len(T.get_node_list())
         if numNodes % display_interval == 0 and not layout != 'ladot':
             T.display(highlight = [cur_index])
@@ -324,14 +340,14 @@ while not Q.isEmpty():
         T.write_as_dynamic_gexf("graph")
 
     if status == 'C':
-  
+
         # Branching:
         # Choose a variable for branching
         branching_var = -1
         if branch_strategy == FIXED:
             #fixed order
             for i in VARIABLES:
-                frac = min(var[i].varValue-math.floor(var[i].varValue), 
+                frac = min(var[i].varValue-math.floor(var[i].varValue),
                            math.ceil(var[i].varValue) - var[i].varValue)
                 if (frac > 0):
                     min_frac = frac
@@ -341,7 +357,7 @@ while not Q.isEmpty():
             #most fractional variable
             min_frac = -1
             for i in VARIABLES:
-                frac = min(var[i].varValue-math.floor(var[i].varValue), 
+                frac = min(var[i].varValue-math.floor(var[i].varValue),
                            math.ceil(var[i].varValue)- var[i].varValue )
                 if (frac> min_frac):
                     min_frac = frac
@@ -350,10 +366,10 @@ while not Q.isEmpty():
         else:
             print "Unknown branching strategy %s" %branch_strategy
             exit()
-    
+
         if branching_var >= 0:
             print "Branching on variable %s" %branching_var
-            
+
         #Create new nodes
         if search_strategy == DEPTH_FIRST:
             priority = -cur_depth - 1
@@ -366,17 +382,17 @@ while not Q.isEmpty():
         T.set_node_attr(cur_index, color, 'green')
         if layout == 'bak':
             T.set_node_attr(cur_index, 'status', 'branched')
- 
+
 timer = int(math.ceil((time.time()-timer)*1000))
 
-if ((xdot_installed and display_mode == 'xdot' and layout != 'ladot') or
+if ((XDOT_INSTALLED and display_mode == 'xdot' and layout != 'ladot') or
     layout == 'bak'):
     T.display()
 if layout == 'ladot':
     T.write_as_dot(filename = 'graph')
 
 T.write_as_dot(filename = 'graph2')
-    
+
 print ""
 print "==========================================="
 print "Branch and bound completed in %sms" %timer
@@ -384,7 +400,7 @@ print "Strategy: %s" %branch_strategy
 if complete_enumeration:
     print "Complete enumeration"
 print "%s nodes visited " %node_count
-print "%s LP's solved" %lp_count     
+print "%s LP's solved" %lp_count
 print "==========================================="
 print "Optimal solution"
 #print optimal solution
@@ -392,5 +408,5 @@ for i in sorted(VARIABLES):
     if opt[i] > 0:
         print "%s = %s" %(i, opt[i])
 print "Objective function value"
-print LB          
-print "==========================================="    
+print LB
+print "==========================================="
