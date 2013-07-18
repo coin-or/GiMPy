@@ -3,7 +3,7 @@ tests network simplex method and cycle canceling method of GIMPy.
 
 '''
 
-from gimpy import Graph
+from gimpy import Graph, DIRECTED_GRAPH
 from random import seed, randint, random
 from pulp import LpProblem, LpVariable, LpMinimize, lpSum, value, GLPK
 import time
@@ -34,16 +34,16 @@ def get_solution(g):
     return sol
 
 def generate_graph(seed_i):
-    g = mGraph(graph_type='digraph', splines='true', layout = 'dot')
-    #g = mGraph(graph_type='digraph')
+    g = mGraph(type=DIRECTED_GRAPH, splines='true', layout = 'dot')
+    #g = mGraph(type=DIRECTED_GRAPH)
     seed(seed_i)
     for i in range(numnodes):
         for j in range(numnodes):
             if i==j:
                 continue
-            if (str(i), str(j)) in g.get_edge_list():
+            if (i, j) in g.get_edge_list():
                 continue
-            if (str(j), str(i)) in g.get_edge_list():
+            if (j, i) in g.get_edge_list():
                 continue
             if random() < density:
                 cap = randint(capacity_range[0], capacity_range[1])
@@ -53,14 +53,14 @@ def generate_graph(seed_i):
     # select random demand_numnodes many nodes
     demand_node = {}
     while len(demand_node) < demand_numnodes:
-        n = str(randint(0,numnodes-1))
+        n = randint(0,numnodes-1)
         if n in demand_node:
             continue
         demand_node[n] = 0
     # select random supply_numnodes many nodes (different than above)
     supply_node = {}
     while len(supply_node) < supply_numnodes:
-        n = str(randint(0,numnodes-1))
+        n = randint(0,numnodes-1)
         if n in demand_node or n in supply_node:
             continue
         supply_node[n] = 0
@@ -133,11 +133,10 @@ def solve(g):
 
 class mGraph(Graph):
 
-    def __init__(self, display = 'off', dot_data = None, 
-                 dot_file = None, **attrs):
-        Graph.__init__(self, display, dot_data, dot_file, **attrs)
+    def __init__(self, **attrs):
+        Graph.__init__(self, **attrs)
 
-    def network_simplex(self, display, pivot):
+    def network_simplex(self, display, pivot, root):
         '''
         API:
             network_simplex(self, display, pivot)
@@ -172,9 +171,9 @@ class mGraph(Graph):
         self.display()
         self.set_display_mode('off')
         # set predecessor, depth and thread indexes
-        t.simplex_search('1', 1)
+        t.simplex_search(root, 1)
         # compute potentials
-        self.simplex_compute_potentials(t)
+        self.simplex_compute_potentials(t, root)
         # while some nontree arc violates optimality conditions
         while not self.simplex_optimal(t):
             self.set_display_mode(display)
@@ -196,9 +195,9 @@ class mGraph(Graph):
             # remove arc
             self.simplex_remove_arc(t, p, q, capacity, cycle)
             # set predecessor, depth and thread indexes
-            t.simplex_search('1', 1)
+            t.simplex_search(root, 1)
             # compute potentials
-            self.simplex_compute_potentials(t)
+            self.simplex_compute_potentials(t, root)
         return (True, iter)
 
 if __name__=='__main__':
@@ -211,9 +210,10 @@ if __name__=='__main__':
                             ' time, iteration\n')
     for seed_i in range(0,100):
         g, d, s = generate_graph(seed_i)
+        root = 0
         #==========solve using simplex, first eligible
         start = time.clock()
-        tup = g.network_simplex('pygame', 'first_eligible')
+        tup = g.network_simplex('pygame', 'first_eligible', root)
         elapsed_time = time.clock() - start
         if tup[0]:
             sol = get_solution(g)
@@ -235,7 +235,7 @@ if __name__=='__main__':
         eligible_file.write(e_line)
         #==========solve using simplex, dantzig
         start = time.clock()
-        tup = g.network_simplex('pygame', 'dantzig')
+        tup = g.network_simplex('pygame', 'dantzig', root)
         elapsed_time = time.clock() - start
         if tup[0]:
             sol = get_solution(g)

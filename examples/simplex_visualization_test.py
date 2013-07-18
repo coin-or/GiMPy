@@ -2,11 +2,11 @@
 tests network simplex visualization
 '''
 
-from gimpy import Graph
+from gimpy import Graph, DIRECTED_GRAPH
 from random import seed, randint, random
 
 def generate_graph():
-    g = Graph(graph_type='digraph')
+    g = Graph(type=DIRECTED_GRAPH)
     # supply nodes; 1,2
     g.add_node(1, demand=20, pos='"0,3!"')
     g.add_node(2, demand=10, pos='"0,1!"')
@@ -40,7 +40,7 @@ def generate_graph2():
     15-053-optimization-methods-in-management-science-spring-2007/
     lecture-notes/lec15.pdf
     '''
-    g = Graph(graph_type='digraph')
+    g = Graph(type=DIRECTED_GRAPH)
     # supply nodes; 2,3,6
     g.add_node(2, demand=6, pos='"1,2!"')
     g.add_node(3, demand=6, pos='"0,0!"')
@@ -64,4 +64,5 @@ def generate_graph2():
 
 if __name__=='__main__':
     g = generate_graph()
-    g.network_simplex('pygame', 'first_eligible')
+    g.set_display_mode('pygame')
+    g.min_cost_flow(algo='simplex')

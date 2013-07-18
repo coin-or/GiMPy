@@ -166,7 +166,7 @@ class Node(object):
             String representation of node.
         '''
         node = list()
-        node.append(str(self.name))
+        node.append(quote_if_necessary(str(self.name)))
         node.append(' [')
         flag = False
         for a in self.attr:
@@ -593,9 +593,9 @@ class Graph(object):
             String that represents given edge.
         '''
         edge = list()
-        edge.append(str(e[0]))
+        edge.append(quote_if_necessary(str(e[0])))
         edge.append(self.edge_connect_symbol)
-        edge.append(str(e[1]))
+        edge.append(quote_if_necessary(str(e[1])))
         # return if there is nothing in self.edge_attr[e]
         if len(self.edge_attr[e]) is 0:
             return ''.join(edge)
@@ -636,7 +636,7 @@ class Graph(object):
             graph.append('subgraph cluster_%s {\n' %c)
             for a in self.cluster[c]['attrs']:
                 if a=='label':
-                    graph.append(a+'='+'"'+self.cluster[c]['attrs'][a]+'";\n')
+                    graph.append(a+'='+quote_if_necessary(self.cluster[c]['attrs'][a])+';\n')
                     continue
                 graph.append(a+'='+self.cluster[c]['attrs'][a]+';\n')
             if len(self.cluster[c]['node_attrs'])!=0:
@@ -3045,8 +3045,10 @@ class Graph(object):
             else:
                 name = cluster_attrs['name']
         else:
-            name = 'cluster_%d' %self.attr['cluster_count']
+            name = 'c%d' %self.attr['cluster_count']
             self.attr['cluster_count'] += 1
+            cluster_attrs['name'] = name
+        #cluster_attrs['name'] =
         self.cluster[name] = {'node_list':node_list,
                               'attrs':copy.deepcopy(cluster_attrs),
                               'node_attrs':copy.deepcopy(node_attrs)}
