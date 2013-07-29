@@ -45,10 +45,4 @@ test: all
 
 unitTest: test
 
-clean-local:
-	if test -r test/Makefile; then cd test; $(MAKE) clean; fi
-
-distclean-local:
-	if test -r test/Makefile; then cd test; $(MAKE) distclean; fi
-
 .PHONY: test unitTest 
