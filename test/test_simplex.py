@@ -2,7 +2,7 @@
 import cProfile
 import pstats
 
-from test_gimpy import generate_graph
+from test_algorithms import generate_graph
 
 # a generator is in the following form (numnode, density, demand_numnode,
 # supply_numnode, demand_range, cost_range, capacity_range)

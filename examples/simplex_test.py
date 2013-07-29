@@ -253,4 +253,4 @@ if __name__=='__main__':
     dantzig_file.close()
     eligible_file.close()
     if flag:
-        print 'All problems solved accuretaly.'
+        print 'All problems solved accurately.'
