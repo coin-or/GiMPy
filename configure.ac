@@ -85,7 +85,8 @@ AM_CONDITIONAL([HAVE_PYTHON], [test "$PYTHON" != "" ])
 
 AC_CONFIG_FILES([Makefile
 		src/gimpy/Makefile
-		src/blimpy/Makefile])
+		src/blimpy/Makefile
+		test/Makefile])
 
 # Finally, we let configure write all the output...
 AC_COIN_FINALIZE
