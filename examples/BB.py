@@ -391,8 +391,6 @@ if ((XDOT_INSTALLED and display_mode == 'xdot' and layout != 'ladot') or
 if layout == 'ladot':
     T.write_as_dot(filename = 'graph')
 
-T.write_as_dot(filename = 'graph2')
-
 print ""
 print "==========================================="
 print "Branch and bound completed in %sms" %timer

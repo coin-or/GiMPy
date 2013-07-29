@@ -1473,7 +1473,7 @@ class Graph(object):
                 # i is a demand node, add (i,t) arc
                 self.add_edge(i, 't', capacity=-1*b_i)
         # solve max flow on this modified graph
-        self.max_flow('s', 't')
+        self.max_flow('s', 't', 'off')
         # check if all demand is satisfied, i.e. the min cost problem is
         # feasible or not
         for i in self.neighbors['s']:
@@ -1694,6 +1694,9 @@ class Graph(object):
         Post:
             The 'flow" attribute of each arc gives a maximum flow.
         '''
+        if display is not None:
+            old_display =  self.attr['display']
+            self.attr['display'] = display
         nl = self.get_node_list()
         # set flow of all edges to 0
         for e in self.edge_attr:
@@ -1818,6 +1821,8 @@ class Graph(object):
                 if m == source:
                     break
                 current = m
+        if display is not None:
+            self.attr['display'] = old_display
 
     def get_negative_cycle(self):
         '''
@@ -2737,7 +2742,7 @@ class Graph(object):
         # l is beginning k is end
         return cycle
 
-    def min_cost_flow(self, display = 'off', **args):
+    def min_cost_flow(self, display = None, **args):
         '''
         API:
             min_cost_flow(self, display='off', **args)
@@ -2788,6 +2793,8 @@ class Graph(object):
                 solves minimum cost feasible flow problem using network simplex
                 agorithm with scaled pivot rule.
         '''
+        if display is None:
+            display = self.attr['display']
         if 'algo' in args:
             algorithm = args['algo']
         else:

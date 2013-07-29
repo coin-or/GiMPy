@@ -338,7 +338,7 @@ class BinaryTree(Tree):
         if old_display:
             self.attr['display'] = old_display
 
-    def dfs(self, root = None, display = None, priority = 'L', order = 'in'):
+    def dfs(self, root = None, display = None, priority = 'L'):
         '''
         API: dfs(self, root=None, display=None, priority='L', order='in')
         Description:
@@ -350,13 +350,12 @@ class BinaryTree(Tree):
             display: Display mode.
             priority: Priority used when exploring children of the node.
             Acceptable arguments are 'L' and 'R'.
-            order: Ineffective, will be removed.
         '''
         if root == None:
             root = self.root
-        self.traverse(root, display, Stack(), priority, order)
+        self.traverse(root, display, Stack(), priority)
 
-    def bfs(self, root = None, display = None, priority = 'L', order = 'in'):
+    def bfs(self, root = None, display = None, priority = 'L'):
         '''
         API: bfs(self, root=None, display=None, priority='L', order='in')
         Description:
@@ -368,11 +367,10 @@ class BinaryTree(Tree):
             display: Display mode.
             priority: Priority used when exploring children of the node.
             Acceptable arguments are 'L' and 'R'.
-            order: Ineffective, will be removed.
         '''
         if root == None:
             root = self.root
-        self.traverse(root, display, Queue(), priority, order)
+        self.traverse(root, display, Queue(), priority)
 
     def traverse(self, root = None, display = None, q = Stack(),
                  priority = 'L'):
