@@ -16,7 +16,7 @@ AUTOMAKE_OPTIONS = foreign
 
 test: 
 	PYTHONPATH=@abs_source_dir@/src:@abs_source_dir@/test \
-	python @abs_source_dir@/test/test_algorithms.py
+	${PYTHON} @abs_source_dir@/test/test_algorithms.py
 
 .PHONY: test
 
