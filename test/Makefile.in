@@ -373,7 +373,7 @@ uninstall-am: uninstall-info-am
 
 test: 
 	PYTHONPATH=@abs_source_dir@/src:@abs_source_dir@/test \
-	python @abs_source_dir@/test/test_algorithms.py
+	${PYTHON} @abs_source_dir@/test/test_algorithms.py
 
 .PHONY: test
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
