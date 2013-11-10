@@ -134,7 +134,8 @@ def quote_if_necessary(s):
     if needs_quotes(s):
         replace = {'"'  : r'\"',
                    "\n" : r'\n',
-                   "\r" : r'\r'}
+                   "\r" : r'\r',
+                   "\\ " : r'\\ '}
         for (a,b) in replace.items():
             s = s.replace(a, b)
         return '"' + s + '"'

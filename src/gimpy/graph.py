@@ -8,7 +8,7 @@ versions)
 This implementation can be considered as a comprimise between pydot graph
 class and an efficient graph data structure.
 
-One deviation from standart Graph implementations is to keep in neighbors in
+One deviation from standard Graph implementations is to keep in neighbors in
 an other adjacency list. We do this for efficiency resons considering
 traversing residual graphs.
 
@@ -623,8 +623,8 @@ class Graph(object):
         processed_edges = {}
         graph.append('%s %s {\n' %(self.graph_type, self.name))
         for a in self.attr:
-            if a not in GRAPH_ATTRIBUTES:
-                continue
+            #if a not in GRAPH_ATTRIBUTES:
+            #    continue
             val = self.attr[a]
             if val is not None:
                 graph.append( '%s=%s' % (a, quote_if_necessary(val)) )
@@ -3157,6 +3157,6 @@ if __name__ == '__main__':
 #    print G.to_string()
 #    G.display(basename='try.png', format='png')
 
-    G.search(0, display = 'pygame', algo = 'Dijkstra')
-#    G.minimum_spanning_tree_kruskal(display = 'pygame')
+#    G.search(0, display = 'pygame', algo = 'Dijkstra')
+    G.minimum_spanning_tree_kruskal(display = 'pygame')
     #G.search(0, display = 'pygame')
