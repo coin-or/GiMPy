@@ -623,8 +623,8 @@ class Graph(object):
         processed_edges = {}
         graph.append('%s %s {\n' %(self.graph_type, self.name))
         for a in self.attr:
-            #if a not in GRAPH_ATTRIBUTES:
-            #    continue
+            if a not in GRAPH_ATTRIBUTES:
+                continue
             val = self.attr[a]
             if val is not None:
                 graph.append( '%s=%s' % (a, quote_if_necessary(val)) )
