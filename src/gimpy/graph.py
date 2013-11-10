@@ -1509,6 +1509,8 @@ class Graph(object):
             value: New value of the layout.
         '''
         self.attr['layout']=value
+        if value == 'dot2tex':
+            self.attr['d2tgraphstyle'] = 'every text node part/.style={align=center}'
 
     def write(self, basename = 'graph', layout = None, format='png'):
         '''
