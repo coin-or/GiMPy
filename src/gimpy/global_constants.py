@@ -24,6 +24,7 @@ GRAPH_ATTRIBUTES = set( ['Damping', 'K', 'URL', 'aspect', 'bb', 'bgcolor',
     'repulsiveforce', 'resolution', 'root', 'rotate', 'searchsize', 'sep',
     'showboxes', 'size', 'smoothing', 'sortv', 'splines', 'start',
     'stylesheet', 'target', 'truecolor', 'viewport', 'voro_margin',
+    'd2tgraphstyle',
     # for subgraphs
     'rank'])
 DEFAULT_GRAPH_ATTRIBUTES = {}
@@ -134,7 +135,8 @@ def quote_if_necessary(s):
     if needs_quotes(s):
         replace = {'"'  : r'\"',
                    "\n" : r'\n',
-                   "\r" : r'\r'}
+                   "\r" : r'\r',
+                   "\\ " : r'\\ '}
         for (a,b) in replace.items():
             s = s.replace(a, b)
         return '"' + s + '"'

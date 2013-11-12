@@ -8,7 +8,7 @@ versions)
 This implementation can be considered as a comprimise between pydot graph
 class and an efficient graph data structure.
 
-One deviation from standart Graph implementations is to keep in neighbors in
+One deviation from standard Graph implementations is to keep in neighbors in
 an other adjacency list. We do this for efficiency resons considering
 traversing residual graphs.
 
@@ -1509,6 +1509,8 @@ class Graph(object):
             value: New value of the layout.
         '''
         self.attr['layout']=value
+        if value == 'dot2tex':
+            self.attr['d2tgraphstyle'] = 'every text node part/.style={align=center}'
 
     def write(self, basename = 'graph', layout = None, format='png'):
         '''
@@ -3157,6 +3159,6 @@ if __name__ == '__main__':
 #    print G.to_string()
 #    G.display(basename='try.png', format='png')
 
-    G.search(0, display = 'pygame', algo = 'Dijkstra')
-#    G.minimum_spanning_tree_kruskal(display = 'pygame')
+#    G.search(0, display = 'pygame', algo = 'Dijkstra')
+    G.minimum_spanning_tree_kruskal(display = 'pygame')
     #G.search(0, display = 'pygame')
