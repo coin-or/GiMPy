@@ -16,18 +16,18 @@ variable can be used to turn off fathoming by bound.
 from pulp import LpVariable, lpSum, LpProblem, LpMaximize, LpConstraint, LpStatus, value
 import math
 import time
-from gimpy import BinaryTree, ETREE_INSTALLED, PYGAME_INSTALLED, XDOT_INSTALLED
+from coinor.gimpy import BinaryTree, ETREE_INSTALLED, PYGAME_INSTALLED, XDOT_INSTALLED
 
-#from gimpy import etree_installed, pygame_installed, xdot_installed
-#from gimpy import Cluster
+#from coinor.gimpy import etree_installed, pygame_installed, xdot_installed
+#from coinor.gimpy import Cluster
 
 try:
-    from grumpy import BBTree, gexf_installed
+    from coinor.grumpy import BBTree, gexf_installed
     grumpy_installed = True
 except ImportError:
     grumpy_installed = False
 
-from blimpy import PriorityQueue
+from coinor.blimpy import PriorityQueue
 from random import random, randint, seed
 
 display_mode = 'xdot'

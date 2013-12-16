@@ -2,7 +2,7 @@
 tests network simplex visualization
 '''
 
-from gimpy import Graph, DIRECTED_GRAPH
+from coinor.gimpy import Graph, DIRECTED_GRAPH
 from random import seed, randint, random
 
 def generate_graph():

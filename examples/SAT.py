@@ -1,4 +1,4 @@
-from gimpy import Graph
+from coinor.gimpy import Graph
 
 if __name__ == '__main__':
     G = Graph(graph_type = 'digraph', splines = 'true', layout = 'dot2tex', 

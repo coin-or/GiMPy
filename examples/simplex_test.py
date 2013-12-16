@@ -3,9 +3,9 @@ tests network simplex method and cycle canceling method of GIMPy.
 
 '''
 
-from gimpy import Graph, DIRECTED_GRAPH
+from coinor.gimpy import Graph, DIRECTED_GRAPH
 from random import seed, randint, random
-from pulp import LpProblem, LpVariable, LpMinimize, lpSum, value, GLPK
+from coinor.pulp import LpProblem, LpVariable, LpMinimize, lpSum, value, GLPK
 import time
 
 # global variables, experimental parameters
