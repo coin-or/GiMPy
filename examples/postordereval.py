@@ -4,7 +4,7 @@ Created on Oct 15, 2012
 @author: tkr2
 '''
 
-from gimpy import BinaryTree
+from coinor.gimpy import BinaryTree
 
 if __name__ == '__main__':
     T = BinaryTree(display = 'pygame')

@@ -11,7 +11,7 @@ red  : the flow equals to the arc capacity
 green: there is positive flow on the arc, less then capacity.
 '''
 
-from gimpy import Graph, DIRECTED_GRAPH
+from coinor.gimpy import Graph, DIRECTED_GRAPH
 
 if __name__=='__main__':
     g = Graph(type = DIRECTED_GRAPH, display = 'pygame')
