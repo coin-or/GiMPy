@@ -59,9 +59,9 @@ __url__        = None
 __title__      = 'Linked list data structure'
 
 from global_constants import *
-from blimpy import Stack
-from blimpy import Queue
-from blimpy import PriorityQueue
+from coinor.blimpy import Stack
+from coinor.blimpy import Queue
+from coinor.blimpy import PriorityQueue
 import subprocess # for call()
 import StringIO   # for StringIO()
 import copy       # for deepcopy()
@@ -623,8 +623,8 @@ class Graph(object):
         processed_edges = {}
         graph.append('%s %s {\n' %(self.graph_type, self.name))
         for a in self.attr:
-            if a not in GRAPH_ATTRIBUTES:
-                continue
+#            if a not in GRAPH_ATTRIBUTES:
+#                continue
             val = self.attr[a]
             if val is not None:
                 graph.append( '%s=%s' % (a, quote_if_necessary(val)) )
