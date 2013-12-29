@@ -4,7 +4,10 @@ Tree class built on top of Graph class.
 
 from graph import Graph, Node
 from global_constants import *
-from coinor.blimpy import Stack, Queue
+try:
+    from src.blimpy import Stack, Queue
+except ImportError:
+    from coinor.blimpy import Stack, Queue
 import operator
 
 class Tree(Graph):
