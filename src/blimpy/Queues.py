@@ -104,56 +104,56 @@ class PriorityQueue(object):
     def heapify(self):
         heapq.heapify(self.heap)
 
-    def pop(self, item = None):
+    def pop(self, key = None):
         '''
         Remove and return the lowest priority task. Raise KeyError if empty.
         '''
-        if item == None:
+        if key == None:
             while self.size:
                 entry = heapq.heappop(self.heap)
                 if entry[-1] is not self.REMOVED:
                     del self.entry_finder[entry[-1]]
                     self.size -= 1
-                    return entry[-1]
+                    return entry[-2]
             raise KeyError('pop from an empty priority queue')
         else:
-            self.remove(item)
+            self.remove(key)
 
-    def peek(self, item = None):
-        if item == None:
+    def peek(self, key = None):
+        if key == None:
             while self.size:
                 if self.heap[0][-1] is not self.REMOVED:
-                    return self.heap[0][-1]
+                    return self.heap[0][-2]
                 else:
                     heapq.heappop(self.heap)
             raise KeyError('peek at an empty priority queue')
         try:
-            return self.entry_finder[item][-1]
+            return self.entry_finder[key][-2]
         except KeyError:
             return None
 
-    def get_priority(self, item):
+    def get_priority(self, key):
         try:
-            return self.entry_finder[item][0]
+            return self.entry_finder[key][0]
         except KeyError:
             return None
 
-    def push(self, item, priority = 0):
+    def push(self, key, item, priority = 0):
         '''
         Add to the heap or update the priority of an existing task.
         '''
-        if item in self.entry_finder:
-            self.remove(item)
+        if key in self.entry_finder:
+            self.remove(key)
         count = next(self.counter)
-        entry = [priority, count, item]
-        self.entry_finder[item] = entry
+        entry = [priority, count, item, key]
+        self.entry_finder[key] = entry
         self.size += 1
         heapq.heappush(self.heap, entry)
 
-    def remove(self, item):
+    def remove(self, key):
         '''
         Mark an existing task as REMOVED.  Raise KeyError if not found.
         '''
-        entry = self.entry_finder.pop(item)
+        entry = self.entry_finder.pop(key)
         entry[-1] = self.REMOVED
         self.size -= 1
