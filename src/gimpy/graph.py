@@ -409,7 +409,7 @@ class Graph(object):
 
     def check_edge(self, name1, name2):
         '''
-        API: check_cost(self, name1, name2)
+        API: check_edge(self, name1, name2)
         Description:
         Return True if edge exists, False otherwise.
         Input:
@@ -3026,7 +3026,7 @@ class Graph(object):
                     # is defined, since the graph is not connected, return
                     # 'infinity'
                     return 'infinity'
-                disntance_n_m = len(path_n_m)-1
+                distance_n_m = len(path_n_m)-1
                 if distance_n_m > eccentricity_n:
                     eccentricity_n = distance_n_m
             if diameter is 'infinity' or diameter > eccentricity_n:
@@ -3153,7 +3153,8 @@ class DisjointSet(Graph):
 if __name__ == '__main__':
     G = Graph(type = UNDIRECTED_GRAPH, splines = 'true', K = 1.5)
 #    G.random(numnodes = 7, density = 0.7, length_range = (1, 10), seedInput = 5)
-    G.random(numnodes = 7, density = 0.7, Euclidean = True, seedInput = 9)
+    G.random(numnodes = 7, density = 0.7, Euclidean = True, 
+             seedInput = 9)
 #    G.random(numnodes = 10, density = 0.5, seedInput = 5)
 
 #    G.set_display_mode('file')
