@@ -20616,7 +20616,7 @@ fi
 #                       Generate the Makefiles                              #
 #############################################################################
 
-                                        ac_config_files="$ac_config_files Makefile src/gimpy/Makefile src/blimpy/Makefile test/Makefile"
+                              ac_config_files="$ac_config_files Makefile src/gimpy/Makefile test/Makefile"
 
 
 # Finally, we let configure write all the output...
@@ -21315,7 +21315,6 @@ do
   # Handling of arguments.
   "Makefile" ) CONFIG_FILES="$CONFIG_FILES Makefile" ;;
   "src/gimpy/Makefile" ) CONFIG_FILES="$CONFIG_FILES src/gimpy/Makefile" ;;
-  "src/blimpy/Makefile" ) CONFIG_FILES="$CONFIG_FILES src/blimpy/Makefile" ;;
   "test/Makefile" ) CONFIG_FILES="$CONFIG_FILES test/Makefile" ;;
   "depfiles" ) CONFIG_COMMANDS="$CONFIG_COMMANDS depfiles" ;;
   *) { { echo "$as_me:$LINENO: error: invalid argument: $ac_config_target" >&5
