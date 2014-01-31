@@ -19,7 +19,7 @@
 AC_PREREQ(2.59)
 
 # name of project, version number, contact info
-AC_INIT([GiMPy],[trunk],[coin-bazaar@lists.coin-or.org])
+AC_INIT([GiMPy],[1.2.0],[coin-bazaar@lists.coin-or.org])
 
 # copyright for configure script
 AC_COPYRIGHT([
