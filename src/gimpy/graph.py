@@ -50,7 +50,7 @@ future:
 -> The solution we find is not strongly feasible. Fix this.
 '''
 
-__version__    = '1.0.0'
+__version__    = '1.1.1'
 __author__     = 'Ted Ralphs, Aykut Bulut (ted@lehigh.edu, aykut@lehigh.edu)'
 __license__    = 'BSD'
 __maintainer__ = 'Aykut Bulut'
@@ -3157,10 +3157,11 @@ if __name__ == '__main__':
              seedInput = 9)
 #    G.random(numnodes = 10, density = 0.5, seedInput = 5)
 
-#    G.set_display_mode('file')
+    G.set_display_mode('xdot')
 #    print G.to_string()
+    G.display()
 #    G.display(basename='try.png', format='png')
 
 #    G.search(0, display = 'pygame', algo = 'Dijkstra')
-    G.minimum_spanning_tree_kruskal(display = 'pygame')
+#    G.minimum_spanning_tree_kruskal(display = 'pygame')
     #G.search(0, display = 'pygame')
