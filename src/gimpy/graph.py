@@ -1,15 +1,14 @@
 '''
 A Graph class implementation. The aim for this implementation is
-1. To reflect implementation methods in leterature as much as possible
-2. Removing superflous stuff that comes with pydot (compared to previous
-versions)
-3. To have a more object oriented design (compared to previous versions)
+1. To reflect implementation methods in literature as much as possible
+3. To have something close to a "classic" object-oriented design 
+(compared to previous versions)
 
-This implementation can be considered as a comprimise between pydot graph
-class and an efficient graph data structure.
+This implementation can be considered as a compromise between a graph
+class designed for visualization and an efficient graph data structure.
 
 One deviation from standard Graph implementations is to keep in neighbors in
-an other adjacency list. We do this for efficiency resons considering
+an other adjacency list. We do this for efficiency reasons considering
 traversing residual graphs.
 
 We have a class for Graph and a class for Node. Edges are not represented as
@@ -27,7 +26,7 @@ since user is trying to read an attribute that does not exits.
 
 Methods that implement algorithms has display argument in their API. If this
 argument is not specified global display setting will be used for display
-purposes of the algortihm method implements. You can use display argument to
+purposes of the algorithm method implements. You can use display argument to
 get visualization of algorithm without changing global display behavior of your
 Graph/Tree object.
 
@@ -39,7 +38,6 @@ Pre: Necessary class attributes that should exists, methods to be called
      before this method.
 Post: Class attributes changed within the method.
 Return: Return value of the method.
-
 
 TODO(aykut):
 -> svg display mode
@@ -995,7 +993,7 @@ class Graph(object):
         if current is None:
             self.get_node(neighbor).set_attr('color', 'red')
             self.get_node(neighbor).set_attr('label', 0)
-            q.push(neighbor, 0)
+            q.push(neighbor, neighbor, 0)
             self.display()
             self.get_node(neighbor).set_attr('color', 'black')
             return
@@ -1005,7 +1003,7 @@ class Graph(object):
             pred[neighbor] = current
             self.get_node(neighbor).set_attr('color', 'red')
             self.get_node(neighbor).set_attr('label', new_estimate)
-            q.push(neighbor, new_estimate)
+            q.push(neighbor, neighbor, new_estimate)
             self.display()
             self.get_node(neighbor).set_attr('color', 'black')
 
@@ -1028,7 +1026,7 @@ class Graph(object):
         if current is None:
             self.get_node(neighbor).set_attr('color', 'red')
             self.get_node(neighbor).set_attr('label', 0)
-            q.push(neighbor, 0)
+            q.push(neighbor, neighbor, 0)
             self.display()
             self.get_node(neighbor).set_attr('color', 'black')
             return
@@ -1037,7 +1035,7 @@ class Graph(object):
             pred[neighbor] = current
             self.get_node(neighbor).set_attr('color', 'red')
             self.get_node(neighbor).set_attr('label', new_estimate)
-            q.push(neighbor, new_estimate)
+            q.push(neighbor, neighbor, new_estimate)
             self.display()
             self.get_node(neighbor).set_attr('color', 'black')
 
@@ -1241,7 +1239,7 @@ class Graph(object):
             if algo == 'FIFO' or algo == 'SAP':
                 q.push(n)
             elif algo == 'HighestLabel':
-                q.push(n, -1)
+                q.push(n, n, -1)
         self.set_node_attr(source, 'distance', len(nl))
         self.show_flow()
         while not q.isEmpty():
@@ -1278,13 +1276,13 @@ class Graph(object):
                     if algo == 'FIFO' or algo == 'SAP':
                         q.push(current)
                     elif algo == 'HighestLabel':
-                        q.push(current, -self.get_node_attr(current,
+                        q.push(current, current, -self.get_node_attr(current,
                                                             'distance'))
             if pushed and q.peek(n) is None and n != source:
                 if algo == 'SAP':
                     q.push(n)
                 elif algo == 'HighestLabel':
-                    q.push(n, -self.get_node_attr(n, 'distance'))
+                    q.push(n, n, -self.get_node_attr(n, 'distance'))
 
     def process_edge_flow(self, source, sink, i, j, algo, q):
         '''
@@ -3157,11 +3155,11 @@ if __name__ == '__main__':
              seedInput = 9)
 #    G.random(numnodes = 10, density = 0.5, seedInput = 5)
 
-    G.set_display_mode('xdot')
+#    G.set_display_mode('xdot')
 #    print G.to_string()
-    G.display()
+#    G.display()
 #    G.display(basename='try.png', format='png')
 
-#    G.search(0, display = 'pygame', algo = 'Dijkstra')
+    print G.search(0, display = 'off', algo = 'Dijkstra')
 #    G.minimum_spanning_tree_kruskal(display = 'pygame')
     #G.search(0, display = 'pygame')
