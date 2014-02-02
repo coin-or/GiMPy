@@ -1084,6 +1084,7 @@ class Graph(object):
             self.get_node(neighbor).set_attr('color', 'black')
             self.display()
             q.push(neighbor)
+            print q.items
 
     def minimum_spanning_tree_prim(self, source, display = None,
                                    q = PriorityQueue()):
@@ -1551,10 +1552,17 @@ class Graph(object):
         # ne need for os.close(tmp_fd), since we have tmp_file.close(tmp_file)
         tmp_file.close()
         tmp_dir = os.path.dirname(tmp_name)
-        p = subprocess.Popen([layout, '-T'+format, tmp_name],
-                             cwd=tmp_dir,
-                             stdout=subprocess.PIPE,
-                             stderr=subprocess.PIPE)
+        try:
+            p = subprocess.Popen([layout, '-T'+format, tmp_name],
+                                 cwd=tmp_dir,
+                                 stdout=subprocess.PIPE,
+                                 stderr=subprocess.PIPE)
+        except WindowsError:
+            print '''Graphviz executable not found.                            
+Graphviz must be installed and in your search path.
+Please visit http://www.graphviz.org/ for information on installation.
+After installation, ensure that the PATH variable is properly set.'''
+            return
         stdout_output, stderr_output = p.communicate()
         if p.returncode != 0 :
             raise Exception('Graphviz executable terminated with status: %d. stderr follows: %s' % (
@@ -1620,21 +1628,26 @@ class Graph(object):
                 self.write(basename+'.'+format, self.get_layout(), format)
             return
         elif self.attr['display'] == 'pygame':
-            im = StringIO.StringIO(self.create(self.get_layout(), format))
-            picture = pygame.image.load(im, format)
-            screen = pygame.display.set_mode(picture.get_size())
-            screen.blit(picture, picture.get_rect())
-            pygame.display.flip()
-            while pause:
-                e = pygame.event.poll()
-                if e.type == pygame.KEYDOWN:
-                    break
-                if e.type == pygame.QUIT:
-                    pause = False
-                    pygame.display.quit()
-                    # sys.exit() exits the whole program and I (aykut) guess it is
-                    # not appropriate here.
-                    #sys.exit()
+            output = self.create(self.get_layout(), format)
+            if output is not None:
+                im = StringIO.StringIO(self.create(self.get_layout(), format))
+                picture = pygame.image.load(im, format)
+                screen = pygame.display.set_mode(picture.get_size())
+                screen.blit(picture, picture.get_rect())
+                pygame.display.flip()
+                while pause:
+                    e = pygame.event.poll()
+                    if e.type == pygame.KEYDOWN:
+                        break
+                    if e.type == pygame.QUIT:
+                        pause = False
+                        pygame.display.quit()
+                        # sys.exit() exits the whole program and I (aykut) guess it is
+                        # not appropriate here.
+                        #sys.exit()
+            else:
+                print 'Error in displaying graph. Display disabled'
+                self.set_display_mode('off')
         elif self.attr['display'] == 'PIL':
             im = StringIO.StringIO(self.create(self.get_layout(), format))
             if PIL_INSTALLED:
@@ -2903,15 +2916,18 @@ class Graph(object):
             if degree_range is not None:
                 for m in range(numnodes):
                     for i in range(random.randint(degree_range[0], degree_range[1])):
-                        n = random.randint(1, numnodes)
+                        n = random.randint(0, numnodes-1)
                         if (m,n) not in self.edge_attr and (n,m) not in self.edge_attr and m != n:
                             if length_range is None:
                                 ''' calculates the euclidean norm and round it
                                 to an integer '''
-                                length = round((((self.get_node(n).get_attr('locationx') -
+                                try:
+                                    length = round((((self.get_node(n).get_attr('locationx') -
                                                   self.get_node(m).get_attr('locationx')) ** 2 +
                                                  (self.get_node(n).get_attr('locationy') -
                                                   self.get_node(m).get_attr('locationy')) ** 2) ** 0.5), 0)
+                                except:
+                                    pass
                                 self.add_edge(m, n, cost = int(length), label = str(int(length)),
                                               **edge_format)
                             else:
@@ -3149,10 +3165,13 @@ class DisjointSet(Graph):
 
 
 if __name__ == '__main__':
+#    G = Graph(type = UNDIRECTED_GRAPH, splines = 'true', K = 1.5)
+#    G.random(numnodes = 7, density = 0.7, Euclidean = False, seedInput = 9)
     G = Graph(type = UNDIRECTED_GRAPH, splines = 'true', K = 1.5)
+    G.random(numnodes = 15, density = 0.4, degree_range=(1, 4), Euclidean = True, seedInput = 3)
 #    G.random(numnodes = 7, density = 0.7, length_range = (1, 10), seedInput = 5)
-    G.random(numnodes = 7, density = 0.7, Euclidean = True, 
-             seedInput = 9)
+    G.set_display_mode('pygame')
+#    G.display()
 #    G.random(numnodes = 10, density = 0.5, seedInput = 5)
 
 #    G.set_display_mode('xdot')
@@ -3160,6 +3179,7 @@ if __name__ == '__main__':
 #    G.display()
 #    G.display(basename='try.png', format='png')
 
-    print G.search(0, display = 'off', algo = 'Dijkstra')
+    G.label_components()
+#    G.search(0, display = 'pygame', algo = 'Dijkstra')
 #    G.minimum_spanning_tree_kruskal(display = 'pygame')
-    #G.search(0, display = 'pygame')
+#    G.search(0, display = 'pygame')
