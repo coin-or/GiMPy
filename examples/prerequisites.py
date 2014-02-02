@@ -131,15 +131,15 @@ if __name__ == '__main__':
     G.add_node('BIS 3xx', **node_format)
     G.add_node('Math 230', **node_format)
     G.add_node('Math 251', **node_format)
-#    G.add_edge('ISE 362', 'CSE 2xx', style = 'invisible', arrowhead = 'none')
-#    G.add_edge('ISE 362', 'CSE 3xx', style = 'invisible', arrowhead = 'none')
-#    G.add_edge('ISE 362', 'BIS 3xx', style = 'invisible', arrowhead = 'none')
-#    G.add_edge('ISE 362', 'Math 230', style = 'invisible', arrowhead = 'none')
-#    G.add_edge('ISE 362', 'Math 251', style = 'invisible', arrowhead = 'none')
-#    G.add_edge('ISE 362', 'ISE 334', style = 'invisible', arrowhead = 'none')
-#    G.add_edge('ISE 362', 'ISE 382', style = 'invisible', arrowhead = 'none')
-#    G.add_edge('ISE 362', 'ISE 321', style = 'invisible', arrowhead = 'none')
-#    G.add_edge('ISE 362', 'ISE 358', style = 'invisible', arrowhead = 'none')
+    G.add_node('ISE 156', label = 'ISE 156\nMust take\nISE 155\nas FE', **node_format)
+    G.add_edge('ISE 362', 'CSE 2xx', style = 'invisible', arrowhead = 'none')
+    G.add_edge('ISE 362', 'CSE 3xx', style = 'invisible', arrowhead = 'none')
+    G.add_edge('ISE 362', 'BIS 3xx', style = 'invisible', arrowhead = 'none')
+    G.add_edge('ISE 362', 'Math 230', style = 'invisible', arrowhead = 'none')
+    G.add_edge('ISE 362', 'Math 251', style = 'invisible', arrowhead = 'none')
+    G.add_edge('ISE 362', 'ISE 334', style = 'invisible', arrowhead = 'none')
+    G.add_edge('ISE 362', 'ISE 382', style = 'invisible', arrowhead = 'none')
+    G.add_edge('ISE 362', 'ISE 156', style = 'invisible', arrowhead = 'none')
 
     cluster_attrs = {'fontsize' : '72'} #, 'style' : 'bold'}
 
@@ -161,12 +161,13 @@ if __name__ == '__main__':
     G.create_cluster(['ISE 339', 'ISE 316', 'ISE 347', 'ISE 275', 'ISE 358', 'ISE 324', 
                       'ISE 332', 'ISE 362', 'ISE 341', 'ISE 356', 'ISE 355', 'ISE 321', 
                       'ISE 345', 'ISE 382', 'ISE 334', 'ISE 372', 'ISE 319', 'ISE 340', 
-                      'ISE 344', 'CSE 2xx', 'Math 251', 'BIS 3xx', 'CSE 3xx', 'Math 230'], 
+                      'ISE 344', 'CSE 2xx', 'Math 251', 'BIS 3xx', 'CSE 3xx', 'Math 230',
+                      'ISE 156'], 
                      cluster_attrs)
 
     cluster_attrs.update({'name':'Computing', 'label':'Computing Requirements'})
     G.create_cluster(['CSE 2', 'Eng 10', 'ISE 112'], cluster_attrs)
 
-    G.set_display_mode('file')
+    G.set_display_mode('xdot')
 
     G.display(basename = 'ISERequirements', format = 'pdf')
