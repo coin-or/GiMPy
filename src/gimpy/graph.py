@@ -869,7 +869,7 @@ class Graph(object):
         self.search(root, display = display, component = component, q = Queue())
 
     def search(self, source, destination = None, display = None,
-               component = None, q = Stack(),
+               component = None, q = PriorityQueue(),
                algo = 'DFS', reverse = False, **kargs):
         '''
         API: search(self, source, destination = None, display = None,
@@ -911,32 +911,9 @@ class Graph(object):
             display = self.attr['display']
         else:
             self.set_display_mode(display)
-        if algo == 'DFS':
-            q = Stack()
-            if component is not None:
-                for n in self.neighbors:
-                    self.get_node(n).set_attr('label', '-')
-            self.get_node(source).set_attr('component', component)
-            self.get_node(source).set_attr('label', component)
-            self.display()
-        elif algo == 'BFS' or algo == "UnweightedSPT":
-            q = Queue()
-            if component is not None:
-                for n in self.neighbors:
-                    self.get_node(n).set_attr('label', '-')
-            self.get_node(source).set_attr('component', component)
-            self.get_node(source).set_attr('label', component)
-            self.display()
-        elif algo == 'Dijkstra':
-            q = PriorityQueue()
-            for n in self.neighbors:
-                self.get_node(n).set_attr('label', '-')
-            self.display()
-        elif algo == 'Prim':
-            q = PriorityQueue()
-            for n in self.neighbors:
-                self.get_node(n).set_attr('label', '-')
-            self.display()
+        for n in self.neighbors:
+            self.get_node(n).set_attr('label', '-')
+        self.display()
         neighbors = self.neighbors
         if self.graph_type == DIRECTED_GRAPH and reverse:
             neighbors = self.in_neighbors
@@ -1026,7 +1003,7 @@ class Graph(object):
         if current is None:
             self.get_node(neighbor).set_attr('color', 'red')
             self.get_node(neighbor).set_attr('label', 0)
-            q.push(neighbor, neighbor, 0)
+            q.push(neighbor)
             self.display()
             self.get_node(neighbor).set_attr('color', 'black')
             return
@@ -1036,7 +1013,7 @@ class Graph(object):
             pred[neighbor] = current
             self.get_node(neighbor).set_attr('color', 'red')
             self.get_node(neighbor).set_attr('label', new_estimate)
-            q.push(neighbor, neighbor, new_estimate)
+            q.push(neighbor, new_estimate)
             self.display()
             self.get_node(neighbor).set_attr('color', 'black')
 
@@ -1059,7 +1036,7 @@ class Graph(object):
         if current is None:
             self.get_node(neighbor).set_attr('color', 'red')
             self.get_node(neighbor).set_attr('label', 0)
-            q.push(neighbor, neighbor, 0)
+            q.push(neighbor)
             self.display()
             self.get_node(neighbor).set_attr('color', 'black')
             return
@@ -1068,7 +1045,7 @@ class Graph(object):
             pred[neighbor] = current
             self.get_node(neighbor).set_attr('color', 'red')
             self.get_node(neighbor).set_attr('label', new_estimate)
-            q.push(neighbor, neighbor, new_estimate)
+            q.push(neighbor, new_estimate)
             self.display()
             self.get_node(neighbor).set_attr('color', 'black')
 
@@ -1098,26 +1075,42 @@ class Graph(object):
         if algo == 'Prim':
             return self.process_edge_prim(current, neighbor, pred, q,
                                           component)
-        if algo == 'UnweightedSPT':
-            if current == None:
-                self.get_node(neighbor).set_attr('distance', 0)
-            else:
-                self.get_node(neighbor).set_attr('distance',
-                                   self.get_node(current).get_attr('distance') + 1)
+        neighbor_node = self.get_node(neighbor)
         if current == None:
+            if algo == 'UnweightedSPT' or algo == 'BFS':
+                neighbor_node.set_attr('distance', 0)
+            else:
+                neighbor_node.set_attr('depth', 0)
             q.push(neighbor)
-            return
-        if not neighbor in pred:
-            pred[neighbor] = current
-            self.get_node(neighbor).set_attr('color', 'red')
-            self.display()
             if component != None:
-                self.get_node(neighbor).set_attr('component', component)
-                self.get_node(neighbor).set_attr('label', component)
+                neighbor_node.set_attr('component', component)
+                neighbor_node.set_attr('label', component)
+            else:
+                neighbor_node.set_attr('label', 0)
+            return
+        current_priority = neighbor_node.get_attr('priority')
+        if algo == 'UnweightedSPT' or algo == 'BFS':
+            priority = self.get_node(current).get_attr('distance') + 1
+            neighbor_node.set_attr('distance', priority)
+        if algo == 'DFS':
+            priority = -self.get_node(current).get_attr('depth') - 1
+            neighbor_node.set_attr('depth', -priority)
+        if current_priority is not None and priority >= current_priority:
+            return
+        q.push(neighbor, priority)
+        pred[neighbor] = current
+        neighbor_node.set_attr('color', 'red')
+        if component != None:
+            neighbor_node.set_attr('component', component)
+            neighbor_node.set_attr('label', component)
 #            self.get_node(neighbor).set_attr('color', 'black')
 #            self.display()
-            q.push(neighbor)
-            print q.items
+        else:
+            if algo == 'DFS':
+                neighbor_node.set_attr('label', str(-priority))
+            else:
+                neighbor_node.set_attr('label', str(priority))
+        self.display()
 
     def minimum_spanning_tree_prim(self, source, display = None,
                                    q = PriorityQueue()):
@@ -1273,7 +1266,7 @@ class Graph(object):
             if algo == 'FIFO' or algo == 'SAP':
                 q.push(n)
             elif algo == 'HighestLabel':
-                q.push(n, n, -1)
+                q.push(n, -1)
         self.set_node_attr(source, 'distance', len(nl))
         self.show_flow()
         while not q.isEmpty():
@@ -1310,13 +1303,13 @@ class Graph(object):
                     if algo == 'FIFO' or algo == 'SAP':
                         q.push(current)
                     elif algo == 'HighestLabel':
-                        q.push(current, current, -self.get_node_attr(current,
+                        q.push(current, -self.get_node_attr(current,
                                                             'distance'))
             if pushed and q.peek(n) is None and n != source:
                 if algo == 'SAP':
                     q.push(n)
                 elif algo == 'HighestLabel':
-                    q.push(n, n, -self.get_node_attr(n, 'distance'))
+                    q.push(n, -self.get_node_attr(n, 'distance'))
 
     def process_edge_flow(self, source, sink, i, j, algo, q):
         '''
@@ -2868,7 +2861,8 @@ After installation, ensure that the PATH variable is properly set.'''
 
     def random(self, numnodes = 10, degree_range = None, length_range = None,
                density = None, edge_format = None, node_format = None,
-               Euclidean = False, seedInput = 0, add_labels = True):
+               Euclidean = False, seedInput = 0, add_labels = True,
+               parallel_allowed = False):
         '''
         API:
             random(self, numnodes = 10, degree_range = None, length_range = None,
@@ -2911,18 +2905,21 @@ After installation, ensure that the PATH variable is properly set.'''
                 self.add_node(m, **node_format)
             if degree_range is not None:
                 for m in range(numnodes):
-                    for i in range(random.randint(degree_range[0], degree_range[1])):
+                    degree = random.randint(degree_range[0], degree_range[1])
+                    i = 0
+                    while i < degree: 
                         n = random.randint(1, numnodes)
-                        if (m,n) not in self.edge_attr and (n,m) not in self.edge_attr and m != n:
-                            if length_range is not None:
-                                length = random.randint(length_range[0],
-                                                 length_range[1])
-                                self.add_edge(m, n, cost = length,
-                                **edge_format)
-                                if add_labels:
-                                    self.set_edge_attr(m, n, 'label', str(length))
-                            else:
-                                self.add_edge(m, n, **edge_format)
+                        if (((m,n) not in self.edge_attr and m != n) and
+                            (parallel_allowed or (n, m) not in self.edge_attr)):
+                                if length_range is not None:
+                                    length = random.randint(length_range[0],
+                                                     length_range[1])
+                                    self.add_edge(m, n, cost = length, **edge_format)
+                                    if add_labels:
+                                        self.set_edge_attr(m, n, 'label', str(length))
+                                else:
+                                    self.add_edge(m, n, **edge_format)
+                                i += 1
             elif density != None:
                 for m in range(numnodes):
                     if self.graph_type == DIRECTED_GRAPH:
@@ -2930,16 +2927,18 @@ After installation, ensure that the PATH variable is properly set.'''
                     else:
                         numnodes2 = m
                     for n in range(numnodes2):
-                        if random.random() < density and m != n:
-                            if length_range is not None:
-                                length = random.randint(length_range[0],
-                                                 length_range[1])
-                                self.add_edge(m, n, cost = length,
-                                              **edge_format)
-                                if add_labels:
-                                    self.set_edge_attr(m, n, 'label', str(length))
-                            else:
-                                self.add_edge(m, n, **edge_format)
+                        if ((parallel_allowed or (n, m) not in self.edge_attr)
+                            and m != n):
+                            if random.random() < density:
+                                if length_range is not None:
+                                    length = random.randint(length_range[0],
+                                                     length_range[1])
+                                    self.add_edge(m, n, cost = length,
+                                                  **edge_format)
+                                    if add_labels:
+                                        self.set_edge_attr(m, n, 'label', str(length))
+                                else:
+                                    self.add_edge(m, n, **edge_format)
             else:
                 print "Must set either degree range or density"
         else:
@@ -2950,9 +2949,12 @@ After installation, ensure that the PATH variable is properly set.'''
                               locationy = random.randint(1, 20), **node_format)
             if degree_range is not None:
                 for m in range(numnodes):
-                    for i in range(random.randint(degree_range[0], degree_range[1])):
+                    degree = random.randint(degree_range[0], degree_range[1])
+                    i = 0
+                    while i < degree:
                         n = random.randint(0, numnodes-1)
-                        if (m,n) not in self.edge_attr and (n,m) not in self.edge_attr and m != n:
+                        if (((m,n) not in self.edge_attr and m != n) and 
+                            (parallel_allowed or (n, m) not in self.edge_attr)):
                             if length_range is None:
                                 ''' calculates the euclidean norm and round it
                                 to an integer '''
@@ -2965,6 +2967,7 @@ After installation, ensure that the PATH variable is properly set.'''
                                     self.set_edge_attr(m, n, 'label', str(int(length)))
                             else:
                                 self.add_edge(m, n, **edge_format)
+                            i += 1 
             elif density != None:
                 for m in range(numnodes):
                     if self.graph_type == DIRECTED_GRAPH:
@@ -2972,19 +2975,21 @@ After installation, ensure that the PATH variable is properly set.'''
                     else:
                         numnodes2 = m
                     for n in range(numnodes2):
-                        if random.random() < density:
-                            if length_range is None:
-                                ''' calculates the euclidean norm and round it
-                                to an integer '''
-                                length = round((((self.get_node(n).get_attr('locationx') -
-                                                  self.get_node(m).get_attr('locationx')) ** 2 +
-                                                 (self.get_node(n).get_attr('locationy') -
-                                                  self.get_node(m).get_attr('locationy')) ** 2) ** 0.5), 0)
-                                self.add_edge(m, n, cost = int(length), **edge_format)
-                                if add_labels:
-                                    self.set_edge_attr(m, n, 'label', str(int(length)))
-                            else:
-                                self.add_edge(m, n, **edge_format)
+                        if ((parallel_allowed or (n, m) not in self.edge_attr)
+                            and m != n):
+                            if random.random() < density:
+                                if length_range is None:
+                                    ''' calculates the euclidean norm and round it
+                                    to an integer '''
+                                    length = round((((self.get_node(n).get_attr('locationx') -
+                                                      self.get_node(m).get_attr('locationx')) ** 2 +
+                                                     (self.get_node(n).get_attr('locationy') -
+                                                      self.get_node(m).get_attr('locationy')) ** 2) ** 0.5), 0)
+                                    self.add_edge(m, n, cost = int(length), **edge_format)
+                                    if add_labels:
+                                        self.set_edge_attr(m, n, 'label', str(int(length)))
+                                else:
+                                    self.add_edge(m, n, **edge_format)
             else:
                 print "Must set either degree range or density"
 
@@ -3201,8 +3206,8 @@ class DisjointSet(Graph):
 if __name__ == '__main__':
 #    G = Graph(type = UNDIRECTED_GRAPH, splines = 'true', K = 1.5)
 #    G.random(numnodes = 7, density = 0.7, Euclidean = False, seedInput = 9)
-    G = Graph(type = UNDIRECTED_GRAPH, splines = 'true', K = 1.5)
-    G.random(numnodes = 15, density = 0.4, degree_range=(1, 4), Euclidean = True, seedInput = 3)
+    G = Graph(type = DIRECTED_GRAPH, splines = 'true', K = 1.5)
+#    G.random(numnodes = 15, density = 0.4, degree_range=(1, 4), Euclidean = True, seedInput = 3)
 #    G.random(numnodes = 7, density = 0.7, length_range = (1, 10), seedInput = 5)
     G.random(numnodes = 7, density = 0.7, Euclidean = True, 
              seedInput = 9, add_labels = False)
@@ -3213,11 +3218,9 @@ if __name__ == '__main__':
 #    G.display()
 #    G.display(basename='try.png', format='png')
 
-    for i in G.nodes:
-        G.nodes[i].set_attr('label', '-,-')
-    G.dfs(0, display = 'pygame')
-    for i in G.nodes:
-        G.nodes[i].set_attr('label', '')
-    G.search(0, display = 'pygame', algo = 'DFS', component = 0)
+#    for i in G.nodes:
+#        G.nodes[i].set_attr('label', '-,-')
+#    G.dfs(0, display = 'pygame')
+    G.search(0, display = 'pygame', algo = 'DFS')
 #    G.minimum_spanning_tree_kruskal(display = 'pygame')
 #    G.search(0, display = 'pygame')
