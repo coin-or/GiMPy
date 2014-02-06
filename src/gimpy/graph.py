@@ -1238,7 +1238,12 @@ class Graph(object):
         # set flow of all edges to 0
         for e in self.edge_attr:
             self.edge_attr[e]['flow'] = 0
-            self.edge_attr[e]['label'] = str(self.edge_attr[e]['capacity'])+'/0'
+            if 'capacity' in self.edge_attr[e]:
+                capacity = self.edge_attr[e]['capacity']
+                self.edge_attr[e]['label'] = str(capacity)+'/0'
+            else:
+                self.edge_attr[e]['capacity'] = INF
+                self.edge_attr[e]['label'] = 'INF/0'
         self.display()
         self.set_display_mode('off')
         self.search(sink, algo = 'UnweightedSPT', reverse = True)
@@ -1387,8 +1392,12 @@ class Graph(object):
             for neighbor in self.get_neighbors(n):
                 capacity = self.get_edge_attr(n, neighbor, 'capacity')
                 flow = self.get_edge_attr(n, neighbor, 'flow')
-                self.set_edge_attr(n, neighbor, 'label',
-                                   str(capacity)+'/'+str(flow))
+                if capacity == INF:
+                    self.set_edge_attr(n, neighbor, 'label',
+                                       'INF'+'/'+str(flow))
+                else:
+                    self.set_edge_attr(n, neighbor, 'label',
+                                       str(capacity)+'/'+str(flow))
                 if capacity == flow:
                     self.set_edge_attr(n, neighbor, 'color', 'red')
                 elif flow > 0:
@@ -1741,8 +1750,12 @@ After installation, ensure that the PATH variable is properly set.'''
         # set flow of all edges to 0
         for e in self.edge_attr:
             self.edge_attr[e]['flow'] = 0
-            capacity = self.edge_attr[e]['capacity']
-            self.edge_attr[e]['label'] = str(capacity)+'/0'
+            if 'capacity' in self.edge_attr[e]:
+                capacity = self.edge_attr[e]['capacity']
+                self.edge_attr[e]['label'] = str(capacity)+'/0'
+            else:
+                self.edge_attr[e]['capacity'] = INF
+                self.edge_attr[e]['label'] = 'INF/0'
         while True:
             # find an augmenting path from source to sink using DFS
             dfs_stack = []
@@ -1841,8 +1854,12 @@ After installation, ensure that the PATH variable is properly set.'''
                     capacity = self.edge_attr[(m, current)]['capacity']
                     new_flow = flow+min_capacity
                     self.edge_attr[(m, current)]['flow'] = new_flow
-                    self.edge_attr[(m, current)]['label'] = \
-                        str(capacity)+'/'+str(new_flow)
+                    if capacity == INF:
+                        self.edge_attr[(m, current)]['label'] = \
+                            'INF' + '/'+str(new_flow)
+                    else:
+                        self.edge_attr[(m, current)]['label'] = \
+                            str(capacity)+'/'+str(new_flow)
                     if new_flow==capacity:
                         self.edge_attr[(m, current)]['color'] = 'red'
                     else:
@@ -3206,11 +3223,11 @@ class DisjointSet(Graph):
 if __name__ == '__main__':
 #    G = Graph(type = UNDIRECTED_GRAPH, splines = 'true', K = 1.5)
 #    G.random(numnodes = 7, density = 0.7, Euclidean = False, seedInput = 9)
-    G = Graph(type = DIRECTED_GRAPH, splines = 'true', K = 1.5)
+    G = Graph(type = UNDIRECTED_GRAPH, splines = 'true', K = 1.5)
 #    G.random(numnodes = 15, density = 0.4, degree_range=(1, 4), Euclidean = True, seedInput = 3)
 #    G.random(numnodes = 7, density = 0.7, length_range = (1, 10), seedInput = 5)
     G.random(numnodes = 7, density = 0.7, Euclidean = True, 
-             seedInput = 9, add_labels = False)
+             seedInput = 9, add_labels = True)
 #    G.random(numnodes = 10, density = 0.5, seedInput = 5)
 
 #    G.set_display_mode('xdot')
@@ -3221,6 +3238,6 @@ if __name__ == '__main__':
 #    for i in G.nodes:
 #        G.nodes[i].set_attr('label', '-,-')
 #    G.dfs(0, display = 'pygame')
-    G.search(0, display = 'pygame', algo = 'DFS')
-#    G.minimum_spanning_tree_kruskal(display = 'pygame')
+#    G.search(0, display = 'pygame', algo = 'Prim')
+    G.minimum_spanning_tree_kruskal(display = 'pygame')
 #    G.search(0, display = 'pygame')
