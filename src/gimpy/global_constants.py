@@ -64,6 +64,7 @@ DOT2TEX_INSTALLED = None # it wil be set when we try to import
 PIL_INSTALLED = None
 XDOT_INSTALLED = None
 ETREE_INSTALLED = None
+INF = 10000
 
 DOT2TEX_TEMPLATE = r'''
 \documentclass[landscape]{article}

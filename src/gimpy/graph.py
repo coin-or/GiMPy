@@ -1,7 +1,7 @@
 '''
 A Graph class implementation. The aim for this implementation is
 1. To reflect implementation methods in literature as much as possible
-3. To have something close to a "classic" object-oriented design 
+3. To have something close to a "classic" object-oriented design
 (compared to previous versions)
 
 This implementation can be considered as a compromise between a graph
@@ -1238,7 +1238,12 @@ class Graph(object):
         # set flow of all edges to 0
         for e in self.edge_attr:
             self.edge_attr[e]['flow'] = 0
-            self.edge_attr[e]['label'] = str(self.edge_attr[e]['capacity'])+'/0'
+            if 'capacity' in self.edge_attr[e]:
+                capacity = self.edge_attr[e]['capacity']
+                self.edge_attr[e]['label'] = str(capacity)+'/0'
+            else:
+                self.edge_attr[e]['capacity'] = INF
+                self.edge_attr[e]['label'] = 'INF/0'
         self.display()
         self.set_display_mode('off')
         self.search(sink, algo = 'UnweightedSPT', reverse = True)
@@ -1387,8 +1392,12 @@ class Graph(object):
             for neighbor in self.get_neighbors(n):
                 capacity = self.get_edge_attr(n, neighbor, 'capacity')
                 flow = self.get_edge_attr(n, neighbor, 'flow')
-                self.set_edge_attr(n, neighbor, 'label',
-                                   str(capacity)+'/'+str(flow))
+                if capacity == INF:
+                    self.set_edge_attr(n, neighbor, 'label',
+                                       'INF'+'/'+str(flow))
+                else:
+                    self.set_edge_attr(n, neighbor, 'label',
+                                       str(capacity)+'/'+str(flow))
                 if capacity == flow:
                     self.set_edge_attr(n, neighbor, 'color', 'red')
                 elif flow > 0:
@@ -1583,8 +1592,8 @@ class Graph(object):
                                  cwd=tmp_dir,
                                  stdout=subprocess.PIPE,
                                  stderr=subprocess.PIPE)
-        except WindowsError:
-            print '''Graphviz executable not found.                            
+        except OSError:
+            print '''Graphviz executable not found.
 Graphviz must be installed and in your search path.
 Please visit http://www.graphviz.org/ for information on installation.
 After installation, ensure that the PATH variable is properly set.'''
@@ -1741,8 +1750,12 @@ After installation, ensure that the PATH variable is properly set.'''
         # set flow of all edges to 0
         for e in self.edge_attr:
             self.edge_attr[e]['flow'] = 0
-            capacity = self.edge_attr[e]['capacity']
-            self.edge_attr[e]['label'] = str(capacity)+'/0'
+            if 'capacity' in self.edge_attr[e]:
+                capacity = self.edge_attr[e]['capacity']
+                self.edge_attr[e]['label'] = str(capacity)+'/0'
+            else:
+                self.edge_attr[e]['capacity'] = INF
+                self.edge_attr[e]['label'] = 'INF/0'
         while True:
             # find an augmenting path from source to sink using DFS
             dfs_stack = []
@@ -1796,16 +1809,16 @@ After installation, ensure that the PATH variable is properly set.'''
                                 self.set_edge_attr(current, m, 'color', 'red')
                             elif self.get_edge_attr(current, m, 'flow') == 0:
                                 self.set_edge_attr(current, m, 'color', 'black')
-                            else:
-                                self.set_edge_attr(current, m, 'color', 'green')
+                            #else:
+                            #    self.set_edge_attr(current, m, 'color', 'green')
                         else:
                             if (self.get_edge_attr(m, current, 'flow') ==
                                 self.get_edge_attr(m, current, 'capacity')):
                                 self.set_edge_attr(m, current, 'color', 'red')
                             elif self.get_edge_attr(m, current, 'flow') == 0:
                                 self.set_edge_attr(m, current, 'color', 'black')
-                            else:
-                                self.set_edge_attr(m, current, 'color', 'green')
+                            #else:
+                            #    self.set_edge_attr(m, current, 'color', 'green')
                     self.display()
             # if no path with positive capacity from source sink exists, stop
             if sink not in pred:
@@ -1841,8 +1854,12 @@ After installation, ensure that the PATH variable is properly set.'''
                     capacity = self.edge_attr[(m, current)]['capacity']
                     new_flow = flow+min_capacity
                     self.edge_attr[(m, current)]['flow'] = new_flow
-                    self.edge_attr[(m, current)]['label'] = \
-                        str(capacity)+'/'+str(new_flow)
+                    if capacity == INF:
+                        self.edge_attr[(m, current)]['label'] = \
+                            'INF' + '/'+str(new_flow)
+                    else:
+                        self.edge_attr[(m, current)]['label'] = \
+                            str(capacity)+'/'+str(new_flow)
                     if new_flow==capacity:
                         self.edge_attr[(m, current)]['color'] = 'red'
                     else:
@@ -1853,6 +1870,12 @@ After installation, ensure that the PATH variable is properly set.'''
                     capacity = self.edge_attr[(current, m)]['capacity']
                     new_flow = flow-min_capacity
                     self.edge_attr[(current, m)]['flow'] = new_flow
+                    if capacity == INF:
+                        self.edge_attr[(current, m)]['label'] = \
+                            'INF' + '/'+str(new_flow)
+                    else:
+                        self.edge_attr[(current, m)]['label'] = \
+                            str(capacity)+'/'+str(new_flow)
                     if new_flow==0:
                         self.edge_attr[(current, m)]['color'] = 'red'
                     else:
@@ -2907,7 +2930,7 @@ After installation, ensure that the PATH variable is properly set.'''
                 for m in range(numnodes):
                     degree = random.randint(degree_range[0], degree_range[1])
                     i = 0
-                    while i < degree: 
+                    while i < degree:
                         n = random.randint(1, numnodes)
                         if (((m,n) not in self.edge_attr and m != n) and
                             (parallel_allowed or (n, m) not in self.edge_attr)):
@@ -2953,7 +2976,7 @@ After installation, ensure that the PATH variable is properly set.'''
                     i = 0
                     while i < degree:
                         n = random.randint(0, numnodes-1)
-                        if (((m,n) not in self.edge_attr and m != n) and 
+                        if (((m,n) not in self.edge_attr and m != n) and
                             (parallel_allowed or (n, m) not in self.edge_attr)):
                             if length_range is None:
                                 ''' calculates the euclidean norm and round it
@@ -2967,7 +2990,7 @@ After installation, ensure that the PATH variable is properly set.'''
                                     self.set_edge_attr(m, n, 'label', str(int(length)))
                             else:
                                 self.add_edge(m, n, **edge_format)
-                            i += 1 
+                            i += 1
             elif density != None:
                 for m in range(numnodes):
                     if self.graph_type == DIRECTED_GRAPH:
@@ -3206,11 +3229,11 @@ class DisjointSet(Graph):
 if __name__ == '__main__':
 #    G = Graph(type = UNDIRECTED_GRAPH, splines = 'true', K = 1.5)
 #    G.random(numnodes = 7, density = 0.7, Euclidean = False, seedInput = 9)
-    G = Graph(type = DIRECTED_GRAPH, splines = 'true', K = 1.5)
+    G = Graph(type = UNDIRECTED_GRAPH, splines = 'true', K = 1.5)
 #    G.random(numnodes = 15, density = 0.4, degree_range=(1, 4), Euclidean = True, seedInput = 3)
 #    G.random(numnodes = 7, density = 0.7, length_range = (1, 10), seedInput = 5)
-    G.random(numnodes = 7, density = 0.7, Euclidean = True, 
-             seedInput = 9, add_labels = False)
+    G.random(numnodes = 7, density = 0.7, Euclidean = True,
+             seedInput = 9, add_labels = True)
 #    G.random(numnodes = 10, density = 0.5, seedInput = 5)
 
 #    G.set_display_mode('xdot')
@@ -3221,6 +3244,6 @@ if __name__ == '__main__':
 #    for i in G.nodes:
 #        G.nodes[i].set_attr('label', '-,-')
 #    G.dfs(0, display = 'pygame')
-    G.search(0, display = 'pygame', algo = 'DFS')
-#    G.minimum_spanning_tree_kruskal(display = 'pygame')
+#    G.search(0, display = 'pygame', algo = 'Prim')
+    G.minimum_spanning_tree_kruskal(display = 'pygame')
 #    G.search(0, display = 'pygame')
