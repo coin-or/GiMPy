@@ -37,8 +37,8 @@ if __name__=='__main__':
     g.add_edge(5, 7, capacity=20, label='20')
     g.set_display_mode('pygame')
 
-    g.max_flow_preflowpush(1, 7, algo = 'FIFO')
-#    g.max_flow_augment(1, 7, algo = 'DFS')
+    g.max_flow_preflowpush(1, 7, algo = 'SAP')
+#    g.max_flow(1, 7)
     
     nl = list(int(n) for n in g.get_node_list())
     nl.sort()
