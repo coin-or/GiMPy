@@ -757,14 +757,15 @@ class Graph(object):
                 self.set_node_attr(node, 'lowlink',
                                    min([self.get_node_attr(node, 'lowlink'),
                                         self.get_node_attr(m, 'index')]))
-        if self.get_node_attr(node, 'lowlink')==\
-                self.get_node_attr(node, 'index'):
+        if self.get_node_attr(node, 'lowlink') == self.get_node_attr(node, 'index'):
             m = q.pop()
             self.set_node_attr(m, 'component', component)
             while (node!=m):
                 m = q.pop()
                 self.set_node_attr(m, 'component', component)
-        component += 1
+            component += 1
+            self.num_components = component
+            
         return (index, component)
 
     def label_strong_component(self):
@@ -780,6 +781,7 @@ class Graph(object):
             Nodes will have 'component' attribute that will have component
             number as value. Changes 'index' attribute of nodes.
         '''
+        self.num_components = 0
         self.tarjan()
 
     def dfs(self, root, disc_count = 0, finish_count = 1, component = None,
@@ -869,7 +871,7 @@ class Graph(object):
         self.search(root, display = display, component = component, q = Queue())
 
     def search(self, source, destination = None, display = None,
-               component = None, q = PriorityQueue(),
+               component = None, q = None,
                algo = 'DFS', reverse = False, **kargs):
         '''
         API: search(self, source, destination = None, display = None,
@@ -911,19 +913,25 @@ class Graph(object):
             display = self.attr['display']
         else:
             self.set_display_mode(display)
-        for n in self.neighbors:
-            self.get_node(n).set_attr('label', '-')
-        self.display()
         neighbors = self.neighbors
         if self.graph_type == DIRECTED_GRAPH and reverse:
             neighbors = self.in_neighbors
         for i in self.get_node_list():
+            self.get_node(i).set_attr('label', '-')
+            self.get_node(i).attr.pop('priority', None)
+            if algo == 'UnweightedSPT' or algo == 'BFS':
+                self.get_node(i).set_attr('distance', 0)
+            else:
+                self.get_node(i).set_attr('depth', 0)
             self.get_node(i).set_attr('color', 'black')
             for j in neighbors[i]:
                 if reverse:
                     self.set_edge_attr(j, i, 'color', 'black')
                 else:
                     self.set_edge_attr(i, j, 'color', 'black')
+        self.display()
+        if q == None:
+            q = PriorityQueue()
         pred = {}
         self.process_edge_search(None, source, pred, q, component, algo,
                                  **kargs)
@@ -3080,34 +3088,34 @@ After installation, ensure that the PATH variable is properly set.'''
                          len(self.get_out_neighbors(n)))
         return degree
 
-    def get_diameter(self):
-        '''
-        API:
-            get_diameter(self)
-        Description:
-            Returns diameter of the graph. Diameter is defined as follows.
-            distance(n,m): shortest unweighted path from n to m
-            eccentricity(n) = $\max _m distance(n,m)$
-            diameter = $\min _n eccentricity(n) = \min _n \max _m distance(n,m)$
-        Return:
-            Returns diameter of the graph.
-        '''
-        diameter = 'infinity'
-        eccentricity_n = 0
+    def get_diameter(self):  
+    
+        diameter=[]
+        current_max=-1
         for n in self.get_node_list():
-            for m in self.get_node_list():
-                path_n_m = self.shortest_unweighted_path(n, m)
+                path_n_m = self.search(0, n, algo= 'BFS')
                 if isinstance(path_n_m, dict):
                     # this indicates there is no path from n to m, no diameter
                     # is defined, since the graph is not connected, return
                     # 'infinity'
-                    return 'infinity'
-                distance_n_m = len(path_n_m)-1
-                if distance_n_m > eccentricity_n:
-                    eccentricity_n = distance_n_m
-            if diameter is 'infinity' or diameter > eccentricity_n:
-                diameter = eccentricity_n
-        return diameter
+                    return self.get_node_num() + 1
+                distance= (len(path_n_m)-1)
+                #print(n,distance)
+                if distance > current_max:
+                    current_max= distance
+                    furthest_node= n
+                #print furthest_node
+        for k in self.get_node_list():
+                path_n_m = self.search(furthest_node, k, algo= 'BFS')
+                if isinstance(path_n_m, dict):
+                    # this indicates there is no path from n to m, no diameter
+                    # is defined, since the graph is not connected, return
+                    # 'infinity'
+                    return self.get_node_num() + 1
+                diameter.append(len(path_n_m)-1)
+                
+                #print furthest_node    
+        return max(diameter)
 
     def create_cluster(self, node_list, cluster_attrs={}, node_attrs={}):
         '''
@@ -3244,6 +3252,6 @@ if __name__ == '__main__':
 #    for i in G.nodes:
 #        G.nodes[i].set_attr('label', '-,-')
 #    G.dfs(0, display = 'pygame')
-#    G.search(0, display = 'pygame', algo = 'Prim')
-    G.minimum_spanning_tree_kruskal(display = 'pygame')
+    G.search(0, display = 'pygame', algo = 'Dijkstra')
+#    G.minimum_spanning_tree_kruskal(display = 'pygame')
 #    G.search(0, display = 'pygame')
