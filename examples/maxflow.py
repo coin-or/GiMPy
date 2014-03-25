@@ -11,10 +11,13 @@ red  : the flow equals to the arc capacity
 green: there is positive flow on the arc, less then capacity.
 '''
 
-from coinor.gimpy import Graph, DIRECTED_GRAPH
+try:
+    from src.gimpy import Graph, DIRECTED_GRAPH
+except ImportError:
+    from coinor.gimpy import Graph, DIRECTED_GRAPH
 
 if __name__=='__main__':
-    g = Graph(type = DIRECTED_GRAPH, display = 'pygame')
+    g = Graph(type = DIRECTED_GRAPH, display = 'off')
     g.add_node(1,pos='"0,2!"')
     
     g.add_node(3,pos='"2,4!"')
@@ -37,7 +40,7 @@ if __name__=='__main__':
     g.add_edge(5, 7, capacity=20, label='20')
     g.set_display_mode('pygame')
 
-    g.max_flow_preflowpush(1, 7, algo = 'SAP')
+    g.max_flow_preflowpush(1, 7, algo = 'HighestLabel')
 #    g.max_flow(1, 7)
     
     nl = list(int(n) for n in g.get_node_list())
