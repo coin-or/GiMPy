@@ -3091,7 +3091,48 @@ After installation, ensure that the PATH variable is properly set.'''
                          len(self.get_out_neighbors(n)))
         return degree
 
-    def get_diameter(self):  
+    def get_diameter(self):
+        '''
+        API:
+            get_diameter(self)
+        Description:
+            Returns diameter of the graph. Diameter is defined as follows.
+            distance(n,m): shortest unweighted path from n to m
+            eccentricity(n) = $\max _m distance(n,m)$
+            diameter = $\min _n eccentricity(n) = \min _n \max _m distance(n,m)$
+        Return:
+            Returns diameter of the graph.
+        '''
+        diameter = 'infinity'
+        eccentricity_n = 0
+        for n in self.get_node_list():
+            for m in self.get_node_list():
+                path_n_m = self.shortest_unweighted_path(n, m)
+                if isinstance(path_n_m, dict):
+                    # this indicates there is no path from n to m, no diameter
+                    # is defined, since the graph is not connected, return
+                    # 'infinity'
+                    return 'infinity'
+                distance_n_m = len(path_n_m)-1
+                if distance_n_m > eccentricity_n:
+                    eccentricity_n = distance_n_m
+            if diameter is 'infinity' or diameter > eccentricity_n:
+                diameter = eccentricity_n
+        return diameter
+
+    def get_approximate_diameter(self):  
+        '''
+        API:
+            get_approximate_diameter(self)
+        Description:
+            Returns an approximation of the diameter of the graph, which is accurate in many cases. 
+            Diameter is defined as follows.
+            distance(n,m): shortest unweighted path from n to m
+            eccentricity(n) = $\max _m distance(n,m)$
+            diameter = $\min _n eccentricity(n) = \min _n \max _m distance(n,m)$
+        Return:
+            Returns approximate diameter of the graph.
+        '''
     
         diameter=[]
         current_max=-1
