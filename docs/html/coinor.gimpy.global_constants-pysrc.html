@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>coinor.gimpy.global_constants</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="coinor.gimpy-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        Package&nbsp;coinor ::
+        <a href="coinor.gimpy-module.html">Package&nbsp;gimpy</a> ::
+        Module&nbsp;global_constants
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="coinor.gimpy.global_constants-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="coinor.gimpy.global_constants-module.html">Module coinor.gimpy.global_constants</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-docstring">'''</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-docstring">This file has global constants required for GIMPy.</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-docstring">'''</tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">re</tt>     <tt class="py-comment"># for compile()</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"> </tt>
+<a name="MultipleNodeException"></a><div id="MultipleNodeException-def"><a name="L7"></a><tt class="py-lineno">  7</tt> <a class="py-toggle" href="#" id="MultipleNodeException-toggle" onclick="return toggle('MultipleNodeException');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="coinor.gimpy.global_constants.MultipleNodeException-class.html">MultipleNodeException</a><tt class="py-op">(</tt><tt class="py-base-class">Exception</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="MultipleNodeException-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="MultipleNodeException-expanded"><a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line">    <tt class="py-keyword">pass</tt> </tt>
+</div><a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"> </tt>
+<a name="MultipleEdgeException"></a><div id="MultipleEdgeException-def"><a name="L10"></a><tt class="py-lineno"> 10</tt> <a class="py-toggle" href="#" id="MultipleEdgeException-toggle" onclick="return toggle('MultipleEdgeException');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="coinor.gimpy.global_constants.MultipleEdgeException-class.html">MultipleEdgeException</a><tt class="py-op">(</tt><tt class="py-base-class">Exception</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="MultipleEdgeException-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="MultipleEdgeException-expanded"><a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line">    <tt class="py-keyword">pass</tt> </tt>
+</div><a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt id="link-0" class="py-name" targets="Variable coinor.gimpy.GRAPH_ATTRIBUTES=coinor.gimpy-module.html#GRAPH_ATTRIBUTES,Variable coinor.gimpy.global_constants.GRAPH_ATTRIBUTES=coinor.gimpy.global_constants-module.html#GRAPH_ATTRIBUTES,Variable coinor.gimpy.graph.GRAPH_ATTRIBUTES=coinor.gimpy.graph-module.html#GRAPH_ATTRIBUTES,Variable coinor.gimpy.tree.GRAPH_ATTRIBUTES=coinor.gimpy.tree-module.html#GRAPH_ATTRIBUTES"><a title="coinor.gimpy.GRAPH_ATTRIBUTES
+coinor.gimpy.global_constants.GRAPH_ATTRIBUTES
+coinor.gimpy.graph.GRAPH_ATTRIBUTES
+coinor.gimpy.tree.GRAPH_ATTRIBUTES" class="py-name" href="#" onclick="return doclink('link-0', 'GRAPH_ATTRIBUTES', 'link-0');">GRAPH_ATTRIBUTES</a></tt> <tt class="py-op">=</tt> <tt class="py-name">set</tt><tt class="py-op">(</tt> <tt class="py-op">[</tt><tt class="py-string">'Damping'</tt><tt class="py-op">,</tt> <tt class="py-string">'K'</tt><tt class="py-op">,</tt> <tt class="py-string">'URL'</tt><tt class="py-op">,</tt> <tt class="py-string">'aspect'</tt><tt class="py-op">,</tt> <tt class="py-string">'bb'</tt><tt class="py-op">,</tt> <tt class="py-string">'bgcolor'</tt><tt class="py-op">,</tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line">    <tt class="py-string">'center'</tt><tt class="py-op">,</tt> <tt class="py-string">'charset'</tt><tt class="py-op">,</tt> <tt class="py-string">'clusterrank'</tt><tt class="py-op">,</tt> <tt class="py-string">'colorscheme'</tt><tt class="py-op">,</tt> <tt class="py-string">'comment'</tt><tt class="py-op">,</tt> <tt class="py-string">'compound'</tt><tt class="py-op">,</tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line">    <tt class="py-string">'concentrate'</tt><tt class="py-op">,</tt> <tt class="py-string">'defaultdist'</tt><tt class="py-op">,</tt> <tt class="py-string">'dim'</tt><tt class="py-op">,</tt> <tt class="py-string">'dimen'</tt><tt class="py-op">,</tt> <tt class="py-string">'diredgeconstraints'</tt><tt class="py-op">,</tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line">    <tt class="py-string">'dpi'</tt><tt class="py-op">,</tt> <tt class="py-string">'epsilon'</tt><tt class="py-op">,</tt> <tt class="py-string">'esep'</tt><tt class="py-op">,</tt> <tt class="py-string">'fontcolor'</tt><tt class="py-op">,</tt> <tt class="py-string">'fontname'</tt><tt class="py-op">,</tt> <tt class="py-string">'fontnames'</tt><tt class="py-op">,</tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line">    <tt class="py-string">'fontpath'</tt><tt class="py-op">,</tt> <tt class="py-string">'fontsize'</tt><tt class="py-op">,</tt> <tt class="py-string">'id'</tt><tt class="py-op">,</tt> <tt class="py-string">'label'</tt><tt class="py-op">,</tt> <tt class="py-string">'labeljust'</tt><tt class="py-op">,</tt> <tt class="py-string">'labelloc'</tt><tt class="py-op">,</tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line">    <tt class="py-string">'landscape'</tt><tt class="py-op">,</tt> <tt class="py-string">'layers'</tt><tt class="py-op">,</tt> <tt class="py-string">'layersep'</tt><tt class="py-op">,</tt> <tt class="py-string">'layout'</tt><tt class="py-op">,</tt> <tt class="py-string">'levels'</tt><tt class="py-op">,</tt> <tt class="py-string">'levelsgap'</tt><tt class="py-op">,</tt> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line">    <tt class="py-string">'lheight'</tt><tt class="py-op">,</tt> <tt class="py-string">'lp'</tt><tt class="py-op">,</tt> <tt class="py-string">'lwidth'</tt><tt class="py-op">,</tt> <tt class="py-string">'margin'</tt><tt class="py-op">,</tt> <tt class="py-string">'maxiter'</tt><tt class="py-op">,</tt> <tt class="py-string">'mclimit'</tt><tt class="py-op">,</tt> <tt class="py-string">'mindist'</tt><tt class="py-op">,</tt> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line">    <tt class="py-string">'mode'</tt><tt class="py-op">,</tt> <tt class="py-string">'model'</tt><tt class="py-op">,</tt> <tt class="py-string">'mosek'</tt><tt class="py-op">,</tt> <tt class="py-string">'nodesep'</tt><tt class="py-op">,</tt> <tt class="py-string">'nojustify'</tt><tt class="py-op">,</tt> <tt class="py-string">'normalize'</tt><tt class="py-op">,</tt> <tt class="py-string">'nslimit'</tt><tt class="py-op">,</tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line">    <tt class="py-string">'nslimit1'</tt><tt class="py-op">,</tt> <tt class="py-string">'ordering'</tt><tt class="py-op">,</tt> <tt class="py-string">'orientation'</tt><tt class="py-op">,</tt> <tt class="py-string">'outputorder'</tt><tt class="py-op">,</tt> <tt class="py-string">'overlap'</tt><tt class="py-op">,</tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line">    <tt class="py-string">'overlap_scaling'</tt><tt class="py-op">,</tt> <tt class="py-string">'pack'</tt><tt class="py-op">,</tt> <tt class="py-string">'packmode'</tt><tt class="py-op">,</tt> <tt class="py-string">'pad'</tt><tt class="py-op">,</tt> <tt class="py-string">'page'</tt><tt class="py-op">,</tt> <tt class="py-string">'pagedir'</tt><tt class="py-op">,</tt> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line">    <tt class="py-string">'quadtree'</tt><tt class="py-op">,</tt> <tt class="py-string">'quantum'</tt><tt class="py-op">,</tt> <tt class="py-string">'rankdir'</tt><tt class="py-op">,</tt> <tt class="py-string">'ranksep'</tt><tt class="py-op">,</tt> <tt class="py-string">'ratio'</tt><tt class="py-op">,</tt> <tt class="py-string">'remincross'</tt><tt class="py-op">,</tt> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line">    <tt class="py-string">'repulsiveforce'</tt><tt class="py-op">,</tt> <tt class="py-string">'resolution'</tt><tt class="py-op">,</tt> <tt class="py-string">'root'</tt><tt class="py-op">,</tt> <tt class="py-string">'rotate'</tt><tt class="py-op">,</tt> <tt class="py-string">'searchsize'</tt><tt class="py-op">,</tt> <tt class="py-string">'sep'</tt><tt class="py-op">,</tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line">    <tt class="py-string">'showboxes'</tt><tt class="py-op">,</tt> <tt class="py-string">'size'</tt><tt class="py-op">,</tt> <tt class="py-string">'smoothing'</tt><tt class="py-op">,</tt> <tt class="py-string">'sortv'</tt><tt class="py-op">,</tt> <tt class="py-string">'splines'</tt><tt class="py-op">,</tt> <tt class="py-string">'start'</tt><tt class="py-op">,</tt> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line">    <tt class="py-string">'stylesheet'</tt><tt class="py-op">,</tt> <tt class="py-string">'target'</tt><tt class="py-op">,</tt> <tt class="py-string">'truecolor'</tt><tt class="py-op">,</tt> <tt class="py-string">'viewport'</tt><tt class="py-op">,</tt> <tt class="py-string">'voro_margin'</tt><tt class="py-op">,</tt> </tt>
+<a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line">    <tt class="py-string">'d2tgraphstyle'</tt><tt class="py-op">,</tt> </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line">    <tt class="py-comment"># for subgraphs</tt> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line">    <tt class="py-string">'rank'</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line"><tt id="link-1" class="py-name" targets="Variable coinor.gimpy.DEFAULT_GRAPH_ATTRIBUTES=coinor.gimpy-module.html#DEFAULT_GRAPH_ATTRIBUTES,Variable coinor.gimpy.global_constants.DEFAULT_GRAPH_ATTRIBUTES=coinor.gimpy.global_constants-module.html#DEFAULT_GRAPH_ATTRIBUTES,Variable coinor.gimpy.graph.DEFAULT_GRAPH_ATTRIBUTES=coinor.gimpy.graph-module.html#DEFAULT_GRAPH_ATTRIBUTES,Variable coinor.gimpy.tree.DEFAULT_GRAPH_ATTRIBUTES=coinor.gimpy.tree-module.html#DEFAULT_GRAPH_ATTRIBUTES"><a title="coinor.gimpy.DEFAULT_GRAPH_ATTRIBUTES
+coinor.gimpy.global_constants.DEFAULT_GRAPH_ATTRIBUTES
+coinor.gimpy.graph.DEFAULT_GRAPH_ATTRIBUTES
+coinor.gimpy.tree.DEFAULT_GRAPH_ATTRIBUTES" class="py-name" href="#" onclick="return doclink('link-1', 'DEFAULT_GRAPH_ATTRIBUTES', 'link-1');">DEFAULT_GRAPH_ATTRIBUTES</a></tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-op">}</tt> </tt>
+<a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line"><tt id="link-2" class="py-name" targets="Variable coinor.gimpy.EDGE_ATTRIBUTES=coinor.gimpy-module.html#EDGE_ATTRIBUTES,Variable coinor.gimpy.global_constants.EDGE_ATTRIBUTES=coinor.gimpy.global_constants-module.html#EDGE_ATTRIBUTES,Variable coinor.gimpy.graph.EDGE_ATTRIBUTES=coinor.gimpy.graph-module.html#EDGE_ATTRIBUTES,Variable coinor.gimpy.tree.EDGE_ATTRIBUTES=coinor.gimpy.tree-module.html#EDGE_ATTRIBUTES"><a title="coinor.gimpy.EDGE_ATTRIBUTES
+coinor.gimpy.global_constants.EDGE_ATTRIBUTES
+coinor.gimpy.graph.EDGE_ATTRIBUTES
+coinor.gimpy.tree.EDGE_ATTRIBUTES" class="py-name" href="#" onclick="return doclink('link-2', 'EDGE_ATTRIBUTES', 'link-2');">EDGE_ATTRIBUTES</a></tt> <tt class="py-op">=</tt> <tt class="py-name">set</tt><tt class="py-op">(</tt> <tt class="py-op">[</tt><tt class="py-string">'URL'</tt><tt class="py-op">,</tt> <tt class="py-string">'arrowhead'</tt><tt class="py-op">,</tt> <tt class="py-string">'arrowsize'</tt><tt class="py-op">,</tt> <tt class="py-string">'arrowtail'</tt><tt class="py-op">,</tt> </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line">    <tt class="py-string">'color'</tt><tt class="py-op">,</tt> <tt class="py-string">'colorscheme'</tt><tt class="py-op">,</tt> <tt class="py-string">'comment'</tt><tt class="py-op">,</tt> <tt class="py-string">'constraint'</tt><tt class="py-op">,</tt> <tt class="py-string">'decorate'</tt><tt class="py-op">,</tt> <tt class="py-string">'dir'</tt><tt class="py-op">,</tt> </tt>
+<a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line">    <tt class="py-string">'edgeURL'</tt><tt class="py-op">,</tt> <tt class="py-string">'edgehref'</tt><tt class="py-op">,</tt> <tt class="py-string">'edgetarget'</tt><tt class="py-op">,</tt> <tt class="py-string">'edgetooltip'</tt><tt class="py-op">,</tt> <tt class="py-string">'fontcolor'</tt><tt class="py-op">,</tt> </tt>
+<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line">    <tt class="py-string">'fontname'</tt><tt class="py-op">,</tt> <tt class="py-string">'fontsize'</tt><tt class="py-op">,</tt> <tt class="py-string">'headURL'</tt><tt class="py-op">,</tt> <tt class="py-string">'headclip'</tt><tt class="py-op">,</tt> <tt class="py-string">'headhref'</tt><tt class="py-op">,</tt> <tt class="py-string">'headlabel'</tt><tt class="py-op">,</tt> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line">    <tt class="py-string">'headport'</tt><tt class="py-op">,</tt> <tt class="py-string">'headtarget'</tt><tt class="py-op">,</tt> <tt class="py-string">'headtooltip'</tt><tt class="py-op">,</tt> <tt class="py-string">'href'</tt><tt class="py-op">,</tt> <tt class="py-string">'id'</tt><tt class="py-op">,</tt> <tt class="py-string">'label'</tt><tt class="py-op">,</tt> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line">    <tt class="py-string">'labelURL'</tt><tt class="py-op">,</tt> <tt class="py-string">'labelangle'</tt><tt class="py-op">,</tt> <tt class="py-string">'labeldistance'</tt><tt class="py-op">,</tt> <tt class="py-string">'labelfloat'</tt><tt class="py-op">,</tt> <tt class="py-string">'labelfontcolor'</tt><tt class="py-op">,</tt> </tt>
+<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line">    <tt class="py-string">'labelfontname'</tt><tt class="py-op">,</tt> <tt class="py-string">'labelfontsize'</tt><tt class="py-op">,</tt> <tt class="py-string">'labelhref'</tt><tt class="py-op">,</tt> <tt class="py-string">'labeltarget'</tt><tt class="py-op">,</tt> </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line">    <tt class="py-string">'labeltooltip'</tt><tt class="py-op">,</tt> <tt class="py-string">'layer'</tt><tt class="py-op">,</tt> <tt class="py-string">'len'</tt><tt class="py-op">,</tt> <tt class="py-string">'lhead'</tt><tt class="py-op">,</tt> <tt class="py-string">'lp'</tt><tt class="py-op">,</tt> <tt class="py-string">'ltail'</tt><tt class="py-op">,</tt> <tt class="py-string">'minlen'</tt><tt class="py-op">,</tt> </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line">    <tt class="py-string">'nojustify'</tt><tt class="py-op">,</tt> <tt class="py-string">'penwidth'</tt><tt class="py-op">,</tt> <tt class="py-string">'pos'</tt><tt class="py-op">,</tt> <tt class="py-string">'samehead'</tt><tt class="py-op">,</tt> <tt class="py-string">'sametail'</tt><tt class="py-op">,</tt> <tt class="py-string">'showboxes'</tt><tt class="py-op">,</tt> </tt>
+<a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line">    <tt class="py-string">'style'</tt><tt class="py-op">,</tt> <tt class="py-string">'tailURL'</tt><tt class="py-op">,</tt> <tt class="py-string">'tailclip'</tt><tt class="py-op">,</tt> <tt class="py-string">'tailhref'</tt><tt class="py-op">,</tt> <tt class="py-string">'taillabel'</tt><tt class="py-op">,</tt> <tt class="py-string">'tailport'</tt><tt class="py-op">,</tt> </tt>
+<a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line">    <tt class="py-string">'tailtarget'</tt><tt class="py-op">,</tt> <tt class="py-string">'tailtooltip'</tt><tt class="py-op">,</tt> <tt class="py-string">'target'</tt><tt class="py-op">,</tt> <tt class="py-string">'tooltip'</tt><tt class="py-op">,</tt> <tt class="py-string">'weight'</tt><tt class="py-op">,</tt> </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line">    <tt class="py-string">'rank'</tt> <tt class="py-op">]</tt> <tt class="py-op">)</tt> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line"><tt id="link-3" class="py-name" targets="Variable coinor.gimpy.DEFAULT_EDGE_ATTRIBUTES=coinor.gimpy-module.html#DEFAULT_EDGE_ATTRIBUTES,Variable coinor.gimpy.global_constants.DEFAULT_EDGE_ATTRIBUTES=coinor.gimpy.global_constants-module.html#DEFAULT_EDGE_ATTRIBUTES,Variable coinor.gimpy.graph.DEFAULT_EDGE_ATTRIBUTES=coinor.gimpy.graph-module.html#DEFAULT_EDGE_ATTRIBUTES,Variable coinor.gimpy.tree.DEFAULT_EDGE_ATTRIBUTES=coinor.gimpy.tree-module.html#DEFAULT_EDGE_ATTRIBUTES"><a title="coinor.gimpy.DEFAULT_EDGE_ATTRIBUTES
+coinor.gimpy.global_constants.DEFAULT_EDGE_ATTRIBUTES
+coinor.gimpy.graph.DEFAULT_EDGE_ATTRIBUTES
+coinor.gimpy.tree.DEFAULT_EDGE_ATTRIBUTES" class="py-name" href="#" onclick="return doclink('link-3', 'DEFAULT_EDGE_ATTRIBUTES', 'link-3');">DEFAULT_EDGE_ATTRIBUTES</a></tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-op">}</tt> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line"><tt id="link-4" class="py-name" targets="Variable coinor.gimpy.NODE_ATTRIBUTES=coinor.gimpy-module.html#NODE_ATTRIBUTES,Variable coinor.gimpy.global_constants.NODE_ATTRIBUTES=coinor.gimpy.global_constants-module.html#NODE_ATTRIBUTES,Variable coinor.gimpy.graph.NODE_ATTRIBUTES=coinor.gimpy.graph-module.html#NODE_ATTRIBUTES,Variable coinor.gimpy.tree.NODE_ATTRIBUTES=coinor.gimpy.tree-module.html#NODE_ATTRIBUTES"><a title="coinor.gimpy.NODE_ATTRIBUTES
+coinor.gimpy.global_constants.NODE_ATTRIBUTES
+coinor.gimpy.graph.NODE_ATTRIBUTES
+coinor.gimpy.tree.NODE_ATTRIBUTES" class="py-name" href="#" onclick="return doclink('link-4', 'NODE_ATTRIBUTES', 'link-4');">NODE_ATTRIBUTES</a></tt> <tt class="py-op">=</tt> <tt class="py-name">set</tt><tt class="py-op">(</tt> <tt class="py-op">[</tt><tt class="py-string">'URL'</tt><tt class="py-op">,</tt> <tt class="py-string">'color'</tt><tt class="py-op">,</tt> <tt class="py-string">'colorscheme'</tt><tt class="py-op">,</tt> <tt class="py-string">'comment'</tt><tt class="py-op">,</tt> </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line">    <tt class="py-string">'distortion'</tt><tt class="py-op">,</tt> <tt class="py-string">'fillcolor'</tt><tt class="py-op">,</tt> <tt class="py-string">'fixedsize'</tt><tt class="py-op">,</tt> <tt class="py-string">'fontcolor'</tt><tt class="py-op">,</tt> <tt class="py-string">'fontname'</tt><tt class="py-op">,</tt> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line">    <tt class="py-string">'fontsize'</tt><tt class="py-op">,</tt> <tt class="py-string">'group'</tt><tt class="py-op">,</tt> <tt class="py-string">'height'</tt><tt class="py-op">,</tt> <tt class="py-string">'id'</tt><tt class="py-op">,</tt> <tt class="py-string">'image'</tt><tt class="py-op">,</tt> <tt class="py-string">'imagescale'</tt><tt class="py-op">,</tt> <tt class="py-string">'label'</tt><tt class="py-op">,</tt> </tt>
+<a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line">    <tt class="py-string">'labelloc'</tt><tt class="py-op">,</tt> <tt class="py-string">'layer'</tt><tt class="py-op">,</tt> <tt class="py-string">'margin'</tt><tt class="py-op">,</tt> <tt class="py-string">'nojustify'</tt><tt class="py-op">,</tt> <tt class="py-string">'orientation'</tt><tt class="py-op">,</tt> <tt class="py-string">'penwidth'</tt><tt class="py-op">,</tt> </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line">    <tt class="py-string">'peripheries'</tt><tt class="py-op">,</tt> <tt class="py-string">'pin'</tt><tt class="py-op">,</tt> <tt class="py-string">'pos'</tt><tt class="py-op">,</tt> <tt class="py-string">'rects'</tt><tt class="py-op">,</tt> <tt class="py-string">'regular'</tt><tt class="py-op">,</tt> <tt class="py-string">'root'</tt><tt class="py-op">,</tt> <tt class="py-string">'samplepoints'</tt><tt class="py-op">,</tt> </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line">    <tt class="py-string">'shape'</tt><tt class="py-op">,</tt> <tt class="py-string">'shapefile'</tt><tt class="py-op">,</tt> <tt class="py-string">'showboxes'</tt><tt class="py-op">,</tt> <tt class="py-string">'sides'</tt><tt class="py-op">,</tt> <tt class="py-string">'skew'</tt><tt class="py-op">,</tt> <tt class="py-string">'sortv'</tt><tt class="py-op">,</tt> <tt class="py-string">'style'</tt><tt class="py-op">,</tt> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line">    <tt class="py-string">'target'</tt><tt class="py-op">,</tt> <tt class="py-string">'tooltip'</tt><tt class="py-op">,</tt> <tt class="py-string">'vertices'</tt><tt class="py-op">,</tt> <tt class="py-string">'width'</tt><tt class="py-op">,</tt> <tt class="py-string">'z'</tt><tt class="py-op">,</tt> </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line">    <tt class="py-comment"># The following are attributes dot2tex</tt> </tt>
+<a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line">    <tt class="py-string">'texlbl'</tt><tt class="py-op">,</tt>  <tt class="py-string">'texmode'</tt> <tt class="py-op">]</tt> <tt class="py-op">)</tt> </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line"><tt id="link-5" class="py-name" targets="Variable coinor.gimpy.DEFAULT_NODE_ATTRIBUTES=coinor.gimpy-module.html#DEFAULT_NODE_ATTRIBUTES,Variable coinor.gimpy.global_constants.DEFAULT_NODE_ATTRIBUTES=coinor.gimpy.global_constants-module.html#DEFAULT_NODE_ATTRIBUTES,Variable coinor.gimpy.graph.DEFAULT_NODE_ATTRIBUTES=coinor.gimpy.graph-module.html#DEFAULT_NODE_ATTRIBUTES,Variable coinor.gimpy.tree.DEFAULT_NODE_ATTRIBUTES=coinor.gimpy.tree-module.html#DEFAULT_NODE_ATTRIBUTES"><a title="coinor.gimpy.DEFAULT_NODE_ATTRIBUTES
+coinor.gimpy.global_constants.DEFAULT_NODE_ATTRIBUTES
+coinor.gimpy.graph.DEFAULT_NODE_ATTRIBUTES
+coinor.gimpy.tree.DEFAULT_NODE_ATTRIBUTES" class="py-name" href="#" onclick="return doclink('link-5', 'DEFAULT_NODE_ATTRIBUTES', 'link-5');">DEFAULT_NODE_ATTRIBUTES</a></tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-op">}</tt> </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line"><tt id="link-6" class="py-name" targets="Variable coinor.gimpy.CLUSTER_ATTRIBUTES=coinor.gimpy-module.html#CLUSTER_ATTRIBUTES,Variable coinor.gimpy.global_constants.CLUSTER_ATTRIBUTES=coinor.gimpy.global_constants-module.html#CLUSTER_ATTRIBUTES,Variable coinor.gimpy.graph.CLUSTER_ATTRIBUTES=coinor.gimpy.graph-module.html#CLUSTER_ATTRIBUTES,Variable coinor.gimpy.tree.CLUSTER_ATTRIBUTES=coinor.gimpy.tree-module.html#CLUSTER_ATTRIBUTES"><a title="coinor.gimpy.CLUSTER_ATTRIBUTES
+coinor.gimpy.global_constants.CLUSTER_ATTRIBUTES
+coinor.gimpy.graph.CLUSTER_ATTRIBUTES
+coinor.gimpy.tree.CLUSTER_ATTRIBUTES" class="py-name" href="#" onclick="return doclink('link-6', 'CLUSTER_ATTRIBUTES', 'link-6');">CLUSTER_ATTRIBUTES</a></tt> <tt class="py-op">=</tt> <tt class="py-name">set</tt><tt class="py-op">(</tt> <tt class="py-op">[</tt><tt class="py-string">'K'</tt><tt class="py-op">,</tt> <tt class="py-string">'URL'</tt><tt class="py-op">,</tt> <tt class="py-string">'bgcolor'</tt><tt class="py-op">,</tt> <tt class="py-string">'color'</tt><tt class="py-op">,</tt> <tt class="py-string">'colorscheme'</tt><tt class="py-op">,</tt> </tt>
+<a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line">    <tt class="py-string">'fillcolor'</tt><tt class="py-op">,</tt> <tt class="py-string">'fontcolor'</tt><tt class="py-op">,</tt> <tt class="py-string">'fontname'</tt><tt class="py-op">,</tt> <tt class="py-string">'fontsize'</tt><tt class="py-op">,</tt> <tt class="py-string">'label'</tt><tt class="py-op">,</tt> <tt class="py-string">'labeljust'</tt><tt class="py-op">,</tt> </tt>
+<a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line">    <tt class="py-string">'labelloc'</tt><tt class="py-op">,</tt> <tt class="py-string">'lheight'</tt><tt class="py-op">,</tt> <tt class="py-string">'lp'</tt><tt class="py-op">,</tt> <tt class="py-string">'lwidth'</tt><tt class="py-op">,</tt> <tt class="py-string">'nojustify'</tt><tt class="py-op">,</tt> <tt class="py-string">'pencolor'</tt><tt class="py-op">,</tt> </tt>
+<a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line">    <tt class="py-string">'penwidth'</tt><tt class="py-op">,</tt> <tt class="py-string">'peripheries'</tt><tt class="py-op">,</tt> <tt class="py-string">'sortv'</tt><tt class="py-op">,</tt> <tt class="py-string">'style'</tt><tt class="py-op">,</tt> <tt class="py-string">'target'</tt><tt class="py-op">,</tt> <tt class="py-string">'tooltip'</tt><tt class="py-op">]</tt> <tt class="py-op">)</tt> </tt>
+<a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line"><tt id="link-7" class="py-name" targets="Variable coinor.gimpy.DIRECTED_GRAPH=coinor.gimpy-module.html#DIRECTED_GRAPH,Variable coinor.gimpy.global_constants.DIRECTED_GRAPH=coinor.gimpy.global_constants-module.html#DIRECTED_GRAPH,Variable coinor.gimpy.graph.DIRECTED_GRAPH=coinor.gimpy.graph-module.html#DIRECTED_GRAPH,Variable coinor.gimpy.tree.DIRECTED_GRAPH=coinor.gimpy.tree-module.html#DIRECTED_GRAPH"><a title="coinor.gimpy.DIRECTED_GRAPH
+coinor.gimpy.global_constants.DIRECTED_GRAPH
+coinor.gimpy.graph.DIRECTED_GRAPH
+coinor.gimpy.tree.DIRECTED_GRAPH" class="py-name" href="#" onclick="return doclink('link-7', 'DIRECTED_GRAPH', 'link-7');">DIRECTED_GRAPH</a></tt> <tt class="py-op">=</tt> <tt class="py-string">'digraph'</tt> </tt>
+<a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line"><tt id="link-8" class="py-name" targets="Variable coinor.gimpy.UNDIRECTED_GRAPH=coinor.gimpy-module.html#UNDIRECTED_GRAPH,Variable coinor.gimpy.global_constants.UNDIRECTED_GRAPH=coinor.gimpy.global_constants-module.html#UNDIRECTED_GRAPH,Variable coinor.gimpy.graph.UNDIRECTED_GRAPH=coinor.gimpy.graph-module.html#UNDIRECTED_GRAPH,Variable coinor.gimpy.tree.UNDIRECTED_GRAPH=coinor.gimpy.tree-module.html#UNDIRECTED_GRAPH"><a title="coinor.gimpy.UNDIRECTED_GRAPH
+coinor.gimpy.global_constants.UNDIRECTED_GRAPH
+coinor.gimpy.graph.UNDIRECTED_GRAPH
+coinor.gimpy.tree.UNDIRECTED_GRAPH" class="py-name" href="#" onclick="return doclink('link-8', 'UNDIRECTED_GRAPH', 'link-8');">UNDIRECTED_GRAPH</a></tt> <tt class="py-op">=</tt> <tt class="py-string">'graph'</tt> </tt>
+<a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line"><tt class="py-comment">#DEFAULT_ATTR = {'strict':None, 'name':'graph'}</tt> </tt>
+<a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line"><tt id="link-9" class="py-name" targets="Variable coinor.gimpy.EDGE_CONNECT_SYMBOL=coinor.gimpy-module.html#EDGE_CONNECT_SYMBOL,Variable coinor.gimpy.global_constants.EDGE_CONNECT_SYMBOL=coinor.gimpy.global_constants-module.html#EDGE_CONNECT_SYMBOL,Variable coinor.gimpy.graph.EDGE_CONNECT_SYMBOL=coinor.gimpy.graph-module.html#EDGE_CONNECT_SYMBOL,Variable coinor.gimpy.tree.EDGE_CONNECT_SYMBOL=coinor.gimpy.tree-module.html#EDGE_CONNECT_SYMBOL"><a title="coinor.gimpy.EDGE_CONNECT_SYMBOL
+coinor.gimpy.global_constants.EDGE_CONNECT_SYMBOL
+coinor.gimpy.graph.EDGE_CONNECT_SYMBOL
+coinor.gimpy.tree.EDGE_CONNECT_SYMBOL" class="py-name" href="#" onclick="return doclink('link-9', 'EDGE_CONNECT_SYMBOL', 'link-9');">EDGE_CONNECT_SYMBOL</a></tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt id="link-10" class="py-name"><a title="coinor.gimpy.DIRECTED_GRAPH
+coinor.gimpy.global_constants.DIRECTED_GRAPH
+coinor.gimpy.graph.DIRECTED_GRAPH
+coinor.gimpy.tree.DIRECTED_GRAPH" class="py-name" href="#" onclick="return doclink('link-10', 'DIRECTED_GRAPH', 'link-7');">DIRECTED_GRAPH</a></tt><tt class="py-op">:</tt><tt class="py-string">' -&gt; '</tt><tt class="py-op">,</tt> <tt id="link-11" class="py-name"><a title="coinor.gimpy.UNDIRECTED_GRAPH
+coinor.gimpy.global_constants.UNDIRECTED_GRAPH
+coinor.gimpy.graph.UNDIRECTED_GRAPH
+coinor.gimpy.tree.UNDIRECTED_GRAPH" class="py-name" href="#" onclick="return doclink('link-11', 'UNDIRECTED_GRAPH', 'link-8');">UNDIRECTED_GRAPH</a></tt><tt class="py-op">:</tt><tt class="py-string">' -- '</tt><tt class="py-op">}</tt> </tt>
+<a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line"><tt id="link-12" class="py-name" targets="Variable coinor.gimpy.PYGAME_INSTALLED=coinor.gimpy-module.html#PYGAME_INSTALLED,Variable coinor.gimpy.global_constants.PYGAME_INSTALLED=coinor.gimpy.global_constants-module.html#PYGAME_INSTALLED,Variable coinor.gimpy.graph.PYGAME_INSTALLED=coinor.gimpy.graph-module.html#PYGAME_INSTALLED,Variable coinor.gimpy.tree.PYGAME_INSTALLED=coinor.gimpy.tree-module.html#PYGAME_INSTALLED"><a title="coinor.gimpy.PYGAME_INSTALLED
+coinor.gimpy.global_constants.PYGAME_INSTALLED
+coinor.gimpy.graph.PYGAME_INSTALLED
+coinor.gimpy.tree.PYGAME_INSTALLED" class="py-name" href="#" onclick="return doclink('link-12', 'PYGAME_INSTALLED', 'link-12');">PYGAME_INSTALLED</a></tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> <tt class="py-comment"># it wil be set when we try to import pygame</tt> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line"><tt id="link-13" class="py-name" targets="Variable coinor.gimpy.DOT2TEX_INSTALLED=coinor.gimpy-module.html#DOT2TEX_INSTALLED,Variable coinor.gimpy.global_constants.DOT2TEX_INSTALLED=coinor.gimpy.global_constants-module.html#DOT2TEX_INSTALLED,Variable coinor.gimpy.graph.DOT2TEX_INSTALLED=coinor.gimpy.graph-module.html#DOT2TEX_INSTALLED,Variable coinor.gimpy.tree.DOT2TEX_INSTALLED=coinor.gimpy.tree-module.html#DOT2TEX_INSTALLED"><a title="coinor.gimpy.DOT2TEX_INSTALLED
+coinor.gimpy.global_constants.DOT2TEX_INSTALLED
+coinor.gimpy.graph.DOT2TEX_INSTALLED
+coinor.gimpy.tree.DOT2TEX_INSTALLED" class="py-name" href="#" onclick="return doclink('link-13', 'DOT2TEX_INSTALLED', 'link-13');">DOT2TEX_INSTALLED</a></tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> <tt class="py-comment"># it wil be set when we try to import</tt> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line"><tt id="link-14" class="py-name" targets="Variable coinor.gimpy.PIL_INSTALLED=coinor.gimpy-module.html#PIL_INSTALLED,Variable coinor.gimpy.global_constants.PIL_INSTALLED=coinor.gimpy.global_constants-module.html#PIL_INSTALLED,Variable coinor.gimpy.graph.PIL_INSTALLED=coinor.gimpy.graph-module.html#PIL_INSTALLED,Variable coinor.gimpy.tree.PIL_INSTALLED=coinor.gimpy.tree-module.html#PIL_INSTALLED"><a title="coinor.gimpy.PIL_INSTALLED
+coinor.gimpy.global_constants.PIL_INSTALLED
+coinor.gimpy.graph.PIL_INSTALLED
+coinor.gimpy.tree.PIL_INSTALLED" class="py-name" href="#" onclick="return doclink('link-14', 'PIL_INSTALLED', 'link-14');">PIL_INSTALLED</a></tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line"><tt id="link-15" class="py-name" targets="Variable coinor.gimpy.XDOT_INSTALLED=coinor.gimpy-module.html#XDOT_INSTALLED,Variable coinor.gimpy.global_constants.XDOT_INSTALLED=coinor.gimpy.global_constants-module.html#XDOT_INSTALLED,Variable coinor.gimpy.graph.XDOT_INSTALLED=coinor.gimpy.graph-module.html#XDOT_INSTALLED,Variable coinor.gimpy.tree.XDOT_INSTALLED=coinor.gimpy.tree-module.html#XDOT_INSTALLED"><a title="coinor.gimpy.XDOT_INSTALLED
+coinor.gimpy.global_constants.XDOT_INSTALLED
+coinor.gimpy.graph.XDOT_INSTALLED
+coinor.gimpy.tree.XDOT_INSTALLED" class="py-name" href="#" onclick="return doclink('link-15', 'XDOT_INSTALLED', 'link-15');">XDOT_INSTALLED</a></tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line"><tt id="link-16" class="py-name" targets="Variable coinor.gimpy.ETREE_INSTALLED=coinor.gimpy-module.html#ETREE_INSTALLED,Variable coinor.gimpy.global_constants.ETREE_INSTALLED=coinor.gimpy.global_constants-module.html#ETREE_INSTALLED,Variable coinor.gimpy.graph.ETREE_INSTALLED=coinor.gimpy.graph-module.html#ETREE_INSTALLED,Variable coinor.gimpy.tree.ETREE_INSTALLED=coinor.gimpy.tree-module.html#ETREE_INSTALLED"><a title="coinor.gimpy.ETREE_INSTALLED
+coinor.gimpy.global_constants.ETREE_INSTALLED
+coinor.gimpy.graph.ETREE_INSTALLED
+coinor.gimpy.tree.ETREE_INSTALLED" class="py-name" href="#" onclick="return doclink('link-16', 'ETREE_INSTALLED', 'link-16');">ETREE_INSTALLED</a></tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line"><tt id="link-17" class="py-name" targets="Variable coinor.gimpy.INF=coinor.gimpy-module.html#INF,Variable coinor.gimpy.global_constants.INF=coinor.gimpy.global_constants-module.html#INF,Variable coinor.gimpy.graph.INF=coinor.gimpy.graph-module.html#INF,Variable coinor.gimpy.tree.INF=coinor.gimpy.tree-module.html#INF"><a title="coinor.gimpy.INF
+coinor.gimpy.global_constants.INF
+coinor.gimpy.graph.INF
+coinor.gimpy.tree.INF" class="py-name" href="#" onclick="return doclink('link-17', 'INF', 'link-17');">INF</a></tt> <tt class="py-op">=</tt> <tt class="py-number">10000</tt> </tt>
+<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line"> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line"><tt id="link-18" class="py-name" targets="Variable coinor.gimpy.DOT2TEX_TEMPLATE=coinor.gimpy-module.html#DOT2TEX_TEMPLATE,Variable coinor.gimpy.global_constants.DOT2TEX_TEMPLATE=coinor.gimpy.global_constants-module.html#DOT2TEX_TEMPLATE,Variable coinor.gimpy.graph.DOT2TEX_TEMPLATE=coinor.gimpy.graph-module.html#DOT2TEX_TEMPLATE,Variable coinor.gimpy.tree.DOT2TEX_TEMPLATE=coinor.gimpy.tree-module.html#DOT2TEX_TEMPLATE"><a title="coinor.gimpy.DOT2TEX_TEMPLATE
+coinor.gimpy.global_constants.DOT2TEX_TEMPLATE
+coinor.gimpy.graph.DOT2TEX_TEMPLATE
+coinor.gimpy.tree.DOT2TEX_TEMPLATE" class="py-name" href="#" onclick="return doclink('link-18', 'DOT2TEX_TEMPLATE', 'link-18');">DOT2TEX_TEMPLATE</a></tt> <tt class="py-op">=</tt> <tt class="py-string">r'''</tt> </tt>
+<a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line"><tt class="py-string">\documentclass[landscape]{article}</tt> </tt>
+<a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line"><tt class="py-string">\usepackage[x11names, rgb]{xcolor}</tt> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line"><tt class="py-string">\usepackage[&lt;&lt;textencoding&gt;&gt;]{inputenc}</tt> </tt>
+<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line"><tt class="py-string">\usepackage{tikz}</tt> </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line"><tt class="py-string">\usetikzlibrary{snakes,arrows,shapes}</tt> </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line"><tt class="py-string">\usepackage{amsmath}</tt> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line"><tt class="py-string">\usepackage[margin=2cm,nohead]{geometry}%</tt> </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line"><tt class="py-string">&lt;&lt;startpreprocsection&gt;&gt;%</tt> </tt>
+<a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line"><tt class="py-string">\usepackage[active,auctex]{preview}</tt> </tt>
+<a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line"><tt class="py-string">&lt;&lt;endpreprocsection&gt;&gt;%</tt> </tt>
+<a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line"><tt class="py-string">&lt;&lt;gvcols&gt;&gt;%</tt> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line"><tt class="py-string">&lt;&lt;cropcode&gt;&gt;%</tt> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line"><tt class="py-string">&lt;&lt;docpreamble&gt;&gt;%</tt> </tt>
+<a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line"><tt class="py-string"></tt> </tt>
+<a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line"><tt class="py-string">\begin{document}</tt> </tt>
+<a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line"><tt class="py-string">\pagestyle{empty}</tt> </tt>
+<a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line"><tt class="py-string">%</tt> </tt>
+<a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line"><tt class="py-string">&lt;&lt;startpreprocsection&gt;&gt;%</tt> </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line"><tt class="py-string">&lt;&lt;preproccode&gt;&gt;</tt> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line"><tt class="py-string">&lt;&lt;endpreprocsection&gt;&gt;%</tt> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line"><tt class="py-string">%</tt> </tt>
+<a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line"><tt class="py-string">&lt;&lt;startoutputsection&gt;&gt;</tt> </tt>
+<a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line"><tt class="py-string">\enlargethispage{100cm}</tt> </tt>
+<a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line"><tt class="py-string">% Start of code</tt> </tt>
+<a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line"><tt class="py-string">% \begin{tikzpicture}[anchor=mid,&gt;=latex',join=bevel,&lt;&lt;graphstyle&gt;&gt;]</tt> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line"><tt class="py-string">\resizebox{\textwidth}{!}{</tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line"><tt class="py-string">\begin{tikzpicture}[&gt;=latex',join=bevel,&lt;&lt;graphstyle&gt;&gt;]</tt> </tt>
+<a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line"><tt class="py-string">\pgfsetlinewidth{1bp}</tt> </tt>
+<a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line"><tt class="py-string">&lt;&lt;figpreamble&gt;&gt;%</tt> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line"><tt class="py-string">&lt;&lt;drawcommands&gt;&gt;</tt> </tt>
+<a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line"><tt class="py-string">&lt;&lt;figpostamble&gt;&gt;%</tt> </tt>
+<a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line"><tt class="py-string">\end{tikzpicture}</tt> </tt>
+<a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line"><tt class="py-string">% End of code</tt> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line"><tt class="py-string">}</tt> </tt>
+<a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line"><tt class="py-string">&lt;&lt;endoutputsection&gt;&gt;</tt> </tt>
+<a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line"><tt class="py-string">%</tt> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line"><tt class="py-string">\end{document}</tt> </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line"><tt class="py-string">%</tt> </tt>
+<a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line"><tt class="py-string">&lt;&lt;startfigonlysection&gt;&gt;</tt> </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line"><tt class="py-string">\begin{tikzpicture}[&gt;=latex,join=bevel,&lt;&lt;graphstyle&gt;&gt;]</tt> </tt>
+<a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line"><tt class="py-string">\pgfsetlinewidth{1bp}</tt> </tt>
+<a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line"><tt class="py-string">&lt;&lt;figpreamble&gt;&gt;%</tt> </tt>
+<a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line"><tt class="py-string">&lt;&lt;drawcommands&gt;&gt;</tt> </tt>
+<a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line"><tt class="py-string">&lt;&lt;figpostamble&gt;&gt;%</tt> </tt>
+<a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line"><tt class="py-string">\end{tikzpicture}</tt> </tt>
+<a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line"><tt class="py-string">&lt;&lt;endfigonlysection&gt;&gt;</tt> </tt>
+<a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line"><tt class="py-string">'''</tt> </tt>
+<a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line"> </tt>
+<a name="L118"></a><tt class="py-lineno">118</tt>  <tt class="py-line"><tt class="py-comment"># following globals and two methods are from pydot</tt> </tt>
+<a name="L119"></a><tt class="py-lineno">119</tt>  <tt class="py-line"><tt id="link-19" class="py-name" targets="Variable coinor.gimpy.DOT_KEYWORDS=coinor.gimpy-module.html#DOT_KEYWORDS,Variable coinor.gimpy.global_constants.DOT_KEYWORDS=coinor.gimpy.global_constants-module.html#DOT_KEYWORDS,Variable coinor.gimpy.graph.DOT_KEYWORDS=coinor.gimpy.graph-module.html#DOT_KEYWORDS,Variable coinor.gimpy.tree.DOT_KEYWORDS=coinor.gimpy.tree-module.html#DOT_KEYWORDS"><a title="coinor.gimpy.DOT_KEYWORDS
+coinor.gimpy.global_constants.DOT_KEYWORDS
+coinor.gimpy.graph.DOT_KEYWORDS
+coinor.gimpy.tree.DOT_KEYWORDS" class="py-name" href="#" onclick="return doclink('link-19', 'DOT_KEYWORDS', 'link-19');">DOT_KEYWORDS</a></tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-string">'graph'</tt><tt class="py-op">,</tt> <tt class="py-string">'subgraph'</tt><tt class="py-op">,</tt> <tt class="py-string">'digraph'</tt><tt class="py-op">,</tt> <tt class="py-string">'node'</tt><tt class="py-op">,</tt> <tt class="py-string">'edge'</tt><tt class="py-op">,</tt> <tt class="py-string">'strict'</tt><tt class="py-op">]</tt> </tt>
+<a name="L120"></a><tt class="py-lineno">120</tt>  <tt class="py-line"><tt id="link-20" class="py-name" targets="Variable coinor.gimpy.ID_RE_ALPHA_NUMS=coinor.gimpy-module.html#ID_RE_ALPHA_NUMS,Variable coinor.gimpy.global_constants.ID_RE_ALPHA_NUMS=coinor.gimpy.global_constants-module.html#ID_RE_ALPHA_NUMS,Variable coinor.gimpy.graph.ID_RE_ALPHA_NUMS=coinor.gimpy.graph-module.html#ID_RE_ALPHA_NUMS,Variable coinor.gimpy.tree.ID_RE_ALPHA_NUMS=coinor.gimpy.tree-module.html#ID_RE_ALPHA_NUMS"><a title="coinor.gimpy.ID_RE_ALPHA_NUMS
+coinor.gimpy.global_constants.ID_RE_ALPHA_NUMS
+coinor.gimpy.graph.ID_RE_ALPHA_NUMS
+coinor.gimpy.tree.ID_RE_ALPHA_NUMS" class="py-name" href="#" onclick="return doclink('link-20', 'ID_RE_ALPHA_NUMS', 'link-20');">ID_RE_ALPHA_NUMS</a></tt> <tt class="py-op">=</tt> <tt class="py-name">re</tt><tt class="py-op">.</tt><tt class="py-name">compile</tt><tt class="py-op">(</tt><tt class="py-string">'^[_a-zA-Z][a-zA-Z0-9_,]*$'</tt><tt class="py-op">,</tt> <tt class="py-name">re</tt><tt class="py-op">.</tt><tt class="py-name">UNICODE</tt><tt class="py-op">)</tt> </tt>
+<a name="L121"></a><tt class="py-lineno">121</tt>  <tt class="py-line"><tt id="link-21" class="py-name" targets="Variable coinor.gimpy.ID_RE_ALPHA_NUMS_WITH_PORTS=coinor.gimpy-module.html#ID_RE_ALPHA_NUMS_WITH_PORTS,Variable coinor.gimpy.global_constants.ID_RE_ALPHA_NUMS_WITH_PORTS=coinor.gimpy.global_constants-module.html#ID_RE_ALPHA_NUMS_WITH_PORTS,Variable coinor.gimpy.graph.ID_RE_ALPHA_NUMS_WITH_PORTS=coinor.gimpy.graph-module.html#ID_RE_ALPHA_NUMS_WITH_PORTS,Variable coinor.gimpy.tree.ID_RE_ALPHA_NUMS_WITH_PORTS=coinor.gimpy.tree-module.html#ID_RE_ALPHA_NUMS_WITH_PORTS"><a title="coinor.gimpy.ID_RE_ALPHA_NUMS_WITH_PORTS
+coinor.gimpy.global_constants.ID_RE_ALPHA_NUMS_WITH_PORTS
+coinor.gimpy.graph.ID_RE_ALPHA_NUMS_WITH_PORTS
+coinor.gimpy.tree.ID_RE_ALPHA_NUMS_WITH_PORTS" class="py-name" href="#" onclick="return doclink('link-21', 'ID_RE_ALPHA_NUMS_WITH_PORTS', 'link-21');">ID_RE_ALPHA_NUMS_WITH_PORTS</a></tt> <tt class="py-op">=</tt> <tt class="py-name">re</tt><tt class="py-op">.</tt><tt class="py-name">compile</tt><tt class="py-op">(</tt><tt class="py-string">'^[_a-zA-Z][a-zA-Z0-9_,:\"]*[a-zA-Z0-9_,\"]+$'</tt><tt class="py-op">,</tt> <tt class="py-name">re</tt><tt class="py-op">.</tt><tt class="py-name">UNICODE</tt><tt class="py-op">)</tt> </tt>
+<a name="L122"></a><tt class="py-lineno">122</tt>  <tt class="py-line"><tt id="link-22" class="py-name" targets="Variable coinor.gimpy.ID_RE_NUM=coinor.gimpy-module.html#ID_RE_NUM,Variable coinor.gimpy.global_constants.ID_RE_NUM=coinor.gimpy.global_constants-module.html#ID_RE_NUM,Variable coinor.gimpy.graph.ID_RE_NUM=coinor.gimpy.graph-module.html#ID_RE_NUM,Variable coinor.gimpy.tree.ID_RE_NUM=coinor.gimpy.tree-module.html#ID_RE_NUM"><a title="coinor.gimpy.ID_RE_NUM
+coinor.gimpy.global_constants.ID_RE_NUM
+coinor.gimpy.graph.ID_RE_NUM
+coinor.gimpy.tree.ID_RE_NUM" class="py-name" href="#" onclick="return doclink('link-22', 'ID_RE_NUM', 'link-22');">ID_RE_NUM</a></tt> <tt class="py-op">=</tt> <tt class="py-name">re</tt><tt class="py-op">.</tt><tt class="py-name">compile</tt><tt class="py-op">(</tt><tt class="py-string">'^[0-9,]+$'</tt><tt class="py-op">,</tt> <tt class="py-name">re</tt><tt class="py-op">.</tt><tt class="py-name">UNICODE</tt><tt class="py-op">)</tt> </tt>
+<a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line"><tt id="link-23" class="py-name" targets="Variable coinor.gimpy.ID_RE_WITH_PORT=coinor.gimpy-module.html#ID_RE_WITH_PORT,Variable coinor.gimpy.global_constants.ID_RE_WITH_PORT=coinor.gimpy.global_constants-module.html#ID_RE_WITH_PORT,Variable coinor.gimpy.graph.ID_RE_WITH_PORT=coinor.gimpy.graph-module.html#ID_RE_WITH_PORT,Variable coinor.gimpy.tree.ID_RE_WITH_PORT=coinor.gimpy.tree-module.html#ID_RE_WITH_PORT"><a title="coinor.gimpy.ID_RE_WITH_PORT
+coinor.gimpy.global_constants.ID_RE_WITH_PORT
+coinor.gimpy.graph.ID_RE_WITH_PORT
+coinor.gimpy.tree.ID_RE_WITH_PORT" class="py-name" href="#" onclick="return doclink('link-23', 'ID_RE_WITH_PORT', 'link-23');">ID_RE_WITH_PORT</a></tt> <tt class="py-op">=</tt> <tt class="py-name">re</tt><tt class="py-op">.</tt><tt class="py-name">compile</tt><tt class="py-op">(</tt><tt class="py-string">'^([^:]*):([^:]*)$'</tt><tt class="py-op">,</tt> <tt class="py-name">re</tt><tt class="py-op">.</tt><tt class="py-name">UNICODE</tt><tt class="py-op">)</tt> </tt>
+<a name="L124"></a><tt class="py-lineno">124</tt>  <tt class="py-line"><tt id="link-24" class="py-name" targets="Variable coinor.gimpy.ID_RE_DBL_QUOTED=coinor.gimpy-module.html#ID_RE_DBL_QUOTED,Variable coinor.gimpy.global_constants.ID_RE_DBL_QUOTED=coinor.gimpy.global_constants-module.html#ID_RE_DBL_QUOTED,Variable coinor.gimpy.graph.ID_RE_DBL_QUOTED=coinor.gimpy.graph-module.html#ID_RE_DBL_QUOTED,Variable coinor.gimpy.tree.ID_RE_DBL_QUOTED=coinor.gimpy.tree-module.html#ID_RE_DBL_QUOTED"><a title="coinor.gimpy.ID_RE_DBL_QUOTED
+coinor.gimpy.global_constants.ID_RE_DBL_QUOTED
+coinor.gimpy.graph.ID_RE_DBL_QUOTED
+coinor.gimpy.tree.ID_RE_DBL_QUOTED" class="py-name" href="#" onclick="return doclink('link-24', 'ID_RE_DBL_QUOTED', 'link-24');">ID_RE_DBL_QUOTED</a></tt> <tt class="py-op">=</tt> <tt class="py-name">re</tt><tt class="py-op">.</tt><tt class="py-name">compile</tt><tt class="py-op">(</tt><tt class="py-string">'^\".*\"$'</tt><tt class="py-op">,</tt> <tt class="py-name">re</tt><tt class="py-op">.</tt><tt class="py-name">S</tt><tt class="py-op">|</tt><tt class="py-name">re</tt><tt class="py-op">.</tt><tt class="py-name">UNICODE</tt><tt class="py-op">)</tt> </tt>
+<a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line"><tt id="link-25" class="py-name" targets="Variable coinor.gimpy.ID_RE_HTML=coinor.gimpy-module.html#ID_RE_HTML,Variable coinor.gimpy.global_constants.ID_RE_HTML=coinor.gimpy.global_constants-module.html#ID_RE_HTML,Variable coinor.gimpy.graph.ID_RE_HTML=coinor.gimpy.graph-module.html#ID_RE_HTML,Variable coinor.gimpy.tree.ID_RE_HTML=coinor.gimpy.tree-module.html#ID_RE_HTML"><a title="coinor.gimpy.ID_RE_HTML
+coinor.gimpy.global_constants.ID_RE_HTML
+coinor.gimpy.graph.ID_RE_HTML
+coinor.gimpy.tree.ID_RE_HTML" class="py-name" href="#" onclick="return doclink('link-25', 'ID_RE_HTML', 'link-25');">ID_RE_HTML</a></tt> <tt class="py-op">=</tt> <tt class="py-name">re</tt><tt class="py-op">.</tt><tt class="py-name">compile</tt><tt class="py-op">(</tt><tt class="py-string">'^&lt;.*&gt;$'</tt><tt class="py-op">,</tt> <tt class="py-name">re</tt><tt class="py-op">.</tt><tt class="py-name">S</tt><tt class="py-op">|</tt><tt class="py-name">re</tt><tt class="py-op">.</tt><tt class="py-name">UNICODE</tt><tt class="py-op">)</tt> </tt>
+<a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line"> </tt>
+<a name="quote_if_necessary"></a><div id="quote_if_necessary-def"><a name="L127"></a><tt class="py-lineno">127</tt> <a class="py-toggle" href="#" id="quote_if_necessary-toggle" onclick="return toggle('quote_if_necessary');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="coinor.gimpy.global_constants-module.html#quote_if_necessary">quote_if_necessary</a><tt class="py-op">(</tt><tt class="py-param">s</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="quote_if_necessary-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="quote_if_necessary-expanded"><a name="L128"></a><tt class="py-lineno">128</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">isinstance</tt><tt class="py-op">(</tt><tt class="py-name">s</tt><tt class="py-op">,</tt> <tt class="py-name">bool</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L129"></a><tt class="py-lineno">129</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">s</tt> <tt class="py-keyword">is</tt> <tt class="py-name">True</tt><tt class="py-op">:</tt> </tt>
+<a name="L130"></a><tt class="py-lineno">130</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-string">'True'</tt> </tt>
+<a name="L131"></a><tt class="py-lineno">131</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-string">'False'</tt> </tt>
+<a name="L132"></a><tt class="py-lineno">132</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">isinstance</tt><tt class="py-op">(</tt><tt class="py-name">s</tt><tt class="py-op">,</tt> <tt class="py-name">basestring</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L133"></a><tt class="py-lineno">133</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">s</tt> </tt>
+<a name="L134"></a><tt class="py-lineno">134</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">s</tt><tt class="py-op">:</tt> </tt>
+<a name="L135"></a><tt class="py-lineno">135</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">s</tt> </tt>
+<a name="L136"></a><tt class="py-lineno">136</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt id="link-26" class="py-name" targets="Function coinor.gimpy.global_constants.needs_quotes()=coinor.gimpy.global_constants-module.html#needs_quotes"><a title="coinor.gimpy.global_constants.needs_quotes" class="py-name" href="#" onclick="return doclink('link-26', 'needs_quotes', 'link-26');">needs_quotes</a></tt><tt class="py-op">(</tt><tt class="py-name">s</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L137"></a><tt class="py-lineno">137</tt>  <tt class="py-line">        <tt class="py-name">replace</tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt><tt class="py-string">'"'</tt>  <tt class="py-op">:</tt> <tt class="py-string">r'\"'</tt><tt class="py-op">,</tt> </tt>
+<a name="L138"></a><tt class="py-lineno">138</tt>  <tt class="py-line">                   <tt class="py-string">"\n"</tt> <tt class="py-op">:</tt> <tt class="py-string">r'\n'</tt><tt class="py-op">,</tt> </tt>
+<a name="L139"></a><tt class="py-lineno">139</tt>  <tt class="py-line">                   <tt class="py-string">"\r"</tt> <tt class="py-op">:</tt> <tt class="py-string">r'\r'</tt><tt class="py-op">,</tt> </tt>
+<a name="L140"></a><tt class="py-lineno">140</tt>  <tt class="py-line">                   <tt class="py-string">"\\ "</tt> <tt class="py-op">:</tt> <tt class="py-string">r'\\ '</tt><tt class="py-op">}</tt> </tt>
+<a name="L141"></a><tt class="py-lineno">141</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-op">(</tt><tt class="py-name">a</tt><tt class="py-op">,</tt><tt class="py-name">b</tt><tt class="py-op">)</tt> <tt class="py-keyword">in</tt> <tt class="py-name">replace</tt><tt class="py-op">.</tt><tt class="py-name">items</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L142"></a><tt class="py-lineno">142</tt>  <tt class="py-line">            <tt class="py-name">s</tt> <tt class="py-op">=</tt> <tt class="py-name">s</tt><tt class="py-op">.</tt><tt class="py-name">replace</tt><tt class="py-op">(</tt><tt class="py-name">a</tt><tt class="py-op">,</tt> <tt class="py-name">b</tt><tt class="py-op">)</tt> </tt>
+<a name="L143"></a><tt class="py-lineno">143</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-string">'"'</tt> <tt class="py-op">+</tt> <tt class="py-name">s</tt> <tt class="py-op">+</tt> <tt class="py-string">'"'</tt> </tt>
+<a name="L144"></a><tt class="py-lineno">144</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">s</tt> </tt>
+</div><a name="L145"></a><tt class="py-lineno">145</tt>  <tt class="py-line"> </tt>
+<a name="needs_quotes"></a><div id="needs_quotes-def"><a name="L146"></a><tt class="py-lineno">146</tt> <a class="py-toggle" href="#" id="needs_quotes-toggle" onclick="return toggle('needs_quotes');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="coinor.gimpy.global_constants-module.html#needs_quotes">needs_quotes</a><tt class="py-op">(</tt><tt class="py-param">s</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="needs_quotes-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="needs_quotes-expanded"><a name="L147"></a><tt class="py-lineno">147</tt>  <tt class="py-line">    <tt class="py-docstring">"""Checks whether a string is a dot language ID.</tt> </tt>
+<a name="L148"></a><tt class="py-lineno">148</tt>  <tt class="py-line"><tt class="py-docstring">    It will check whether the string is solely composed</tt> </tt>
+<a name="L149"></a><tt class="py-lineno">149</tt>  <tt class="py-line"><tt class="py-docstring">    by the characters allowed in an ID or not.</tt> </tt>
+<a name="L150"></a><tt class="py-lineno">150</tt>  <tt class="py-line"><tt class="py-docstring">    If the string is one of the reserved keywords it will</tt> </tt>
+<a name="L151"></a><tt class="py-lineno">151</tt>  <tt class="py-line"><tt class="py-docstring">    need quotes too but the user will need to add them</tt> </tt>
+<a name="L152"></a><tt class="py-lineno">152</tt>  <tt class="py-line"><tt class="py-docstring">    manually.</tt> </tt>
+<a name="L153"></a><tt class="py-lineno">153</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L154"></a><tt class="py-lineno">154</tt>  <tt class="py-line">    <tt class="py-comment"># If the name is a reserved keyword it will need quotes but pydot</tt> </tt>
+<a name="L155"></a><tt class="py-lineno">155</tt>  <tt class="py-line">    <tt class="py-comment"># can't tell when it's being used as a keyword or when it's simply</tt> </tt>
+<a name="L156"></a><tt class="py-lineno">156</tt>  <tt class="py-line">    <tt class="py-comment"># a name. Hence the user needs to supply the quotes when an element</tt> </tt>
+<a name="L157"></a><tt class="py-lineno">157</tt>  <tt class="py-line">    <tt class="py-comment"># would use a reserved keyword as name. This function will return</tt> </tt>
+<a name="L158"></a><tt class="py-lineno">158</tt>  <tt class="py-line">    <tt class="py-comment"># false indicating that a keyword string, if provided as-is, won't</tt> </tt>
+<a name="L159"></a><tt class="py-lineno">159</tt>  <tt class="py-line">    <tt class="py-comment"># need quotes.</tt> </tt>
+<a name="L160"></a><tt class="py-lineno">160</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">s</tt> <tt class="py-keyword">in</tt> <tt id="link-27" class="py-name"><a title="coinor.gimpy.DOT_KEYWORDS
+coinor.gimpy.global_constants.DOT_KEYWORDS
+coinor.gimpy.graph.DOT_KEYWORDS
+coinor.gimpy.tree.DOT_KEYWORDS" class="py-name" href="#" onclick="return doclink('link-27', 'DOT_KEYWORDS', 'link-19');">DOT_KEYWORDS</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L161"></a><tt class="py-lineno">161</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">False</tt> </tt>
+<a name="L162"></a><tt class="py-lineno">162</tt>  <tt class="py-line">    <tt class="py-name">chars</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-name">ord</tt><tt class="py-op">(</tt><tt class="py-name">c</tt><tt class="py-op">)</tt> <tt class="py-keyword">for</tt> <tt class="py-name">c</tt> <tt class="py-keyword">in</tt> <tt class="py-name">s</tt> <tt class="py-keyword">if</tt> <tt class="py-name">ord</tt><tt class="py-op">(</tt><tt class="py-name">c</tt><tt class="py-op">)</tt><tt class="py-op">&gt;</tt><tt class="py-number">0x7f</tt> <tt class="py-keyword">or</tt> <tt class="py-name">ord</tt><tt class="py-op">(</tt><tt class="py-name">c</tt><tt class="py-op">)</tt><tt class="py-op">==</tt><tt class="py-number">0</tt><tt class="py-op">]</tt> </tt>
+<a name="L163"></a><tt class="py-lineno">163</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">chars</tt> <tt class="py-keyword">and</tt> <tt class="py-keyword">not</tt> <tt id="link-28" class="py-name"><a title="coinor.gimpy.ID_RE_DBL_QUOTED
+coinor.gimpy.global_constants.ID_RE_DBL_QUOTED
+coinor.gimpy.graph.ID_RE_DBL_QUOTED
+coinor.gimpy.tree.ID_RE_DBL_QUOTED" class="py-name" href="#" onclick="return doclink('link-28', 'ID_RE_DBL_QUOTED', 'link-24');">ID_RE_DBL_QUOTED</a></tt><tt class="py-op">.</tt><tt class="py-name">match</tt><tt class="py-op">(</tt><tt class="py-name">s</tt><tt class="py-op">)</tt> <tt class="py-keyword">and</tt> <tt class="py-keyword">not</tt> <tt id="link-29" class="py-name"><a title="coinor.gimpy.ID_RE_HTML
+coinor.gimpy.global_constants.ID_RE_HTML
+coinor.gimpy.graph.ID_RE_HTML
+coinor.gimpy.tree.ID_RE_HTML" class="py-name" href="#" onclick="return doclink('link-29', 'ID_RE_HTML', 'link-25');">ID_RE_HTML</a></tt><tt class="py-op">.</tt><tt class="py-name">match</tt><tt class="py-op">(</tt><tt class="py-name">s</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L164"></a><tt class="py-lineno">164</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">True</tt> </tt>
+<a name="L165"></a><tt class="py-lineno">165</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt class="py-name">test_re</tt> <tt class="py-keyword">in</tt> <tt class="py-op">[</tt><tt id="link-30" class="py-name"><a title="coinor.gimpy.ID_RE_ALPHA_NUMS
+coinor.gimpy.global_constants.ID_RE_ALPHA_NUMS
+coinor.gimpy.graph.ID_RE_ALPHA_NUMS
+coinor.gimpy.tree.ID_RE_ALPHA_NUMS" class="py-name" href="#" onclick="return doclink('link-30', 'ID_RE_ALPHA_NUMS', 'link-20');">ID_RE_ALPHA_NUMS</a></tt><tt class="py-op">,</tt> <tt id="link-31" class="py-name"><a title="coinor.gimpy.ID_RE_NUM
+coinor.gimpy.global_constants.ID_RE_NUM
+coinor.gimpy.graph.ID_RE_NUM
+coinor.gimpy.tree.ID_RE_NUM" class="py-name" href="#" onclick="return doclink('link-31', 'ID_RE_NUM', 'link-22');">ID_RE_NUM</a></tt><tt class="py-op">,</tt> <tt id="link-32" class="py-name"><a title="coinor.gimpy.ID_RE_DBL_QUOTED
+coinor.gimpy.global_constants.ID_RE_DBL_QUOTED
+coinor.gimpy.graph.ID_RE_DBL_QUOTED
+coinor.gimpy.tree.ID_RE_DBL_QUOTED" class="py-name" href="#" onclick="return doclink('link-32', 'ID_RE_DBL_QUOTED', 'link-24');">ID_RE_DBL_QUOTED</a></tt><tt class="py-op">,</tt> <tt id="link-33" class="py-name"><a title="coinor.gimpy.ID_RE_HTML
+coinor.gimpy.global_constants.ID_RE_HTML
+coinor.gimpy.graph.ID_RE_HTML
+coinor.gimpy.tree.ID_RE_HTML" class="py-name" href="#" onclick="return doclink('link-33', 'ID_RE_HTML', 'link-25');">ID_RE_HTML</a></tt><tt class="py-op">,</tt> <tt id="link-34" class="py-name"><a title="coinor.gimpy.ID_RE_ALPHA_NUMS_WITH_PORTS
+coinor.gimpy.global_constants.ID_RE_ALPHA_NUMS_WITH_PORTS
+coinor.gimpy.graph.ID_RE_ALPHA_NUMS_WITH_PORTS
+coinor.gimpy.tree.ID_RE_ALPHA_NUMS_WITH_PORTS" class="py-name" href="#" onclick="return doclink('link-34', 'ID_RE_ALPHA_NUMS_WITH_PORTS', 'link-21');">ID_RE_ALPHA_NUMS_WITH_PORTS</a></tt><tt class="py-op">]</tt><tt class="py-op">:</tt> </tt>
+<a name="L166"></a><tt class="py-lineno">166</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">test_re</tt><tt class="py-op">.</tt><tt class="py-name">match</tt><tt class="py-op">(</tt><tt class="py-name">s</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L167"></a><tt class="py-lineno">167</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">False</tt> </tt>
+<a name="L168"></a><tt class="py-lineno">168</tt>  <tt class="py-line">    <tt class="py-name">m</tt> <tt class="py-op">=</tt> <tt id="link-35" class="py-name"><a title="coinor.gimpy.ID_RE_WITH_PORT
+coinor.gimpy.global_constants.ID_RE_WITH_PORT
+coinor.gimpy.graph.ID_RE_WITH_PORT
+coinor.gimpy.tree.ID_RE_WITH_PORT" class="py-name" href="#" onclick="return doclink('link-35', 'ID_RE_WITH_PORT', 'link-23');">ID_RE_WITH_PORT</a></tt><tt class="py-op">.</tt><tt class="py-name">match</tt><tt class="py-op">(</tt><tt class="py-name">s</tt><tt class="py-op">)</tt> </tt>
+<a name="L169"></a><tt class="py-lineno">169</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">m</tt><tt class="py-op">:</tt> </tt>
+<a name="L170"></a><tt class="py-lineno">170</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt id="link-36" class="py-name"><a title="coinor.gimpy.global_constants.needs_quotes" class="py-name" href="#" onclick="return doclink('link-36', 'needs_quotes', 'link-26');">needs_quotes</a></tt><tt class="py-op">(</tt><tt class="py-name">m</tt><tt class="py-op">.</tt><tt class="py-name">group</tt><tt class="py-op">(</tt><tt class="py-number">1</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> <tt class="py-keyword">or</tt> <tt id="link-37" class="py-name"><a title="coinor.gimpy.global_constants.needs_quotes" class="py-name" href="#" onclick="return doclink('link-37', 'needs_quotes', 'link-26');">needs_quotes</a></tt><tt class="py-op">(</tt><tt class="py-name">m</tt><tt class="py-op">.</tt><tt class="py-name">group</tt><tt class="py-op">(</tt><tt class="py-number">2</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L171"></a><tt class="py-lineno">171</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">True</tt> </tt>
+</div><a name="L172"></a><tt class="py-lineno">172</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="coinor.gimpy-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Fri Mar 28 13:18:55 2014
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

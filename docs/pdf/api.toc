@@ -1,0 +1,33 @@
+\contentsline {section}{Contents}{1}{section*.1}
+\contentsline {section}{\numberline {1}Package coinor.gimpy}{2}{section.1}
+\contentsline {subsection}{\numberline {1.1}Modules}{2}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.2}Variables}{2}{subsection.1.2}
+\contentsline {section}{\numberline {2}Module coinor.gimpy.global\_constants}{4}{section.2}
+\contentsline {subsection}{\numberline {2.1}Functions}{4}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}Variables}{4}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.3}Class MultipleNodeException}{5}{subsection.2.3}
+\contentsline {subsubsection}{\numberline {2.3.1}Methods}{5}{subsubsection.2.3.1}
+\contentsline {subsubsection}{\numberline {2.3.2}Properties}{5}{subsubsection.2.3.2}
+\contentsline {subsection}{\numberline {2.4}Class MultipleEdgeException}{6}{subsection.2.4}
+\contentsline {subsubsection}{\numberline {2.4.1}Methods}{6}{subsubsection.2.4.1}
+\contentsline {subsubsection}{\numberline {2.4.2}Properties}{6}{subsubsection.2.4.2}
+\contentsline {section}{\numberline {3}Module coinor.gimpy.graph}{7}{section.3}
+\contentsline {subsection}{\numberline {3.1}Variables}{8}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Class Node}{9}{subsection.3.2}
+\contentsline {subsubsection}{\numberline {3.2.1}Methods}{9}{subsubsection.3.2.1}
+\contentsline {subsubsection}{\numberline {3.2.2}Properties}{11}{subsubsection.3.2.2}
+\contentsline {subsection}{\numberline {3.3}Class Graph}{11}{subsection.3.3}
+\contentsline {subsubsection}{\numberline {3.3.1}Methods}{11}{subsubsection.3.3.1}
+\contentsline {subsubsection}{\numberline {3.3.2}Properties}{47}{subsubsection.3.3.2}
+\contentsline {subsection}{\numberline {3.4}Class DisjointSet}{47}{subsection.3.4}
+\contentsline {subsubsection}{\numberline {3.4.1}Methods}{48}{subsubsection.3.4.1}
+\contentsline {subsubsection}{\numberline {3.4.2}Properties}{49}{subsubsection.3.4.2}
+\contentsline {section}{\numberline {4}Module coinor.gimpy.tree}{50}{section.4}
+\contentsline {subsection}{\numberline {4.1}Variables}{50}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Class Tree}{51}{subsection.4.2}
+\contentsline {subsubsection}{\numberline {4.2.1}Methods}{51}{subsubsection.4.2.1}
+\contentsline {subsubsection}{\numberline {4.2.2}Properties}{55}{subsubsection.4.2.2}
+\contentsline {subsection}{\numberline {4.3}Class BinaryTree}{55}{subsection.4.3}
+\contentsline {subsubsection}{\numberline {4.3.1}Methods}{56}{subsubsection.4.3.1}
+\contentsline {subsubsection}{\numberline {4.3.2}Properties}{60}{subsubsection.4.3.2}
+\contentsline {section}{Index}{61}{section*.2}
