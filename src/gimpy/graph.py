@@ -1918,78 +1918,6 @@ After installation, ensure that the PATH variable is properly set.'''
         else:
             return None
 
-    def bellman_ford(self, source):
-        '''
-        API:
-            bellman_ford(self, source)
-        Description:
-            Finds shortest paths to all nodes from source if the graph does not
-            have any negative cycles. If the graph does not have any negative
-            cycles it will return tuple (True,distance) where distance is a
-            dictionary and distance[i] gives the shortest distance from source
-            to node i. If the graph has negative cycle it will return tuple
-            (False,cycle) where cycle is the list of nodes in the negative
-            cycle detected.
-        Pre:
-            Arcs should have 'cost' attribute.
-            'source' should exists in the graph.
-        Return:
-            Returns tuple (True,distance) where distance is a dictionary if the
-            graph does not have any negative cycle. Otherwise, it returns
-            (False,cycle) where cycle is the list of nodes in the negative
-            cycle.
-        '''
-        distance = {}
-        pred = {}
-        nl = self.get_node_list()
-        el = self.get_edge_list()
-        # Step 1: initialize
-        for i in nl:
-            if i==source:
-                distance[i] = 0
-            else:
-                distance[i] = 'infinity'
-            pred[i] = None
-        # Step 2: relax edges repeatedly
-        for k in range(len(nl)):
-            for i,j in el:
-                cost = self.get_edge_cost((i,j))
-                if distance[j]=='infinity' and distance[i]=='infinity':
-                    continue
-                elif distance[i] != 'infinity':
-                    distance[j] = distance[i] + cost
-                    pred[j] = i
-                    continue
-                else:
-                    continue
-                if distance[i] + cost < distance[j]:
-                    distance[j] = distance[i] + cost
-                    pred[j] = i
-        # Step 3: check for negative-weight cycles
-        for (i,j) in el:
-            cost = self.get_edge_cost((i,j))
-            if distance[i]=='infinity' and distance[j]=='infinity':
-                continue
-            elif distance[j]=='infinity':
-                print 'This indicates cycle'
-            if distance[i] + cost < distance[j]:
-                # there exists a negative cycle from i-source-i
-                cycle = []
-                # add nodes from source to i to cycle
-                k = i
-                while pred[k] != None:
-                    cycle.append(k)
-                    k = pred[k]
-                # add source
-                cycle.append(source)
-                cycle = cycle[::-1]
-                # find shortest path from i to source.
-                path = self.search(self, source, i=None, display = None, algo='Dijkstra')
-                for k in path:
-                    cycle.add(k)
-                return (False,cycle)
-        return (True,distance)
-
     def floyd_warshall(self):
         '''
         API:
@@ -1997,11 +1925,21 @@ After installation, ensure that the PATH variable is properly set.'''
         Description:
             Finds all pair shortest paths and stores it in a list of lists.
             This is possible if the graph does not have negative cycles. It will
-            return a tuple with 3 elements. The first element indicates whether the graph has a negative cycle. It is true if the graph does not have a negative cycle, ie. distances found are valid shortest distances. The second lement is a dictionary of shortest distances between nodes. Keys are tuple of node pairs ie. (i,j). The third element is a dictionary that helps to retrieve the shortest path between nodes. Then return value can be represented as (validity, distance, nextn) where nextn is the dictionary to retrieve paths. distance and nextn can be used as inputs to other methods to get shortest path between nodes.
+            return a tuple with 3 elements. The first element indicates whether
+            the graph has a negative cycle. It is true if the graph does not
+            have a negative cycle, ie. distances found are valid shortest
+            distances. The second element is a dictionary of shortest distances
+            between nodes. Keys are tuple of node pairs ie. (i,j). The third
+            element is a dictionary that helps to retrieve the shortest path
+            between nodes. Then return value can be represented as (validity,
+            distance, nextn) where nextn is the dictionary to retrieve paths.
+            distance and nextn can be used as inputs to other methods to get
+            shortest path between nodes.
         Pre:
             Arcs should have 'cost' attribute.
         Return:
-            Returns (validity, distance, nextn). The distances are valid if validity is True.
+            Returns (validity, distance, nextn). The distances are valid if
+            validity is True.
         '''
         nl = self.get_node_list()
         el = self.get_edge_list()
@@ -2047,7 +1985,17 @@ After installation, ensure that the PATH variable is properly set.'''
 
     def floyd_warshall_get_path(self, distance, nextn, i, j):
         '''
-        Assumes the graph does not have a negative cycle, ie. distance[(i,i)] >=0 for all node i.
+        API:
+            floyd_warshall_get_path(self, distance, nextn, i, j):
+        Description:
+            Finds shortest path between i and j using distance and nextn
+            dictionaries.
+        Pre:
+            (1) distance and nextn are outputs of floyd_warshall method.
+            (2) The graph does not have a negative cycle, , ie.
+            distance[(i,i)] >=0 for all node i.
+        Return:
+            Returns the list of nodes on the path from i to j, ie. [i,...,j]
         '''
         if distance[(i,j)]=='infinity':
             return None
@@ -2060,7 +2008,17 @@ After installation, ensure that the PATH variable is properly set.'''
 
     def floyd_warshall_get_cycle(self, distance, nextn, element = None):
         '''
-        find i s.t. distance[(i,i)]<0 and find the cycle.
+        API:
+            floyd_warshall_get_cycle(self, distance, nextn, element = None)
+        Description:
+            Finds a negative cycle in the graph.
+        Pre:
+            (1) distance and nextn are outputs of floyd_warshall method.
+            (2) The graph should have a negative cycle, , ie.
+            distance[(i,i)] < 0 for some node i.
+        Return:
+            Returns the list of nodes on the cycle. Ex: [i,j,k,...,r], where
+            (i,j), (j,k) and (r,i) are some edges in the cycle.
         '''
         nl = self.get_node_list()
         if element is None:
