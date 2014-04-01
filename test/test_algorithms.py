@@ -3,7 +3,11 @@ This script runs algorithms provided by gimpy. Measures running times of
 algorithms and compares it to theoretical running times (after scaling).
 '''
 
-import gimpy
+try:
+    from src.gimpy import Graph, DIRECTED_GRAPH
+except ImportError:
+    from coinor.gimpy import Graph, DIRECTED_GRAPH
+
 import time
 from random import seed, random, randint
 import math
@@ -109,7 +113,7 @@ def generate_graph(seed_i, gen = None):
     if gen is not None:
         (numnodes, density, demand_numnodes, supply_numnodes,
          demand_range, cost_range, capacity_range) = gen
-    g = gimpy.Graph(type=gimpy.DIRECTED_GRAPH, splines='true', layout = 'dot')
+    g = Graph(type=DIRECTED_GRAPH, splines='true', layout = 'dot')
     seed(seed_i)
     for i in range(numnodes):
         for j in range(numnodes):

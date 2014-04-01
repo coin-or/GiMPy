@@ -19,12 +19,12 @@ except ImportError:
 if __name__=='__main__':
     g = Graph(type = DIRECTED_GRAPH, display = 'off')
     g.add_node(1,pos='"0,2!"', demand=4, label='(1, 4)')
-    
+
     g.add_node(3,pos='"2,4!"', demand=0)
     g.add_node(2,pos='"2,0!"', demand=0)
     g.add_node(4,pos='"4,2!"', demand=0)
     g.add_node(6,pos='"6,4!"', demand=0)
-    
+
     g.add_node(5,pos='"6,0!"', demand=0)
     g.add_node(7,pos='"8,2!"', demand=-4, label='(1, -4)')
     g.add_edge(1, 3, cost=0, capacity=2, label='(0, 2)')
@@ -41,9 +41,10 @@ if __name__=='__main__':
     g.set_display_mode('pygame')
     g.display()
 
-    g.cycle_canceling('pygame')
+#    g.cycle_canceling('pygame')
+    g.min_cost_flow(algo='cycle_canceling')
 #    g.max_flow(1, 7)
-    
+
     nl = list(int(n) for n in g.get_node_list())
     nl.sort()
     for n in nl:

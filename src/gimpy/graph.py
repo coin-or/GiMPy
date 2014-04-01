@@ -765,7 +765,7 @@ class Graph(object):
                 self.set_node_attr(m, 'component', component)
             component += 1
             self.num_components = component
-            
+
         return (index, component)
 
     def label_strong_component(self):
@@ -974,10 +974,7 @@ class Graph(object):
                 path.insert(0, pred[current])
                 current = pred[current]
             return path
-        if destination == None:
-            return pred
-        else:
-            return None
+        return pred
 
     def process_node_search(self, node, q, **kwargs):
         '''
@@ -1914,11 +1911,178 @@ After installation, ensure that the PATH variable is properly set.'''
         '''
         nl = self.get_node_list()
         i = nl[0]
-        r_value = self.fifo_label_correcting(i)
-        if r_value[0] is False:
-            return r_value[1]
+        (valid, distance, nextn) = self.floyd_warshall()
+        if not valid:
+            cycle = self.floyd_warshall_get_cycle(distance, nextn)
+            return cycle
         else:
             return None
+
+    def bellman_ford(self, source):
+        '''
+        API:
+            bellman_ford(self, source)
+        Description:
+            Finds shortest paths to all nodes from source if the graph does not
+            have any negative cycles. If the graph does not have any negative
+            cycles it will return tuple (True,distance) where distance is a
+            dictionary and distance[i] gives the shortest distance from source
+            to node i. If the graph has negative cycle it will return tuple
+            (False,cycle) where cycle is the list of nodes in the negative
+            cycle detected.
+        Pre:
+            Arcs should have 'cost' attribute.
+            'source' should exists in the graph.
+        Return:
+            Returns tuple (True,distance) where distance is a dictionary if the
+            graph does not have any negative cycle. Otherwise, it returns
+            (False,cycle) where cycle is the list of nodes in the negative
+            cycle.
+        '''
+        distance = {}
+        pred = {}
+        nl = self.get_node_list()
+        el = self.get_edge_list()
+        # Step 1: initialize
+        for i in nl:
+            if i==source:
+                distance[i] = 0
+            else:
+                distance[i] = 'infinity'
+            pred[i] = None
+        # Step 2: relax edges repeatedly
+        for k in range(len(nl)):
+            for i,j in el:
+                cost = self.get_edge_cost((i,j))
+                if distance[j]=='infinity' and distance[i]=='infinity':
+                    continue
+                elif distance[i] != 'infinity':
+                    distance[j] = distance[i] + cost
+                    pred[j] = i
+                    continue
+                else:
+                    continue
+                if distance[i] + cost < distance[j]:
+                    distance[j] = distance[i] + cost
+                    pred[j] = i
+        # Step 3: check for negative-weight cycles
+        for (i,j) in el:
+            cost = self.get_edge_cost((i,j))
+            if distance[i]=='infinity' and distance[j]=='infinity':
+                continue
+            elif distance[j]=='infinity':
+                print 'This indicates cycle'
+            if distance[i] + cost < distance[j]:
+                # there exists a negative cycle from i-source-i
+                cycle = []
+                # add nodes from source to i to cycle
+                k = i
+                while pred[k] != None:
+                    cycle.append(k)
+                    k = pred[k]
+                # add source
+                cycle.append(source)
+                cycle = cycle[::-1]
+                # find shortest path from i to source.
+                path = self.search(self, source, i=None, display = None, algo='Dijkstra')
+                for k in path:
+                    cycle.add(k)
+                return (False,cycle)
+        return (True,distance)
+
+    def floyd_warshall(self):
+        '''
+        API:
+            floyd_warshall(self)
+        Description:
+            Finds all pair shortest paths and stores it in a list of lists.
+            This is possible if the graph does not have negative cycles. It will
+            return a tuple with 3 elements. The first element indicates whether the graph has a negative cycle. It is true if the graph does not have a negative cycle, ie. distances found are valid shortest distances. The second lement is a dictionary of shortest distances between nodes. Keys are tuple of node pairs ie. (i,j). The third element is a dictionary that helps to retrieve the shortest path between nodes. Then return value can be represented as (validity, distance, nextn) where nextn is the dictionary to retrieve paths. distance and nextn can be used as inputs to other methods to get shortest path between nodes.
+        Pre:
+            Arcs should have 'cost' attribute.
+        Return:
+            Returns (validity, distance, nextn). The distances are valid if validity is True.
+        '''
+        nl = self.get_node_list()
+        el = self.get_edge_list()
+        # initialize distance
+        distance = {}
+        for i in nl:
+            for j in nl:
+                distance[(i,j)] = 'infinity'
+        for i in nl:
+            distance[(i,i)] = 0
+        for e in el:
+            distance[(e[0],e[1])] = self.get_edge_cost(e)
+        # == end of distance initialization
+        # initialize next
+        nextn = {}
+        for i in nl:
+            for j in nl:
+                if i==j or distance[(i,j)]=='infinity':
+                    nextn[(i,j)] = None
+                else:
+                    nextn[(i,j)] = i
+        # == end of next initialization
+        # compute shortest distance
+        for k in nl:
+            for i in nl:
+                for j in nl:
+                    if distance[(i,k)]=='infinity' or distance[(k,j)]=='infinity':
+                        continue
+                    elif distance[(i,j)]=='infinity':
+                        distance[(i,j)] = distance[(i,k)] + distance[(k,j)]
+                        nextn[(i,j)] = nextn[(k,j)]
+                    elif distance[(i,j)] > distance[(i,k)] + distance[(k,j)]:
+                        distance[(i,j)] = distance[(i,k)] + distance[(k,j)]
+                        nextn[(i,j)] = nextn[(k,j)]
+        # == end of compute shortest distance
+        # check if graph has negative cycles
+        for i in nl:
+            if distance[(i,i)] < 0:
+                # shortest distances are not valid
+                # graph has negative cycle
+                return (False, distance, nextn)
+        return (True, distance, nextn)
+
+    def floyd_warshall_get_path(self, distance, nextn, i, j):
+        '''
+        Assumes the graph does not have a negative cycle, ie. distance[(i,i)] >=0 for all node i.
+        '''
+        if distance[(i,j)]=='infinity':
+            return None
+        k = nextn[(i,j)]
+        path = self.floyd_warshall_get_path
+        if i==k:
+            return [i, j]
+        else:
+            return path(distance, nextn, i,k) + [k] + path(distance, nextn, k,j)
+
+    def floyd_warshall_get_cycle(self, distance, nextn, element = None):
+        '''
+        find i s.t. distance[(i,i)]<0 and find the cycle.
+        '''
+        nl = self.get_node_list()
+        if element is None:
+            for i in nl:
+                if distance[(i,i)] < 0:
+                    # graph has a cycle on the path from i to i.
+                    element = i
+                    break
+            else:
+                raise Exception('Graph does not have a negative cycle!')
+        elif distance[(element,element)] >= 0:
+            raise Exception('Graph does not have a negative cycle that contains node '+str(element)+'!')
+        # find the cycle on the path from i to i.
+        cycle = [element]
+        k = nextn[(element,element)]
+        while k not in cycle:
+            cycle.insert(1,k)
+            k = nextn[(element,k)]
+        if k==element:
+            return cycle
+        else:
+            return self.floyd_warshall_get_cycle(distance, nextn, k)
 
     def find_cycle_capacity(self, cycle):
         '''
@@ -3092,48 +3256,7 @@ After installation, ensure that the PATH variable is properly set.'''
         return degree
 
     def get_diameter(self):
-        '''
-        API:
-            get_diameter(self)
-        Description:
-            Returns diameter of the graph. Diameter is defined as follows.
-            distance(n,m): shortest unweighted path from n to m
-            eccentricity(n) = $\max _m distance(n,m)$
-            diameter = $\min _n eccentricity(n) = \min _n \max _m distance(n,m)$
-        Return:
-            Returns diameter of the graph.
-        '''
-        diameter = 'infinity'
-        eccentricity_n = 0
-        for n in self.get_node_list():
-            for m in self.get_node_list():
-                path_n_m = self.shortest_unweighted_path(n, m)
-                if isinstance(path_n_m, dict):
-                    # this indicates there is no path from n to m, no diameter
-                    # is defined, since the graph is not connected, return
-                    # 'infinity'
-                    return 'infinity'
-                distance_n_m = len(path_n_m)-1
-                if distance_n_m > eccentricity_n:
-                    eccentricity_n = distance_n_m
-            if diameter is 'infinity' or diameter > eccentricity_n:
-                diameter = eccentricity_n
-        return diameter
 
-    def get_approximate_diameter(self):  
-        '''
-        API:
-            get_approximate_diameter(self)
-        Description:
-            Returns an approximation of the diameter of the graph, which is accurate in many cases. 
-            Diameter is defined as follows.
-            distance(n,m): shortest unweighted path from n to m
-            eccentricity(n) = $\max _m distance(n,m)$
-            diameter = $\min _n eccentricity(n) = \min _n \max _m distance(n,m)$
-        Return:
-            Returns approximate diameter of the graph.
-        '''
-    
         diameter=[]
         current_max=-1
         for n in self.get_node_list():
@@ -3157,8 +3280,8 @@ After installation, ensure that the PATH variable is properly set.'''
                     # 'infinity'
                     return self.get_node_num() + 1
                 diameter.append(len(path_n_m)-1)
-                
-                #print furthest_node    
+
+                #print furthest_node
         return max(diameter)
 
     def create_cluster(self, node_list, cluster_attrs={}, node_attrs={}):
@@ -3279,9 +3402,23 @@ class DisjointSet(Graph):
 
 
 if __name__ == '__main__':
+#    G = Graph(type = UNDIRECTED_GRAPH, splines = 'true', K = 1.5)
+#    G.random(numnodes = 7, density = 0.7, Euclidean = False, seedInput = 9)
     G = Graph(type = UNDIRECTED_GRAPH, splines = 'true', K = 1.5)
+#    G.random(numnodes = 15, density = 0.4, degree_range=(1, 4), Euclidean = True, seedInput = 3)
+#    G.random(numnodes = 7, density = 0.7, length_range = (1, 10), seedInput = 5)
     G.random(numnodes = 7, density = 0.7, Euclidean = True,
-             seedInput = 9, add_labels = False)
-    G.set_display_mode('pygame')
-    G.display()
-    G.dfs(0)
+             seedInput = 9, add_labels = True)
+#    G.random(numnodes = 10, density = 0.5, seedInput = 5)
+
+#    G.set_display_mode('xdot')
+#    print G.to_string()
+#    G.display()
+#    G.display(basename='try.png', format='png')
+
+#    for i in G.nodes:
+#        G.nodes[i].set_attr('label', '-,-')
+#    G.dfs(0, display = 'pygame')
+    G.search(0, display = 'pygame', algo = 'Dijkstra')
+#    G.minimum_spanning_tree_kruskal(display = 'pygame')
+#    G.search(0, display = 'pygame')
