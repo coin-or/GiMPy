@@ -18,16 +18,16 @@
 \contentsline {subsubsection}{\numberline {3.2.2}Properties}{11}{subsubsection.3.2.2}
 \contentsline {subsection}{\numberline {3.3}Class Graph}{11}{subsection.3.3}
 \contentsline {subsubsection}{\numberline {3.3.1}Methods}{11}{subsubsection.3.3.1}
-\contentsline {subsubsection}{\numberline {3.3.2}Properties}{47}{subsubsection.3.3.2}
-\contentsline {subsection}{\numberline {3.4}Class DisjointSet}{47}{subsection.3.4}
-\contentsline {subsubsection}{\numberline {3.4.1}Methods}{48}{subsubsection.3.4.1}
-\contentsline {subsubsection}{\numberline {3.4.2}Properties}{49}{subsubsection.3.4.2}
-\contentsline {section}{\numberline {4}Module coinor.gimpy.tree}{50}{section.4}
-\contentsline {subsection}{\numberline {4.1}Variables}{50}{subsection.4.1}
-\contentsline {subsection}{\numberline {4.2}Class Tree}{51}{subsection.4.2}
-\contentsline {subsubsection}{\numberline {4.2.1}Methods}{51}{subsubsection.4.2.1}
-\contentsline {subsubsection}{\numberline {4.2.2}Properties}{55}{subsubsection.4.2.2}
-\contentsline {subsection}{\numberline {4.3}Class BinaryTree}{55}{subsection.4.3}
-\contentsline {subsubsection}{\numberline {4.3.1}Methods}{56}{subsubsection.4.3.1}
-\contentsline {subsubsection}{\numberline {4.3.2}Properties}{60}{subsubsection.4.3.2}
-\contentsline {section}{Index}{61}{section*.2}
+\contentsline {subsubsection}{\numberline {3.3.2}Properties}{48}{subsubsection.3.3.2}
+\contentsline {subsection}{\numberline {3.4}Class DisjointSet}{49}{subsection.3.4}
+\contentsline {subsubsection}{\numberline {3.4.1}Methods}{49}{subsubsection.3.4.1}
+\contentsline {subsubsection}{\numberline {3.4.2}Properties}{51}{subsubsection.3.4.2}
+\contentsline {section}{\numberline {4}Module coinor.gimpy.tree}{52}{section.4}
+\contentsline {subsection}{\numberline {4.1}Variables}{52}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Class Tree}{53}{subsection.4.2}
+\contentsline {subsubsection}{\numberline {4.2.1}Methods}{53}{subsubsection.4.2.1}
+\contentsline {subsubsection}{\numberline {4.2.2}Properties}{57}{subsubsection.4.2.2}
+\contentsline {subsection}{\numberline {4.3}Class BinaryTree}{57}{subsection.4.3}
+\contentsline {subsubsection}{\numberline {4.3.1}Methods}{58}{subsubsection.4.3.1}
+\contentsline {subsubsection}{\numberline {4.3.2}Properties}{62}{subsubsection.4.3.2}
+\contentsline {section}{Index}{63}{section*.2}

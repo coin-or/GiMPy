@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9 64-bit) (preloaded format=latex 2012.12.30)  28 MAR 2014 13:23
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9 64-bit) (preloaded format=latex 2012.12.30)  4 APR 2014 15:14
 entering extended mode
 **api.tex
 (C:\cygwin\home\ted\COIN\GiMPy\docs\pdf\api.tex
@@ -640,954 +640,1037 @@ Overfull \hbox (23.54265pt too wide) in paragraph at lines 422--422
  []
 
 [11]
-Overfull \hbox (6.74664pt too wide) in paragraph at lines 482--482
-[]    \OT1/cmtt/m/n/12 self.neighbors, self.nodes and self.in[]neighbors are up
-dated if[] 
- []
-
-
-Overfull \hbox (8.47565pt too wide) in paragraph at lines 508--508
+Overfull \hbox (8.47565pt too wide) in paragraph at lines 474--474
 []    \OT1/cmtt/m/n/12 Graph should not contain a node with this name. We do no
 t allow[] 
  []
 
+
+Overfull \hbox (6.74664pt too wide) in paragraph at lines 544--544
+[]    \OT1/cmtt/m/n/12 self.neighbors, self.nodes and self.in[]neighbors are up
+dated if[] 
+ []
+
 [12]
-Overfull \hbox (2.30064pt too wide) in paragraph at lines 576--576
-[]    \OT1/cmtt/m/n/12 Nodes will have 'component' attribute that will have com
-ponent[] 
- []
-
-[13]
-Overfull \hbox (8.47565pt too wide) in paragraph at lines 632--632
-[]    \OT1/cmtt/m/n/12 format: Image format, all format supported by Dot are we
-llcome.[] 
- []
-
-
-Overfull \hbox (19.09665pt too wide) in paragraph at lines 661--661
-[]    \OT1/cmtt/m/n/12 cluster[]attrs: Dictionary of cluster attributes, see Do
-t language[] 
- []
-
-
-Overfull \hbox (20.82565pt too wide) in paragraph at lines 666--666
-[]    \OT1/cmtt/m/n/12 A cluster will be created. Attributes of the nodes in th
-e cluster[] 
- []
-
-[14]
-Overfull \hbox (8.47565pt too wide) in paragraph at lines 720--720
-[]    \OT1/cmtt/m/n/12 Solves minimum cost feasible flow problem using cycle ca
-nceling[] 
- []
-
-
-Overfull \hbox (27.00066pt too wide) in paragraph at lines 721--721
-[]    \OT1/cmtt/m/n/12 algorithm. Returns True when an optimal solution is foun
-d, returns[] 
- []
-
-
-Overfull \hbox (2.30064pt too wide) in paragraph at lines 728--728
-[]    \OT1/cmtt/m/n/12 (2) Nodes should have 'demand' attribute, this value sho
-uld be[] 
- []
-
-
-Overfull \hbox (8.47565pt too wide) in paragraph at lines 729--729
-[]    \OT1/cmtt/m/n/12 positive if the node is a supply node, negative if it is
- demand[] 
- []
-
-[15]
-Overfull \hbox (17.36765pt too wide) in paragraph at lines 765--765
+Overfull \hbox (17.36765pt too wide) in paragraph at lines 574--574
 []    \OT1/cmtt/m/n/12 self.edge[]attr, self.neighbors and self.in[]neighbors a
 re updated.[] 
  []
 
-[16]
-Overfull \hbox (23.54265pt too wide) in paragraph at lines 815--815
-[]\OT1/cmtt/m/n/12 API: dfs(self, root, disc[]count = 0, finish[]count = 1, com
-ponent=None,[] 
- []
 
-
-Overfull \hbox (20.82565pt too wide) in paragraph at lines 824--824
-[]    \OT1/cmtt/m/n/12 transpose: Goes in the reverse direction along edges if 
-transpose[] 
- []
-
-
-Overfull \hbox (2.30064pt too wide) in paragraph at lines 827--827
-[]    \OT1/cmtt/m/n/12 Nodes will have 'component' attribute that will have com
-ponent[] 
- []
-
-
-Overfull \hbox (17.36765pt too wide) in paragraph at lines 828--828
-[]    \OT1/cmtt/m/n/12 number as value. Updates 'disc[]time' and 'finish[]time'
- attributes[] 
- []
-
-
-Overfull \hbox (2.30064pt too wide) in paragraph at lines 831--831
-[]    \OT1/cmtt/m/n/12 Returns a tuple that has discovery time and finish time 
-of the[] 
- []
-
-
-Overfull \hbox (33.17566pt too wide) in paragraph at lines 854--854
-[]    \OT1/cmtt/m/n/12 display(self, highlight = None, basename = 'graph', form
-at = 'png',[] 
- []
-
-
-Overfull \hbox (2.30064pt too wide) in paragraph at lines 858--858
-[]    \OT1/cmtt/m/n/12 Current display modes: 'off', 'file', 'pygame', 'PIL', '
-xdot',[] 
- []
-
-
-Overfull \hbox (20.82565pt too wide) in paragraph at lines 860--860
-[]    \OT1/cmtt/m/n/12 Current layout modes: Layouts provided by graphviz ('dot
-', 'fdp',[] 
- []
-
-
-Overfull \hbox (27.00066pt too wide) in paragraph at lines 862--862
-[]    \OT1/cmtt/m/n/12 Current formats: Formats provided by graphviz ('ps', 'pd
-f', 'png',[] 
- []
-
-
-Overfull \hbox (8.47565pt too wide) in paragraph at lines 866--866
-[]    \OT1/cmtt/m/n/12 basename: File name. It will be used if display mode is 
-'file'.[] 
- []
-
-
-Overfull \hbox (8.47565pt too wide) in paragraph at lines 867--867
-[]    \OT1/cmtt/m/n/12 format: Image format, all format supported by Dot are we
-llcome.[] 
- []
-
-
-Overfull \hbox (20.82565pt too wide) in paragraph at lines 868--868
-[]    \OT1/cmtt/m/n/12 pause: If display is 'pygame' and pause is True pygame w
-ill pause[] 
- []
-
-
-Overfull \hbox (20.82565pt too wide) in paragraph at lines 869--869
-[]    \OT1/cmtt/m/n/12 and wait for user input before closing the display. It w
-ill close[] 
- []
-
-
-Overfull \hbox (14.65065pt too wide) in paragraph at lines 872--872
-[]    \OT1/cmtt/m/n/12 A display window will pop up or a file will be written d
-epending[] 
- []
-
-[17]
-Overfull \hbox (20.82565pt too wide) in paragraph at lines 927--927
-[]    \OT1/cmtt/m/n/12 predecessor dictionary. If graph has a negative cycle, d
-etects it[] 
- []
-
-
-Overfull \hbox (20.82565pt too wide) in paragraph at lines 930--930
-[]    \OT1/cmtt/m/n/12 (1) 'cost' attribute of arcs. It will be used to compute
- shortest[] 
- []
-
-
-Overfull \hbox (14.65065pt too wide) in paragraph at lines 937--937
-[]    \OT1/cmtt/m/n/12 If there is no negative cycle returns to (True, pred), o
-therwise[] 
- []
-
-
-Overfull \hbox (27.00066pt too wide) in paragraph at lines 938--938
-[]    \OT1/cmtt/m/n/12 returns to (False, cycle) where pred is the predecessor 
-dictionary[] 
- []
-
-[18]
-Overfull \hbox (20.82565pt too wide) in paragraph at lines 994--994
-[]    \OT1/cmtt/m/n/12 Solves feasible flow problem, stores solution in 'flow' 
-attribute[] 
- []
-
-
-Overfull \hbox (14.65065pt too wide) in paragraph at lines 995--995
-[]    \OT1/cmtt/m/n/12 or arcs. This method is used to get an initial feasible 
-flow for[] 
- []
-
-
-Overfull \hbox (6.74664pt too wide) in paragraph at lines 996--996
-[]    \OT1/cmtt/m/n/12 simplex and cycle canceling algorithms. Uses max[]flow()
- method.[] 
- []
-
-
-Overfull \hbox (33.17566pt too wide) in paragraph at lines 997--997
-[]    \OT1/cmtt/m/n/12 Other max flow methods can also be used. Returns True if
- a feasible[] 
- []
-
-
-Overfull \hbox (14.65065pt too wide) in paragraph at lines 998--998
-[]    \OT1/cmtt/m/n/12 flow is found, returns False, if the problem is infeasib
-le. When[] 
- []
-
-
-Overfull \hbox (8.47565pt too wide) in paragraph at lines 1007--1007
-[]    \OT1/cmtt/m/n/12 Returns True if a feasible flow is found, returns False,
- if the[] 
- []
-
-[19]
-Overfull \hbox (156.67572pt too wide) in paragraph at lines 1032--1032
-[]    \OT1/cmtt/m/n/12 Returns an approximation of the diameter of the graph, w
-hich is accurate in many cases.[] 
- []
-
-
-Overfull \hbox (33.63869pt too wide) in paragraph at lines 1036--1036
-[]    \OT1/cmtt/m/n/12 diameter = $\OMS/cmtt/m/n/12 n\OT1/cmtt/m/n/12 min []n e
-ccentricity(n) = \OMS/cmtt/m/n/12 n\OT1/cmtt/m/n/12 min []n \OMS/cmtt/m/n/12 n\
-OT1/cmtt/m/n/12 max []m distance(n,m)$[] 
- []
-
-
-Overfull \hbox (20.82565pt too wide) in paragraph at lines 1064--1064
-[]    \OT1/cmtt/m/n/12 Returns a dictionary of node degrees. Keys are node name
-s, values[] 
- []
-
-[20]
-Overfull \hbox (2.30064pt too wide) in paragraph at lines 1089--1089
-[]    \OT1/cmtt/m/n/12 Returns diameter of the graph. Diameter is defined as fo
-llows.[] 
- []
-
-
-Overfull \hbox (33.63869pt too wide) in paragraph at lines 1092--1092
-[]    \OT1/cmtt/m/n/12 diameter = $\OMS/cmtt/m/n/12 n\OT1/cmtt/m/n/12 min []n e
-ccentricity(n) = \OMS/cmtt/m/n/12 n\OT1/cmtt/m/n/12 min []n \OMS/cmtt/m/n/12 n\
-OT1/cmtt/m/n/12 max []m distance(n,m)$[] 
- []
-
-
-Overfull \hbox (34.16365pt too wide) in paragraph at lines 1148--1148
+Overfull \hbox (34.16365pt too wide) in paragraph at lines 624--624
 []\OT1/cmtt/m/n/12 Returns cost attr of edge, required for minimum[]spanning[]t
 ree[]kruskal().[] 
  []
 
-[21] [22]
-Overfull \hbox (8.47565pt too wide) in paragraph at lines 1281--1281
-[]    \OT1/cmtt/m/n/12 Finds and returns negative cost cycle using 'cost' attri
-bute of[] 
- []
-
-
-Overfull \hbox (20.82565pt too wide) in paragraph at lines 1282--1282
-[]    \OT1/cmtt/m/n/12 arcs. Return value is a list of nodes representing cycle
- it is in[] 
- []
-
-
-Overfull \hbox (9.46364pt too wide) in paragraph at lines 1283--1283
-[]    \OT1/cmtt/m/n/12 the following form; n[]1-n[]2-...-n[]k, when the cycle h
-as k nodes.[] 
- []
-
-
-Overfull \hbox (14.65065pt too wide) in paragraph at lines 1287--1287
-[]    \OT1/cmtt/m/n/12 Returns a list of nodes in the cycle if a negative cycle
- exists,[] 
- []
-
-[23] [24]
-Overfull \hbox (14.65065pt too wide) in paragraph at lines 1477--1477
-[]    \OT1/cmtt/m/n/12 Assumes a feasible flow solution stored in 'flow' attrib
-ute's of[] 
- []
-
-
-Overfull \hbox (2.30064pt too wide) in paragraph at lines 1478--1478
-[]    \OT1/cmtt/m/n/12 arcs. Returns the graph with arcs that have flow between
- 0 and[] 
- []
-
-
-Overfull \hbox (2.30064pt too wide) in paragraph at lines 1508--1508
+[13] [14] [15] [16] [17]
+Overfull \hbox (2.30064pt too wide) in paragraph at lines 1045--1045
 []\OT1/cmtt/m/n/12 This method labels the nodes of an undirected graph with com
 ponent[] 
  []
 
 
-Overfull \hbox (14.65065pt too wide) in paragraph at lines 1510--1510
+Overfull \hbox (14.65065pt too wide) in paragraph at lines 1047--1047
 []\OT1/cmtt/m/n/12 same component. It will display the algortihm if display arg
 ument is[] 
  []
 
 
-Overfull \hbox (2.30064pt too wide) in paragraph at lines 1517--1517
+Overfull \hbox (2.30064pt too wide) in paragraph at lines 1054--1054
 []    \OT1/cmtt/m/n/12 Nodes will have 'component' attribute that will have com
 ponent[] 
  []
 
-[25]
-Overfull \hbox (33.17566pt too wide) in paragraph at lines 1542--1542
-[]    \OT1/cmtt/m/n/12 Checks if predecessor dictionary has a cycle, j represen
-ts the node[] 
- []
-
-
-Overfull \hbox (27.00066pt too wide) in paragraph at lines 1575--1575
-[]    \OT1/cmtt/m/n/12 In label correcting check cycle it is decided pred has a
- cycle and[] 
- []
-
-
-Overfull \hbox (8.47565pt too wide) in paragraph at lines 1576--1576
-[]    \OT1/cmtt/m/n/12 nodes in the cycle are labelled. We will create a list o
-f nodes[] 
- []
-
-
-Overfull \hbox (15.63864pt too wide) in paragraph at lines 1579--1579
-[]    \OT1/cmtt/m/n/12 This method should be called from label[]correcting[]che
-ck[]cycle(),[] 
- []
-
-
-Overfull \hbox (14.65065pt too wide) in paragraph at lines 1582--1582
-[]    \OT1/cmtt/m/n/12 j: Node that predecessor is recently updated. We know th
-at it is[] 
- []
-
-[26]
-Overfull \hbox (2.30064pt too wide) in paragraph at lines 1616--1616
-[]    \OT1/cmtt/m/n/12 Nodes will have 'component' attribute that will have com
-ponent[] 
- []
-
-
-Overfull \hbox (14.65065pt too wide) in paragraph at lines 1640--1640
-[]\OT1/cmtt/m/n/12 Finds maximum flow from source to sink by a depth-first sear
-ch based[] 
- []
-
-
-Overfull \hbox (20.82565pt too wide) in paragraph at lines 1644--1644
-[]    \OT1/cmtt/m/n/12 attribute and for which there does does not exist both a
-rcs (i,j)[] 
- []
-
-[27]
-Overfull \hbox (14.65065pt too wide) in paragraph at lines 1675--1675
-[]\OT1/cmtt/m/n/12 Finds maximum flow from source to sink by a depth-first sear
-ch based[] 
- []
-
-
-Overfull \hbox (27.00066pt too wide) in paragraph at lines 1679--1679
-[]     \OT1/cmtt/m/n/12 attribute and for which there does does not exist both 
-arcs (i,j)[] 
- []
-
-
-Overfull \hbox (14.65065pt too wide) in paragraph at lines 1711--1711
-[]    \OT1/cmtt/m/n/12 Solves minimum cost flow problem using node/edge attribu
-tes with[] 
- []
-
-
-Overfull \hbox (20.82565pt too wide) in paragraph at lines 1714--1714
-[]    \OT1/cmtt/m/n/12 (1) Assumes a directed graph in which each arc has 'capa
-city' and[] 
- []
-
-
-Overfull \hbox (2.30064pt too wide) in paragraph at lines 1716--1716
-[]    \OT1/cmtt/m/n/12 (2) Nodes should have 'demand' attribute. This value sho
-uld be[] 
- []
-
-
-Overfull \hbox (33.17566pt too wide) in paragraph at lines 1717--1717
-[]    \OT1/cmtt/m/n/12 positive for supply and negative for demand, and 0 for t
-ranshipment[] 
- []
-
-
-Overfull \hbox (14.65065pt too wide) in paragraph at lines 1720--1720
-[]    \OT1/cmtt/m/n/12 (4) Assumes (i,j) and (j,i) does not exist together. Nee
-ded when[] 
- []
-
-
-Overfull \hbox (8.47565pt too wide) in paragraph at lines 1721--1721
-[]    \OT1/cmtt/m/n/12 solving max flow. (max flow problem is solved to get a f
-easible[] 
- []
-
-
-Overfull \hbox (8.47565pt too wide) in paragraph at lines 1724--1724
-[]    \OT1/cmtt/m/n/12 display: 'off' for no display, 'pygame' for live update 
-of tree[] 
- []
-
-
-Overfull \hbox (8.47565pt too wide) in paragraph at lines 1726--1726
-[]        \OT1/cmtt/m/n/12 display: display method, if not given current mode (
-the one[] 
- []
-
-
-Overfull \hbox (27.00066pt too wide) in paragraph at lines 1728--1728
-[]        \OT1/cmtt/m/n/12 algo: determines algorithm to use, can be one of the
- following[] 
- []
-
-
-Overfull \hbox (39.35066pt too wide) in paragraph at lines 1732--1732
-[]            \OT1/cmtt/m/n/12 see Network Flows by Ahuja et al. for details of
- algorithms.[] 
- []
-
-
-Overfull \hbox (27.00066pt too wide) in paragraph at lines 1733--1733
-[]        \OT1/cmtt/m/n/12 pivot: valid if algo is 'simlex', determines pivotin
-g rule for[] 
- []
-
-
-Overfull \hbox (6.74664pt too wide) in paragraph at lines 1734--1734
-[]            \OT1/cmtt/m/n/12 simplex, may be one of the following; 'first[]el
-igible',[] 
- []
-
-
-Overfull \hbox (14.65065pt too wide) in paragraph at lines 1738--1738
-[]        \OT1/cmtt/m/n/12 root: valid if algo is 'simlex', specifies the root 
-node for[] 
- []
-
-
-Overfull \hbox (20.82565pt too wide) in paragraph at lines 1739--1739
-[]            \OT1/cmtt/m/n/12 simplex algorithm. It is name of the one of the 
-nodes. It[] 
- []
-
-
-Overfull \hbox (27.00066pt too wide) in paragraph at lines 1743--1743
-[]    \OT1/cmtt/m/n/12 'distance' attribute of the nodes are also changed durin
-g max flow[] 
- []
-
-
-Overfull \hbox (33.17566pt too wide) in paragraph at lines 1751--1751
-[]        \OT1/cmtt/m/n/12 solves minimum cost feasible flow problem using cycl
-e canceling[] 
- []
-
-
-Overfull \hbox (33.17566pt too wide) in paragraph at lines 1754--1754
-[]        \OT1/cmtt/m/n/12 solves minimum cost feasible flow problem using netw
-ork simplex[] 
- []
-
-[28]
-Overfull \vbox (96.41997pt too high) has occurred while \output is active []
-
-
-[29]
-Overfull \hbox (2.30064pt too wide) in paragraph at lines 1816--1816
-[]    \OT1/cmtt/m/n/12 q: Data structure that holds nodes to be processed in a 
-queue.[] 
- []
-
-
-Overfull \hbox (20.82565pt too wide) in paragraph at lines 1818--1818
-[]    \OT1/cmtt/m/n/12 'color', 'distance', 'component' attribute of nodes and 
-edges may[] 
- []
-
-
-Overfull \hbox (8.47565pt too wide) in paragraph at lines 1845--1845
-[]    \OT1/cmtt/m/n/12 Solves minimum cost feasible flow problem using network 
-simplex[] 
- []
-
-
-Overfull \hbox (17.36765pt too wide) in paragraph at lines 1846--1846
-[]    \OT1/cmtt/m/n/12 algorithm. It is recommended to use min[]cost[]flow(algo
-='simplex')[] 
- []
-
-
-Overfull \hbox (19.09665pt too wide) in paragraph at lines 1847--1847
-[]    \OT1/cmtt/m/n/12 instead of using network[]simplex() directly. Returns Tr
-ue when an[] 
- []
-
-
-Overfull \hbox (39.35066pt too wide) in paragraph at lines 1848--1848
-[]    \OT1/cmtt/m/n/12 optimal solution is found, returns False otherwise. 'flo
-w' attribute[] 
- []
-
-
-Overfull \hbox (14.65065pt too wide) in paragraph at lines 1849--1849
-[]    \OT1/cmtt/m/n/12 values of arcs should be considered as junk when returne
-d False.[] 
- []
-
-
-Overfull \hbox (2.30064pt too wide) in paragraph at lines 1856--1856
-[]    \OT1/cmtt/m/n/12 root: Root node for the underlying spanning trees that w
-ill be[] 
- []
-
-[30]
-Overfull \hbox (27.00066pt too wide) in paragraph at lines 1888--1888
-[]    \OT1/cmtt/m/n/12 This function was originally taken from here and modifie
-d for this[] 
- []
-
-
-Overfull \hbox (20.82565pt too wide) in paragraph at lines 1889--1889
-[]    \OT1/cmtt/m/n/12 graph class: http://code.google.com/p/python-graph/sourc
-e/browse/[] 
- []
-
-
-Overfull \hbox (6.74664pt too wide) in paragraph at lines 1894--1894
-[]    \OT1/cmtt/m/n/12 min[]delta: Smallest variation required to have a new it
-eration.[] 
- []
-
-
-Overfull \hbox (20.82565pt too wide) in paragraph at lines 1898--1898
-[]    \OT1/cmtt/m/n/12 Returns dictionary of page-ranks. Keys are node names, v
-alues are[] 
- []
-
-[31]
-Overfull \hbox (14.65065pt too wide) in paragraph at lines 1923--1923
-[]    \OT1/cmtt/m/n/12 Prints all positive flows to stdout. This method can be 
-used for[] 
- []
-
-
-Overfull \hbox (29.71765pt too wide) in paragraph at lines 1945--1945
-[]\OT1/cmtt/m/n/12 API: process[]edge[]dijkstra(self, current, neighbor, pred, 
-q, component)[] 
- []
-
-
-Overfull \hbox (20.82565pt too wide) in paragraph at lines 1947--1947
-[]\OT1/cmtt/m/n/12 Used by search() method if the algo argument is 'Dijkstra'. 
-Processes[] 
- []
-
-
-Overfull \hbox (2.30064pt too wide) in paragraph at lines 1954--1954
-[]    \OT1/cmtt/m/n/12 q: Data structure that holds nodes to be processed in a 
-queue.[] 
- []
-
-[32]
-Overfull \hbox (5.01764pt too wide) in paragraph at lines 2011--2011
-[]\OT1/cmtt/m/n/12 API: process[]edge[]prim(self, current, neighbor, pred, q, c
-omponent)[] 
- []
-
-
-Overfull \hbox (14.65065pt too wide) in paragraph at lines 2014--2014
-[]\OT1/cmtt/m/n/12 edges along Prim's algorithm. User does not need to call thi
-s method[] 
- []
-
-
-Overfull \hbox (2.30064pt too wide) in paragraph at lines 2020--2020
-[]    \OT1/cmtt/m/n/12 q: Data structure that holds nodes to be processed in a 
-queue.[] 
- []
-
-[33]
-Overfull \hbox (17.36765pt too wide) in paragraph at lines 2044--2044
-[]\OT1/cmtt/m/n/12 API: process[]edge[]search(self, current, neighbor, pred, q,
- component,[] 
- []
-
-
-Overfull \hbox (14.65065pt too wide) in paragraph at lines 2047--2047
-[]\OT1/cmtt/m/n/12 Used by search() method. Processes edges according to the un
-derlying[] 
- []
-
-
-Overfull \hbox (2.30064pt too wide) in paragraph at lines 2053--2053
-[]    \OT1/cmtt/m/n/12 q: Data structure that holds nodes to be processed in a 
-queue.[] 
- []
-
-
-Overfull \hbox (20.82565pt too wide) in paragraph at lines 2058--2058
-[]    \OT1/cmtt/m/n/12 'color', 'distance', 'component' attribute of nodes and 
-edges may[] 
- []
-
-
-Overfull \hbox (27.00066pt too wide) in paragraph at lines 2082--2082
-[]\OT1/cmtt/m/n/12 Used by search() method. Process nodes along the search. Sho
-uld not be[] 
- []
-
-[34]
-Overfull \hbox (42.06766pt too wide) in paragraph at lines 2111--2111
-[]    \OT1/cmtt/m/n/12 random(self, numnodes = 10, degree[]range = None, length
-[]range = None,[] 
- []
-
-
-Overfull \hbox (31.44666pt too wide) in paragraph at lines 2118--2118
-[]    \OT1/cmtt/m/n/12 degree[]range: A tuple that has lower and upper bounds o
-f degree for[] 
- []
-
-
-Overfull \hbox (12.92165pt too wide) in paragraph at lines 2120--2120
-[]    \OT1/cmtt/m/n/12 length[]range: A tuple that has lower and upper bounds f
-or 'cost'[] 
- []
-
-
-Overfull \hbox (25.27165pt too wide) in paragraph at lines 2124--2124
-[]    \OT1/cmtt/m/n/12 edge[]format: Dictionary that specifies attribute values
- for edges.[] 
- []
-
-
-Overfull \hbox (25.27165pt too wide) in paragraph at lines 2125--2125
-[]    \OT1/cmtt/m/n/12 node[]format: Dictionary that specifies attribute values
- for nodes.[] 
- []
-
-
-Overfull \hbox (20.82565pt too wide) in paragraph at lines 2126--2126
-[]    \OT1/cmtt/m/n/12 Euclidean: Creates an Euclidean graph (Euclidean distanc
-e between[] 
- []
-
-
-Overfull \hbox (8.47565pt too wide) in paragraph at lines 2128--2128
-[]    \OT1/cmtt/m/n/12 seedInput: Seed that will be used for random number gene
-ration.[] 
- []
-
-[35]
-Overfull \hbox (33.17566pt too wide) in paragraph at lines 2187--2187
-[]   \OT1/cmtt/m/n/12 This method determines all nodes reachable from "source" 
-ie. creates[] 
- []
-
-
-Overfull \hbox (33.17566pt too wide) in paragraph at lines 2190--2190
-[]   \OT1/cmtt/m/n/12 If there exists a path from "source" to "destination" it 
-will return[] 
- []
-
-
-Overfull \hbox (14.65065pt too wide) in paragraph at lines 2191--2191
-[]   \OT1/cmtt/m/n/12 list of the nodes is this path. If there is no such path,
- it will[] 
- []
-
-
-Overfull \hbox (8.47565pt too wide) in paragraph at lines 2192--2192
-[]   \OT1/cmtt/m/n/12 return the precedence tree constructed from source (dicti
-onary).[] 
- []
-
-
-Overfull \hbox (33.17566pt too wide) in paragraph at lines 2193--2193
-[]\OT1/cmtt/m/n/12 Optionally, it marks all nodes reachable from "source" with 
-a component[] 
- []
-
-
-Overfull \hbox (14.65065pt too wide) in paragraph at lines 2194--2194
-[]\OT1/cmtt/m/n/12 number. The variable "q" determines the order in which the n
-odes are[] 
- []
-
-
-Overfull \hbox (8.47565pt too wide) in paragraph at lines 2200--2200
-[]    \OT1/cmtt/m/n/12 algo: Algortihm that specifies search. Available algorti
-hms are[] 
- []
-
-
-Overfull \hbox (2.30064pt too wide) in paragraph at lines 2205--2205
-[]    \OT1/cmtt/m/n/12 Nodes will have 'component' attribute that will have com
-ponent[] 
- []
-
-
-Overfull \hbox (20.82565pt too wide) in paragraph at lines 2206--2206
-[]    \OT1/cmtt/m/n/12 number as value (if component argument provided). Color 
-attribute[] 
- []
-
-
-Overfull \hbox (20.82565pt too wide) in paragraph at lines 2210--2210
-[]    \OT1/cmtt/m/n/12 not specified, returns list of node names in the path fr
-om source[] 
- []
-
-
-Overfull \hbox (20.82565pt too wide) in paragraph at lines 2211--2211
-[]    \OT1/cmtt/m/n/12 to destionation if destionation is specified and there i
-s a path.[] 
- []
-
-
-Overfull \hbox (14.65065pt too wide) in paragraph at lines 2212--2212
-[]    \OT1/cmtt/m/n/12 If there is no path returns predecessor tree in dictiona
-ry form.[] 
- []
-
-[36] [37] [38]
-Overfull \hbox (33.17566pt too wide) in paragraph at lines 2408--2408
-[]    \OT1/cmtt/m/n/12 Computes node potentials for a minimum cost flow problem
- and stores[] 
- []
-
-
-Overfull \hbox (14.65065pt too wide) in paragraph at lines 2409--2409
-[]    \OT1/cmtt/m/n/12 them as node attribute 'potential'. Based on pseudocode 
-given in[] 
- []
-
-[39]
-Overfull \hbox (14.65065pt too wide) in paragraph at lines 2443--2443
-[]    \OT1/cmtt/m/n/12 At this point we assume that the solution does not have 
-a cycle.[] 
- []
-
-
-Overfull \hbox (14.65065pt too wide) in paragraph at lines 2444--2444
-[]    \OT1/cmtt/m/n/12 We check if all the nodes are connected, if not we add a
-n arc to[] 
- []
-
-
-Overfull \hbox (25.27165pt too wide) in paragraph at lines 2445--2445
-[]    \OT1/cmtt/m/n/12 solution[]g that does not create a cycle and return True
-. Otherwise[] 
- []
-
-
-Overfull \hbox (19.09665pt too wide) in paragraph at lines 2452--2452
-[]    \OT1/cmtt/m/n/12 (1) solution[]g is updated. An arc that does not create 
-a cycle is[] 
- []
-
-
-Overfull \hbox (2.30064pt too wide) in paragraph at lines 2486--2486
-[]    \OT1/cmtt/m/n/12 Returns the tuple that represents leaving arc, capacity 
-of the[] 
- []
-
-[40]
-Overfull \hbox (27.00066pt too wide) in paragraph at lines 2511--2511
-[]    \OT1/cmtt/m/n/12 Returns a cycle (list of nodes) if the graph has one, re
-turns None[] 
- []
-
-
-Overfull \hbox (20.82565pt too wide) in paragraph at lines 2512--2512
-[]    \OT1/cmtt/m/n/12 otherwise. Uses DFS. During DFS checks existence of arcs
- to lower[] 
- []
-
-
-Overfull \hbox (20.82565pt too wide) in paragraph at lines 2513--2513
-[]    \OT1/cmtt/m/n/12 depth regions. Note that direction of the arcs are not i
-mportant.[] 
- []
-
-
-Overfull \hbox (14.65065pt too wide) in paragraph at lines 2515--2515
-[]    \OT1/cmtt/m/n/12 Returns list of nodes that represents cycle. Returns Non
-e if the[] 
- []
-
-
-Overfull \hbox (14.65065pt too wide) in paragraph at lines 2540--2540
-[]    \OT1/cmtt/m/n/12 Assumes a feasible flow solution stored in 'flow' attrib
-ute's of[] 
- []
-
-[41] [42]
-Overfull \hbox (8.47565pt too wide) in paragraph at lines 2696--2696
-[]    \OT1/cmtt/m/n/12 Checks if the current solution is optimal, if yes return
-s True,[] 
- []
-
-
-Overfull \hbox (14.65065pt too wide) in paragraph at lines 2728--2728
-[]    \OT1/cmtt/m/n/12 Returns a new graph instance that is same as self but ad
-ds nodes[] 
- []
-
-[43]
-Overfull \hbox (2.30064pt too wide) in paragraph at lines 2793--2793
-[]    \OT1/cmtt/m/n/12 Searches graph starting from source. Its difference from
- usual[] 
- []
-
-
-Overfull \hbox (8.47565pt too wide) in paragraph at lines 2794--2794
-[]    \OT1/cmtt/m/n/12 search is we can also go backwards along an arc. When th
-e graph[] 
- []
-
-
-Overfull \hbox (27.00066pt too wide) in paragraph at lines 2796--2796
-[]    \OT1/cmtt/m/n/12 indexes and stores them as node attributes. These values
- should be[] 
- []
-
-
-Overfull \hbox (27.00066pt too wide) in paragraph at lines 2802--2802
-[]    \OT1/cmtt/m/n/12 (1) Sets the component number of all reachable nodes to 
-component.[] 
- []
-
-
-Overfull \hbox (14.65065pt too wide) in paragraph at lines 2804--2804
-[]    \OT1/cmtt/m/n/12 (2) Sets 'pred', 'thread' and 'depth' attributes of node
-s. These[] 
- []
-
-[44]
-Overfull \hbox (25.27165pt too wide) in paragraph at lines 2834--2834
-[]    \OT1/cmtt/m/n/12 pivot: May be one of the following; 'first[]eligible' or
- 'dantzig'.[] 
- []
-
-
-Overfull \hbox (8.47565pt too wide) in paragraph at lines 2860--2860
-[]\OT1/cmtt/m/n/12 Used by tarjan method. This method should not be called dire
-ctly by[] 
- []
-
-
-Overfull \hbox (2.30064pt too wide) in paragraph at lines 2870--2870
-[]    \OT1/cmtt/m/n/12 Nodes will have 'component' attribute that will have com
-ponent[] 
- []
-
-[45]
-Overfull \hbox (33.17566pt too wide) in paragraph at lines 2896--2896
+[18]
+Overfull \hbox (33.17566pt too wide) in paragraph at lines 1078--1078
 []\OT1/cmtt/m/n/12 Implements Tarjan's algorithm for determining strongly conne
 cted set of[] 
  []
 
 
-Overfull \hbox (2.30064pt too wide) in paragraph at lines 2901--2901
+Overfull \hbox (2.30064pt too wide) in paragraph at lines 1083--1083
 []    \OT1/cmtt/m/n/12 Nodes will have 'component' attribute that will have com
 ponent[] 
  []
 
 
-Overfull \hbox (8.47565pt too wide) in paragraph at lines 2957--2957
+Overfull \hbox (8.47565pt too wide) in paragraph at lines 1107--1107
+[]\OT1/cmtt/m/n/12 Used by tarjan method. This method should not be called dire
+ctly by[] 
+ []
+
+
+Overfull \hbox (2.30064pt too wide) in paragraph at lines 1117--1117
+[]    \OT1/cmtt/m/n/12 Nodes will have 'component' attribute that will have com
+ponent[] 
+ []
+
+[19]
+Overfull \hbox (2.30064pt too wide) in paragraph at lines 1149--1149
+[]    \OT1/cmtt/m/n/12 Nodes will have 'component' attribute that will have com
+ponent[] 
+ []
+
+
+Overfull \hbox (23.54265pt too wide) in paragraph at lines 1171--1171
+[]\OT1/cmtt/m/n/12 API: dfs(self, root, disc[]count = 0, finish[]count = 1, com
+ponent=None,[] 
+ []
+
+
+Overfull \hbox (20.82565pt too wide) in paragraph at lines 1180--1180
+[]    \OT1/cmtt/m/n/12 transpose: Goes in the reverse direction along edges if 
+transpose[] 
+ []
+
+
+Overfull \hbox (2.30064pt too wide) in paragraph at lines 1183--1183
+[]    \OT1/cmtt/m/n/12 Nodes will have 'component' attribute that will have com
+ponent[] 
+ []
+
+
+Overfull \hbox (17.36765pt too wide) in paragraph at lines 1184--1184
+[]    \OT1/cmtt/m/n/12 number as value. Updates 'disc[]time' and 'finish[]time'
+ attributes[] 
+ []
+
+
+Overfull \hbox (2.30064pt too wide) in paragraph at lines 1187--1187
+[]    \OT1/cmtt/m/n/12 Returns a tuple that has discovery time and finish time 
+of the[] 
+ []
+
+[20]
+Overfull \hbox (2.30064pt too wide) in paragraph at lines 1217--1217
+[]    \OT1/cmtt/m/n/12 Nodes will have 'component' attribute that will have com
+ponent[] 
+ []
+
+
+Overfull \hbox (33.17566pt too wide) in paragraph at lines 1246--1246
+[]   \OT1/cmtt/m/n/12 This method determines all nodes reachable from "source" 
+ie. creates[] 
+ []
+
+
+Overfull \hbox (33.17566pt too wide) in paragraph at lines 1249--1249
+[]   \OT1/cmtt/m/n/12 If there exists a path from "source" to "destination" it 
+will return[] 
+ []
+
+
+Overfull \hbox (14.65065pt too wide) in paragraph at lines 1250--1250
+[]   \OT1/cmtt/m/n/12 list of the nodes is this path. If there is no such path,
+ it will[] 
+ []
+
+
+Overfull \hbox (8.47565pt too wide) in paragraph at lines 1251--1251
+[]   \OT1/cmtt/m/n/12 return the precedence tree constructed from source (dicti
+onary).[] 
+ []
+
+
+Overfull \hbox (33.17566pt too wide) in paragraph at lines 1252--1252
+[]\OT1/cmtt/m/n/12 Optionally, it marks all nodes reachable from "source" with 
+a component[] 
+ []
+
+
+Overfull \hbox (14.65065pt too wide) in paragraph at lines 1253--1253
+[]\OT1/cmtt/m/n/12 number. The variable "q" determines the order in which the n
+odes are[] 
+ []
+
+
+Overfull \hbox (8.47565pt too wide) in paragraph at lines 1259--1259
+[]    \OT1/cmtt/m/n/12 algo: Algortihm that specifies search. Available algorti
+hms are[] 
+ []
+
+
+Overfull \hbox (2.30064pt too wide) in paragraph at lines 1264--1264
+[]    \OT1/cmtt/m/n/12 Nodes will have 'component' attribute that will have com
+ponent[] 
+ []
+
+
+Overfull \hbox (20.82565pt too wide) in paragraph at lines 1265--1265
+[]    \OT1/cmtt/m/n/12 number as value (if component argument provided). Color 
+attribute[] 
+ []
+
+
+Overfull \hbox (20.82565pt too wide) in paragraph at lines 1269--1269
+[]    \OT1/cmtt/m/n/12 not specified, returns list of node names in the path fr
+om source[] 
+ []
+
+
+Overfull \hbox (20.82565pt too wide) in paragraph at lines 1270--1270
+[]    \OT1/cmtt/m/n/12 to destionation if destionation is specified and there i
+s a path.[] 
+ []
+
+
+Overfull \hbox (14.65065pt too wide) in paragraph at lines 1271--1271
+[]    \OT1/cmtt/m/n/12 If there is no path returns predecessor tree in dictiona
+ry form.[] 
+ []
+
+[21]
+Overfull \hbox (27.00066pt too wide) in paragraph at lines 1295--1295
+[]\OT1/cmtt/m/n/12 Used by search() method. Process nodes along the search. Sho
+uld not be[] 
+ []
+
+[22]
+Overfull \hbox (29.71765pt too wide) in paragraph at lines 1323--1323
+[]\OT1/cmtt/m/n/12 API: process[]edge[]dijkstra(self, current, neighbor, pred, 
+q, component)[] 
+ []
+
+
+Overfull \hbox (20.82565pt too wide) in paragraph at lines 1325--1325
+[]\OT1/cmtt/m/n/12 Used by search() method if the algo argument is 'Dijkstra'. 
+Processes[] 
+ []
+
+
+Overfull \hbox (2.30064pt too wide) in paragraph at lines 1332--1332
+[]    \OT1/cmtt/m/n/12 q: Data structure that holds nodes to be processed in a 
+queue.[] 
+ []
+
+
+Overfull \hbox (5.01764pt too wide) in paragraph at lines 1356--1356
+[]\OT1/cmtt/m/n/12 API: process[]edge[]prim(self, current, neighbor, pred, q, c
+omponent)[] 
+ []
+
+
+Overfull \hbox (14.65065pt too wide) in paragraph at lines 1359--1359
+[]\OT1/cmtt/m/n/12 edges along Prim's algorithm. User does not need to call thi
+s method[] 
+ []
+
+
+Overfull \hbox (2.30064pt too wide) in paragraph at lines 1365--1365
+[]    \OT1/cmtt/m/n/12 q: Data structure that holds nodes to be processed in a 
+queue.[] 
+ []
+
+[23]
+Overfull \hbox (17.36765pt too wide) in paragraph at lines 1389--1389
+[]\OT1/cmtt/m/n/12 API: process[]edge[]search(self, current, neighbor, pred, q,
+ component,[] 
+ []
+
+
+Overfull \hbox (14.65065pt too wide) in paragraph at lines 1392--1392
+[]\OT1/cmtt/m/n/12 Used by search() method. Processes edges according to the un
+derlying[] 
+ []
+
+
+Overfull \hbox (2.30064pt too wide) in paragraph at lines 1398--1398
+[]    \OT1/cmtt/m/n/12 q: Data structure that holds nodes to be processed in a 
+queue.[] 
+ []
+
+
+Overfull \hbox (20.82565pt too wide) in paragraph at lines 1403--1403
+[]    \OT1/cmtt/m/n/12 'color', 'distance', 'component' attribute of nodes and 
+edges may[] 
+ []
+
+
+Overfull \hbox (2.30064pt too wide) in paragraph at lines 1433--1433
+[]    \OT1/cmtt/m/n/12 q: Data structure that holds nodes to be processed in a 
+queue.[] 
+ []
+
+
+Overfull \hbox (20.82565pt too wide) in paragraph at lines 1435--1435
+[]    \OT1/cmtt/m/n/12 'color', 'distance', 'component' attribute of nodes and 
+edges may[] 
+ []
+
+[24]
+Overfull \hbox (14.65065pt too wide) in paragraph at lines 1494--1494
+[]\OT1/cmtt/m/n/12 Finds maximum flow from source to sink by a depth-first sear
+ch based[] 
+ []
+
+
+Overfull \hbox (27.00066pt too wide) in paragraph at lines 1498--1498
+[]     \OT1/cmtt/m/n/12 attribute and for which there does does not exist both 
+arcs (i,j)[] 
+ []
+
+[25] [26]
+Overfull \hbox (8.47565pt too wide) in paragraph at lines 1644--1644
+[]    \OT1/cmtt/m/n/12 Solves minimum cost feasible flow problem using cycle ca
+nceling[] 
+ []
+
+
+Overfull \hbox (27.00066pt too wide) in paragraph at lines 1645--1645
+[]    \OT1/cmtt/m/n/12 algorithm. Returns True when an optimal solution is foun
+d, returns[] 
+ []
+
+
+Overfull \hbox (2.30064pt too wide) in paragraph at lines 1652--1652
+[]    \OT1/cmtt/m/n/12 (2) Nodes should have 'demand' attribute, this value sho
+uld be[] 
+ []
+
+
+Overfull \hbox (8.47565pt too wide) in paragraph at lines 1653--1653
+[]    \OT1/cmtt/m/n/12 positive if the node is a supply node, negative if it is
+ demand[] 
+ []
+
+[27]
+Overfull \hbox (20.82565pt too wide) in paragraph at lines 1684--1684
+[]    \OT1/cmtt/m/n/12 Solves feasible flow problem, stores solution in 'flow' 
+attribute[] 
+ []
+
+
+Overfull \hbox (14.65065pt too wide) in paragraph at lines 1685--1685
+[]    \OT1/cmtt/m/n/12 or arcs. This method is used to get an initial feasible 
+flow for[] 
+ []
+
+
+Overfull \hbox (6.74664pt too wide) in paragraph at lines 1686--1686
+[]    \OT1/cmtt/m/n/12 simplex and cycle canceling algorithms. Uses max[]flow()
+ method.[] 
+ []
+
+
+Overfull \hbox (33.17566pt too wide) in paragraph at lines 1687--1687
+[]    \OT1/cmtt/m/n/12 Other max flow methods can also be used. Returns True if
+ a feasible[] 
+ []
+
+
+Overfull \hbox (14.65065pt too wide) in paragraph at lines 1688--1688
+[]    \OT1/cmtt/m/n/12 flow is found, returns False, if the problem is infeasib
+le. When[] 
+ []
+
+
+Overfull \hbox (8.47565pt too wide) in paragraph at lines 1697--1697
+[]    \OT1/cmtt/m/n/12 Returns True if a feasible flow is found, returns False,
+ if the[] 
+ []
+
+[28]
+Overfull \hbox (8.47565pt too wide) in paragraph at lines 1778--1778
 []    \OT1/cmtt/m/n/12 format: Image format, all format supported by Dot are we
 llcome.[] 
  []
 
+[29]
+Overfull \hbox (8.47565pt too wide) in paragraph at lines 1807--1807
+[]    \OT1/cmtt/m/n/12 format: Image format, all format supported by Dot are we
+llcome.[] 
+ []
+
+
+Overfull \hbox (33.17566pt too wide) in paragraph at lines 1831--1831
+[]    \OT1/cmtt/m/n/12 display(self, highlight = None, basename = 'graph', form
+at = 'png',[] 
+ []
+
+
+Overfull \hbox (2.30064pt too wide) in paragraph at lines 1835--1835
+[]    \OT1/cmtt/m/n/12 Current display modes: 'off', 'file', 'pygame', 'PIL', '
+xdot',[] 
+ []
+
+
+Overfull \hbox (20.82565pt too wide) in paragraph at lines 1837--1837
+[]    \OT1/cmtt/m/n/12 Current layout modes: Layouts provided by graphviz ('dot
+', 'fdp',[] 
+ []
+
+
+Overfull \hbox (27.00066pt too wide) in paragraph at lines 1839--1839
+[]    \OT1/cmtt/m/n/12 Current formats: Formats provided by graphviz ('ps', 'pd
+f', 'png',[] 
+ []
+
+
+Overfull \hbox (8.47565pt too wide) in paragraph at lines 1843--1843
+[]    \OT1/cmtt/m/n/12 basename: File name. It will be used if display mode is 
+'file'.[] 
+ []
+
+
+Overfull \hbox (8.47565pt too wide) in paragraph at lines 1844--1844
+[]    \OT1/cmtt/m/n/12 format: Image format, all format supported by Dot are we
+llcome.[] 
+ []
+
+
+Overfull \hbox (20.82565pt too wide) in paragraph at lines 1845--1845
+[]    \OT1/cmtt/m/n/12 pause: If display is 'pygame' and pause is True pygame w
+ill pause[] 
+ []
+
+
+Overfull \hbox (20.82565pt too wide) in paragraph at lines 1846--1846
+[]    \OT1/cmtt/m/n/12 and wait for user input before closing the display. It w
+ill close[] 
+ []
+
+
+Overfull \hbox (14.65065pt too wide) in paragraph at lines 1849--1849
+[]    \OT1/cmtt/m/n/12 A display window will pop up or a file will be written d
+epending[] 
+ []
+
+[30]
+Overfull \hbox (14.65065pt too wide) in paragraph at lines 1901--1901
+[]\OT1/cmtt/m/n/12 Finds maximum flow from source to sink by a depth-first sear
+ch based[] 
+ []
+
+
+Overfull \hbox (20.82565pt too wide) in paragraph at lines 1905--1905
+[]    \OT1/cmtt/m/n/12 attribute and for which there does does not exist both a
+rcs (i,j)[] 
+ []
+
+[31]
+Overfull \hbox (8.47565pt too wide) in paragraph at lines 1936--1936
+[]    \OT1/cmtt/m/n/12 Finds and returns negative cost cycle using 'cost' attri
+bute of[] 
+ []
+
+
+Overfull \hbox (20.82565pt too wide) in paragraph at lines 1937--1937
+[]    \OT1/cmtt/m/n/12 arcs. Return value is a list of nodes representing cycle
+ it is in[] 
+ []
+
+
+Overfull \hbox (9.46364pt too wide) in paragraph at lines 1938--1938
+[]    \OT1/cmtt/m/n/12 the following form; n[]1-n[]2-...-n[]k, when the cycle h
+as k nodes.[] 
+ []
+
+
+Overfull \hbox (14.65065pt too wide) in paragraph at lines 1942--1942
+[]    \OT1/cmtt/m/n/12 Returns a list of nodes in the cycle if a negative cycle
+ exists,[] 
+ []
+
+
+Overfull \hbox (8.47565pt too wide) in paragraph at lines 1967--1967
+[]    \OT1/cmtt/m/n/12 Finds all pair shortest paths and stores it in a list of
+ lists.[] 
+ []
+
+
+Overfull \hbox (39.35066pt too wide) in paragraph at lines 1968--1968
+[]    \OT1/cmtt/m/n/12 This is possible if the graph does not have negative cyc
+les. It will[] 
+ []
+
+
+Overfull \hbox (33.17566pt too wide) in paragraph at lines 1969--1969
+[]    \OT1/cmtt/m/n/12 return a tuple with 3 elements. The first element indica
+tes whether[] 
+ []
+
+
+Overfull \hbox (14.65065pt too wide) in paragraph at lines 1970--1970
+[]    \OT1/cmtt/m/n/12 the graph has a negative cycle. It is true if the graph 
+does not[] 
+ []
+
+
+Overfull \hbox (33.17566pt too wide) in paragraph at lines 1972--1972
+[]    \OT1/cmtt/m/n/12 distances. The second element is a dictionary of shortes
+t distances[] 
+ []
+
+
+Overfull \hbox (14.65065pt too wide) in paragraph at lines 1973--1973
+[]    \OT1/cmtt/m/n/12 between nodes. Keys are tuple of node pairs ie. (i,j). T
+he third[] 
+ []
+
+
+Overfull \hbox (14.65065pt too wide) in paragraph at lines 1974--1974
+[]    \OT1/cmtt/m/n/12 element is a dictionary that helps to retrieve the short
+est path[] 
+ []
+
+
+Overfull \hbox (20.82565pt too wide) in paragraph at lines 1975--1975
+[]    \OT1/cmtt/m/n/12 between nodes. Then return value can be represented as (
+validity,[] 
+ []
+
+
+Overfull \hbox (20.82565pt too wide) in paragraph at lines 1976--1976
+[]    \OT1/cmtt/m/n/12 distance, nextn) where nextn is the dictionary to retrie
+ve paths.[] 
+ []
+
+
+Overfull \hbox (14.65065pt too wide) in paragraph at lines 1977--1977
+[]    \OT1/cmtt/m/n/12 distance and nextn can be used as inputs to other method
+s to get[] 
+ []
+
+
+Overfull \hbox (8.47565pt too wide) in paragraph at lines 1982--1982
+[]    \OT1/cmtt/m/n/12 Returns (validity, distance, nextn). The distances are v
+alid if[] 
+ []
+
+[32]
+Overfull \hbox (14.65065pt too wide) in paragraph at lines 2014--2014
+[]    \OT1/cmtt/m/n/12 Returns the list of nodes on the path from i to j, ie. [
+i,...,j][] 
+ []
+
+
+Overfull \hbox (3.28864pt too wide) in paragraph at lines 2036--2036
+[]    \OT1/cmtt/m/n/12 floyd[]warshall[]get[]cycle(self, distance, nextn, eleme
+nt = None)[] 
+ []
+
+
+Overfull \hbox (14.65065pt too wide) in paragraph at lines 2044--2044
+[]    \OT1/cmtt/m/n/12 Returns the list of nodes on the cycle. Ex: [i,j,k,...,r
+], where[] 
+ []
+
+[33]
+Overfull \hbox (20.82565pt too wide) in paragraph at lines 2100--2100
+[]    \OT1/cmtt/m/n/12 predecessor dictionary. If graph has a negative cycle, d
+etects it[] 
+ []
+
+
+Overfull \hbox (20.82565pt too wide) in paragraph at lines 2103--2103
+[]    \OT1/cmtt/m/n/12 (1) 'cost' attribute of arcs. It will be used to compute
+ shortest[] 
+ []
+
+
+Overfull \hbox (14.65065pt too wide) in paragraph at lines 2110--2110
+[]    \OT1/cmtt/m/n/12 If there is no negative cycle returns to (True, pred), o
+therwise[] 
+ []
+
+
+Overfull \hbox (27.00066pt too wide) in paragraph at lines 2111--2111
+[]    \OT1/cmtt/m/n/12 returns to (False, cycle) where pred is the predecessor 
+dictionary[] 
+ []
+
+[34]
+Overfull \hbox (33.17566pt too wide) in paragraph at lines 2137--2137
+[]    \OT1/cmtt/m/n/12 Checks if predecessor dictionary has a cycle, j represen
+ts the node[] 
+ []
+
+
+Overfull \hbox (27.00066pt too wide) in paragraph at lines 2170--2170
+[]    \OT1/cmtt/m/n/12 In label correcting check cycle it is decided pred has a
+ cycle and[] 
+ []
+
+
+Overfull \hbox (8.47565pt too wide) in paragraph at lines 2171--2171
+[]    \OT1/cmtt/m/n/12 nodes in the cycle are labelled. We will create a list o
+f nodes[] 
+ []
+
+
+Overfull \hbox (15.63864pt too wide) in paragraph at lines 2174--2174
+[]    \OT1/cmtt/m/n/12 This method should be called from label[]correcting[]che
+ck[]cycle(),[] 
+ []
+
+
+Overfull \hbox (14.65065pt too wide) in paragraph at lines 2177--2177
+[]    \OT1/cmtt/m/n/12 j: Node that predecessor is recently updated. We know th
+at it is[] 
+ []
+
+[35]
+Overfull \hbox (8.47565pt too wide) in paragraph at lines 2237--2237
+[]    \OT1/cmtt/m/n/12 Solves minimum cost feasible flow problem using network 
+simplex[] 
+ []
+
+
+Overfull \hbox (17.36765pt too wide) in paragraph at lines 2238--2238
+[]    \OT1/cmtt/m/n/12 algorithm. It is recommended to use min[]cost[]flow(algo
+='simplex')[] 
+ []
+
+
+Overfull \hbox (19.09665pt too wide) in paragraph at lines 2239--2239
+[]    \OT1/cmtt/m/n/12 instead of using network[]simplex() directly. Returns Tr
+ue when an[] 
+ []
+
+
+Overfull \hbox (39.35066pt too wide) in paragraph at lines 2240--2240
+[]    \OT1/cmtt/m/n/12 optimal solution is found, returns False otherwise. 'flo
+w' attribute[] 
+ []
+
+
+Overfull \hbox (14.65065pt too wide) in paragraph at lines 2241--2241
+[]    \OT1/cmtt/m/n/12 values of arcs should be considered as junk when returne
+d False.[] 
+ []
+
+
+Overfull \hbox (2.30064pt too wide) in paragraph at lines 2248--2248
+[]    \OT1/cmtt/m/n/12 root: Root node for the underlying spanning trees that w
+ill be[] 
+ []
+
+[36]
+Overfull \hbox (2.30064pt too wide) in paragraph at lines 2313--2313
+[]    \OT1/cmtt/m/n/12 Returns the tuple that represents leaving arc, capacity 
+of the[] 
+ []
+
+[37] [38]
+Overfull \hbox (14.65065pt too wide) in paragraph at lines 2400--2400
+[]    \OT1/cmtt/m/n/12 Prints all positive flows to stdout. This method can be 
+used for[] 
+ []
+
+
+Overfull \hbox (14.65065pt too wide) in paragraph at lines 2425--2425
+[]    \OT1/cmtt/m/n/12 Returns a new graph instance that is same as self but ad
+ds nodes[] 
+ []
+
+[39]
+Overfull \hbox (25.27165pt too wide) in paragraph at lines 2493--2493
+[]    \OT1/cmtt/m/n/12 pivot: May be one of the following; 'first[]eligible' or
+ 'dantzig'.[] 
+ []
+
+
+Overfull \hbox (8.47565pt too wide) in paragraph at lines 2520--2520
+[]    \OT1/cmtt/m/n/12 Checks if the current solution is optimal, if yes return
+s True,[] 
+ []
+
+[40]
+Overfull \hbox (14.65065pt too wide) in paragraph at lines 2552--2552
+[]    \OT1/cmtt/m/n/12 Assumes a feasible flow solution stored in 'flow' attrib
+ute's of[] 
+ []
+
+
+Overfull \hbox (14.65065pt too wide) in paragraph at lines 2584--2584
+[]    \OT1/cmtt/m/n/12 At this point we assume that the solution does not have 
+a cycle.[] 
+ []
+
+
+Overfull \hbox (14.65065pt too wide) in paragraph at lines 2585--2585
+[]    \OT1/cmtt/m/n/12 We check if all the nodes are connected, if not we add a
+n arc to[] 
+ []
+
+
+Overfull \hbox (25.27165pt too wide) in paragraph at lines 2586--2586
+[]    \OT1/cmtt/m/n/12 solution[]g that does not create a cycle and return True
+. Otherwise[] 
+ []
+
+
+Overfull \hbox (19.09665pt too wide) in paragraph at lines 2593--2593
+[]    \OT1/cmtt/m/n/12 (1) solution[]g is updated. An arc that does not create 
+a cycle is[] 
+ []
+
+[41]
+Overfull \hbox (2.30064pt too wide) in paragraph at lines 2621--2621
+[]    \OT1/cmtt/m/n/12 Searches graph starting from source. Its difference from
+ usual[] 
+ []
+
+
+Overfull \hbox (8.47565pt too wide) in paragraph at lines 2622--2622
+[]    \OT1/cmtt/m/n/12 search is we can also go backwards along an arc. When th
+e graph[] 
+ []
+
+
+Overfull \hbox (27.00066pt too wide) in paragraph at lines 2624--2624
+[]    \OT1/cmtt/m/n/12 indexes and stores them as node attributes. These values
+ should be[] 
+ []
+
+
+Overfull \hbox (27.00066pt too wide) in paragraph at lines 2630--2630
+[]    \OT1/cmtt/m/n/12 (1) Sets the component number of all reachable nodes to 
+component.[] 
+ []
+
+
+Overfull \hbox (14.65065pt too wide) in paragraph at lines 2632--2632
+[]    \OT1/cmtt/m/n/12 (2) Sets 'pred', 'thread' and 'depth' attributes of node
+s. These[] 
+ []
+
+[42]
+Overfull \hbox (27.00066pt too wide) in paragraph at lines 2689--2689
+[]    \OT1/cmtt/m/n/12 Returns a cycle (list of nodes) if the graph has one, re
+turns None[] 
+ []
+
+
+Overfull \hbox (20.82565pt too wide) in paragraph at lines 2690--2690
+[]    \OT1/cmtt/m/n/12 otherwise. Uses DFS. During DFS checks existence of arcs
+ to lower[] 
+ []
+
+
+Overfull \hbox (20.82565pt too wide) in paragraph at lines 2691--2691
+[]    \OT1/cmtt/m/n/12 depth regions. Note that direction of the arcs are not i
+mportant.[] 
+ []
+
+
+Overfull \hbox (14.65065pt too wide) in paragraph at lines 2693--2693
+[]    \OT1/cmtt/m/n/12 Returns list of nodes that represents cycle. Returns Non
+e if the[] 
+ []
+
+
+Overfull \hbox (14.65065pt too wide) in paragraph at lines 2718--2718
+[]    \OT1/cmtt/m/n/12 Assumes a feasible flow solution stored in 'flow' attrib
+ute's of[] 
+ []
+
+
+Overfull \hbox (2.30064pt too wide) in paragraph at lines 2719--2719
+[]    \OT1/cmtt/m/n/12 arcs. Returns the graph with arcs that have flow between
+ 0 and[] 
+ []
+
+
+Overfull \hbox (33.17566pt too wide) in paragraph at lines 2750--2750
+[]    \OT1/cmtt/m/n/12 Computes node potentials for a minimum cost flow problem
+ and stores[] 
+ []
+
+
+Overfull \hbox (14.65065pt too wide) in paragraph at lines 2751--2751
+[]    \OT1/cmtt/m/n/12 them as node attribute 'potential'. Based on pseudocode 
+given in[] 
+ []
+
+[43]
+Overfull \hbox (14.65065pt too wide) in paragraph at lines 2818--2818
+[]    \OT1/cmtt/m/n/12 Solves minimum cost flow problem using node/edge attribu
+tes with[] 
+ []
+
+
+Overfull \hbox (20.82565pt too wide) in paragraph at lines 2821--2821
+[]    \OT1/cmtt/m/n/12 (1) Assumes a directed graph in which each arc has 'capa
+city' and[] 
+ []
+
+
+Overfull \hbox (2.30064pt too wide) in paragraph at lines 2823--2823
+[]    \OT1/cmtt/m/n/12 (2) Nodes should have 'demand' attribute. This value sho
+uld be[] 
+ []
+
+
+Overfull \hbox (33.17566pt too wide) in paragraph at lines 2824--2824
+[]    \OT1/cmtt/m/n/12 positive for supply and negative for demand, and 0 for t
+ranshipment[] 
+ []
+
+
+Overfull \hbox (14.65065pt too wide) in paragraph at lines 2827--2827
+[]    \OT1/cmtt/m/n/12 (4) Assumes (i,j) and (j,i) does not exist together. Nee
+ded when[] 
+ []
+
+
+Overfull \hbox (8.47565pt too wide) in paragraph at lines 2828--2828
+[]    \OT1/cmtt/m/n/12 solving max flow. (max flow problem is solved to get a f
+easible[] 
+ []
+
+
+Overfull \hbox (8.47565pt too wide) in paragraph at lines 2831--2831
+[]    \OT1/cmtt/m/n/12 display: 'off' for no display, 'pygame' for live update 
+of tree[] 
+ []
+
+
+Overfull \hbox (8.47565pt too wide) in paragraph at lines 2833--2833
+[]        \OT1/cmtt/m/n/12 display: display method, if not given current mode (
+the one[] 
+ []
+
+
+Overfull \hbox (27.00066pt too wide) in paragraph at lines 2835--2835
+[]        \OT1/cmtt/m/n/12 algo: determines algorithm to use, can be one of the
+ following[] 
+ []
+
+
+Overfull \hbox (39.35066pt too wide) in paragraph at lines 2839--2839
+[]            \OT1/cmtt/m/n/12 see Network Flows by Ahuja et al. for details of
+ algorithms.[] 
+ []
+
+
+Overfull \hbox (27.00066pt too wide) in paragraph at lines 2840--2840
+[]        \OT1/cmtt/m/n/12 pivot: valid if algo is 'simlex', determines pivotin
+g rule for[] 
+ []
+
+
+Overfull \hbox (6.74664pt too wide) in paragraph at lines 2841--2841
+[]            \OT1/cmtt/m/n/12 simplex, may be one of the following; 'first[]el
+igible',[] 
+ []
+
+
+Overfull \hbox (14.65065pt too wide) in paragraph at lines 2845--2845
+[]        \OT1/cmtt/m/n/12 root: valid if algo is 'simlex', specifies the root 
+node for[] 
+ []
+
+
+Overfull \hbox (20.82565pt too wide) in paragraph at lines 2846--2846
+[]            \OT1/cmtt/m/n/12 simplex algorithm. It is name of the one of the 
+nodes. It[] 
+ []
+
+
+Overfull \hbox (27.00066pt too wide) in paragraph at lines 2850--2850
+[]    \OT1/cmtt/m/n/12 'distance' attribute of the nodes are also changed durin
+g max flow[] 
+ []
+
+
+Overfull \hbox (33.17566pt too wide) in paragraph at lines 2858--2858
+[]        \OT1/cmtt/m/n/12 solves minimum cost feasible flow problem using cycl
+e canceling[] 
+ []
+
+
+Overfull \hbox (33.17566pt too wide) in paragraph at lines 2861--2861
+[]        \OT1/cmtt/m/n/12 solves minimum cost feasible flow problem using netw
+ork simplex[] 
+ []
+
+[44]
+Overfull \vbox (96.41997pt too high) has occurred while \output is active []
+
+
+[45]
+Overfull \hbox (42.06766pt too wide) in paragraph at lines 2884--2884
+[]    \OT1/cmtt/m/n/12 random(self, numnodes = 10, degree[]range = None, length
+[]range = None,[] 
+ []
+
+
+Overfull \hbox (31.44666pt too wide) in paragraph at lines 2891--2891
+[]    \OT1/cmtt/m/n/12 degree[]range: A tuple that has lower and upper bounds o
+f degree for[] 
+ []
+
+
+Overfull \hbox (12.92165pt too wide) in paragraph at lines 2893--2893
+[]    \OT1/cmtt/m/n/12 length[]range: A tuple that has lower and upper bounds f
+or 'cost'[] 
+ []
+
+
+Overfull \hbox (25.27165pt too wide) in paragraph at lines 2897--2897
+[]    \OT1/cmtt/m/n/12 edge[]format: Dictionary that specifies attribute values
+ for edges.[] 
+ []
+
+
+Overfull \hbox (25.27165pt too wide) in paragraph at lines 2898--2898
+[]    \OT1/cmtt/m/n/12 node[]format: Dictionary that specifies attribute values
+ for nodes.[] 
+ []
+
+
+Overfull \hbox (20.82565pt too wide) in paragraph at lines 2899--2899
+[]    \OT1/cmtt/m/n/12 Euclidean: Creates an Euclidean graph (Euclidean distanc
+e between[] 
+ []
+
+
+Overfull \hbox (8.47565pt too wide) in paragraph at lines 2901--2901
+[]    \OT1/cmtt/m/n/12 seedInput: Seed that will be used for random number gene
+ration.[] 
+ []
+
+
+Overfull \hbox (27.00066pt too wide) in paragraph at lines 2931--2931
+[]    \OT1/cmtt/m/n/12 This function was originally taken from here and modifie
+d for this[] 
+ []
+
+
+Overfull \hbox (20.82565pt too wide) in paragraph at lines 2932--2932
+[]    \OT1/cmtt/m/n/12 graph class: http://code.google.com/p/python-graph/sourc
+e/browse/[] 
+ []
+
+
+Overfull \hbox (6.74664pt too wide) in paragraph at lines 2937--2937
+[]    \OT1/cmtt/m/n/12 min[]delta: Smallest variation required to have a new it
+eration.[] 
+ []
+
+
+Overfull \hbox (20.82565pt too wide) in paragraph at lines 2941--2941
+[]    \OT1/cmtt/m/n/12 Returns dictionary of page-ranks. Keys are node names, v
+alues are[] 
+ []
+
 [46]
-Overfull \hbox (59.00017pt too wide) in paragraph at lines 2969--2970
+Overfull \hbox (20.82565pt too wide) in paragraph at lines 2968--2968
+[]    \OT1/cmtt/m/n/12 Returns a dictionary of node degrees. Keys are node name
+s, values[] 
+ []
+
+
+Overfull \hbox (2.30064pt too wide) in paragraph at lines 2993--2993
+[]    \OT1/cmtt/m/n/12 Returns diameter of the graph. Diameter is defined as fo
+llows.[] 
+ []
+
+
+Overfull \hbox (33.63869pt too wide) in paragraph at lines 2996--2996
+[]    \OT1/cmtt/m/n/12 diameter = $\OMS/cmtt/m/n/12 n\OT1/cmtt/m/n/12 min []n e
+ccentricity(n) = \OMS/cmtt/m/n/12 n\OT1/cmtt/m/n/12 min []n \OMS/cmtt/m/n/12 n\
+OT1/cmtt/m/n/12 max []m distance(n,m)$[] 
+ []
+
+[47]
+Overfull \hbox (19.09665pt too wide) in paragraph at lines 3025--3025
+[]    \OT1/cmtt/m/n/12 cluster[]attrs: Dictionary of cluster attributes, see Do
+t language[] 
+ []
+
+
+Overfull \hbox (20.82565pt too wide) in paragraph at lines 3030--3030
+[]    \OT1/cmtt/m/n/12 A cluster will be created. Attributes of the nodes in th
+e cluster[] 
+ []
+
+
+Overfull \hbox (59.00017pt too wide) in paragraph at lines 3041--3042
 [][][]\OT1/cmr/m/n/12 delattr[][](), [][]format[][](), [][]getattribute[][](), 
 [][]hash[][](), [][]new[][](), [][]reduce[][](), [][]reduce[]ex[][](),
  []
 
-[47] [48]
-Overfull \hbox (72.59099pt too wide) in paragraph at lines 3145--3146
+[48] [49]
+Overfull \hbox (72.59099pt too wide) in paragraph at lines 3217--3218
 \OT1/cmr/m/n/12 dfs(), dis-play(), edge[]to[]string(), fifo[]label[]correcting(
 ), find[]cycle[]capacity(), find[]feasible[]flow(),
  []
 
 
-Overfull \hbox (38.18996pt too wide) in paragraph at lines 3145--3146
-\OT1/cmr/m/n/12 get[]approximate[]diameter(), get[]degree(), get[]diameter(), g
-et[]edge[]attr(), get[]edge[]cost(),
+Overfull \hbox (1.50423pt too wide) in paragraph at lines 3217--3218
+\OT1/cmr/m/n/12 floyd[]warshall(), floyd[]warshall[]get[]cycle(), floyd[]warsha
+ll[]get[]path(), get[]degree(),
  []
 
 
-Overfull \hbox (12.13133pt too wide) in paragraph at lines 3145--3146
-\OT1/cmr/m/n/12 get[]edge[]list(), get[]edge[]num(), get[]in[]neighbors(), get[
-]layout(), get[]negative[]cycle(),
+Overfull \hbox (84.69334pt too wide) in paragraph at lines 3217--3218
+\OT1/cmr/m/n/12 get[]node[]attr(), get[]node[]list(), get[]node[]num(), get[]ou
+t[]neighbors(), get[]simplex[]solution[]graph(),
  []
 
 
-Overfull \hbox (76.08983pt too wide) in paragraph at lines 3145--3146
-\OT1/cmr/m/n/12 get[]neighbors(), get[]node(), get[]node[]attr(), get[]node[]li
-st(), get[]node[]num(), get[]out[]neighbors(),
+Overfull \hbox (4.38948pt too wide) in paragraph at lines 3217--3218
+\OT1/cmr/m/n/12 bel[]strong[]component(), max[]flow(), max[]flow[]preflowpush()
+, min[]cost[]flow(), min-
  []
 
 
-Overfull \hbox (6.73946pt too wide) in paragraph at lines 3145--3146
-\OT1/cmr/m/n/12 get[]simplex[]solution[]graph(), la-bel[]components(), la-bel[]
-correcting[]check[]cycle(), la-
+Overfull \hbox (1.64784pt too wide) in paragraph at lines 3217--3218
+\OT1/cmr/m/n/12 i-mum[]spanning[]tree[]kruskal(), min-i-mum[]spanning[]tree[]pr
+im(), net-work[]simplex(),
  []
 
 
-Overfull \hbox (37.99413pt too wide) in paragraph at lines 3145--3146
-\OT1/cmr/m/n/12 bel[]correcting[]get[]cycle(), la-bel[]strong[]component(), max
-[]flow(), max[]flow[]preflowpush(),
+Overfull \hbox (43.4774pt too wide) in paragraph at lines 3217--3218
+\OT1/cmr/m/n/12 page[]rank(), print[]flow(), pro-cess[]edge[]dijkstra(), pro-ce
+ss[]edge[]flow(), pro-cess[]edge[]prim(),
  []
 
 
-Overfull \hbox (6.20418pt too wide) in paragraph at lines 3145--3146
-\OT1/cmr/m/n/12 min[]cost[]flow(), min-i-mum[]spanning[]tree[]kruskal(), min-i-
-mum[]spanning[]tree[]prim(),
+Overfull \hbox (62.49916pt too wide) in paragraph at lines 3217--3218
+\OT1/cmr/m/n/12 pro-cess[]edge[]search(), pro-cess[]node[]search(), ran-dom(), 
+re-la-bel(), search(), set[]display[]mode(),
  []
 
 
-Overfull \hbox (34.93916pt too wide) in paragraph at lines 3145--3146
-\OT1/cmr/m/n/12 net-work[]simplex(), page[]rank(), print[]flow(), pro-cess[]edg
-e[]dijkstra(), pro-cess[]edge[]flow(),
+Overfull \hbox (2.87505pt too wide) in paragraph at lines 3217--3218
+\OT1/cmr/m/n/12 set[]edge[]attr(), set[]layout(), set[]node[]attr(), show[]flow
+(), sim-plex[]augment[]cycle(),
  []
 
 
-Overfull \hbox (28.7509pt too wide) in paragraph at lines 3145--3146
-\OT1/cmr/m/n/12 show[]flow(), sim-plex[]augment[]cycle(), sim-plex[]compute[]po
-tentials(), sim-plex[]connect(),
+Overfull \hbox (1.00813pt too wide) in paragraph at lines 3217--3218
+\OT1/cmr/m/n/12 sim-plex[]compute[]potentials(), sim-plex[]connect(), sim-plex[
+]determine[]leaving[]arc(),
  []
 
 
-Overfull \hbox (82.50005pt too wide) in paragraph at lines 3145--3146
-\OT1/cmr/m/n/12 sim-plex[]determine[]leaving[]arc(), sim-plex[]find[]cycle(), s
-im-plex[]find[]tree(), sim-plex[]identify[]cycle(),
+Overfull \hbox (63.56969pt too wide) in paragraph at lines 3217--3218
+\OT1/cmr/m/n/12 sim-plex[]find[]cycle(), sim-plex[]find[]tree(), sim-plex[]iden
+tify[]cycle(), sim-plex[]mark[]entering[]arc(),
  []
 
 
-Overfull \hbox (59.00017pt too wide) in paragraph at lines 3151--3152
+Overfull \hbox (35.97054pt too wide) in paragraph at lines 3217--3218
+\OT1/cmr/m/n/12 sim-plex[]mark[]leaving[]arc(), sim-plex[]mark[]st[]arcs(), sim
+-plex[]optimal(), sim-plex[]redraw(),
+ []
+
+
+Overfull \hbox (24.88649pt too wide) in paragraph at lines 3217--3218
+\OT1/cmr/m/n/12 sim-plex[]remove[]arc(), sim-plex[]search(), sim-plex[]select[]
+entering[]arc(), strong[]connect(),
+ []
+
+[50]
+Overfull \hbox (59.00017pt too wide) in paragraph at lines 3223--3224
 [][][]\OT1/cmr/m/n/12 delattr[][](), [][]format[][](), [][]getattribute[][](), 
 [][]hash[][](), [][]new[][](), [][]reduce[][](), [][]reduce[]ex[][](),
  []
 
-) [49] (C:\cygwin\home\ted\COIN\GiMPy\docs\pdf\coinor.gimpy.tree-module.tex
+) [51] (C:\cygwin\home\ted\COIN\GiMPy\docs\pdf\coinor.gimpy.tree-module.tex
 Overfull \hbox (122.37866pt too wide) in paragraph at lines 50--51
 \OT1/cmtt/m/n/12 '\OMS/cmtt/m/n/12 n\OT1/cmtt/m/n/12 n\OMS/cmtt/m/n/12 nn\OT1/c
 mtt/m/n/12 documentclass[landscape]\OMS/cmtt/m/n/12 f\OT1/cmtt/m/n/12 article\O
@@ -1606,16 +1689,16 @@ Overfull \hbox (118.59155pt too wide) in paragraph at lines 71--72
 .|  
  []
 
-[50
+[52
 
 
-] [51]
+] [53]
 Overfull \hbox (8.47565pt too wide) in paragraph at lines 251--251
 []    \OT1/cmtt/m/n/12 Adds root node to the tree with name root and returns ro
 ot Node[] 
  []
 
-[52]
+[54]
 Overfull \hbox (33.17566pt too wide) in paragraph at lines 313--313
 []    \OT1/cmtt/m/n/12 strategy if root argument is provided. Starts search fro
 m root node[] 
@@ -1633,7 +1716,7 @@ Overfull \hbox (33.17566pt too wide) in paragraph at lines 342--342
 m root node[] 
  []
 
-[53]
+[55]
 Overfull \hbox (20.82565pt too wide) in paragraph at lines 373--373
 []    \OT1/cmtt/m/n/12 Traverses tree starting from node named root. Used strat
 egy (BFS,[] 
@@ -1658,60 +1741,72 @@ cle[]capacity(), find[]feasible[]flow(),
  []
 
 
-Overfull \hbox (38.18996pt too wide) in paragraph at lines 393--394
-\OT1/cmr/m/n/12 get[]approximate[]diameter(), get[]degree(), get[]diameter(), g
-et[]edge[]attr(), get[]edge[]cost(),
+Overfull \hbox (1.50423pt too wide) in paragraph at lines 393--394
+\OT1/cmr/m/n/12 floyd[]warshall(), floyd[]warshall[]get[]cycle(), floyd[]warsha
+ll[]get[]path(), get[]degree(),
  []
 
 
-Overfull \hbox (12.13133pt too wide) in paragraph at lines 393--394
-\OT1/cmr/m/n/12 get[]edge[]list(), get[]edge[]num(), get[]in[]neighbors(), get[
-]layout(), get[]negative[]cycle(),
+Overfull \hbox (84.69334pt too wide) in paragraph at lines 393--394
+\OT1/cmr/m/n/12 get[]node[]attr(), get[]node[]list(), get[]node[]num(), get[]ou
+t[]neighbors(), get[]simplex[]solution[]graph(),
  []
 
 
-Overfull \hbox (76.08983pt too wide) in paragraph at lines 393--394
-\OT1/cmr/m/n/12 get[]neighbors(), get[]node(), get[]node[]attr(), get[]node[]li
-st(), get[]node[]num(), get[]out[]neighbors(),
+Overfull \hbox (4.38948pt too wide) in paragraph at lines 393--394
+\OT1/cmr/m/n/12 bel[]strong[]component(), max[]flow(), max[]flow[]preflowpush()
+, min[]cost[]flow(), min-
  []
 
 
-Overfull \hbox (6.73946pt too wide) in paragraph at lines 393--394
-\OT1/cmr/m/n/12 get[]simplex[]solution[]graph(), la-bel[]components(), la-bel[]
-correcting[]check[]cycle(), la-
+Overfull \hbox (1.64784pt too wide) in paragraph at lines 393--394
+\OT1/cmr/m/n/12 i-mum[]spanning[]tree[]kruskal(), min-i-mum[]spanning[]tree[]pr
+im(), net-work[]simplex(),
  []
 
 
-Overfull \hbox (37.99413pt too wide) in paragraph at lines 393--394
-\OT1/cmr/m/n/12 bel[]correcting[]get[]cycle(), la-bel[]strong[]component(), max
-[]flow(), max[]flow[]preflowpush(),
+Overfull \hbox (43.4774pt too wide) in paragraph at lines 393--394
+\OT1/cmr/m/n/12 page[]rank(), print[]flow(), pro-cess[]edge[]dijkstra(), pro-ce
+ss[]edge[]flow(), pro-cess[]edge[]prim(),
  []
 
 
-Overfull \hbox (6.20418pt too wide) in paragraph at lines 393--394
-\OT1/cmr/m/n/12 min[]cost[]flow(), min-i-mum[]spanning[]tree[]kruskal(), min-i-
-mum[]spanning[]tree[]prim(),
+Overfull \hbox (62.49916pt too wide) in paragraph at lines 393--394
+\OT1/cmr/m/n/12 pro-cess[]edge[]search(), pro-cess[]node[]search(), ran-dom(), 
+re-la-bel(), search(), set[]display[]mode(),
  []
 
 
-Overfull \hbox (34.93916pt too wide) in paragraph at lines 393--394
-\OT1/cmr/m/n/12 net-work[]simplex(), page[]rank(), print[]flow(), pro-cess[]edg
-e[]dijkstra(), pro-cess[]edge[]flow(),
+Overfull \hbox (2.87505pt too wide) in paragraph at lines 393--394
+\OT1/cmr/m/n/12 set[]edge[]attr(), set[]layout(), set[]node[]attr(), show[]flow
+(), sim-plex[]augment[]cycle(),
  []
 
 
-Overfull \hbox (28.7509pt too wide) in paragraph at lines 393--394
-\OT1/cmr/m/n/12 show[]flow(), sim-plex[]augment[]cycle(), sim-plex[]compute[]po
-tentials(), sim-plex[]connect(),
+Overfull \hbox (1.00813pt too wide) in paragraph at lines 393--394
+\OT1/cmr/m/n/12 sim-plex[]compute[]potentials(), sim-plex[]connect(), sim-plex[
+]determine[]leaving[]arc(),
  []
 
 
-Overfull \hbox (82.50005pt too wide) in paragraph at lines 393--394
-\OT1/cmr/m/n/12 sim-plex[]determine[]leaving[]arc(), sim-plex[]find[]cycle(), s
-im-plex[]find[]tree(), sim-plex[]identify[]cycle(),
+Overfull \hbox (63.56969pt too wide) in paragraph at lines 393--394
+\OT1/cmr/m/n/12 sim-plex[]find[]cycle(), sim-plex[]find[]tree(), sim-plex[]iden
+tify[]cycle(), sim-plex[]mark[]entering[]arc(),
  []
 
-[54]
+
+Overfull \hbox (35.97054pt too wide) in paragraph at lines 393--394
+\OT1/cmr/m/n/12 sim-plex[]mark[]leaving[]arc(), sim-plex[]mark[]st[]arcs(), sim
+-plex[]optimal(), sim-plex[]redraw(),
+ []
+
+
+Overfull \hbox (24.88649pt too wide) in paragraph at lines 393--394
+\OT1/cmr/m/n/12 sim-plex[]remove[]arc(), sim-plex[]search(), sim-plex[]select[]
+entering[]arc(), strong[]connect(),
+ []
+
+[56]
 Overfull \hbox (59.00017pt too wide) in paragraph at lines 399--400
 [][][]\OT1/cmr/m/n/12 delattr[][](), [][]format[][](), [][]getattribute[][](), 
 [][]hash[][](), [][]new[][](), [][]reduce[][](), [][]reduce[]ex[][](),
@@ -1723,7 +1818,7 @@ Overfull \hbox (20.82565pt too wide) in paragraph at lines 486--486
 Graph and[] 
  []
 
-[55] [56]
+[57] [58]
 Overfull \hbox (20.82565pt too wide) in paragraph at lines 597--597
 []    \OT1/cmtt/m/n/12 Returns right child of node n. n can be Node() instance 
 or string[] 
@@ -1735,7 +1830,7 @@ Overfull \hbox (14.65065pt too wide) in paragraph at lines 627--627
 r string[] 
  []
 
-[57]
+[59]
 Overfull \hbox (12.92165pt too wide) in paragraph at lines 681--681
 []\OT1/cmtt/m/n/12 API: print[]nodes(self, order = 'in', priority = 'L', displa
 y = None,[] 
@@ -1777,7 +1872,7 @@ Overfull \hbox (33.17566pt too wide) in paragraph at lines 742--742
 m root node[] 
  []
 
-[58]
+[60]
 Overfull \hbox (20.82565pt too wide) in paragraph at lines 768--768
 []\OT1/cmtt/m/n/12 API: traverse(self, root=None, display=None, q=Stack(), prio
 rity='L',[] 
@@ -1802,90 +1897,84 @@ Overfull \hbox (56.93755pt too wide) in paragraph at lines 825--826
  []
 
 
-Overfull \hbox (53.26897pt too wide) in paragraph at lines 825--826
-\OT1/cmr/m/n/12 fifo[]label[]correcting(), find[]cycle[]capacity(), find[]feasi
-ble[]flow(), get[]approximate[]diameter(),
+Overfull \hbox (2.71837pt too wide) in paragraph at lines 825--826
+\OT1/cmr/m/n/12 get[]edge[]attr(), get[]edge[]cost(), get[]edge[]list(), get[]e
+dge[]num(), get[]in[]neighbors(),
  []
 
 
-Overfull \hbox (52.5248pt too wide) in paragraph at lines 825--826
-\OT1/cmr/m/n/12 get[]degree(), get[]diameter(), get[]edge[]attr(), get[]edge[]c
-ost(), get[]edge[]list(), get[]edge[]num(),
+Overfull \hbox (58.08641pt too wide) in paragraph at lines 825--826
+\OT1/cmr/m/n/12 get[]layout(), get[]negative[]cycle(), get[]neighbors(), get[]n
+ode(), get[]node[]attr(), get[]node[]list(),
  []
 
 
-Overfull \hbox (84.69334pt too wide) in paragraph at lines 825--826
-\OT1/cmr/m/n/12 get[]node[]attr(), get[]node[]list(), get[]node[]num(), get[]ou
-t[]neighbors(), get[]simplex[]solution[]graph(),
+Overfull \hbox (26.3748pt too wide) in paragraph at lines 825--826
+\OT1/cmr/m/n/12 get[]node[]num(), get[]out[]neighbors(), get[]simplex[]solution
+[]graph(), la-bel[]components(),
  []
 
 
-Overfull \hbox (4.38948pt too wide) in paragraph at lines 825--826
-\OT1/cmr/m/n/12 bel[]strong[]component(), max[]flow(), max[]flow[]preflowpush()
-, min[]cost[]flow(), min-
+Overfull \hbox (14.16798pt too wide) in paragraph at lines 825--826
+\OT1/cmr/m/n/12 la-bel[]correcting[]check[]cycle(), la-bel[]correcting[]get[]cy
+cle(), la-bel[]strong[]component(),
  []
 
 
-Overfull \hbox (1.64784pt too wide) in paragraph at lines 825--826
-\OT1/cmr/m/n/12 i-mum[]spanning[]tree[]kruskal(), min-i-mum[]spanning[]tree[]pr
-im(), net-work[]simplex(),
+Overfull \hbox (29.31227pt too wide) in paragraph at lines 825--826
+\OT1/cmr/m/n/12 max[]flow(), max[]flow[]preflowpush(), min[]cost[]flow(), min-i
+-mum[]spanning[]tree[]kruskal(),
  []
 
 
-Overfull \hbox (43.4774pt too wide) in paragraph at lines 825--826
-\OT1/cmr/m/n/12 page[]rank(), print[]flow(), pro-cess[]edge[]dijkstra(), pro-ce
-ss[]edge[]flow(), pro-cess[]edge[]prim(),
+Overfull \hbox (10.1208pt too wide) in paragraph at lines 825--826
+\OT1/cmr/m/n/12 cess[]edge[]dijkstra(), pro-cess[]edge[]flow(), pro-cess[]edge[
+]prim(), pro-cess[]edge[]search(),
  []
 
 
-Overfull \hbox (62.49916pt too wide) in paragraph at lines 825--826
-\OT1/cmr/m/n/12 pro-cess[]edge[]search(), pro-cess[]node[]search(), ran-dom(), 
-re-la-bel(), search(), set[]display[]mode(),
+Overfull \hbox (27.77174pt too wide) in paragraph at lines 825--826
+\OT1/cmr/m/n/12 pro-cess[]node[]search(), ran-dom(), re-la-bel(), search(), set
+[]display[]mode(), set[]edge[]attr(),
  []
 
 
-Overfull \hbox (2.87505pt too wide) in paragraph at lines 825--826
-\OT1/cmr/m/n/12 set[]edge[]attr(), set[]layout(), set[]node[]attr(), show[]flow
-(), sim-plex[]augment[]cycle(),
+Overfull \hbox (78.98814pt too wide) in paragraph at lines 825--826
+\OT1/cmr/m/n/12 set[]layout(), set[]node[]attr(), show[]flow(), sim-plex[]augme
+nt[]cycle(), sim-plex[]compute[]potentials(),
  []
 
 
-Overfull \hbox (1.00813pt too wide) in paragraph at lines 825--826
-\OT1/cmr/m/n/12 sim-plex[]compute[]potentials(), sim-plex[]connect(), sim-plex[
-]determine[]leaving[]arc(),
+Overfull \hbox (53.4648pt too wide) in paragraph at lines 825--826
+\OT1/cmr/m/n/12 sim-plex[]connect(), sim-plex[]determine[]leaving[]arc(), sim-p
+lex[]find[]cycle(), sim-plex[]find[]tree(),
  []
 
 
-Overfull \hbox (63.56969pt too wide) in paragraph at lines 825--826
-\OT1/cmr/m/n/12 sim-plex[]find[]cycle(), sim-plex[]find[]tree(), sim-plex[]iden
-tify[]cycle(), sim-plex[]mark[]entering[]arc(),
+Overfull \hbox (5.62975pt too wide) in paragraph at lines 825--826
+\OT1/cmr/m/n/12 sim-plex[]mark[]st[]arcs(), sim-plex[]optimal(), sim-plex[]redr
+aw(), sim-plex[]remove[]arc(),
  []
 
 
-Overfull \hbox (35.97054pt too wide) in paragraph at lines 825--826
-\OT1/cmr/m/n/12 sim-plex[]mark[]leaving[]arc(), sim-plex[]mark[]st[]arcs(), sim
--plex[]optimal(), sim-plex[]redraw(),
+Overfull \hbox (16.02187pt too wide) in paragraph at lines 825--826
+\OT1/cmr/m/n/12 sim-plex[]search(), sim-plex[]select[]entering[]arc(), strong[]
+connect(), tar-jan(), to[]string(),
  []
 
-
-Overfull \hbox (24.88649pt too wide) in paragraph at lines 825--826
-\OT1/cmr/m/n/12 sim-plex[]remove[]arc(), sim-plex[]search(), sim-plex[]select[]
-entering[]arc(), strong[]connect(),
- []
-
-[59]
+[61]
 Overfull \hbox (59.00017pt too wide) in paragraph at lines 831--832
 [][][]\OT1/cmr/m/n/12 delattr[][](), [][]format[][](), [][]getattribute[][](), 
 [][]hash[][](), [][]new[][](), [][]reduce[][](), [][]reduce[]ex[][](),
  []
 
-) [60] (C:\cygwin\home\ted\COIN\GiMPy\docs\pdf\api.ind
+) [62] (C:\cygwin\home\ted\COIN\GiMPy\docs\pdf\api.ind
 Overfull \hbox (2.53183pt too wide) in paragraph at lines 5--7
 []| \OT1/cmr/m/n/12 coinor.gimpy.global[]constants \OT1/cmr/m/it/12 (mod-ule)\O
 T1/cmr/m/n/12 ,
  []
 
-[61
+[63
 
 
 
@@ -1899,27 +1988,21 @@ x) (C:\cygwin\home\ted\COIN\GiMPy\docs\pdf\coinor.gimpy.graph-module.aux)
 (C:\cygwin\home\ted\COIN\GiMPy\docs\pdf\coinor.gimpy.tree-module.aux))
 Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 124.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 124.
+Package rerunfilecheck Info: File `api.out' has not changed.
+(rerunfilecheck)             Checksum: 2316EC5A6F736BDD317E29DC154EC3CA;2142.
 
-
-Package rerunfilecheck Warning: File `api.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `api.out':
-(rerunfilecheck)             Before: 0E59F54153556C7174C54FB88C90D72E;2099
-(rerunfilecheck)             After:  2316EC5A6F736BDD317E29DC154EC3CA;2142.
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 124.
  ) 
 Here is how much of TeX's memory you used:
- 5756 strings out of 494046
- 87632 string characters out of 3148412
- 182571 words of memory out of 3000000
- 8940 multiletter control sequences out of 15000+200000
+ 5759 strings out of 494046
+ 87735 string characters out of 3148412
+ 182742 words of memory out of 3000000
+ 8943 multiletter control sequences out of 15000+200000
  13889 words of font info for 53 fonts, out of 3000000 for 9000
  715 hyphenation exceptions out of 8191
- 32i,12n,43p,1686b,452s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 32i,12n,43p,1736b,452s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on api.dvi (61 pages, 210088 bytes).
+Output written on api.dvi (63 pages, 214448 bytes).
