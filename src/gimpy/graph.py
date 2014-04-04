@@ -3018,10 +3018,11 @@ After installation, ensure that the PATH variable is properly set.'''
             print args['algo'], 'is not a defined algorithm. Exiting.'
             return
 
-    def random(self, numnodes = 10, degree_range = None, length_range = None,
+    def random(self, numnodes = 10, degree_range = (2, 4), length_range = (1, 10),
                density = None, edge_format = None, node_format = None,
                Euclidean = False, seedInput = 0, add_labels = True,
-               parallel_allowed = False):
+               parallel_allowed = False, node_selection = 'closest',
+               scale = 10, scale_cost = 10):
         '''
         API:
             random(self, numnodes = 10, degree_range = None, length_range = None,
@@ -3067,7 +3068,7 @@ After installation, ensure that the PATH variable is properly set.'''
                     degree = random.randint(degree_range[0], degree_range[1])
                     i = 0
                     while i < degree:
-                        n = random.randint(1, numnodes)
+                        n = random.randint(1, numnodes-1)
                         if (((m,n) not in self.edge_attr and m != n) and
                             (parallel_allowed or (n, m) not in self.edge_attr)):
                                 if length_range is not None:
@@ -3104,29 +3105,47 @@ After installation, ensure that the PATH variable is properly set.'''
             for m in range(numnodes):
                 ''' Assigns random coordinates (between 1 and 20) to the nodes
                 '''
-                self.add_node(m, locationx = random.randint(1, 20),
-                              locationy = random.randint(1, 20), **node_format)
+                x = random.random()*scale
+                y = random.random()*scale
+                self.add_node(m, locationx = x, locationy = y, 
+                              pos = '"'+str(x) + "," + str(y)+'!"',
+                              **node_format)
             if degree_range is not None:
                 for m in range(numnodes):
                     degree = random.randint(degree_range[0], degree_range[1])
                     i = 0
-                    while i < degree:
-                        n = random.randint(0, numnodes-1)
-                        if (((m,n) not in self.edge_attr and m != n) and
-                            (parallel_allowed or (n, m) not in self.edge_attr)):
-                            if length_range is None:
-                                ''' calculates the euclidean norm and round it
-                                to an integer '''
-                                length = round((((self.get_node(n).get_attr('locationx') -
-                                                  self.get_node(m).get_attr('locationx')) ** 2 +
-                                                 (self.get_node(n).get_attr('locationy') -
-                                                  self.get_node(m).get_attr('locationy')) ** 2) ** 0.5), 0)
+                    neighbors = []
+                    if node_selection is 'random':
+                        while i < degree:
+                            length = round((((self.get_node(n).get_attr('locationx') -
+                                              self.get_node(m).get_attr('locationx')) ** 2 +
+                                             (self.get_node(n).get_attr('locationy') -
+                                              self.get_node(m).get_attr('locationy')) ** 2) ** 0.5)*scale_cost, 
+                                           0)
+                            if (((m,n) not in self.edge_attr and m != n) and
+                                (parallel_allowed or (n, m) not in self.edge_attr)):
+                                neighbors.append(random.randint(0, numnodes-1))
                                 self.add_edge(m, n, cost = int(length), **edge_format)
                                 if add_labels:
                                     self.set_edge_attr(m, n, 'label', str(int(length)))
-                            else:
-                                self.add_edge(m, n, **edge_format)
-                            i += 1
+                                i += 1
+                    elif node_selection is 'closest':
+                        lengths = []
+                        for n in range(numnodes):
+                            lengths.append((n, round((((self.get_node(n).get_attr('locationx') -
+                                                        self.get_node(m).get_attr('locationx')) ** 2 +
+                                                       (self.get_node(n).get_attr('locationy') -
+                                                        self.get_node(m).get_attr('locationy')) ** 2) ** 0.5)*scale_cost, 
+                                                     0)))
+                        lengths.sort(key = lambda l : l[1])
+                        for i in range(degree+1):
+                            if not (lengths[i][0] == m or self.check_edge(m, lengths[i][0])):
+                                self.add_edge(m, lengths[i][0], cost = int(lengths[i][1]), **edge_format)
+                                if add_labels:
+                                    self.set_edge_attr(m, lengths[i][0], 'label', str(int(lengths[i][1])))
+                    else:
+                        print "Unknown node selection rule...exiting"
+                        return
             elif density != None:
                 for m in range(numnodes):
                     if self.graph_type == DIRECTED_GRAPH:
@@ -3369,4 +3388,3 @@ if __name__ == '__main__':
     G.set_display_mode('pygame')
     G.display()
     G.dfs(0)
-

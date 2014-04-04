@@ -3,17 +3,19 @@ try:
 except ImportError:
     from coinor.gimpy import Graph, UNDIRECTED_GRAPH
 
-G = Graph(type = UNDIRECTED_GRAPH, splines = 'true', K = 1.5)
-G.random(numnodes = 7, density = 0.7, Euclidean = False, seedInput = 9)
+G = Graph(type = UNDIRECTED_GRAPH, splines = 'true', K = 0.5)
+G.random(numnodes = 15, Euclidean = True, seedInput = 11, scale_cost = 5)
 #G = Graph(type = DIRECTED_GRAPH, splines = 'true', K = 2)
 #    G.random(numnodes = 15, density = 0.4, degree_range=(1, 4), Euclidean = True, seedInput = 3)
 #    G.random(numnodes = 7, density = 0.7, length_range = (1, 10), seedInput = 5)
 #G.random(numnodes = 7, density = 0.7, Euclidean = True,
 #         seedInput = 9, add_labels = True)
-G.set_display_mode('pygame')
+G.set_display_mode('xdot')
 G.display()
 #G.dfs(0)
-G.search(0, display = 'pygame', algo = 'BFS')
+G.search(0, display = 'pygame', algo = 'Dijkstra')
+G.set_display_mode('xdot')
+G.display()
         
 
 #    G.random(numnodes = 10, density = 0.5, seedInput = 5)

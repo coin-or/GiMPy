@@ -40,7 +40,7 @@ if __name__=='__main__':
     g.add_edge(5, 7, cost=0, capacity=2, label='(0, 2)')
     g.set_display_mode('pygame')
     g.display()
-
+    
 #    g.cycle_canceling('pygame')
     g.min_cost_flow(algo='cycle_canceling')
 #    g.max_flow(1, 7)
