@@ -1099,23 +1099,23 @@ class Graph(object):
             else:
                 neighbor_node.set_attr('label', 0)
             return
-        current_priority = neighbor_node.get_attr('priority')
+        current_priority = q.get_priority(neighbor)
         if algo == 'UnweightedSPT' or algo == 'BFS':
             priority = self.get_node(current).get_attr('distance') + 1
-            neighbor_node.set_attr('distance', priority)
         if algo == 'DFS':
             priority = -self.get_node(current).get_attr('depth') - 1
-            neighbor_node.set_attr('depth', -priority)
         if current_priority is not None and priority >= current_priority:
             return
         q.push(neighbor, priority)
+        if algo == 'UnweightedSPT' or algo == 'BFS':
+            neighbor_node.set_attr('distance', priority)
+        if algo == 'DFS':
+            neighbor_node.set_attr('depth', -priority)
         pred[neighbor] = current
         neighbor_node.set_attr('color', 'red')
         if component != None:
             neighbor_node.set_attr('component', component)
             neighbor_node.set_attr('label', component)
-#            self.get_node(neighbor).set_attr('color', 'black')
-#            self.display()
         else:
             if algo == 'DFS':
                 neighbor_node.set_attr('label', str(-priority))
