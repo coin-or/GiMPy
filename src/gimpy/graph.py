@@ -3236,32 +3236,43 @@ After installation, ensure that the PATH variable is properly set.'''
         return degree
 
     def get_diameter(self):
+        '''
+        API:
+            get_diameter(self)
+        Description:
+            Returns diameter of the graph. Diameter is defined as follows.
+            distance(n,m): shortest unweighted path from n to m
+            eccentricity(n) = $\max _m distance(n,m)$
+            diameter = $\min _n eccentricity(n) = \min _n \max _m distance(n,m)$
+        Return:
+            Returns diameter of the graph.
+        '''
 
         diameter=[]
         current_max=-1
         for n in self.get_node_list():
-                path_n_m = self.search(0, n, algo= 'BFS')
-                if isinstance(path_n_m, dict):
-                    # this indicates there is no path from n to m, no diameter
-                    # is defined, since the graph is not connected, return
-                    # 'infinity'
-                    return self.get_node_num() + 1
-                distance= (len(path_n_m)-1)
-                #print(n,distance)
-                if distance > current_max:
-                    current_max= distance
-                    furthest_node= n
-                #print furthest_node
+            path_n_m = self.search(0, n, algo= 'BFS')
+            if isinstance(path_n_m, dict):
+                # this indicates there is no path from n to m, no diameter
+                # is defined, since the graph is not connected, return
+                # 'infinity'
+                return self.get_node_num() + 1
+            distance= (len(path_n_m)-1)
+            #print(n,distance)
+            if distance > current_max:
+                current_max= distance
+                furthest_node= n
+            #print furthest_node
         for k in self.get_node_list():
-                path_n_m = self.search(furthest_node, k, algo= 'BFS')
-                if isinstance(path_n_m, dict):
-                    # this indicates there is no path from n to m, no diameter
-                    # is defined, since the graph is not connected, return
-                    # 'infinity'
-                    return self.get_node_num() + 1
-                diameter.append(len(path_n_m)-1)
+            path_n_m = self.search(furthest_node, k, algo= 'BFS')
+            if isinstance(path_n_m, dict):
+                # this indicates there is no path from n to m, no diameter
+                # is defined, since the graph is not connected, return
+                # 'infinity'
+                return self.get_node_num() + 1
+            diameter.append(len(path_n_m)-1)
 
-                #print furthest_node
+            #print furthest_node
         return max(diameter)
 
     def create_cluster(self, node_list, cluster_attrs={}, node_attrs={}):
