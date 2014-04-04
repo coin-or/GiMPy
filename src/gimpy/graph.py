@@ -3248,32 +3248,22 @@ After installation, ensure that the PATH variable is properly set.'''
             Returns diameter of the graph.
         '''
 
-        diameter=[]
-        current_max=-1
+        diameter = 'infinity'
+        eccentricity_n = 0
         for n in self.get_node_list():
-            path_n_m = self.search(0, n, algo= 'BFS')
-            if isinstance(path_n_m, dict):
-                # this indicates there is no path from n to m, no diameter
-                # is defined, since the graph is not connected, return
-                # 'infinity'
-                return self.get_node_num() + 1
-            distance= (len(path_n_m)-1)
-            #print(n,distance)
-            if distance > current_max:
-                current_max= distance
-                furthest_node= n
-            #print furthest_node
-        for k in self.get_node_list():
-            path_n_m = self.search(furthest_node, k, algo= 'BFS')
-            if isinstance(path_n_m, dict):
-                # this indicates there is no path from n to m, no diameter
-                # is defined, since the graph is not connected, return
-                # 'infinity'
-                return self.get_node_num() + 1
-            diameter.append(len(path_n_m)-1)
-
-            #print furthest_node
-        return max(diameter)
+            for m in self.get_node_list():
+                path_n_m = self.shortest_unweighted_path(n, m)
+                if path_n_m is None:
+                    # this indicates there is no path from n to m, no diameter
+                    # is defined, since the graph is not connected, return
+                    # 'infinity'
+                    return 'infinity'
+                distance_n_m = len(path_n_m)-1
+                if distance_n_m > eccentricity_n:
+                    eccentricity_n = distance_n_m
+            if diameter is 'infinity' or diameter > eccentricity_n:
+                diameter = eccentricity_n
+        return diameter
 
     def create_cluster(self, node_list, cluster_attrs={}, node_attrs={}):
         '''
