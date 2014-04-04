@@ -438,9 +438,9 @@ class BinaryTree(Tree):
                 self.display(highlight = [root])
             self.printexp(display, self.get_left_child(root))
         if isinstance(root, Node):
-            print root.get_attr('label')
+            print root.name,
         else:
-            print self.get_node_attr(root, 'label'),
+            print root,
         if display:
                 self.display(highlight = [root])
         if self.get_right_child(root):
@@ -463,26 +463,36 @@ class BinaryTree(Tree):
                 self.display(highlight = [root])
             res1 = self.postordereval(display, self.get_left_child(root))
         if isinstance(root, Node):
-            print root.get_attr('label')
+            print root.name,
         else:
-            print self.get_node_attr(root, 'label'),
+            print root,
         if display:
                 self.display(highlight = [root])
         if self.get_right_child(root):
             res2 = self.postordereval(display, self.get_right_child(root))
         if res1 and res2:
             if isinstance(root, Node):
-                val = root.get_attr('label')
+                val = root.name
             else:
-                val = self.get_node_attr(root, 'label')
+                val = root
             print '=', opers[val](res1 , res2)
             if display:
                 self.display(highlight = [root])
             print opers[val](res1 , res2),
             return opers[val](res1 , res2)
         else:
-            return int(self.get_node_attr(root, 'label'))
+            return int(root)
 
 
 if __name__ == '__main__':
-    pass
+
+    T = BinaryTree(display = 'pygame')
+    T.add_root('*')
+    T.add_left_child('+', '*')
+    T.add_left_child('4', '+')
+    T.add_right_child('5', '+')
+    T.add_right_child('7', '*')
+    T.printexp()
+    print
+    T.postordereval()
+
