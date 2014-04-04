@@ -913,16 +913,24 @@ class Graph(object):
             display = self.attr['display']
         else:
             self.set_display_mode(display)
+        if algo == 'DFS':
+            q = Stack()
+            self.get_node(source).set_attr('component', component)
+        elif algo == 'BFS' or algo == 'UnweightedSPT':
+            q = Queue()
+            self.get_node(source).set_attr('component', component)
+        elif algo == 'Dijkstra' or algo == 'Prim':
+            q = PriorityQueue()
+        else:
+            print "Unknown search algorithm...exiting"
+            return
         neighbors = self.neighbors
         if self.graph_type == DIRECTED_GRAPH and reverse:
             neighbors = self.in_neighbors
         for i in self.get_node_list():
             self.get_node(i).set_attr('label', '-')
             self.get_node(i).attr.pop('priority', None)
-            if algo == 'UnweightedSPT' or algo == 'BFS':
-                self.get_node(i).set_attr('distance', 0)
-            else:
-                self.get_node(i).set_attr('depth', 0)
+            self.get_node(i).set_attr('distance', None)
             self.get_node(i).set_attr('color', 'black')
             for j in neighbors[i]:
                 if reverse:
@@ -930,8 +938,6 @@ class Graph(object):
                 else:
                     self.set_edge_attr(i, j, 'color', 'black')
         self.display()
-        if q == None:
-            q = PriorityQueue()
         pred = {}
         self.process_edge_search(None, source, pred, q, component, algo,
                                  **kargs)
@@ -940,6 +946,9 @@ class Graph(object):
             found = False
         while not q.isEmpty() and not found:
             current = q.peek()
+            if self.get_node(current).get_attr('color') == 'green':
+                q.remove(current)
+                continue
             self.process_node_search(current, q, **kargs)
             self.get_node(current).set_attr('color', 'blue')
             if current != source:
@@ -1088,10 +1097,7 @@ class Graph(object):
                                           component)
         neighbor_node = self.get_node(neighbor)
         if current == None:
-            if algo == 'UnweightedSPT' or algo == 'BFS':
-                neighbor_node.set_attr('distance', 0)
-            else:
-                neighbor_node.set_attr('depth', 0)
+            neighbor_node.set_attr('distance', 0)
             q.push(neighbor)
             if component != None:
                 neighbor_node.set_attr('component', component)
@@ -1099,28 +1105,32 @@ class Graph(object):
             else:
                 neighbor_node.set_attr('label', 0)
             return
-        current_priority = q.get_priority(neighbor)
-        if algo == 'UnweightedSPT' or algo == 'BFS':
-            priority = self.get_node(current).get_attr('distance') + 1
-        if algo == 'DFS':
-            priority = -self.get_node(current).get_attr('depth') - 1
-        if current_priority is not None and priority >= current_priority:
-            return
-        q.push(neighbor, priority)
-        if algo == 'UnweightedSPT' or algo == 'BFS':
-            neighbor_node.set_attr('distance', priority)
-        if algo == 'DFS':
-            neighbor_node.set_attr('depth', -priority)
+        if isinstance(q, PriorityQueue):
+            current_priority = q.get_priority(neighbor)
+            if algo == 'UnweightedSPT' or algo == 'BFS':
+                priority = self.get_node(current).get_attr('distance') + 1
+            if algo == 'DFS':
+                priority = -self.get_node(current).get_attr('distance') - 1
+            if current_priority is not None and priority >= current_priority:
+                return
+            q.push(neighbor, priority)
+            if algo == 'UnweightedSPT' or algo == 'BFS':
+                neighbor_node.set_attr('distance', priority)
+            if algo == 'DFS':
+                neighbor_node.set_attr('depth', -priority)
+        else:
+            distance = self.get_node(current).get_attr('distance') + 1
+            if (algo == 'UnweightedSPT' or algo == 'BFS' and
+                neighbor_node.get_attr('distance') is not None):
+                return
+            neighbor_node.set_attr('distance', distance)
+            neighbor_node.set_attr('label', str(distance))
+            q.push(neighbor)
         pred[neighbor] = current
         neighbor_node.set_attr('color', 'red')
         if component != None:
             neighbor_node.set_attr('component', component)
             neighbor_node.set_attr('label', component)
-        else:
-            if algo == 'DFS':
-                neighbor_node.set_attr('label', str(-priority))
-            else:
-                neighbor_node.set_attr('label', str(priority))
         self.display()
 
     def minimum_spanning_tree_prim(self, source, display = None,
@@ -3022,7 +3032,7 @@ After installation, ensure that the PATH variable is properly set.'''
                density = None, edge_format = None, node_format = None,
                Euclidean = False, seedInput = 0, add_labels = True,
                parallel_allowed = False, node_selection = 'closest',
-               scale = 10, scale_cost = 10):
+               scale = 10, scale_cost = 5):
         '''
         API:
             random(self, numnodes = 10, degree_range = None, length_range = None,
@@ -3384,8 +3394,14 @@ class DisjointSet(Graph):
 
 if __name__ == '__main__':
     G = Graph(type = UNDIRECTED_GRAPH, splines = 'true', K = 1.5)
-    G.random(numnodes = 7, density = 0.7, Euclidean = True,
-             seedInput = 9, add_labels = False)
+    G.random(numnodes = 10, Euclidean = True, seedInput = 11, 
+             #add_labels = True,
+             #scale = 10,
+             #scale_cost = 10,
+             #degree_range = (2, 4),
+             #length_range = (1, 10)
+             )
     G.set_display_mode('pygame')
     G.display()
-    G.dfs(0)
+    #G.dfs(0)
+    G.search(0, display = 'pygame', algo = 'Dijkstra')
