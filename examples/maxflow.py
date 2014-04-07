@@ -40,8 +40,8 @@ if __name__=='__main__':
     g.add_edge(5, 7, capacity=20, label='20')
     g.set_display_mode('pygame')
 
-    g.max_flow_preflowpush(1, 7, algo = 'HighestLabel')
-#    g.max_flow(1, 7)
+#    g.max_flow_preflowpush(1, 7, algo = 'HighestLabel')
+    g.max_flow(1, 7, algo = 'BFS')
     
     nl = list(int(n) for n in g.get_node_list())
     nl.sort()

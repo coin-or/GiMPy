@@ -1747,7 +1747,7 @@ After installation, ensure that the PATH variable is properly set.'''
         '''
         self.attr['display'] = value
 
-    def max_flow(self, source, sink, display=None):
+    def max_flow(self, source, sink, display = None, algo = 'DFS'):
         '''
         API: max_flow(self, source, sink, display=None)
         Description:
@@ -1779,8 +1779,11 @@ After installation, ensure that the PATH variable is properly set.'''
                 self.edge_attr[e]['label'] = 'INF/0'
         while True:
             # find an augmenting path from source to sink using DFS
-            dfs_stack = []
-            dfs_stack.append(source)
+            if algo == 'DFS':
+                q = Stack()
+            elif algo == 'BFS':
+                q = Queue()
+            q.push(source)
             pred = {source:None}
             explored = [source]
             for n in nl:
@@ -1793,8 +1796,9 @@ After installation, ensure that the PATH variable is properly set.'''
                 else:
                     self.edge_attr[e]['color'] = 'green'
             self.display()
-            while dfs_stack:
-                current = dfs_stack.pop()
+            while not q.isEmpty():
+                current = q.peek()
+                q.remove(current)
                 if current == sink:
                     break
                 out_neighbor = self.neighbors[current]
@@ -1821,7 +1825,7 @@ After installation, ensure that the PATH variable is properly set.'''
                             self.set_edge_attr(m, current, 'color', 'blue')
                         explored.append(m)
                         pred[m] = current
-                        dfs_stack.append(m)
+                        q.push(m)
                     else:
                         self.get_node(m).set_attr('color', 'black')
                         if m in out_neighbor:
