@@ -262,6 +262,26 @@ class Graph(object):
         data = data[:-1]
         return data
 
+    def __contains__(self, item):
+        '''
+        API: __contains__(self, item)
+        Description:
+        Return true if item is in graph. item can be a node name or a tuple
+        that represents an edge.
+        Return:
+            True if item is in graph.
+        '''
+        if isinstance(item, tuple):
+            name1 = item[0]
+            name2 = item[1]
+            if self.graph_type is DIRECTED_GRAPH:
+                return (name1, name2) in self.edge_attr
+            else:
+                return ((name1, name2) in self.edge_attr or
+                        (name2, name1) in self.edge_attr)
+        else:
+            return item in self.nodes
+
     def add_node(self, name, **attr):
         '''
         API: add_node(self, name, **attr)
@@ -3121,7 +3141,7 @@ After installation, ensure that the PATH variable is properly set.'''
                 '''
                 x = random.random()*scale
                 y = random.random()*scale
-                self.add_node(m, locationx = x, locationy = y, 
+                self.add_node(m, locationx = x, locationy = y,
                               pos = '"'+str(x) + "," + str(y)+'!"',
                               **node_format)
             if degree_range is not None:
@@ -3134,7 +3154,7 @@ After installation, ensure that the PATH variable is properly set.'''
                             length = round((((self.get_node(n).get_attr('locationx') -
                                               self.get_node(m).get_attr('locationx')) ** 2 +
                                              (self.get_node(n).get_attr('locationy') -
-                                              self.get_node(m).get_attr('locationy')) ** 2) ** 0.5)*scale_cost, 
+                                              self.get_node(m).get_attr('locationy')) ** 2) ** 0.5)*scale_cost,
                                            0)
                             if (((m,n) not in self.edge_attr and m != n) and
                                 (parallel_allowed or (n, m) not in self.edge_attr)):
@@ -3149,7 +3169,7 @@ After installation, ensure that the PATH variable is properly set.'''
                             lengths.append((n, round((((self.get_node(n).get_attr('locationx') -
                                                         self.get_node(m).get_attr('locationx')) ** 2 +
                                                        (self.get_node(n).get_attr('locationy') -
-                                                        self.get_node(m).get_attr('locationy')) ** 2) ** 0.5)*scale_cost, 
+                                                        self.get_node(m).get_attr('locationy')) ** 2) ** 0.5)*scale_cost,
                                                      0)))
                         lengths.sort(key = lambda l : l[1])
                         for i in range(degree+1):
@@ -3398,7 +3418,7 @@ class DisjointSet(Graph):
 
 if __name__ == '__main__':
     G = Graph(type = UNDIRECTED_GRAPH, splines = 'true', K = 1.5)
-    G.random(numnodes = 10, Euclidean = True, seedInput = 11, 
+    G.random(numnodes = 10, Euclidean = True, seedInput = 11,
              #add_labels = True,
              #scale = 10,
              #scale_cost = 10,
