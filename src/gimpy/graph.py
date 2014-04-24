@@ -1228,7 +1228,7 @@ class Graph(object):
             self.set_display_mode(display)
         if components is None:
             components = DisjointSet(display = display, layout = 'dot',
-                                     optimize = True)
+                                     optimize = False)
         sorted_edge_list = sorted(self.get_edge_list(), key=self.get_edge_cost)
         edges = []
         for n in self.get_node_list():
@@ -3286,7 +3286,7 @@ After installation, ensure that the PATH variable is properly set.'''
         eccentricity_n = 0
         for n in self.get_node_list():
             for m in self.get_node_list():
-                path_n_m = self.shortest_unweighted_path(n, m)
+                path_n_m = self.search(n, destination = m, algo = 'BFS')
                 if path_n_m is None:
                     # this indicates there is no path from n to m, no diameter
                     # is defined, since the graph is not connected, return
@@ -3295,7 +3295,7 @@ After installation, ensure that the PATH variable is properly set.'''
                 distance_n_m = len(path_n_m)-1
                 if distance_n_m > eccentricity_n:
                     eccentricity_n = distance_n_m
-            if diameter is 'infinity' or diameter > eccentricity_n:
+            if diameter is 'infinity' or eccentricity_n > diameter:
                 diameter = eccentricity_n
         return diameter
 
