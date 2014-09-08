@@ -9,3 +9,7 @@ visualization and are thus appropriate for use in the classroom.
 Documentation for the API is here:
 
 http://pythonhosted.org/coinor.gimpy
+
+Installation:
+
+easy_install coinor.gimpy
