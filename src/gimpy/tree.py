@@ -433,9 +433,9 @@ class BinaryTree(Tree):
         if display == None:
             display = self.attr['display']
         if self.get_left_child(root):
-            print '(',
             if display:
                 self.display(highlight = [root])
+            print '(',
             self.printexp(display, self.get_left_child(root))
         if isinstance(root, Node):
             print root.name,
@@ -492,7 +492,7 @@ if __name__ == '__main__':
     T.add_left_child('4', '+')
     T.add_right_child('5', '+')
     T.add_right_child('7', '*')
-    T.printexp()
+    #T.printexp()
     print
     T.postordereval()
 

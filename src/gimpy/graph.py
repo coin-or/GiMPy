@@ -71,6 +71,15 @@ import os         # for close()
 import operator   # for itemgetter()
 
 try:
+    import pygtk
+    import gtk
+    import xdot
+except ImportError:
+    XDOT_INSTALLED = False
+else:
+    XDOT_INSTALLED = True
+
+try:
     import pygame # for locals.QUIT, locals.KEYDOWN,display,image,event,init
 except ImportError:
     PYGAME_INSTALLED = False
@@ -90,15 +99,6 @@ except ImportError:
     PIL_INSTALLED = False
 else:
     PIL_INSTALLED = True
-
-try:
-    import pygtk
-    import gtk
-    import xdot
-except ImportError:
-    XDOT_INSTALLED = False
-else:
-    XDOT_INSTALLED = True
 
 try:
     import lxml # for etree
@@ -1677,8 +1677,8 @@ After installation, ensure that the PATH variable is properly set.'''
         if highlight != None:
             for n in highlight:
                 if not isinstance(n, Node):
-                    m = self.get_node(n)
-                    m.set_attr('color', 'red')
+                    n = self.get_node(n)                    
+                n.set_attr('color', 'red')
         if self.attr['display'] == 'file':
             if self.get_layout() == 'dot2tex':
                 if DOT2TEX_INSTALLED:
@@ -1751,8 +1751,8 @@ After installation, ensure that the PATH variable is properly set.'''
         if highlight != None:
             for n in highlight:
                 if not isinstance(n, Node):
-                    m = self.get_node(n)
-                    m.set_attr('color', 'black')
+                    n = self.get_node(n)
+                n.set_attr('color', 'black')
 
     def set_display_mode(self, value):
         '''
@@ -3419,7 +3419,7 @@ class DisjointSet(Graph):
 if __name__ == '__main__':
     G = Graph(type = UNDIRECTED_GRAPH, splines = 'true', K = 1.5)
     G.random(numnodes = 10, Euclidean = True, seedInput = 11,
-             #add_labels = True,
+             add_labels = False,
              #scale = 10,
              #scale_cost = 10,
              #degree_range = (2, 4),
@@ -3428,4 +3428,4 @@ if __name__ == '__main__':
     G.set_display_mode('pygame')
     G.display()
     #G.dfs(0)
-    G.search(0, display = 'pygame', algo = 'Dijkstra')
+    G.search(0, display = 'pygame', algo = 'DFS')

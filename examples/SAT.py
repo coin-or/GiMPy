@@ -1,4 +1,7 @@
-from coinor.gimpy import Graph
+try:
+    from src.gimpy import Graph
+except ImportError:
+    from coinor.gimpy import Graph
 
 if __name__ == '__main__':
     G = Graph(graph_type = 'digraph', splines = 'true', layout = 'dot2tex', 
@@ -32,7 +35,7 @@ if __name__ == '__main__':
     G.add_edge('4', '9', label = r'x_3 = \text{TRUE}')
     G.add_edge('4', '10', label = r'x_3 = \text{FALSE}')
     
-    G.set_display_mode('file')
+    G.set_display_mode('xdot')
 
     print G
 
