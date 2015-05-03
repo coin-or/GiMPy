@@ -934,13 +934,16 @@ class Graph(object):
         else:
             self.set_display_mode(display)
         if algo == 'DFS':
-            q = Stack()
+            if q is None:
+                q = Stack()
             self.get_node(source).set_attr('component', component)
         elif algo == 'BFS' or algo == 'UnweightedSPT':
-            q = Queue()
+            if q is None:
+                q = Queue()
             self.get_node(source).set_attr('component', component)
         elif algo == 'Dijkstra' or algo == 'Prim':
-            q = PriorityQueue()
+            if q is None:
+                q = PriorityQueue()
         else:
             print "Unknown search algorithm...exiting"
             return
@@ -1228,7 +1231,7 @@ class Graph(object):
             self.set_display_mode(display)
         if components is None:
             components = DisjointSet(display = display, layout = 'dot',
-                                     optimize = False)
+                                     optimize = True)
         sorted_edge_list = sorted(self.get_edge_list(), key=self.get_edge_cost)
         edges = []
         for n in self.get_node_list():
@@ -3418,14 +3421,15 @@ class DisjointSet(Graph):
 
 if __name__ == '__main__':
     G = Graph(type = UNDIRECTED_GRAPH, splines = 'true', K = 1.5)
-    G.random(numnodes = 10, Euclidean = True, seedInput = 11,
-             add_labels = False,
-             #scale = 10,
-             #scale_cost = 10,
+    G.random(numnodes = 10, Euclidean = False, seedInput = 11,
+             add_labels = True,
+             scale = 10,
+             scale_cost = 10,
              #degree_range = (2, 4),
              #length_range = (1, 10)
              )
     G.set_display_mode('pygame')
     G.display()
     #G.dfs(0)
-    G.search(0, display = 'pygame', algo = 'DFS')
+    #G.search(0, display = 'pygame', algo = 'Prim')
+    G.minimum_spanning_tree_kruskal()
