@@ -1046,7 +1046,7 @@ class Graph(object):
         if current is None:
             self.get_node(neighbor).set_attr('color', 'red')
             self.get_node(neighbor).set_attr('label', 0)
-            q.push(neighbor)
+            q.push(neighbor, 0)
             self.display()
             self.get_node(neighbor).set_attr('color', 'black')
             return
@@ -1079,7 +1079,7 @@ class Graph(object):
         if current is None:
             self.get_node(neighbor).set_attr('color', 'red')
             self.get_node(neighbor).set_attr('label', 0)
-            q.push(neighbor)
+            q.push(neighbor, 0)
             self.display()
             self.get_node(neighbor).set_attr('color', 'black')
             return
@@ -1121,7 +1121,7 @@ class Graph(object):
         neighbor_node = self.get_node(neighbor)
         if current == None:
             neighbor_node.set_attr('distance', 0)
-            q.push(neighbor)
+            q.push(neighbor, 0)
             if component != None:
                 neighbor_node.set_attr('component', component)
                 neighbor_node.set_attr('label', component)
