@@ -3252,7 +3252,7 @@ After installation, ensure that the PATH variable is properly set.'''
                 break
         return pagerank
 
-    def get_degree(self):
+    def get_degrees(self):
         '''
         API:
             get_degree(self)
@@ -3263,13 +3263,49 @@ After installation, ensure that the PATH variable is properly set.'''
             are corresponding degrees.
         '''
         degree = {}
-        if self.attr['type'] is UNDIRECTED_GRAPH:
+        if self.attr['type'] is not DIRECTED_GRAPH:
             for n in self.get_node_list():
                 degree[n] = len(self.get_neighbors(n))
-        elif self.attr['type'] is DIRECTED_GRAPH:
+            return degree
+        else:
             for n in self.get_node_list():
                 degree[n] = (len(self.get_in_neighbors(n)) +
-                         len(self.get_out_neighbors(n)))
+                             len(self.get_out_neighbors(n)))
+
+    def get_in_degrees(self):
+        '''
+        API:
+            get_degree(self)
+        Description:
+            Returns degrees of nodes in dictionary format.
+        Return:
+            Returns a dictionary of node degrees. Keys are node names, values
+            are corresponding degrees.
+        '''
+        degree = {}
+        if self.attr['type'] is not DIRECTED_GRAPH:
+            print 'This function only works for directed graphs'
+            return
+        for n in self.get_node_list():
+            degree[n] = len(self.get_in_neighbors(n))
+        return degree
+
+    def get_out_degrees(self):
+        '''
+        API:
+            get_degree(self)
+        Description:
+            Returns degrees of nodes in dictionary format.
+        Return:
+            Returns a dictionary of node degrees. Keys are node names, values
+            are corresponding degrees.
+        '''
+        degree = {}
+        if self.attr['type'] is not DIRECTED_GRAPH:
+            print 'This function only works for directed graphs'
+            return
+        for n in self.get_node_list():
+            degree[n] = len(self.get_out_neighbors(n))
         return degree
 
     def get_diameter(self):
@@ -3285,6 +3321,9 @@ After installation, ensure that the PATH variable is properly set.'''
             Returns diameter of the graph.
         '''
 
+        if self.attr['type'] is not UNDIRECTED_GRAPH:
+            print 'This function only works for undirected graphs'
+            return
         diameter = 'infinity'
         eccentricity_n = 0
         for n in self.get_node_list():
