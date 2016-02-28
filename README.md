@@ -12,22 +12,29 @@ http://pythonhosted.org/coinor.gimpy
 
 Installation:
 
-easy_install coinor.gimpy
+`easy_install coinor.gimpy`
 
 ##Installation Notes
 
-GIMPy depends on [GiMPy](https://github.com/coin-or/GiMPy), which will be 
-automatically installed as part of the setup. However, in order for GiMPy to
-visualize the branch-and-bound tree, it's necessary to install 
-[GraphViz](http://www.graphviz.org/Download.php) and choose one of these 
-additional methods for display:
-  * Recommanded: [xdot](https://pypi.python.org/pypi/xdot) along with 
+In order for GiMPy to visualize the graphs it produces, it's necessary to 
+install [GraphViz](http://www.graphviz.org/Download.php) and choose one of 
+these additional methods for display:
+  * Recommended: [xdot](https://pypi.python.org/pypi/xdot) along with 
     [PyGtk](http://www.pygtk.org/) and call `set_display_mode('xdot')`
   * [Python Imaging Library](http://www.pythonware.com/products/pil/) and 
     call `set_display_mode('PIL')`
   * [Pygame](pygame.org) and call `set_display_mode('pygame')`
   * Call `set_display_mode('file')` to just write files to disk that have to
-    then be opened manually. 
+    then be opened manually.
+
+It is also possible to typeset labels in LaTex and to output the graph in 
+LaTex format using `dot2tex`. After installing `dot2tex`, this can be done 
+by simply calling the method `write(basename='fileName', format='dot')`, and 
+then doing `dot2tex --tmath fileName.dot` or by calling 
+`set_display_mode('dot2tex')` and then `display()` as usual. At the moment,
+the latter only seems to work with version `2.9.0dev` available 
+[here](https://github.com/Alwnikrotikz/dot2tex). For the former method, just 
+using `easy_install dot2tex` should work fine.
 
 ##Examples
 
