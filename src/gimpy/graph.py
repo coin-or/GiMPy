@@ -1121,7 +1121,10 @@ class Graph(object):
         neighbor_node = self.get_node(neighbor)
         if current == None:
             neighbor_node.set_attr('distance', 0)
-            q.push(neighbor, 0)
+            if isinstance(q, PriorityQueue):
+                q.push(neighbor, 0)
+            else:
+                q.push(neighbor)
             if component != None:
                 neighbor_node.set_attr('component', component)
                 neighbor_node.set_attr('label', component)
