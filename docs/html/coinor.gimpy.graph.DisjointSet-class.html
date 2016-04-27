@@ -58,32 +58,14 @@
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class DisjointSet</h1><p class="nomargin-top"><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#DisjointSet">source&nbsp;code</a></span></p>
-<center>
-<center>  <map id="uml_class_diagram_for_coinor_g_3" name="uml_class_diagram_for_coinor_g_3">
-<area shape="rect" id="node1_18" href="coinor.gimpy.graph.DisjointSet-class.html#__init__" title="API: &#160;&#160;&#160;&#160;__init__(self, optimize = True, **attrs): Description: &#160;&#160;&#160;&#160;Class constructor." alt="" coords="89,377,304,396"/>
-<area shape="rect" id="node1_19" href="coinor.gimpy.graph.DisjointSet-class.html#add" title="API: &#160;&#160;&#160;&#160;add(self, aList) Description: &#160;&#160;&#160;&#160;Adds items in the list to the set." alt="" coords="89,396,304,415"/>
-<area shape="rect" id="node1_20" href="coinor.gimpy.graph.DisjointSet-class.html#union" title="API: &#160;&#160;&#160;&#160;union(self, i, j): Description: &#160;&#160;&#160;&#160;Finds sets of i and j and unites them." alt="" coords="89,415,304,433"/>
-<area shape="rect" id="node1_21" href="coinor.gimpy.graph.DisjointSet-class.html#find" title="API: &#160;&#160;&#160;&#160;find(self, i) Description: &#160;&#160;&#160;&#160;Returns root of set that has i." alt="" coords="89,433,304,452"/>
-<area shape="rect" id="node1" href="coinor.gimpy.graph.DisjointSet-class.html" title="Disjoint set data structure." alt="" coords="77,345,315,458"/>
-<area shape="rect" id="node2_22" href="coinor.gimpy.graph.Graph-class.html#__repr__" title="API: __repr__(self) Description: Returns string representation of the graph." alt="" coords="17,39,376,57"/>
-<area shape="rect" id="node2_23" href="coinor.gimpy.graph.Graph-class.html#add_node" title="API: add_node(self, name, **attr) Description: Adds node to the graph." alt="" coords="17,57,376,76"/>
-<area shape="rect" id="node2_24" href="coinor.gimpy.graph.Graph-class.html#del_node" title="API: del_node(self, name) Description: Removes node from Graph." alt="" coords="17,76,376,95"/>
-<area shape="rect" id="node2_25" href="coinor.gimpy.graph.Graph-class.html#add_edge" title="API: add_edge(self, name1, name2, **attr) Description: Adds edge to the graph." alt="" coords="17,95,376,113"/>
-<area shape="rect" id="node2_26" href="coinor.gimpy.graph.Graph-class.html#del_edge" title="API: del_edge(self, e) Description: Removes edge from graph." alt="" coords="17,113,376,132"/>
-<area shape="rect" id="node2_27" href="coinor.gimpy.graph.Graph-class.html#get_node" title="API: get_node(self, name) Description: Returns node object with the provided name." alt="" coords="17,132,376,151"/>
-<area shape="rect" id="node2_28" href="coinor.gimpy.graph.Graph-class.html#get_edge_cost" title="API: get_edge_cost(self, edge) Description: Returns cost attr of edge, required for minimum_spanning_tree_kruskal()." alt="" coords="17,151,376,169"/>
-<area shape="rect" id="node2_29" href="coinor.gimpy.graph.Graph-class.html#check_edge" title="API: check_edge(self, name1, name2) Description: Return True if edge exists, False otherwise." alt="" coords="17,169,376,188"/>
-<area shape="rect" id="node2_30" href="coinor.gimpy.graph.Graph-class.html#get_node_list" title="API: get_node_list(self) Description: Returns node list." alt="" coords="17,188,376,207"/>
-<area shape="rect" id="node2_31" href="coinor.gimpy.graph.Graph-class.html#get_edge_list" title="API: get_edge_list(self) Description: Returns edge list." alt="" coords="17,207,376,225"/>
-<area shape="rect" id="node2_32" href="coinor.gimpy.graph.Graph-class.html#get_node_num" title="API: get_node_num(self) Description: Returns number of nodes." alt="" coords="17,225,376,244"/>
-<area shape="rect" id="node2_33" href="coinor.gimpy.graph.Graph-class.html#get_edge_num" title="API: get_edge_num(self) Description: Returns number of edges." alt="" coords="17,244,376,263"/>
-<area shape="rect" id="node2_34" href="coinor.gimpy.graph.Graph-class.html#get_node_attr" title="API: get_node_attr(self, name, attr) Description: Returns attribute attr of given node." alt="" coords="17,263,376,281"/>
-<area shape="rect" id="node2_35" href="coinor.gimpy.graph.Graph-class.html#create_cluster" title="API: &#160;&#160;&#160;&#160;create_cluster(self, node_list, cluster_attrs, node_attrs) Description: &#160;&#160;&#160;&#160;Creates a cluster from the node given in the node list." alt="" coords="17,300,376,319"/>
-<area shape="rect" id="node2" href="coinor.gimpy.graph.Graph-class.html" title="Graph class, implemented using adjacency list." alt="" coords="5,6,387,325"/>
-</map>
-  <img src="uml_class_diagram_for_coinor_g_3.gif" alt='' usemap="#uml_class_diagram_for_coinor_g_3" ismap="ismap" class="graph-without-title" />
-</center>
-</center>
+<pre class="base-tree">
+object --+    
+         |    
+     <a href="coinor.gimpy.graph.Graph-class.html">Graph</a> --+
+             |
+            <strong class="uidshort">DisjointSet</strong>
+</pre>
+
 <hr />
 <p>Disjoint set data structure. Inherits Graph class.</p>
 
@@ -193,6 +175,7 @@ Description:
   <tr>
     <td colspan="2" class="summary">
     <p class="indent-wrapped-lines"><b>Inherited from <code><a href="coinor.gimpy.graph.Graph-class.html">Graph</a></code></b>:
+      <code><a href="coinor.gimpy.graph.Graph-class.html#__contains__">__contains__</a></code>,
       <code><a href="coinor.gimpy.graph.Graph-class.html#__repr__">__repr__</a></code>,
       <code><a href="coinor.gimpy.graph.Graph-class.html#add_edge">add_edge</a></code>,
       <code><a href="coinor.gimpy.graph.Graph-class.html#add_node">add_node</a></code>,
@@ -214,12 +197,13 @@ Description:
       <code><a href="coinor.gimpy.graph.Graph-class.html#floyd_warshall">floyd_warshall</a></code>,
       <code><a href="coinor.gimpy.graph.Graph-class.html#floyd_warshall_get_cycle">floyd_warshall_get_cycle</a></code>,
       <code><a href="coinor.gimpy.graph.Graph-class.html#floyd_warshall_get_path">floyd_warshall_get_path</a></code>,
-      <code><a href="coinor.gimpy.graph.Graph-class.html#get_degree">get_degree</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#get_degrees">get_degrees</a></code>,
       <code><a href="coinor.gimpy.graph.Graph-class.html#get_diameter">get_diameter</a></code>,
       <code><a href="coinor.gimpy.graph.Graph-class.html#get_edge_attr">get_edge_attr</a></code>,
       <code><a href="coinor.gimpy.graph.Graph-class.html#get_edge_cost">get_edge_cost</a></code>,
       <code><a href="coinor.gimpy.graph.Graph-class.html#get_edge_list">get_edge_list</a></code>,
       <code><a href="coinor.gimpy.graph.Graph-class.html#get_edge_num">get_edge_num</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#get_in_degrees">get_in_degrees</a></code>,
       <code><a href="coinor.gimpy.graph.Graph-class.html#get_in_neighbors">get_in_neighbors</a></code>,
       <code><a href="coinor.gimpy.graph.Graph-class.html#get_layout">get_layout</a></code>,
       <code><a href="coinor.gimpy.graph.Graph-class.html#get_negative_cycle">get_negative_cycle</a></code>,
@@ -228,6 +212,7 @@ Description:
       <code><a href="coinor.gimpy.graph.Graph-class.html#get_node_attr">get_node_attr</a></code>,
       <code><a href="coinor.gimpy.graph.Graph-class.html#get_node_list">get_node_list</a></code>,
       <code><a href="coinor.gimpy.graph.Graph-class.html#get_node_num">get_node_num</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#get_out_degrees">get_out_degrees</a></code>,
       <code><a href="coinor.gimpy.graph.Graph-class.html#get_out_neighbors">get_out_neighbors</a></code>,
       <code><a href="coinor.gimpy.graph.Graph-class.html#get_simplex_solution_graph">get_simplex_solution_graph</a></code>,
       <code><a href="coinor.gimpy.graph.Graph-class.html#label_components">label_components</a></code>,
@@ -493,7 +478,7 @@ Return:
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Fri Apr 04 15:13:56 2014
+    Generated by Epydoc 3.0.1 on Tue Apr 26 15:09:10 2016
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"
