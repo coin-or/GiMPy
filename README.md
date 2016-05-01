@@ -8,7 +8,7 @@ visualization and are thus appropriate for use in the classroom.
 
 Documentation for the API is here:
 
-https://tkralphs.github.io/GrUMPy
+https://tkralphs.github.io/GiMPy
 
 Installation:
 
