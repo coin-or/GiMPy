@@ -10,7 +10,7 @@ setup(name='coinor.gimpy',
 
 Documentation for the API is here:
 
-http://pythonhosted.org/coinor.gimpy
+https://tkralphs.github.io/GiMPy
 ''',
       author='Aykut Bulut, Ted Ralphs',
       author_email='{aykut,ted}@lehigh.edu',
