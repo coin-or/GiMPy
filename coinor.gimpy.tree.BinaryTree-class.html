@@ -1,0 +1,956 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>coinor.gimpy.tree.BinaryTree</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="coinor.gimpy-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        Package&nbsp;coinor ::
+        <a href="coinor.gimpy-module.html">Package&nbsp;gimpy</a> ::
+        <a href="coinor.gimpy.tree-module.html">Module&nbsp;tree</a> ::
+        Class&nbsp;BinaryTree
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="coinor.gimpy.tree.BinaryTree-class.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class BinaryTree</h1><p class="nomargin-top"><span class="codelink"><a href="coinor.gimpy.tree-pysrc.html#BinaryTree">source&nbsp;code</a></span></p>
+<pre class="base-tree">
+ object --+        
+          |        
+<a href="coinor.gimpy.graph.Graph-class.html">graph.Graph</a> --+    
+              |    
+           <a href="coinor.gimpy.tree.Tree-class.html">Tree</a> --+
+                  |
+                 <strong class="uidshort">BinaryTree</strong>
+</pre>
+
+<hr />
+<p>Binary tree class. Inherits Tree class. Provides methods for adding 
+  left/right childs and binary tree specific DFS and BFS methods.</p>
+
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Instance Methods</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-InstanceMethods"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.tree.BinaryTree-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">**attrs</span>)</span><br />
+      API: __init__(self, **attrs)
+Description:
+    Class constructor.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.tree-pysrc.html#BinaryTree.__init__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.tree.BinaryTree-class.html#add_root" class="summary-sig-name">add_root</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">root</span>,
+        <span class="summary-sig-arg">**attrs</span>)</span><br />
+      API: add_root(self, root, **attrs)
+Description:
+    Adds root node to the binary tree.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.tree-pysrc.html#BinaryTree.add_root">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.tree.BinaryTree-class.html#add_right_child" class="summary-sig-name">add_right_child</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">n</span>,
+        <span class="summary-sig-arg">parent</span>,
+        <span class="summary-sig-arg">**attrs</span>)</span><br />
+      API: add_right_child(self, n, parent, **attrs)
+Description:
+    Adds right child n to node parent.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.tree-pysrc.html#BinaryTree.add_right_child">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.tree.BinaryTree-class.html#add_left_child" class="summary-sig-name">add_left_child</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">n</span>,
+        <span class="summary-sig-arg">parent</span>,
+        <span class="summary-sig-arg">**attrs</span>)</span><br />
+      API: add_left_child(self, n, parent, **attrs)
+Description:
+    Adds left child n to node parent.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.tree-pysrc.html#BinaryTree.add_left_child">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.tree.BinaryTree-class.html#get_right_child" class="summary-sig-name">get_right_child</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">n</span>)</span><br />
+      API: get_right_child(self, n)
+Description:
+    Returns right child of node n.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.tree-pysrc.html#BinaryTree.get_right_child">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.tree.BinaryTree-class.html#get_left_child" class="summary-sig-name">get_left_child</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">n</span>)</span><br />
+      API: get_left_child(self, n)
+Description:
+    Returns left child of node n.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.tree-pysrc.html#BinaryTree.get_left_child">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.tree.BinaryTree-class.html#del_node" class="summary-sig-name">del_node</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">n</span>)</span><br />
+      API: del_node(self, n)
+Description:
+    Removes node n from tree.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.tree-pysrc.html#BinaryTree.del_node">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.tree.BinaryTree-class.html#print_nodes" class="summary-sig-name">print_nodes</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">order</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">in</code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">priority</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">L</code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">display</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">root</span>=<span class="summary-sig-default">None</span>)</span><br />
+      API: print_nodes(self, order = 'in', priority = 'L', display = None,
+            root = None)
+Description:
+    A recursive function that prints nodes to stdout starting from
+    root.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.tree-pysrc.html#BinaryTree.print_nodes">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.tree.BinaryTree-class.html#dfs" class="summary-sig-name">dfs</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">root</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">display</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">priority</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">L</code><code class="variable-quote">'</code></span>)</span><br />
+      API: dfs(self, root=None, display=None, priority='L', order='in')
+Description:
+    Searches tree starting from node named root using depth-first
+    strategy if root argument is provided.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.tree-pysrc.html#BinaryTree.dfs">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.tree.BinaryTree-class.html#bfs" class="summary-sig-name">bfs</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">root</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">display</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">priority</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">L</code><code class="variable-quote">'</code></span>)</span><br />
+      API: bfs(self, root=None, display=None, priority='L', order='in')
+Description:
+    Searches tree starting from node named root using breadth-first
+    strategy if root argument is provided.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.tree-pysrc.html#BinaryTree.bfs">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.tree.BinaryTree-class.html#traverse" class="summary-sig-name">traverse</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">root</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">display</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">q</span>=<span class="summary-sig-default">[]</span>,
+        <span class="summary-sig-arg">priority</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">L</code><code class="variable-quote">'</code></span>)</span><br />
+      API: traverse(self, root=None, display=None, q=Stack(), priority='L',
+              order='in')
+Description:
+    Traverses tree starting from node named root if root argument is
+    provided.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.tree-pysrc.html#BinaryTree.traverse">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="printexp"></a><span class="summary-sig-name">printexp</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">display</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">root</span>=<span class="summary-sig-default">None</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.tree-pysrc.html#BinaryTree.printexp">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="postordereval"></a><span class="summary-sig-name">postordereval</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">display</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">root</span>=<span class="summary-sig-default">None</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.tree-pysrc.html#BinaryTree.postordereval">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="coinor.gimpy.tree.Tree-class.html">Tree</a></code></b>:
+      <code><a href="coinor.gimpy.tree.Tree-class.html#add_child">add_child</a></code>,
+      <code><a href="coinor.gimpy.tree.Tree-class.html#get_children">get_children</a></code>,
+      <code><a href="coinor.gimpy.tree.Tree-class.html#get_parent">get_parent</a></code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="coinor.gimpy.graph.Graph-class.html">graph.Graph</a></code></b>:
+      <code><a href="coinor.gimpy.graph.Graph-class.html#__contains__">__contains__</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#__repr__">__repr__</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#add_edge">add_edge</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#add_node">add_node</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#augment_cycle">augment_cycle</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#check_edge">check_edge</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#create">create</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#create_cluster">create_cluster</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#create_residual_graph">create_residual_graph</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#cycle_canceling">cycle_canceling</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#del_edge">del_edge</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#display">display</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#edge_to_string">edge_to_string</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#fifo_label_correcting">fifo_label_correcting</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#find_cycle_capacity">find_cycle_capacity</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#find_feasible_flow">find_feasible_flow</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#floyd_warshall">floyd_warshall</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#floyd_warshall_get_cycle">floyd_warshall_get_cycle</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#floyd_warshall_get_path">floyd_warshall_get_path</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#get_degrees">get_degrees</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#get_diameter">get_diameter</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#get_edge_attr">get_edge_attr</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#get_edge_cost">get_edge_cost</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#get_edge_list">get_edge_list</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#get_edge_num">get_edge_num</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#get_in_degrees">get_in_degrees</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#get_in_neighbors">get_in_neighbors</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#get_layout">get_layout</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#get_negative_cycle">get_negative_cycle</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#get_neighbors">get_neighbors</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#get_node">get_node</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#get_node_attr">get_node_attr</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#get_node_list">get_node_list</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#get_node_num">get_node_num</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#get_out_degrees">get_out_degrees</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#get_out_neighbors">get_out_neighbors</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#get_simplex_solution_graph">get_simplex_solution_graph</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#label_components">label_components</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#label_correcting_check_cycle">label_correcting_check_cycle</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#label_correcting_get_cycle">label_correcting_get_cycle</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#label_strong_component">label_strong_component</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#max_flow">max_flow</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#max_flow_preflowpush">max_flow_preflowpush</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#min_cost_flow">min_cost_flow</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#minimum_spanning_tree_kruskal">minimum_spanning_tree_kruskal</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#minimum_spanning_tree_prim">minimum_spanning_tree_prim</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#network_simplex">network_simplex</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#page_rank">page_rank</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#print_flow">print_flow</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#process_edge_dijkstra">process_edge_dijkstra</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#process_edge_flow">process_edge_flow</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#process_edge_prim">process_edge_prim</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#process_edge_search">process_edge_search</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#process_node_search">process_node_search</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#random">random</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#relabel">relabel</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#search">search</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#set_display_mode">set_display_mode</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#set_edge_attr">set_edge_attr</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#set_layout">set_layout</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#set_node_attr">set_node_attr</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#show_flow">show_flow</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#simplex_augment_cycle">simplex_augment_cycle</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#simplex_compute_potentials">simplex_compute_potentials</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#simplex_connect">simplex_connect</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#simplex_determine_leaving_arc">simplex_determine_leaving_arc</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#simplex_find_cycle">simplex_find_cycle</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#simplex_find_tree">simplex_find_tree</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#simplex_identify_cycle">simplex_identify_cycle</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#simplex_mark_entering_arc">simplex_mark_entering_arc</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#simplex_mark_leaving_arc">simplex_mark_leaving_arc</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#simplex_mark_st_arcs">simplex_mark_st_arcs</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#simplex_optimal">simplex_optimal</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#simplex_redraw">simplex_redraw</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#simplex_remove_arc">simplex_remove_arc</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#simplex_search">simplex_search</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#simplex_select_entering_arc">simplex_select_entering_arc</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#strong_connect">strong_connect</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#tarjan">tarjan</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#to_string">to_string</a></code>,
+      <code><a href="coinor.gimpy.graph.Graph-class.html#write">write</a></code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__delattr__</code>,
+      <code>__format__</code>,
+      <code>__getattribute__</code>,
+      <code>__hash__</code>,
+      <code>__new__</code>,
+      <code>__reduce__</code>,
+      <code>__reduce_ex__</code>,
+      <code>__setattr__</code>,
+      <code>__sizeof__</code>,
+      <code>__str__</code>,
+      <code>__subclasshook__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== PROPERTIES ==================== -->
+<a name="section-Properties"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Properties</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Properties"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__class__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Method Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-MethodDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="__init__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">**attrs</span>)</span>
+    <br /><em class="fname">(Constructor)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.tree-pysrc.html#BinaryTree.__init__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API: __init__(self, **attrs)
+Description:
+    Class constructor.
+Input:
+    attrs: Tree attributes in keyword arguments format. See Graph and
+    Tree class for details.
+
+</pre>
+  <dl class="fields">
+    <dt>Overrides:
+        object.__init__
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="add_root"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">add_root</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">root</span>,
+        <span class="sig-arg">**attrs</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.tree-pysrc.html#BinaryTree.add_root">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API: add_root(self, root, **attrs)
+Description:
+    Adds root node to the binary tree.
+Input:
+    root: Name of the root node.
+    attrs: Attributes of the root node.
+Post:
+    Changes self.root attribute.
+
+</pre>
+  <dl class="fields">
+    <dt>Overrides:
+        <a href="coinor.gimpy.tree.Tree-class.html#add_root">Tree.add_root</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="add_right_child"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">add_right_child</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">n</span>,
+        <span class="sig-arg">parent</span>,
+        <span class="sig-arg">**attrs</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.tree-pysrc.html#BinaryTree.add_right_child">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API: add_right_child(self, n, parent, **attrs)
+Description:
+    Adds right child n to node parent.
+Pre:
+    Right child of parent should not exist.
+Input:
+    n: Node name.
+    parent: Parent node name.
+    attrs: Attributes of node n.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="add_left_child"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">add_left_child</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">n</span>,
+        <span class="sig-arg">parent</span>,
+        <span class="sig-arg">**attrs</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.tree-pysrc.html#BinaryTree.add_left_child">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API: add_left_child(self, n, parent, **attrs)
+Description:
+    Adds left child n to node parent.
+Pre:
+    Left child of parent should not exist.
+Input:
+    n: Node name.
+    parent: Parent node name.
+    attrs: Attributes of node n.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="get_right_child"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_right_child</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">n</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.tree-pysrc.html#BinaryTree.get_right_child">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API: get_right_child(self, n)
+Description:
+    Returns right child of node n. n can be Node() instance or string
+    (name of node).
+Pre:
+    Node n should be present in the tree.
+Input:
+    n: Node name or Node() instance.
+Return:
+    Returns name of the right child of n.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="get_left_child"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_left_child</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">n</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.tree-pysrc.html#BinaryTree.get_left_child">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API: get_left_child(self, n)
+Description:
+    Returns left child of node n. n can be Node() instance or string
+    (name of node).
+Pre:
+    Node n should be present in the tree.
+Input:
+    n: Node name or Node() instance.
+Return:
+    Returns name of the left child of n.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="del_node"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">del_node</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">n</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.tree-pysrc.html#BinaryTree.del_node">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API: del_node(self, n)
+Description:
+    Removes node n from tree.
+Pre:
+    Node n should be present in the tree.
+Input:
+    n: Node name.
+
+</pre>
+  <dl class="fields">
+    <dt>Overrides:
+        <a href="coinor.gimpy.graph.Graph-class.html#del_node">graph.Graph.del_node</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="print_nodes"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">print_nodes</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">order</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">in</code><code class="variable-quote">'</code></span>,
+        <span class="sig-arg">priority</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">L</code><code class="variable-quote">'</code></span>,
+        <span class="sig-arg">display</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">root</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.tree-pysrc.html#BinaryTree.print_nodes">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API: print_nodes(self, order = 'in', priority = 'L', display = None,
+            root = None)
+Description:
+    A recursive function that prints nodes to stdout starting from
+    root.
+Input:
+    order: Order of printing. Acceptable arguments are 'pre', 'in',
+    'post'.
+    priority: Priority of printing, acceptable arguments are 'L' and
+    'R'.
+    display: Display mode.
+    root: Starting node.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="dfs"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">dfs</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">root</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">display</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">priority</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">L</code><code class="variable-quote">'</code></span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.tree-pysrc.html#BinaryTree.dfs">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API: dfs(self, root=None, display=None, priority='L', order='in')
+Description:
+    Searches tree starting from node named root using depth-first
+    strategy if root argument is provided. Starts search from root node
+    of the tree otherwise.
+Input:
+    root: Starting node.
+    display: Display mode.
+    priority: Priority used when exploring children of the node.
+    Acceptable arguments are 'L' and 'R'.
+
+</pre>
+  <dl class="fields">
+    <dt>Overrides:
+        <a href="coinor.gimpy.graph.Graph-class.html#dfs">graph.Graph.dfs</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="bfs"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">bfs</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">root</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">display</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">priority</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">L</code><code class="variable-quote">'</code></span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.tree-pysrc.html#BinaryTree.bfs">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API: bfs(self, root=None, display=None, priority='L', order='in')
+Description:
+    Searches tree starting from node named root using breadth-first
+    strategy if root argument is provided. Starts search from root node
+    of the tree otherwise.
+Input:
+    root: Starting node.
+    display: Display mode.
+    priority: Priority used when exploring children of the node.
+    Acceptable arguments are 'L' and 'R'.
+
+</pre>
+  <dl class="fields">
+    <dt>Overrides:
+        <a href="coinor.gimpy.graph.Graph-class.html#bfs">graph.Graph.bfs</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="traverse"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">traverse</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">root</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">display</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">q</span>=<span class="sig-default">[]</span>,
+        <span class="sig-arg">priority</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">L</code><code class="variable-quote">'</code></span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.tree-pysrc.html#BinaryTree.traverse">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API: traverse(self, root=None, display=None, q=Stack(), priority='L',
+              order='in')
+Description:
+    Traverses tree starting from node named root if root argument is
+    provided. Starts search from root node of the tree otherwise. Search
+    strategy is determined by q data structure. It is DFS if q is
+    Stack() and BFS if Queue().
+Input:
+    root: Starting node.
+    display: Display mode.
+    q: Queue data structure, either Queue() or Stack().
+    priority: Priority used when exploring children of the node.
+    Acceptable arguments are 'L' and 'R'.
+    order: Ineffective, will be removed.
+
+</pre>
+  <dl class="fields">
+    <dt>Overrides:
+        <a href="coinor.gimpy.tree.Tree-class.html#traverse">Tree.traverse</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="coinor.gimpy-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Wed Apr 27 01:20:47 2016
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

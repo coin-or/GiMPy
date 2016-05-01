@@ -1,0 +1,5132 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>coinor.gimpy.graph.Graph</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="coinor.gimpy-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        Package&nbsp;coinor ::
+        <a href="coinor.gimpy-module.html">Package&nbsp;gimpy</a> ::
+        <a href="coinor.gimpy.graph-module.html">Module&nbsp;graph</a> ::
+        Class&nbsp;Graph
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="coinor.gimpy.graph.Graph-class.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class Graph</h1><p class="nomargin-top"><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph">source&nbsp;code</a></span></p>
+<pre class="base-tree">
+object --+
+         |
+        <strong class="uidshort">Graph</strong>
+</pre>
+
+<dl><dt>Known Subclasses:</dt>
+<dd>
+      <ul class="subclass-list">
+<li><a href="coinor.gimpy.tree.Tree-class.html">tree.Tree</a></li><li>, <a href="coinor.gimpy.graph.DisjointSet-class.html">DisjointSet</a></li>  </ul>
+</dd></dl>
+
+<hr />
+<p>Graph class, implemented using adjacency list. See GIMPy README for 
+  more information.</p>
+
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Instance Methods</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-InstanceMethods"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">**attr</span>)</span><br />
+      API: __init__(self, **attrs)
+Description:
+Graph class constructor.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.__init__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#__repr__" class="summary-sig-name">__repr__</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      API: __repr__(self)
+Description:
+Returns string representation of the graph.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.__repr__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#__contains__" class="summary-sig-name">__contains__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">item</span>)</span><br />
+      API: __contains__(self, item)
+Description:
+Return true if item is in graph.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.__contains__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#add_node" class="summary-sig-name">add_node</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">name</span>,
+        <span class="summary-sig-arg">**attr</span>)</span><br />
+      API: add_node(self, name, **attr)
+Description:
+Adds node to the graph.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.add_node">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#del_node" class="summary-sig-name">del_node</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">name</span>)</span><br />
+      API: del_node(self, name)
+Description:
+Removes node from Graph.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.del_node">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#add_edge" class="summary-sig-name">add_edge</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">name1</span>,
+        <span class="summary-sig-arg">name2</span>,
+        <span class="summary-sig-arg">**attr</span>)</span><br />
+      API: add_edge(self, name1, name2, **attr)
+Description:
+Adds edge to the graph.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.add_edge">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#del_edge" class="summary-sig-name">del_edge</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">e</span>)</span><br />
+      API: del_edge(self, e)
+Description:
+Removes edge from graph.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.del_edge">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#get_node" class="summary-sig-name">get_node</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">name</span>)</span><br />
+      API: get_node(self, name)
+Description:
+Returns node object with the provided name.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.get_node">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#get_edge_cost" class="summary-sig-name">get_edge_cost</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">edge</span>)</span><br />
+      API: get_edge_cost(self, edge)
+Description:
+Returns cost attr of edge, required for minimum_spanning_tree_kruskal().</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.get_edge_cost">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#check_edge" class="summary-sig-name">check_edge</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">name1</span>,
+        <span class="summary-sig-arg">name2</span>)</span><br />
+      API: check_edge(self, name1, name2)
+Description:
+Return True if edge exists, False otherwise.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.check_edge">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#get_node_list" class="summary-sig-name">get_node_list</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      API: get_node_list(self)
+Description:
+Returns node list.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.get_node_list">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#get_edge_list" class="summary-sig-name">get_edge_list</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      API: get_edge_list(self)
+Description:
+Returns edge list.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.get_edge_list">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#get_node_num" class="summary-sig-name">get_node_num</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      API: get_node_num(self)
+Description:
+Returns number of nodes.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.get_node_num">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#get_edge_num" class="summary-sig-name">get_edge_num</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      API: get_edge_num(self)
+Description:
+Returns number of edges.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.get_edge_num">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#get_node_attr" class="summary-sig-name">get_node_attr</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">name</span>,
+        <span class="summary-sig-arg">attr</span>)</span><br />
+      API: get_node_attr(self, name, attr)
+Description:
+Returns attribute attr of given node.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.get_node_attr">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#get_edge_attr" class="summary-sig-name">get_edge_attr</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">n</span>,
+        <span class="summary-sig-arg">m</span>,
+        <span class="summary-sig-arg">attr</span>)</span><br />
+      API: get_edge_attr(self, n, m, attr)
+Description:
+Returns attribute attr of edge (n,m).</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.get_edge_attr">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#set_node_attr" class="summary-sig-name">set_node_attr</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">name</span>,
+        <span class="summary-sig-arg">attr</span>,
+        <span class="summary-sig-arg">value</span>)</span><br />
+      API: set_node_attr(self, name, attr)
+Description:
+Sets attr attribute of node named name to value.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.set_node_attr">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#set_edge_attr" class="summary-sig-name">set_edge_attr</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">n</span>,
+        <span class="summary-sig-arg">m</span>,
+        <span class="summary-sig-arg">attr</span>,
+        <span class="summary-sig-arg">value</span>)</span><br />
+      API: set_edge_attr(self, n, m, attr, value)
+Description:
+Sets attr attribute of edge (n,m) to value.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.set_edge_attr">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#get_neighbors" class="summary-sig-name">get_neighbors</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">name</span>)</span><br />
+      API: get_neighbors(self, name)
+Description:
+Returns list of neighbors of given node.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.get_neighbors">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#get_in_neighbors" class="summary-sig-name">get_in_neighbors</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">name</span>)</span><br />
+      API: get_in_neighbors(self, name)
+Description:
+Returns list of in neighbors of given node.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.get_in_neighbors">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#get_out_neighbors" class="summary-sig-name">get_out_neighbors</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">name</span>)</span><br />
+      API: get_out_neighbors(self, name)
+Description:
+Returns list of out-neighbors of given node.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.get_out_neighbors">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#edge_to_string" class="summary-sig-name">edge_to_string</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">e</span>)</span><br />
+      API: edge_to_string(self, e)
+Description:
+Return string that represents edge e in dot language.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.edge_to_string">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#to_string" class="summary-sig-name">to_string</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      API: to_string(self)
+Description:
+This method is based on pydot Graph class with the same name.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.to_string">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#label_components" class="summary-sig-name">label_components</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">display</span>=<span class="summary-sig-default">None</span>)</span><br />
+      API: label_components(self, display=None)
+Description:
+This method labels the nodes of an undirected graph with component
+numbers so that each node has the same label as all nodes in the
+same component.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.label_components">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#tarjan" class="summary-sig-name">tarjan</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      API: tarjan(self)
+Description:
+Implements Tarjan's algorithm for determining strongly connected set of
+nodes.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.tarjan">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#strong_connect" class="summary-sig-name">strong_connect</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">q</span>,
+        <span class="summary-sig-arg">node</span>,
+        <span class="summary-sig-arg">index</span>,
+        <span class="summary-sig-arg">component</span>)</span><br />
+      API: strong_connect (self, q, node, index, component)
+Description:
+Used by tarjan method.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.strong_connect">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#label_strong_component" class="summary-sig-name">label_strong_component</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      API: label_strong_component(self)
+Description:
+This method labels the nodes of a directed graph with component
+numbers so that each node has the same label as all nodes in the
+same component.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.label_strong_component">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#dfs" class="summary-sig-name">dfs</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">root</span>,
+        <span class="summary-sig-arg">disc_count</span>=<span class="summary-sig-default">0</span>,
+        <span class="summary-sig-arg">finish_count</span>=<span class="summary-sig-default">1</span>,
+        <span class="summary-sig-arg">component</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">transpose</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">display</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">pred</span>=<span class="summary-sig-default">None</span>)</span><br />
+      API: dfs(self, root, disc_count = 0, finish_count = 1, component=None,
+    transpose=False)
+Description:
+Make a depth-first search starting from node with name root.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.dfs">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#bfs" class="summary-sig-name">bfs</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">root</span>,
+        <span class="summary-sig-arg">display</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">component</span>=<span class="summary-sig-default">None</span>)</span><br />
+      API: bfs(self, root, display = None, component=None)
+Description:
+Make a breadth-first search starting from node with name root.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.bfs">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#search" class="summary-sig-name">search</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">source</span>,
+        <span class="summary-sig-arg">destination</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">display</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">component</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">q</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">algo</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">DFS</code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">reverse</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">**kargs</span>)</span><br />
+      API: search(self, source, destination = None, display = None,
+       component = None, q = Stack(),
+       algo = 'DFS', reverse = False, **kargs)
+Description:
+Generic search method.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.search">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#process_node_search" class="summary-sig-name">process_node_search</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">node</span>,
+        <span class="summary-sig-arg">q</span>,
+        <span class="summary-sig-arg">**kwargs</span>)</span><br />
+      API: process_node_search(self, node, q, **kwargs)
+Description:
+Used by search() method.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.process_node_search">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#process_edge_dijkstra" class="summary-sig-name">process_edge_dijkstra</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">current</span>,
+        <span class="summary-sig-arg">neighbor</span>,
+        <span class="summary-sig-arg">pred</span>,
+        <span class="summary-sig-arg">q</span>,
+        <span class="summary-sig-arg">component</span>)</span><br />
+      API: process_edge_dijkstra(self, current, neighbor, pred, q, component)
+Description:
+Used by search() method if the algo argument is 'Dijkstra'.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.process_edge_dijkstra">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#process_edge_prim" class="summary-sig-name">process_edge_prim</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">current</span>,
+        <span class="summary-sig-arg">neighbor</span>,
+        <span class="summary-sig-arg">pred</span>,
+        <span class="summary-sig-arg">q</span>,
+        <span class="summary-sig-arg">component</span>)</span><br />
+      API: process_edge_prim(self, current, neighbor, pred, q, component)
+Description:
+Used by search() method if the algo argument is 'Prim'.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.process_edge_prim">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#process_edge_search" class="summary-sig-name">process_edge_search</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">current</span>,
+        <span class="summary-sig-arg">neighbor</span>,
+        <span class="summary-sig-arg">pred</span>,
+        <span class="summary-sig-arg">q</span>,
+        <span class="summary-sig-arg">component</span>,
+        <span class="summary-sig-arg">algo</span>,
+        <span class="summary-sig-arg">**kargs</span>)</span><br />
+      API: process_edge_search(self, current, neighbor, pred, q, component,
+                         algo, **kargs)
+Description:
+Used by search() method.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.process_edge_search">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#minimum_spanning_tree_prim" class="summary-sig-name">minimum_spanning_tree_prim</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">source</span>,
+        <span class="summary-sig-arg">display</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">q</span>=<span class="summary-sig-default">PriorityQueue()</span>)</span><br />
+      API: minimum_spanning_tree_prim(self, source, display = None,
+                                q = PriorityQueue())
+Description:
+Determines a minimum spanning tree of all nodes reachable
+from source using Prim's Algorithm.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.minimum_spanning_tree_prim">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#minimum_spanning_tree_kruskal" class="summary-sig-name">minimum_spanning_tree_kruskal</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">display</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">components</span>=<span class="summary-sig-default">None</span>)</span><br />
+      API: minimum_spanning_tree_kruskal(self, display = None,
+                                   components = None)
+Description:
+Determines a minimum spanning tree using Kruskal's Algorithm.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.minimum_spanning_tree_kruskal">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#max_flow_preflowpush" class="summary-sig-name">max_flow_preflowpush</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">source</span>,
+        <span class="summary-sig-arg">sink</span>,
+        <span class="summary-sig-arg">algo</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">FIFO</code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">display</span>=<span class="summary-sig-default">None</span>)</span><br />
+      API: max_flow_preflowpush(self, source, sink, algo = 'FIFO',
+                          display = None)
+Description:
+Finds maximum flow from source to sink by a depth-first search based
+augmenting path algorithm.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.max_flow_preflowpush">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#process_edge_flow" class="summary-sig-name">process_edge_flow</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">source</span>,
+        <span class="summary-sig-arg">sink</span>,
+        <span class="summary-sig-arg">i</span>,
+        <span class="summary-sig-arg">j</span>,
+        <span class="summary-sig-arg">algo</span>,
+        <span class="summary-sig-arg">q</span>)</span><br />
+      API: process_edge_flow(self, source, sink, i, j, algo, q)
+Description:
+Used by by max_flow_preflowpush() method.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.process_edge_flow">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#relabel" class="summary-sig-name">relabel</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">i</span>)</span><br />
+      API: relabel(self, i)
+Description:
+Used by max_flow_preflowpush() method for relabelling node i.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.relabel">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#show_flow" class="summary-sig-name">show_flow</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      API: relabel(self, i)
+Description:
+Used by max_flow_preflowpush() method for display purposed.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.show_flow">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#create_residual_graph" class="summary-sig-name">create_residual_graph</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      API: create_residual_graph(self)
+Description:
+Creates and returns residual graph, which is a Graph instance
+itself.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.create_residual_graph">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#cycle_canceling" class="summary-sig-name">cycle_canceling</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">display</span>)</span><br />
+      API:
+    cycle_canceling(self, display)
+Description:
+    Solves minimum cost feasible flow problem using cycle canceling
+    algorithm.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.cycle_canceling">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#find_feasible_flow" class="summary-sig-name">find_feasible_flow</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      API:
+    find_feasible_flow(self)
+Description:
+    Solves feasible flow problem, stores solution in 'flow' attribute
+    or arcs.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.find_feasible_flow">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#get_layout" class="summary-sig-name">get_layout</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      API:
+    get_layout(self)
+Description:
+Returns layout attribute of the graph.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.get_layout">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#set_layout" class="summary-sig-name">set_layout</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">value</span>)</span><br />
+      API:
+    set_layout(self, value)
+Description:
+Sets layout attribute of the graph to value.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.set_layout">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#write" class="summary-sig-name">write</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">basename</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">graph</code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">layout</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">format</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">png</code><code class="variable-quote">'</code></span>)</span><br />
+      API:
+    write(self, basename = 'graph', layout = None, format='png')
+Description:
+Writes graph to dist using layout and format.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.write">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#create" class="summary-sig-name">create</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">layout</span>,
+        <span class="summary-sig-arg">format</span>,
+        <span class="summary-sig-arg">**args</span>)</span><br />
+      API:
+    create(self, layout, format, **args)
+Description:
+    Returns postscript representation of graph.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.create">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#display" class="summary-sig-name">display</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">highlight</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">basename</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">graph</code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">format</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">png</code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">pause</span>=<span class="summary-sig-default">True</span>)</span><br />
+      API:
+    display(self, highlight = None, basename = 'graph', format = 'png',
+        pause = True)
+Description:
+    Displays graph according to the arguments provided.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.display">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#set_display_mode" class="summary-sig-name">set_display_mode</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">value</span>)</span><br />
+      API:
+    set_display_mode(self, value)
+Description:
+    Sets display mode to value.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.set_display_mode">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#max_flow" class="summary-sig-name">max_flow</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">source</span>,
+        <span class="summary-sig-arg">sink</span>,
+        <span class="summary-sig-arg">display</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">algo</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">DFS</code><code class="variable-quote">'</code></span>)</span><br />
+      API: max_flow(self, source, sink, display=None)
+Description:
+Finds maximum flow from source to sink by a depth-first search based
+augmenting path algorithm.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.max_flow">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#get_negative_cycle" class="summary-sig-name">get_negative_cycle</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      API:
+    get_negative_cycle(self)
+Description:
+    Finds and returns negative cost cycle using 'cost' attribute of
+    arcs.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.get_negative_cycle">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#floyd_warshall" class="summary-sig-name">floyd_warshall</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      API:
+    floyd_warshall(self)
+Description:
+    Finds all pair shortest paths and stores it in a list of lists.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.floyd_warshall">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#floyd_warshall_get_path" class="summary-sig-name">floyd_warshall_get_path</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">distance</span>,
+        <span class="summary-sig-arg">nextn</span>,
+        <span class="summary-sig-arg">i</span>,
+        <span class="summary-sig-arg">j</span>)</span><br />
+      API:
+    floyd_warshall_get_path(self, distance, nextn, i, j):
+Description:
+    Finds shortest path between i and j using distance and nextn
+    dictionaries.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.floyd_warshall_get_path">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#floyd_warshall_get_cycle" class="summary-sig-name">floyd_warshall_get_cycle</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">distance</span>,
+        <span class="summary-sig-arg">nextn</span>,
+        <span class="summary-sig-arg">element</span>=<span class="summary-sig-default">None</span>)</span><br />
+      API:
+    floyd_warshall_get_cycle(self, distance, nextn, element = None)
+Description:
+    Finds a negative cycle in the graph.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.floyd_warshall_get_cycle">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#find_cycle_capacity" class="summary-sig-name">find_cycle_capacity</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">cycle</span>)</span><br />
+      API:
+    find_cycle_capacity(self, cycle):
+Description:
+    Finds capacity of the cycle input.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.find_cycle_capacity">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#fifo_label_correcting" class="summary-sig-name">fifo_label_correcting</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">source</span>)</span><br />
+      API:
+    fifo_label_correcting(self, source)
+Description:
+    finds shortest path from source to every other node.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.fifo_label_correcting">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#label_correcting_check_cycle" class="summary-sig-name">label_correcting_check_cycle</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">j</span>,
+        <span class="summary-sig-arg">pred</span>)</span><br />
+      API:
+    label_correcting_check_cycle(self, j, pred)
+Description:
+    Checks if predecessor dictionary has a cycle, j represents the node
+    that predecessor is recently updated.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.label_correcting_check_cycle">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#label_correcting_get_cycle" class="summary-sig-name">label_correcting_get_cycle</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">j</span>,
+        <span class="summary-sig-arg">pred</span>)</span><br />
+      API:
+    label_correcting_get_cycle(self, labelled, pred)
+Description:
+    In label correcting check cycle it is decided pred has a cycle and
+    nodes in the cycle are labelled.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.label_correcting_get_cycle">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#augment_cycle" class="summary-sig-name">augment_cycle</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">amount</span>,
+        <span class="summary-sig-arg">cycle</span>)</span><br />
+      API:
+    augment_cycle(self, amount, cycle):
+Description:
+    Augments 'amount' unit of flow along cycle.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.augment_cycle">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#network_simplex" class="summary-sig-name">network_simplex</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">display</span>,
+        <span class="summary-sig-arg">pivot</span>,
+        <span class="summary-sig-arg">root</span>)</span><br />
+      API:
+    network_simplex(self, display, pivot, root)
+Description:
+    Solves minimum cost feasible flow problem using network simplex
+    algorithm.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.network_simplex">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#simplex_mark_leaving_arc" class="summary-sig-name">simplex_mark_leaving_arc</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">p</span>,
+        <span class="summary-sig-arg">q</span>)</span><br />
+      API:
+    simplex_mark_leving_arc(self, p, q)
+Description:
+    Marks leaving arc.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.simplex_mark_leaving_arc">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#simplex_determine_leaving_arc" class="summary-sig-name">simplex_determine_leaving_arc</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">t</span>,
+        <span class="summary-sig-arg">k</span>,
+        <span class="summary-sig-arg">l</span>)</span><br />
+      API:
+    simplex_determine_leaving_arc(self, t, k, l)
+Description:
+    Determines and returns the leaving arc.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.simplex_determine_leaving_arc">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#simplex_mark_entering_arc" class="summary-sig-name">simplex_mark_entering_arc</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">k</span>,
+        <span class="summary-sig-arg">l</span>)</span><br />
+      API:...</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.simplex_mark_entering_arc">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#simplex_mark_st_arcs" class="summary-sig-name">simplex_mark_st_arcs</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">t</span>)</span><br />
+      API:
+    simplex_mark_st_arcs(self, t)
+Description:
+    Marks spanning tree arcs.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.simplex_mark_st_arcs">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#print_flow" class="summary-sig-name">print_flow</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      API:
+    print_flow(self)
+Description:
+    Prints all positive flows to stdout.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.print_flow">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#simplex_redraw" class="summary-sig-name">simplex_redraw</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">display</span>,
+        <span class="summary-sig-arg">root</span>)</span><br />
+      API:
+    simplex_redraw(self, display, root)
+Description:
+    Returns a new graph instance that is same as self but adds nodes
+    and arcs in a way that the resulting tree will be displayed
+    properly.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.simplex_redraw">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#simplex_remove_arc" class="summary-sig-name">simplex_remove_arc</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">t</span>,
+        <span class="summary-sig-arg">p</span>,
+        <span class="summary-sig-arg">q</span>,
+        <span class="summary-sig-arg">min_capacity</span>,
+        <span class="summary-sig-arg">cycle</span>)</span><br />
+      API:
+    simplex_remove_arc(self, p, q, min_capacity, cycle)
+Description:
+    Removes arc (p,q), updates t, updates flows, where (k,l) is
+    the entering arc.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.simplex_remove_arc">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#simplex_select_entering_arc" class="summary-sig-name">simplex_select_entering_arc</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">t</span>,
+        <span class="summary-sig-arg">pivot</span>)</span><br />
+      API:
+    simplex_select_entering_arc(self, t, pivot)
+Description:
+    Decides and returns entering arc using pivot rule.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.simplex_select_entering_arc">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#simplex_optimal" class="summary-sig-name">simplex_optimal</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">t</span>)</span><br />
+      API:
+    simplex_optimal(self, t)
+Description:
+    Checks if the current solution is optimal, if yes returns True,
+    False otherwise.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.simplex_optimal">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#simplex_find_tree" class="summary-sig-name">simplex_find_tree</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      API:
+    simplex_find_tree(self)
+Description:
+    Assumes a feasible flow solution stored in 'flow' attribute's of
+    arcs and converts this solution to a feasible spanning tree
+    solution.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.simplex_find_tree">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#simplex_connect" class="summary-sig-name">simplex_connect</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">solution_g</span>)</span><br />
+      API:
+    simplex_connect(self, solution_g)
+Description:
+    At this point we assume that the solution does not have a cycle.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.simplex_connect">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#simplex_search" class="summary-sig-name">simplex_search</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">source</span>,
+        <span class="summary-sig-arg">component_nr</span>)</span><br />
+      API:
+    simplex_search(self, source, component_nr)
+Description:
+    Searches graph starting from source.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.simplex_search">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#simplex_augment_cycle" class="summary-sig-name">simplex_augment_cycle</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">cycle</span>)</span><br />
+      API:
+    simplex_augment_cycle(self, cycle)
+Description:
+    Augments along the cycle to break it.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.simplex_augment_cycle">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#simplex_find_cycle" class="summary-sig-name">simplex_find_cycle</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      API:
+    simplex_find_cycle(self)
+Description:
+    Returns a cycle (list of nodes) if the graph has one, returns None
+    otherwise.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.simplex_find_cycle">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#get_simplex_solution_graph" class="summary-sig-name">get_simplex_solution_graph</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      API:
+    get_simplex_solution_graph(self):
+Description:
+    Assumes a feasible flow solution stored in 'flow' attribute's of
+    arcs.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.get_simplex_solution_graph">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#simplex_compute_potentials" class="summary-sig-name">simplex_compute_potentials</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">t</span>,
+        <span class="summary-sig-arg">root</span>)</span><br />
+      API:
+    simplex_compute_potentials(self, t, root)
+Description:
+    Computes node potentials for a minimum cost flow problem and stores
+    them as node attribute 'potential'.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.simplex_compute_potentials">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#simplex_identify_cycle" class="summary-sig-name">simplex_identify_cycle</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">t</span>,
+        <span class="summary-sig-arg">k</span>,
+        <span class="summary-sig-arg">l</span>)</span><br />
+      API:
+    identify_cycle(self, t, k, l)
+Description:
+    Identifies and returns to the pivot cycle, which is a list of
+    nodes.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.simplex_identify_cycle">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#min_cost_flow" class="summary-sig-name">min_cost_flow</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">display</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">**args</span>)</span><br />
+      API:
+    min_cost_flow(self, display='off', **args)
+Description:
+    Solves minimum cost flow problem using node/edge attributes with
+    the algorithm specified.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.min_cost_flow">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#random" class="summary-sig-name">random</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">numnodes</span>=<span class="summary-sig-default">10</span>,
+        <span class="summary-sig-arg">degree_range</span>=<span class="summary-sig-default"><code class="variable-group">(</code>2<code class="variable-op">, </code>4<code class="variable-group">)</code></span>,
+        <span class="summary-sig-arg">length_range</span>=<span class="summary-sig-default"><code class="variable-group">(</code>1<code class="variable-op">, </code>10<code class="variable-group">)</code></span>,
+        <span class="summary-sig-arg">density</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">edge_format</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">node_format</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">Euclidean</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">seedInput</span>=<span class="summary-sig-default">0</span>,
+        <span class="summary-sig-arg">add_labels</span>=<span class="summary-sig-default">True</span>,
+        <span class="summary-sig-arg">parallel_allowed</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">node_selection</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">closest</code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">scale</span>=<span class="summary-sig-default">10</span>,
+        <span class="summary-sig-arg">scale_cost</span>=<span class="summary-sig-default">5</span>)</span><br />
+      API:
+    random(self, numnodes = 10, degree_range = None, length_range = None,
+       density = None, edge_format = None, node_format = None,
+       Euclidean = False, seedInput = 0)
+Description:
+    Populates graph with random edges and nodes.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.random">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#page_rank" class="summary-sig-name">page_rank</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">damping_factor</span>=<span class="summary-sig-default">0.85</span>,
+        <span class="summary-sig-arg">max_iterations</span>=<span class="summary-sig-default">100</span>,
+        <span class="summary-sig-arg">min_delta</span>=<span class="summary-sig-default">1e-05</span>)</span><br />
+      API:
+    page_rank(self, damping_factor=0.85, max_iterations=100,
+          min_delta=0.00001)
+Description:
+    Compute and return the page-rank of a directed graph.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.page_rank">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#get_degrees" class="summary-sig-name">get_degrees</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      API:
+    get_degree(self)
+Description:
+    Returns degrees of nodes in dictionary format.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.get_degrees">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#get_in_degrees" class="summary-sig-name">get_in_degrees</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      API:
+    get_degree(self)
+Description:
+    Returns degrees of nodes in dictionary format.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.get_in_degrees">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#get_out_degrees" class="summary-sig-name">get_out_degrees</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      API:
+    get_degree(self)
+Description:
+    Returns degrees of nodes in dictionary format.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.get_out_degrees">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#get_diameter" class="summary-sig-name">get_diameter</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      API:
+    get_diameter(self)
+Description:
+    Returns diameter of the graph.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.get_diameter">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="coinor.gimpy.graph.Graph-class.html#create_cluster" class="summary-sig-name">create_cluster</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">node_list</span>,
+        <span class="summary-sig-arg">cluster_attrs</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
+        <span class="summary-sig-arg">node_attrs</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>)</span><br />
+      API:
+    create_cluster(self, node_list, cluster_attrs, node_attrs)
+Description:
+    Creates a cluster from the node given in the node list.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.create_cluster">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__delattr__</code>,
+      <code>__format__</code>,
+      <code>__getattribute__</code>,
+      <code>__hash__</code>,
+      <code>__new__</code>,
+      <code>__reduce__</code>,
+      <code>__reduce_ex__</code>,
+      <code>__setattr__</code>,
+      <code>__sizeof__</code>,
+      <code>__str__</code>,
+      <code>__subclasshook__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== PROPERTIES ==================== -->
+<a name="section-Properties"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Properties</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Properties"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__class__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Method Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-MethodDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="__init__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">**attr</span>)</span>
+    <br /><em class="fname">(Constructor)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.__init__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API: __init__(self, **attrs)
+Description:
+Graph class constructor. Sets attributes using argument.
+Input:
+    **attrs: Graph attributes.
+Post:
+    Sets following attributes using **attrs; self.attr,
+    self.graph_type. Creates following initial attributes;
+    self.neighbors, self.in_neighbors, self.nodes, self.out_neighbors,
+    self.cluster
+
+</pre>
+  <dl class="fields">
+    <dt>Overrides:
+        object.__init__
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="__repr__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__repr__</span>(<span class="sig-arg">self</span>)</span>
+    <br /><em class="fname">(Representation operator)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.__repr__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API: __repr__(self)
+Description:
+Returns string representation of the graph.
+Return:
+    String representation of the graph.
+
+</pre>
+  <dl class="fields">
+    <dt>Overrides:
+        object.__repr__
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="__contains__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__contains__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">item</span>)</span>
+    <br /><em class="fname">(In operator)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.__contains__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API: __contains__(self, item)
+Description:
+Return true if item is in graph. item can be a node name or a tuple
+that represents an edge.
+Return:
+    True if item is in graph.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="add_node"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">add_node</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">name</span>,
+        <span class="sig-arg">**attr</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.add_node">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API: add_node(self, name, **attr)
+Description:
+Adds node to the graph.
+Pre:
+    Graph should not contain a node with this name. We do not allow
+    multiple nodes with the same name.
+Input:
+    name: Name of the node.
+    attr: Node attributes.
+Post:
+    self.neighbors, self.nodes and self.in_neighbors are updated.
+Return:
+    Node (a Node class instance) added to the graph.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="del_node"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">del_node</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">name</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.del_node">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API: del_node(self, name)
+Description:
+Removes node from Graph.
+Input:
+    name: Name of the node.
+Pre:
+    Graph should contain a node with this name.
+Post:
+    self.neighbors, self.nodes and self.in_neighbors are updated.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="add_edge"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">add_edge</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">name1</span>,
+        <span class="sig-arg">name2</span>,
+        <span class="sig-arg">**attr</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.add_edge">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API: add_edge(self, name1, name2, **attr)
+Description:
+Adds edge to the graph. Sets edge attributes using attr argument.
+Input:
+    name1: Name of the source node (if directed).
+    name2: Name of the sink node (if directed).
+    attr: Edge attributes.
+Pre:
+    Graph should not already contain this edge. We do not allow
+    multiple edges with same source and sink nodes.
+Post:
+    self.edge_attr is updated.
+    self.neighbors, self.nodes and self.in_neighbors are updated if
+    graph was missing at least one of the nodes.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="del_edge"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">del_edge</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">e</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.del_edge">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API: del_edge(self, e)
+Description:
+Removes edge from graph.
+Input:
+    e: Tuple that represents edge, in (source,sink) form.
+Pre:
+    Graph should contain this edge.
+Post:
+    self.edge_attr, self.neighbors and self.in_neighbors are updated.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="get_node"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_node</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">name</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.get_node">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API: get_node(self, name)
+Description:
+Returns node object with the provided name.
+Input:
+    name: Name of the node.
+Return:
+    Returns node object if node exists, returns None otherwise.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="get_edge_cost"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_edge_cost</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">edge</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.get_edge_cost">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API: get_edge_cost(self, edge)
+Description:
+Returns cost attr of edge, required for minimum_spanning_tree_kruskal().
+Input:
+    edge: Tuple that represents edge, in (source,sink) form.
+Return:
+    Returns cost attribute value of the edge.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="check_edge"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">check_edge</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">name1</span>,
+        <span class="sig-arg">name2</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.check_edge">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API: check_edge(self, name1, name2)
+Description:
+Return True if edge exists, False otherwise.
+Input:
+    name1: name of the source node.
+    name2: name of the sink node.
+Return:
+    Returns True if edge exists, False otherwise.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="get_node_list"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_node_list</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.get_node_list">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API: get_node_list(self)
+Description:
+Returns node list.
+Return:
+    List of nodes.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="get_edge_list"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_edge_list</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.get_edge_list">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API: get_edge_list(self)
+Description:
+Returns edge list.
+Return:
+    List of edges, edges are tuples and in (source,sink) format.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="get_node_num"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_node_num</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.get_node_num">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API: get_node_num(self)
+Description:
+Returns number of nodes.
+Return:
+    Number of nodes.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="get_edge_num"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_edge_num</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.get_edge_num">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API: get_edge_num(self)
+Description:
+Returns number of edges.
+Return:
+    Number of edges.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="get_node_attr"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_node_attr</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">name</span>,
+        <span class="sig-arg">attr</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.get_node_attr">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API: get_node_attr(self, name, attr)
+Description:
+Returns attribute attr of given node.
+Input:
+    name: Name of node.
+    attr: Attribute of node.
+Pre:
+    Graph should have this node.
+Return:
+    Value of node attribute attr.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="get_edge_attr"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_edge_attr</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">n</span>,
+        <span class="sig-arg">m</span>,
+        <span class="sig-arg">attr</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.get_edge_attr">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API: get_edge_attr(self, n, m, attr)
+Description:
+Returns attribute attr of edge (n,m).
+Input:
+    n: Source node name.
+    m: Sink node name.
+    attr: Attribute of edge.
+Pre:
+    Graph should have this edge.
+Return:
+    Value of edge attribute attr.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="set_node_attr"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">set_node_attr</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">name</span>,
+        <span class="sig-arg">attr</span>,
+        <span class="sig-arg">value</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.set_node_attr">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API: set_node_attr(self, name, attr)
+Description:
+Sets attr attribute of node named name to value.
+Input:
+    name: Name of node.
+    attr: Attribute of node to set.
+Pre:
+    Graph should have this node.
+Post:
+    Node attribute will be updated.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="set_edge_attr"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">set_edge_attr</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">n</span>,
+        <span class="sig-arg">m</span>,
+        <span class="sig-arg">attr</span>,
+        <span class="sig-arg">value</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.set_edge_attr">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API: set_edge_attr(self, n, m, attr, value)
+Description:
+Sets attr attribute of edge (n,m) to value.
+Input:
+    n: Source node name.
+    m: Sink node name.
+    attr: Attribute of edge to set.
+    value: New value of attribute.
+Pre:
+    Graph should have this edge.
+Post:
+    Edge attribute will be updated.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="get_neighbors"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_neighbors</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">name</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.get_neighbors">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API: get_neighbors(self, name)
+Description:
+Returns list of neighbors of given node.
+Input:
+    name: Node name.
+Pre:
+    Graph should have this node.
+Return:
+    List of neighbor node names.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="get_in_neighbors"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_in_neighbors</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">name</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.get_in_neighbors">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API: get_in_neighbors(self, name)
+Description:
+Returns list of in neighbors of given node.
+Input:
+    name: Node name.
+Pre:
+    Graph should have this node.
+Return:
+    List of in-neighbor node names.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="get_out_neighbors"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_out_neighbors</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">name</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.get_out_neighbors">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API: get_out_neighbors(self, name)
+Description:
+Returns list of out-neighbors of given node.
+Input:
+    name: Node name.
+Pre:
+    Graph should have this node.
+Return:
+    List of out-neighbor node names.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="edge_to_string"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">edge_to_string</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">e</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.edge_to_string">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API: edge_to_string(self, e)
+Description:
+Return string that represents edge e in dot language.
+Input:
+    e: Edge tuple in (source,sink) format.
+Pre:
+    Graph should have this edge.
+Return:
+    String that represents given edge.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="to_string"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">to_string</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.to_string">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API: to_string(self)
+Description:
+This method is based on pydot Graph class with the same name.
+Returns a string representation of the graph in dot language.
+It will return the graph and all its subelements in string form.
+Return:
+    String that represents graph in dot language.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="label_components"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">label_components</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">display</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.label_components">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API: label_components(self, display=None)
+Description:
+This method labels the nodes of an undirected graph with component
+numbers so that each node has the same label as all nodes in the
+same component. It will display the algortihm if display argument is
+provided.
+Input:
+    display: display method.
+Pre:
+    self.graph_type should be UNDIRECTED_GRAPH.
+Post:
+    Nodes will have 'component' attribute that will have component
+    number as value.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="tarjan"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">tarjan</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.tarjan">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API: tarjan(self)
+Description:
+Implements Tarjan's algorithm for determining strongly connected set of
+nodes.
+Pre:
+    self.graph_type should be DIRECTED_GRAPH.
+Post:
+    Nodes will have 'component' attribute that will have component
+    number as value. Changes 'index' attribute of nodes.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="strong_connect"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">strong_connect</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">q</span>,
+        <span class="sig-arg">node</span>,
+        <span class="sig-arg">index</span>,
+        <span class="sig-arg">component</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.strong_connect">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API: strong_connect (self, q, node, index, component)
+Description:
+Used by tarjan method. This method should not be called directly by
+user.
+Input:
+    q: Node list.
+    node: Node that is being connected to nodes in q.
+    index: Index used by tarjan method.
+    component: Current component number.
+Pre:
+    Should be called by tarjan and itself (recursive) only.
+Post:
+    Nodes will have 'component' attribute that will have component
+    number as value. Changes 'index' attribute of nodes.
+Return:
+    Returns new index and component numbers.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="label_strong_component"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">label_strong_component</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.label_strong_component">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API: label_strong_component(self)
+Description:
+This method labels the nodes of a directed graph with component
+numbers so that each node has the same label as all nodes in the
+same component.
+Pre:
+    self.graph_type should be DIRECTED_GRAPH.
+Post:
+    Nodes will have 'component' attribute that will have component
+    number as value. Changes 'index' attribute of nodes.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="dfs"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">dfs</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">root</span>,
+        <span class="sig-arg">disc_count</span>=<span class="sig-default">0</span>,
+        <span class="sig-arg">finish_count</span>=<span class="sig-default">1</span>,
+        <span class="sig-arg">component</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">transpose</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">display</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">pred</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.dfs">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API: dfs(self, root, disc_count = 0, finish_count = 1, component=None,
+    transpose=False)
+Description:
+Make a depth-first search starting from node with name root.
+Input:
+    root: Starting node name.
+    disc_count: Discovery time.
+    finish_count: Finishing time.
+    component: component number.
+    transpose: Goes in the reverse direction along edges if transpose
+    is True.
+Post:
+    Nodes will have 'component' attribute that will have component
+    number as value. Updates 'disc_time' and 'finish_time' attributes
+    of nodes which represents discovery time and finishing time.
+Return:
+    Returns a tuple that has discovery time and finish time of the
+    last node in the following form (disc_time,finish_time).
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="bfs"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">bfs</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">root</span>,
+        <span class="sig-arg">display</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">component</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.bfs">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API: bfs(self, root, display = None, component=None)
+Description:
+Make a breadth-first search starting from node with name root.
+Input:
+    root: Starting node name.
+    display: display method.
+    component: component number.
+Post:
+    Nodes will have 'component' attribute that will have component
+    number as value.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="search"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">search</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">source</span>,
+        <span class="sig-arg">destination</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">display</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">component</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">q</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">algo</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">DFS</code><code class="variable-quote">'</code></span>,
+        <span class="sig-arg">reverse</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">**kargs</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.search">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API: search(self, source, destination = None, display = None,
+       component = None, q = Stack(),
+       algo = 'DFS', reverse = False, **kargs)
+Description:
+Generic search method. Changes behavior (dfs,bfs,dijkstra,)
+according to algo argument.
+if destination is not specified:
+   This method determines all nodes reachable from &quot;source&quot; ie. creates
+   precedence tree and returns it (dictionary).
+if destionation is given:
+   If there exists a path from &quot;source&quot; to &quot;destination&quot; it will return
+   list of the nodes is this path. If there is no such path, it will
+   return the precedence tree constructed from source (dictionary).
+Optionally, it marks all nodes reachable from &quot;source&quot; with a component
+number. The variable &quot;q&quot; determines the order in which the nodes are
+searched.
+Input:
+    source: Search starts from node with this name.
+    destination: Destination node name.
+    display: Display method.
+    algo: Algortihm that specifies search. Available algortihms are
+    'DFS', 'BFS', 'Dijkstra' and 'Prim'.
+    reverse: Search goes in reverse arc directions if True.
+    kargs: Additional keyword arguments.
+Post:
+    Nodes will have 'component' attribute that will have component
+    number as value (if component argument provided). Color attribute
+    of nodes and edges may change.
+Return:
+    Returns predecessor tree in dictionary form if destination is
+    not specified, returns list of node names in the path from source
+    to destionation if destionation is specified and there is a path.
+    If there is no path returns predecessor tree in dictionary form.
+    See description section.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="process_node_search"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">process_node_search</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">node</span>,
+        <span class="sig-arg">q</span>,
+        <span class="sig-arg">**kwargs</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.process_node_search">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API: process_node_search(self, node, q, **kwargs)
+Description:
+Used by search() method. Process nodes along the search. Should not be
+called by user directly.
+Input:
+    node: Name of the node being processed.
+    q: Queue data structure.
+    kwargs: Keyword arguments.
+Post:
+    'priority' attribute of the node may get updated.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="process_edge_dijkstra"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">process_edge_dijkstra</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">current</span>,
+        <span class="sig-arg">neighbor</span>,
+        <span class="sig-arg">pred</span>,
+        <span class="sig-arg">q</span>,
+        <span class="sig-arg">component</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.process_edge_dijkstra">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API: process_edge_dijkstra(self, current, neighbor, pred, q, component)
+Description:
+Used by search() method if the algo argument is 'Dijkstra'. Processes
+edges along Dijkstra's algorithm. User does not need to call this
+method directly.
+Input:
+    current: Name of the current node.
+    neighbor: Name of the neighbor node.
+    pred: Predecessor tree.
+    q: Data structure that holds nodes to be processed in a queue.
+    component: component number.
+Post:
+    'color' attribute of nodes and edges may change.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="process_edge_prim"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">process_edge_prim</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">current</span>,
+        <span class="sig-arg">neighbor</span>,
+        <span class="sig-arg">pred</span>,
+        <span class="sig-arg">q</span>,
+        <span class="sig-arg">component</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.process_edge_prim">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API: process_edge_prim(self, current, neighbor, pred, q, component)
+Description:
+Used by search() method if the algo argument is 'Prim'. Processes
+edges along Prim's algorithm. User does not need to call this method
+directly.
+Input:
+    current: Name of the current node.
+    neighbor: Name of the neighbor node.
+    pred: Predecessor tree.
+    q: Data structure that holds nodes to be processed in a queue.
+    component: component number.
+Post:
+    'color' attribute of nodes and edges may change.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="process_edge_search"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">process_edge_search</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">current</span>,
+        <span class="sig-arg">neighbor</span>,
+        <span class="sig-arg">pred</span>,
+        <span class="sig-arg">q</span>,
+        <span class="sig-arg">component</span>,
+        <span class="sig-arg">algo</span>,
+        <span class="sig-arg">**kargs</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.process_edge_search">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API: process_edge_search(self, current, neighbor, pred, q, component,
+                         algo, **kargs)
+Description:
+Used by search() method. Processes edges according to the underlying
+algortihm. User does not need to call this method directly.
+Input:
+    current: Name of the current node.
+    neighbor: Name of the neighbor node.
+    pred: Predecessor tree.
+    q: Data structure that holds nodes to be processed in a queue.
+    component: component number.
+    algo: Search algorithm. See search() documentation.
+    kwargs: Keyword arguments.
+Post:
+    'color', 'distance', 'component' attribute of nodes and edges may
+    change.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="minimum_spanning_tree_prim"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">minimum_spanning_tree_prim</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">source</span>,
+        <span class="sig-arg">display</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">q</span>=<span class="sig-default">PriorityQueue()</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.minimum_spanning_tree_prim">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API: minimum_spanning_tree_prim(self, source, display = None,
+                                q = PriorityQueue())
+Description:
+Determines a minimum spanning tree of all nodes reachable
+from source using Prim's Algorithm.
+Input:
+    source: Name of source node.
+    display: Display method.
+    q: Data structure that holds nodes to be processed in a queue.
+Post:
+    'color', 'distance', 'component' attribute of nodes and edges may
+    change.
+Return:
+    Returns predecessor tree in dictionary format.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="minimum_spanning_tree_kruskal"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">minimum_spanning_tree_kruskal</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">display</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">components</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.minimum_spanning_tree_kruskal">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API: minimum_spanning_tree_kruskal(self, display = None,
+                                   components = None)
+Description:
+Determines a minimum spanning tree using Kruskal's Algorithm.
+Input:
+    display: Display method.
+    component: component number.
+Post:
+    'color' attribute of nodes and edges may change.
+Return:
+    Returns list of edges where edges are tuples in (source,sink)
+    format.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="max_flow_preflowpush"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">max_flow_preflowpush</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">source</span>,
+        <span class="sig-arg">sink</span>,
+        <span class="sig-arg">algo</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">FIFO</code><code class="variable-quote">'</code></span>,
+        <span class="sig-arg">display</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.max_flow_preflowpush">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API: max_flow_preflowpush(self, source, sink, algo = 'FIFO',
+                          display = None)
+Description:
+Finds maximum flow from source to sink by a depth-first search based
+augmenting path algorithm.
+Pre:
+     Assumes a directed graph in which each arc has a 'capacity'
+     attribute and for which there does does not exist both arcs (i,j)
+     and (j,i) for any pair of nodes i and j.
+Input:
+    source: Source node name.
+    sink: Sink node name.
+    algo: Algorithm choice, 'FIFO', 'SAP' or 'HighestLabel'.
+    display: display method.
+Post:
+    The 'flow' attribute of each arc gives a maximum flow.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="process_edge_flow"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">process_edge_flow</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">source</span>,
+        <span class="sig-arg">sink</span>,
+        <span class="sig-arg">i</span>,
+        <span class="sig-arg">j</span>,
+        <span class="sig-arg">algo</span>,
+        <span class="sig-arg">q</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.process_edge_flow">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API: process_edge_flow(self, source, sink, i, j, algo, q)
+Description:
+Used by by max_flow_preflowpush() method. Processes edges along
+prefolow push.
+Input:
+    source: Source node name of flow graph.
+    sink: Sink node name of flow graph.
+    i: Source node in the processed edge (tail of arc).
+    j: Sink node in the processed edge (head of arc).
+Post:
+    The 'flow' and 'excess' attributes of nodes may get updated.
+Return:
+    Returns False if residual capacity is 0, True otherwise.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="relabel"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">relabel</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">i</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.relabel">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API: relabel(self, i)
+Description:
+Used by max_flow_preflowpush() method for relabelling node i.
+Input:
+    i: Node that is being relabelled.
+Post:
+    'distance' attribute of node i is updated.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="show_flow"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">show_flow</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.show_flow">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API: relabel(self, i)
+Description:
+Used by max_flow_preflowpush() method for display purposed.
+Post:
+    'color' and 'label' attribute of edges/nodes are updated.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="create_residual_graph"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">create_residual_graph</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.create_residual_graph">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API: create_residual_graph(self)
+Description:
+Creates and returns residual graph, which is a Graph instance
+itself.
+Pre:
+    (1) Arcs should have 'flow', 'capacity' and 'cost' attribute
+    (2) Graph should be a directed graph
+Return:
+    Returns residual graph, which is a Graph instance.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="cycle_canceling"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">cycle_canceling</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">display</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.cycle_canceling">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API:
+    cycle_canceling(self, display)
+Description:
+    Solves minimum cost feasible flow problem using cycle canceling
+    algorithm. Returns True when an optimal solution is found, returns
+    False otherwise. 'flow' attribute values of arcs should be
+    considered as junk when returned False.
+Input:
+    display: Display method.
+Pre:
+    (1) Arcs should have 'capacity' and 'cost' attribute.
+    (2) Nodes should have 'demand' attribute, this value should be
+    positive if the node is a supply node, negative if it is demand
+    node and 0 if it is transhipment node.
+    (3) graph should not have node 's' and 't'.
+Post:
+    Changes 'flow' attributes of arcs.
+Return:
+    Returns True when an optimal solution is found, returns False
+    otherwise.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="find_feasible_flow"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">find_feasible_flow</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.find_feasible_flow">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API:
+    find_feasible_flow(self)
+Description:
+    Solves feasible flow problem, stores solution in 'flow' attribute
+    or arcs. This method is used to get an initial feasible flow for
+    simplex and cycle canceling algorithms. Uses max_flow() method.
+    Other max flow methods can also be used. Returns True if a feasible
+    flow is found, returns False, if the problem is infeasible. When
+    the problem is infeasible 'flow' attributes of arcs should be
+    considered as junk.
+Pre:
+    (1) 'capacity' attribute of arcs
+    (2) 'demand' attribute of nodes
+Post:
+    Keeps solution in 'flow' attribute of arcs.
+Return:
+    Returns True if a feasible flow is found, returns False, if the
+    problem is infeasible
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="get_layout"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_layout</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.get_layout">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API:
+    get_layout(self)
+Description:
+Returns layout attribute of the graph.
+Return:
+    Returns layout attribute of the graph.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="set_layout"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">set_layout</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">value</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.set_layout">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API:
+    set_layout(self, value)
+Description:
+Sets layout attribute of the graph to value.
+Input:
+    value: New value of the layout.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="write"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">write</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">basename</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">graph</code><code class="variable-quote">'</code></span>,
+        <span class="sig-arg">layout</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">format</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">png</code><code class="variable-quote">'</code></span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.write">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API:
+    write(self, basename = 'graph', layout = None, format='png')
+Description:
+Writes graph to dist using layout and format.
+Input:
+    basename: name of the file that will be written.
+    layout: Dot layout for generating graph image.
+    format: Image format, all format supported by Dot are wellcome.
+Post:
+    File will be written to disk.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="create"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">create</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">layout</span>,
+        <span class="sig-arg">format</span>,
+        <span class="sig-arg">**args</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.create">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API:
+    create(self, layout, format, **args)
+Description:
+    Returns postscript representation of graph.
+Input:
+    layout: Dot layout for generating graph image.
+    format: Image format, all format supported by Dot are wellcome.
+Return:
+    Returns postscript representation of graph.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="display"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">display</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">highlight</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">basename</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">graph</code><code class="variable-quote">'</code></span>,
+        <span class="sig-arg">format</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">png</code><code class="variable-quote">'</code></span>,
+        <span class="sig-arg">pause</span>=<span class="sig-default">True</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.display">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API:
+    display(self, highlight = None, basename = 'graph', format = 'png',
+        pause = True)
+Description:
+    Displays graph according to the arguments provided.
+    Current display modes: 'off', 'file', 'pygame', 'PIL', 'xdot',
+    'svg'
+    Current layout modes: Layouts provided by graphviz ('dot', 'fdp',
+    'circo', etc.) and 'dot2tex'.
+    Current formats: Formats provided by graphviz ('ps', 'pdf', 'png',
+    etc.)
+Input:
+    highlight: List of nodes to be highlighted.
+    basename: File name. It will be used if display mode is 'file'.
+    format: Image format, all format supported by Dot are wellcome.
+    pause: If display is 'pygame' and pause is True pygame will pause
+    and wait for user input before closing the display. It will close
+    display window straightaway otherwise.
+Post:
+    A display window will pop up or a file will be written depending
+    on display mode.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="set_display_mode"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">set_display_mode</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">value</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.set_display_mode">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API:
+    set_display_mode(self, value)
+Description:
+    Sets display mode to value.
+Input:
+    value: New display mode.
+Post:
+    Display mode attribute of graph is updated.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="max_flow"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">max_flow</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">source</span>,
+        <span class="sig-arg">sink</span>,
+        <span class="sig-arg">display</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">algo</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">DFS</code><code class="variable-quote">'</code></span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.max_flow">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API: max_flow(self, source, sink, display=None)
+Description:
+Finds maximum flow from source to sink by a depth-first search based
+augmenting path algorithm.
+Pre:
+    Assumes a directed graph in which each arc has a 'capacity'
+    attribute and for which there does does not exist both arcs (i,j)
+    and (j, i) for any pair of nodes i and j.
+Input:
+    source: Source node name.
+    sink: Sink node name.
+    display: Display mode.
+Post:
+    The 'flow&quot; attribute of each arc gives a maximum flow.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="get_negative_cycle"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_negative_cycle</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.get_negative_cycle">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API:
+    get_negative_cycle(self)
+Description:
+    Finds and returns negative cost cycle using 'cost' attribute of
+    arcs. Return value is a list of nodes representing cycle it is in
+    the following form; n_1-n_2-...-n_k, when the cycle has k nodes.
+Pre:
+    Arcs should have 'cost' attribute.
+Return:
+    Returns a list of nodes in the cycle if a negative cycle exists,
+    returns None otherwise.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="floyd_warshall"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">floyd_warshall</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.floyd_warshall">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API:
+    floyd_warshall(self)
+Description:
+    Finds all pair shortest paths and stores it in a list of lists.
+    This is possible if the graph does not have negative cycles. It will
+    return a tuple with 3 elements. The first element indicates whether
+    the graph has a negative cycle. It is true if the graph does not
+    have a negative cycle, ie. distances found are valid shortest
+    distances. The second element is a dictionary of shortest distances
+    between nodes. Keys are tuple of node pairs ie. (i,j). The third
+    element is a dictionary that helps to retrieve the shortest path
+    between nodes. Then return value can be represented as (validity,
+    distance, nextn) where nextn is the dictionary to retrieve paths.
+    distance and nextn can be used as inputs to other methods to get
+    shortest path between nodes.
+Pre:
+    Arcs should have 'cost' attribute.
+Return:
+    Returns (validity, distance, nextn). The distances are valid if
+    validity is True.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="floyd_warshall_get_path"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">floyd_warshall_get_path</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">distance</span>,
+        <span class="sig-arg">nextn</span>,
+        <span class="sig-arg">i</span>,
+        <span class="sig-arg">j</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.floyd_warshall_get_path">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API:
+    floyd_warshall_get_path(self, distance, nextn, i, j):
+Description:
+    Finds shortest path between i and j using distance and nextn
+    dictionaries.
+Pre:
+    (1) distance and nextn are outputs of floyd_warshall method.
+    (2) The graph does not have a negative cycle, , ie.
+    distance[(i,i)] &gt;=0 for all node i.
+Return:
+    Returns the list of nodes on the path from i to j, ie. [i,...,j]
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="floyd_warshall_get_cycle"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">floyd_warshall_get_cycle</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">distance</span>,
+        <span class="sig-arg">nextn</span>,
+        <span class="sig-arg">element</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.floyd_warshall_get_cycle">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API:
+    floyd_warshall_get_cycle(self, distance, nextn, element = None)
+Description:
+    Finds a negative cycle in the graph.
+Pre:
+    (1) distance and nextn are outputs of floyd_warshall method.
+    (2) The graph should have a negative cycle, , ie.
+    distance[(i,i)] &lt; 0 for some node i.
+Return:
+    Returns the list of nodes on the cycle. Ex: [i,j,k,...,r], where
+    (i,j), (j,k) and (r,i) are some edges in the cycle.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="find_cycle_capacity"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">find_cycle_capacity</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">cycle</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.find_cycle_capacity">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API:
+    find_cycle_capacity(self, cycle):
+Description:
+    Finds capacity of the cycle input.
+Pre:
+    (1) Arcs should have 'capacity' attribute.
+Input:
+    cycle: a list representing a cycle
+Return:
+    Returns an integer number representing capacity of cycle.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="fifo_label_correcting"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">fifo_label_correcting</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">source</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.fifo_label_correcting">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API:
+    fifo_label_correcting(self, source)
+Description:
+    finds shortest path from source to every other node. Returns
+    predecessor dictionary. If graph has a negative cycle, detects it
+    and returns to it.
+Pre:
+    (1) 'cost' attribute of arcs. It will be used to compute shortest
+    path.
+Input:
+    source: source node
+Post:
+    Modifies 'distance' attribute of nodes.
+Return:
+    If there is no negative cycle returns to (True, pred), otherwise
+    returns to (False, cycle) where pred is the predecessor dictionary
+    and cycle is a list of nodes that represents cycle. It is in
+    [n_1, n_2, ..., n_k] form where the cycle has k nodes.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="label_correcting_check_cycle"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">label_correcting_check_cycle</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">j</span>,
+        <span class="sig-arg">pred</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.label_correcting_check_cycle">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API:
+    label_correcting_check_cycle(self, j, pred)
+Description:
+    Checks if predecessor dictionary has a cycle, j represents the node
+    that predecessor is recently updated.
+Pre:
+    (1) predecessor of source node should be None.
+Input:
+    j: node that predecessor is recently updated.
+    pred: predecessor dictionary
+Return:
+    If there exists a cycle, returns the list that represents the
+    cycle, otherwise it returns to None.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="label_correcting_get_cycle"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">label_correcting_get_cycle</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">j</span>,
+        <span class="sig-arg">pred</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.label_correcting_get_cycle">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API:
+    label_correcting_get_cycle(self, labelled, pred)
+Description:
+    In label correcting check cycle it is decided pred has a cycle and
+    nodes in the cycle are labelled. We will create a list of nodes
+    in the cycle using labelled and pred inputs.
+Pre:
+    This method should be called from label_correcting_check_cycle(),
+    unless you are sure about what you are doing.
+Input:
+    j: Node that predecessor is recently updated. We know that it is
+    in the cycle
+    pred: Predecessor dictionary that contains a cycle
+Post:
+    Returns a list of nodes that represents cycle. It is in
+    [n_1, n_2, ..., n_k] form where the cycle has k nodes.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="augment_cycle"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">augment_cycle</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">amount</span>,
+        <span class="sig-arg">cycle</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.augment_cycle">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API:
+    augment_cycle(self, amount, cycle):
+Description:
+    Augments 'amount' unit of flow along cycle.
+Pre:
+    Arcs should have 'flow' attribute.
+Inputs:
+    amount: An integer representing the amount to augment
+    cycle: A list representing a cycle
+Post:
+    Changes 'flow' attributes of arcs.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="network_simplex"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">network_simplex</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">display</span>,
+        <span class="sig-arg">pivot</span>,
+        <span class="sig-arg">root</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.network_simplex">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API:
+    network_simplex(self, display, pivot, root)
+Description:
+    Solves minimum cost feasible flow problem using network simplex
+    algorithm. It is recommended to use min_cost_flow(algo='simplex')
+    instead of using network_simplex() directly. Returns True when an
+    optimal solution is found, returns False otherwise. 'flow' attribute
+    values of arcs should be considered as junk when returned False.
+Pre:
+    (1) check Pre section of min_cost_flow()
+Input:
+    pivot: specifies pivot rule. Check min_cost_flow()
+    display: 'off' for no display, 'pygame' for live update of
+    spanning tree.
+    root: Root node for the underlying spanning trees that will be
+    generated by network simplex algorthm.
+Post:
+    (1) Changes 'flow' attribute of edges.
+Return:
+    Returns True when an optimal solution is found, returns
+    False otherwise.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="simplex_mark_leaving_arc"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">simplex_mark_leaving_arc</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">p</span>,
+        <span class="sig-arg">q</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.simplex_mark_leaving_arc">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API:
+    simplex_mark_leving_arc(self, p, q)
+Description:
+    Marks leaving arc.
+Input:
+    p: tail of the leaving arc
+    q: head of the leaving arc
+Post:
+    Changes color attribute of leaving arc.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="simplex_determine_leaving_arc"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">simplex_determine_leaving_arc</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">t</span>,
+        <span class="sig-arg">k</span>,
+        <span class="sig-arg">l</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.simplex_determine_leaving_arc">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API:
+    simplex_determine_leaving_arc(self, t, k, l)
+Description:
+    Determines and returns the leaving arc.
+Input:
+    t: current spanning tree solution.
+    k: tail of the entering arc.
+    l: head of the entering arc.
+Return:
+    Returns the tuple that represents leaving arc, capacity of the
+    cycle and cycle.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="simplex_mark_entering_arc"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">simplex_mark_entering_arc</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">k</span>,
+        <span class="sig-arg">l</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.simplex_mark_entering_arc">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API:
+    simplex_mark_entering_arc(self, k, l)
+Description:
+    Marks entering arc (k,l)
+Input:
+    k: tail of the entering arc
+    l: head of the entering arc
+Post:
+    (1) color attribute of the arc (k,l)
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="simplex_mark_st_arcs"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">simplex_mark_st_arcs</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">t</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.simplex_mark_st_arcs">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API:
+    simplex_mark_st_arcs(self, t)
+Description:
+    Marks spanning tree arcs.
+    Case 1, Blue: Arcs that are at lower bound and in tree.
+    Case 2, Red: Arcs that are at upper bound and in tree.
+    Case 3, Green: Arcs that are between bounds are green.
+    Case 4, Brown: Non-tree arcs at lower bound.
+    Case 5, Violet: Non-tree arcs at upper bound.
+Input:
+    t: t is the current spanning tree
+Post:
+    (1) color attribute of edges.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="print_flow"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">print_flow</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.print_flow">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API:
+    print_flow(self)
+Description:
+    Prints all positive flows to stdout. This method can be used for
+    debugging purposes.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="simplex_redraw"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">simplex_redraw</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">display</span>,
+        <span class="sig-arg">root</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.simplex_redraw">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API:
+    simplex_redraw(self, display, root)
+Description:
+    Returns a new graph instance that is same as self but adds nodes
+    and arcs in a way that the resulting tree will be displayed
+    properly.
+Input:
+    display: display mode
+    root: root node in tree.
+Return:
+    Returns a graph same as self.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="simplex_remove_arc"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">simplex_remove_arc</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">t</span>,
+        <span class="sig-arg">p</span>,
+        <span class="sig-arg">q</span>,
+        <span class="sig-arg">min_capacity</span>,
+        <span class="sig-arg">cycle</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.simplex_remove_arc">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API:
+    simplex_remove_arc(self, p, q, min_capacity, cycle)
+Description:
+    Removes arc (p,q), updates t, updates flows, where (k,l) is
+    the entering arc.
+Input:
+    t: tree solution to be updated.
+    p: tail of the leaving arc.
+    q: head of the leaving arc.
+    min_capacity: capacity of the cycle.
+    cycle: cycle obtained when entering arc considered.
+Post:
+    (1) updates t.
+    (2) updates 'flow' attributes.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="simplex_select_entering_arc"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">simplex_select_entering_arc</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">t</span>,
+        <span class="sig-arg">pivot</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.simplex_select_entering_arc">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API:
+    simplex_select_entering_arc(self, t, pivot)
+Description:
+    Decides and returns entering arc using pivot rule.
+Input:
+    t: current spanning tree solution
+    pivot: May be one of the following; 'first_eligible' or 'dantzig'.
+    'dantzig' is the default value.
+Return:
+    Returns entering arc tuple (k,l)
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="simplex_optimal"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">simplex_optimal</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">t</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.simplex_optimal">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API:
+    simplex_optimal(self, t)
+Description:
+    Checks if the current solution is optimal, if yes returns True,
+    False otherwise.
+Pre:
+    'flow' attributes represents a solution.
+Input:
+    t: Graph instance tat reperesents spanning tree solution.
+Return:
+    Returns True if the current solution is optimal (optimality
+    conditions are satisfied), else returns False
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="simplex_find_tree"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">simplex_find_tree</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.simplex_find_tree">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API:
+    simplex_find_tree(self)
+Description:
+    Assumes a feasible flow solution stored in 'flow' attribute's of
+    arcs and converts this solution to a feasible spanning tree
+    solution.
+Pre:
+    (1) 'flow' attributes represents a feasible flow solution.
+Post:
+    (1) 'flow' attributes may change when eliminating cycles.
+Return:
+    Return a Graph instance that is a spanning tree solution.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="simplex_connect"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">simplex_connect</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">solution_g</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.simplex_connect">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API:
+    simplex_connect(self, solution_g)
+Description:
+    At this point we assume that the solution does not have a cycle.
+    We check if all the nodes are connected, if not we add an arc to
+    solution_g that does not create a cycle and return True. Otherwise
+    we do nothing and return False.
+Pre:
+    (1) We assume there is no cycle in the solution.
+Input:
+    solution_g: current spanning tree solution instance.
+Post:
+    (1) solution_g is updated. An arc that does not create a cycle is
+    added.
+    (2) 'component' attribute of nodes are changed.
+Return:
+    Returns True if an arc is added, returns False otherwise.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="simplex_search"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">simplex_search</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">source</span>,
+        <span class="sig-arg">component_nr</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.simplex_search">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API:
+    simplex_search(self, source, component_nr)
+Description:
+    Searches graph starting from source. Its difference from usual
+    search is we can also go backwards along an arc. When the graph
+    is a spanning tree it computes predecessor, thread and depth
+    indexes and stores them as node attributes. These values should be
+    considered as junk when the graph is not a spanning tree.
+Input:
+    source: source node
+    component_nr: component number
+Post:
+    (1) Sets the component number of all reachable nodes to component.
+    Changes 'component' attribute of nodes.
+    (2) Sets 'pred', 'thread' and 'depth' attributes of nodes. These
+    values are junk if the graph is not a tree.
+Return:
+    Returns predecessor dictionary.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="simplex_augment_cycle"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">simplex_augment_cycle</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">cycle</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.simplex_augment_cycle">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API:
+    simplex_augment_cycle(self, cycle)
+Description:
+    Augments along the cycle to break it.
+Pre:
+    'flow', 'capacity' attributes on arcs.
+Input:
+    cycle: list representing a cycle in the solution
+Post:
+    'flow' attribute will be modified.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="simplex_find_cycle"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">simplex_find_cycle</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.simplex_find_cycle">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API:
+    simplex_find_cycle(self)
+Description:
+    Returns a cycle (list of nodes) if the graph has one, returns None
+    otherwise. Uses DFS. During DFS checks existence of arcs to lower
+    depth regions. Note that direction of the arcs are not important.
+Return:
+    Returns list of nodes that represents cycle. Returns None if the
+    graph does not have any cycle.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="get_simplex_solution_graph"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_simplex_solution_graph</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.get_simplex_solution_graph">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API:
+    get_simplex_solution_graph(self):
+Description:
+    Assumes a feasible flow solution stored in 'flow' attribute's of
+    arcs. Returns the graph with arcs that have flow between 0 and
+    capacity.
+Pre:
+    (1) 'flow' attribute represents a feasible flow solution. See
+    Pre section of min_cost_flow() for details.
+Return:
+    Graph instance that only has the arcs that have flow strictly
+    between 0 and capacity.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="simplex_compute_potentials"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">simplex_compute_potentials</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">t</span>,
+        <span class="sig-arg">root</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.simplex_compute_potentials">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API:
+    simplex_compute_potentials(self, t, root)
+Description:
+    Computes node potentials for a minimum cost flow problem and stores
+    them as node attribute 'potential'. Based on pseudocode given in
+    Network Flows by Ahuja et al.
+Pre:
+    (1) Assumes a directed graph in which each arc has a 'cost'
+    attribute.
+    (2) Uses 'thread' and 'pred' attributes of nodes.
+Input:
+    t: Current spanning tree solution, its type is Graph.
+    root: root node of the tree.
+Post:
+    Keeps the node potentials as 'potential' attribute.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="simplex_identify_cycle"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">simplex_identify_cycle</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">t</span>,
+        <span class="sig-arg">k</span>,
+        <span class="sig-arg">l</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.simplex_identify_cycle">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API:
+    identify_cycle(self, t, k, l)
+Description:
+    Identifies and returns to the pivot cycle, which is a list of
+    nodes.
+Pre:
+    (1) t is spanning tree solution, (k,l) is the entering arc.
+Input:
+    t: current spanning tree solution
+    k: tail of the entering arc
+    l: head of the entering arc
+Returns:
+    List of nodes in the cycle.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="min_cost_flow"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">min_cost_flow</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">display</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">**args</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.min_cost_flow">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API:
+    min_cost_flow(self, display='off', **args)
+Description:
+    Solves minimum cost flow problem using node/edge attributes with
+    the algorithm specified.
+Pre:
+    (1) Assumes a directed graph in which each arc has 'capacity' and
+    'cost' attributes.
+    (2) Nodes should have 'demand' attribute. This value should be
+    positive for supply and negative for demand, and 0 for transhipment
+    nodes.
+    (3) The graph should be connected.
+    (4) Assumes (i,j) and (j,i) does not exist together. Needed when
+    solving max flow. (max flow problem is solved to get a feasible
+    flow).
+Input:
+    display: 'off' for no display, 'pygame' for live update of tree
+    args: may have the following
+        display: display method, if not given current mode (the one
+            specified by __init__ or set_display) will be used.
+        algo: determines algorithm to use, can be one of the following
+            'simplex': network simplex algorithm
+            'cycle_canceling': cycle canceling algorithm
+            'simplex' is used if not given.
+            see Network Flows by Ahuja et al. for details of algorithms.
+        pivot: valid if algo is 'simlex', determines pivoting rule for
+            simplex, may be one of the following; 'first_eligible',
+            'dantzig' or 'scaled'.
+            'dantzig' is used if not given.
+            see Network Flows by Ahuja et al. for pivot rules.
+        root: valid if algo is 'simlex', specifies the root node for
+            simplex algorithm. It is name of the one of the nodes. It
+            will be chosen randomly if not provided.
+Post:
+    The 'flow' attribute of each arc gives the optimal flows.
+    'distance' attribute of the nodes are also changed during max flow
+    solution process.
+Examples:
+    g.min_cost_flow():
+        solves minimum cost feasible flow problem using simplex
+        algorithm with dantzig pivoting rule.
+        See pre section for details.
+    g.min_cost_flow(algo='cycle_canceling'):
+        solves minimum cost feasible flow problem using cycle canceling
+        agorithm.
+    g.min_cost_flow(algo='simplex', pivot='scaled'):
+        solves minimum cost feasible flow problem using network simplex
+        agorithm with scaled pivot rule.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="random"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">random</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">numnodes</span>=<span class="sig-default">10</span>,
+        <span class="sig-arg">degree_range</span>=<span class="sig-default"><code class="variable-group">(</code>2<code class="variable-op">, </code>4<code class="variable-group">)</code></span>,
+        <span class="sig-arg">length_range</span>=<span class="sig-default"><code class="variable-group">(</code>1<code class="variable-op">, </code>10<code class="variable-group">)</code></span>,
+        <span class="sig-arg">density</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">edge_format</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">node_format</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">Euclidean</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">seedInput</span>=<span class="sig-default">0</span>,
+        <span class="sig-arg">add_labels</span>=<span class="sig-default">True</span>,
+        <span class="sig-arg">parallel_allowed</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">node_selection</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">closest</code><code class="variable-quote">'</code></span>,
+        <span class="sig-arg">scale</span>=<span class="sig-default">10</span>,
+        <span class="sig-arg">scale_cost</span>=<span class="sig-default">5</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.random">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API:
+    random(self, numnodes = 10, degree_range = None, length_range = None,
+       density = None, edge_format = None, node_format = None,
+       Euclidean = False, seedInput = 0)
+Description:
+    Populates graph with random edges and nodes.
+Input:
+    numnodes: Number of nodes to add.
+    degree_range: A tuple that has lower and upper bounds of degree for
+    a node.
+    length_range: A tuple that has lower and upper bounds for 'cost'
+    attribute of edges.
+    density: Density of edges, ie. 0.5 indicates a node will
+    approximately have edge to half of the other nodes.
+    edge_format: Dictionary that specifies attribute values for edges.
+    node_format: Dictionary that specifies attribute values for nodes.
+    Euclidean: Creates an Euclidean graph (Euclidean distance between
+    nodes) if True.
+    seedInput: Seed that will be used for random number generation.
+Pre:
+    It is recommended to call this method on empty Graph objects.
+Post:
+    Graph will be populated by nodes and edges.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="page_rank"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">page_rank</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">damping_factor</span>=<span class="sig-default">0.85</span>,
+        <span class="sig-arg">max_iterations</span>=<span class="sig-default">100</span>,
+        <span class="sig-arg">min_delta</span>=<span class="sig-default">1e-05</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.page_rank">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API:
+    page_rank(self, damping_factor=0.85, max_iterations=100,
+          min_delta=0.00001)
+Description:
+    Compute and return the page-rank of a directed graph.
+    This function was originally taken from here and modified for this
+    graph class: http://code.google.com/p/python-graph/source/browse/
+    trunk/core/pygraph/algorithms/pagerank.py
+Input:
+    damping_factor: Damping factor.
+    max_iterations: Maximum number of iterations.
+    min_delta: Smallest variation required to have a new iteration.
+Pre:
+    Graph should be a directed graph.
+Return:
+    Returns dictionary of page-ranks. Keys are node names, values are
+    corresponding page-ranks.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="get_degrees"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_degrees</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.get_degrees">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API:
+    get_degree(self)
+Description:
+    Returns degrees of nodes in dictionary format.
+Return:
+    Returns a dictionary of node degrees. Keys are node names, values
+    are corresponding degrees.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="get_in_degrees"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_in_degrees</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.get_in_degrees">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API:
+    get_degree(self)
+Description:
+    Returns degrees of nodes in dictionary format.
+Return:
+    Returns a dictionary of node degrees. Keys are node names, values
+    are corresponding degrees.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="get_out_degrees"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_out_degrees</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.get_out_degrees">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API:
+    get_degree(self)
+Description:
+    Returns degrees of nodes in dictionary format.
+Return:
+    Returns a dictionary of node degrees. Keys are node names, values
+    are corresponding degrees.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="get_diameter"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_diameter</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.get_diameter">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API:
+    get_diameter(self)
+Description:
+    Returns diameter of the graph. Diameter is defined as follows.
+    distance(n,m): shortest unweighted path from n to m
+    eccentricity(n) = $\max _m distance(n,m)$
+    diameter = $\min _n eccentricity(n) = \min _n \max _m distance(n,m)$
+Return:
+    Returns diameter of the graph.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="create_cluster"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">create_cluster</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">node_list</span>,
+        <span class="sig-arg">cluster_attrs</span>=<span class="sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>,
+        <span class="sig-arg">node_attrs</span>=<span class="sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="coinor.gimpy.graph-pysrc.html#Graph.create_cluster">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <pre class="literalblock">
+
+API:
+    create_cluster(self, node_list, cluster_attrs, node_attrs)
+Description:
+    Creates a cluster from the node given in the node list.
+Input:
+    node_list: List of nodes in the cluster.
+    cluster_attrs: Dictionary of cluster attributes, see Dot language
+    grammer documentation for details.
+    node_attrs: Dictionary of node attributes. It will overwrite
+    previous attributes of the nodes in the cluster.
+Post:
+    A cluster will be created. Attributes of the nodes in the cluster
+    may change.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="coinor.gimpy-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Wed Apr 27 01:20:47 2016
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>
