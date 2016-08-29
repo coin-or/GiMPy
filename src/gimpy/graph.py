@@ -1677,9 +1677,13 @@ After installation, ensure that the PATH variable is properly set.'''
                 if not isinstance(n, Node):
                     n = self.get_node(n)
                 n.set_attr('color', 'red')
+        if self.get_layout() == 'dot2tex':
+            self.attr['display'] = 'file'
+            print "Warning: Dot2tex layout can only be used with display mode 'file'"
+            print "         Automatically changing setting"
         if self.attr['display'] == 'file':
             if self.get_layout() == 'dot2tex':
-                if DOT2TEX_INSTALLED:
+                if DOT2TEX_INSTALLED and False:
                     if format != 'pdf' or format != 'ps':
                         print "Dot2tex only supports pdf and ps formats, falling back to pdf"
                         format = 'pdf'
@@ -1695,7 +1699,7 @@ After installation, ensure that the PATH variable is properly set.'''
                         subprocess.call(['pdflatex', basename])
                     self.set_layout('dot2tex')
                 else:
-                    print "Dot2tex not installed, falling back to graphviz"
+                    print "Dot2tex mode is broken due to changes in the dot2tex package, falling back to graphviz"
                     self.set_layout('dot')
                     self.write(basename+'.'+format, self.get_layout(), format)
             else:
