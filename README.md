@@ -49,7 +49,7 @@ using `easy_install dot2tex` should work fine.
 ###Branch and Bound Tree
 ![Branch and Bound](https://raw.githubusercontent.com/coin-or/GrUMPy/master/images/BranchAndBound.png)
 ###SAT Game Tree
-![SAT](https://raw.githubusercontent.com/coin-or/GiMPy/images/Turing.png)
+![SAT](https://raw.githubusercontent.com/coin-or/GiMPy/master/images/Turing.png)
 ###Flow Problem
 ![Max Flow](https://raw.githubusercontent.com/coin-or/GiMPy/master/images/maxflow.png)
 
