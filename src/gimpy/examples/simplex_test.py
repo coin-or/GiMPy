@@ -5,7 +5,7 @@ tests network simplex method and cycle canceling method of GIMPy.
 
 from coinor.gimpy import Graph, DIRECTED_GRAPH
 from random import seed, randint, random
-from coinor.pulp import LpProblem, LpVariable, LpMinimize, lpSum, value, GLPK
+from pulp import LpProblem, LpVariable, LpMinimize, lpSum, value, GLPK
 import time
 
 # global variables, experimental parameters
@@ -128,7 +128,7 @@ def solve(g):
         in_neig = g.get_in_neighbors(i)
         p += lpSum(x[(i,j)] for j in out_neig) -\
              lpSum(x[(j,i)] for j in in_neig)==demand[i]
-    p.solve(GLPK(msg = 0))
+    p.solve()
     return x, value(objective)
 
 class mGraph(Graph):
