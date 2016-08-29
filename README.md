@@ -8,7 +8,7 @@ visualization and are thus appropriate for use in the classroom.
 
 Documentation for the API is here:
 
-https://tkralphs.github.io/GiMPy
+https://coin-or.github.io/GiMPy
 
 Installation:
 
@@ -39,17 +39,17 @@ using `easy_install dot2tex` should work fine.
 ##Examples
 
 ###Forestry Model
-![Forestry](https://raw.githubusercontent.com/tkralphs/GiMPy/master/images/forestry.png)
+![Forestry](https://raw.githubusercontent.com/coin-or/GiMPy/master/images/forestry.png)
 ###Display Window in XDot
-![XDot](https://raw.githubusercontent.com/tkralphs/GiMPy/master/images/xdot.png)
+![XDot](https://raw.githubusercontent.com/coin-or/GiMPy/master/images/xdot.png)
 ###Lehigh ISE Prerequisite Graph
-![ISE Prerequisites](https://raw.githubusercontent.com/tkralphs/GiMPy/master/images/ISERequirements.png)
+![ISE Prerequisites](https://raw.githubusercontent.com/coin-or/GiMPy/master/images/ISERequirements.png)
 ###Graph of Actors Starring Together in Movies in IMDB
-![Bacon](https://raw.githubusercontent.com/tkralphs/GiMPy/master/images/bacon.png)
+![Bacon](https://raw.githubusercontent.com/coin-or/GiMPy/master/images/bacon.png)
 ###Branch and Bound Tree
-![Branch and Bound](https://raw.githubusercontent.com/tkralphs/GrUMPy/master/images/BranchAndBound.png)
+![Branch and Bound](https://raw.githubusercontent.com/coin-or/GrUMPy/master/images/BranchAndBound.png)
 ###SAT Game Tree
-![SAT](https://raw.githubusercontent.com/tkralphs/GiMPy/master/images/Turing.png)
+![SAT](https://raw.githubusercontent.com/tkralphs/GiMPy/coin-or/images/Turing.png)
 ###Flow Problem
-![Max Flow](https://raw.githubusercontent.com/tkralphs/GiMPy/master/images/maxflow.png)
+![Max Flow](https://raw.githubusercontent.com/coin-or/GiMPy/master/images/maxflow.png)
 
