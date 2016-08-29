@@ -1234,7 +1234,7 @@ class Graph(object):
             self.set_display_mode(display)
         if components is None:
             components = DisjointSet(display = display, layout = 'dot',
-                                     optimize = True)
+                                     optimize = False)
         sorted_edge_list = sorted(self.get_edge_list(), key=self.get_edge_cost)
         edges = []
         for n in self.get_node_list():
@@ -3103,7 +3103,7 @@ After installation, ensure that the PATH variable is properly set.'''
         if Euclidean == False:
             for m in range(numnodes):
                 self.add_node(m, **node_format)
-            if degree_range is not None:
+            if degree_range is not None and density is None:
                 for m in range(numnodes):
                     degree = random.randint(degree_range[0], degree_range[1])
                     i = 0
@@ -3150,7 +3150,7 @@ After installation, ensure that the PATH variable is properly set.'''
                 self.add_node(m, locationx = x, locationy = y,
                               pos = '"'+str(x) + "," + str(y)+'!"',
                               **node_format)
-            if degree_range is not None:
+            if degree_range is not None and density is None:
                 for m in range(numnodes):
                     degree = random.randint(degree_range[0], degree_range[1])
                     i = 0
@@ -3240,7 +3240,7 @@ After installation, ensure that the PATH variable is properly set.'''
         min_value = (1.0-damping_factor)/graph_size
         # itialize the page rank dict with 1/N for all nodes
         pagerank = dict.fromkeys(nodes, 1.0/graph_size)
-        for i in range(max_iterations):
+        for _ in xrange(max_iterations):
             diff = 0 #total difference compared to last iteraction
             # computes each node PageRank based on inbound links
             for node in nodes:
@@ -3463,7 +3463,18 @@ class DisjointSet(Graph):
 
 if __name__ == '__main__':
     G = Graph(type = UNDIRECTED_GRAPH, splines = 'true', K = 1.5)
-    G.random(numnodes = 10, Euclidean = False, seedInput = 11,
+    #G.random(numnodes = 20, Euclidean = True, seedInput = 11,
+    #         add_labels = False,
+    #         scale = 10,
+    #         scale_cost = 10,
+    #         #degree_range = (2, 4),
+    #         #length_range = (1, 10)
+    #         )
+    #page_ranks = sorted(G.page_rank().iteritems(), key=operator.itemgetter(1))
+    #page_ranks.reverse()
+    #for i in page_ranks:
+    #    print i    #G = Graph(type = UNDIRECTED_GRAPH, splines = 'true', K = 1.5)
+    G.random(numnodes = 10, Euclidean = True, seedInput = 13,
              add_labels = True,
              scale = 10,
              scale_cost = 10,
@@ -3473,5 +3484,5 @@ if __name__ == '__main__':
     G.set_display_mode('pygame')
     G.display()
     #G.dfs(0)
-    #G.search(0, display = 'pygame', algo = 'Prim')
-    G.minimum_spanning_tree_kruskal()
+    G.search(0, display = 'pygame', algo = 'Dijkstra')
+    #G.minimum_spanning_tree_kruskal()
