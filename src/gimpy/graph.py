@@ -48,14 +48,6 @@ future:
 -> The solution we find is not strongly feasible. Fix this.
 '''
 
-__version__    = '1.1.1'
-__author__     = 'Ted Ralphs, Aykut Bulut (ted@lehigh.edu, aykut@lehigh.edu)'
-__license__    = 'BSD'
-__maintainer__ = 'Aykut Bulut'
-__email__      = 'aykut@lehigh.edu'
-__url__        = None
-__title__      = 'Linked list data structure'
-
 from global_constants import *
 try:
     from src.blimpy import Stack, Queue, PriorityQueue
@@ -1683,7 +1675,7 @@ After installation, ensure that the PATH variable is properly set.'''
         if highlight != None:
             for n in highlight:
                 if not isinstance(n, Node):
-                    n = self.get_node(n)                    
+                    n = self.get_node(n)
                 n.set_attr('color', 'red')
         if self.attr['display'] == 'file':
             if self.get_layout() == 'dot2tex':
