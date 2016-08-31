@@ -1678,30 +1678,42 @@ After installation, ensure that the PATH variable is properly set.'''
                     n = self.get_node(n)
                 n.set_attr('color', 'red')
         if self.get_layout() == 'dot2tex':
-            self.attr['display'] = 'file'
-            print "Warning: Dot2tex layout can only be used with display mode 'file'"
-            print "         Automatically changing setting"
+            if self.attr['display'] != 'file':
+                self.attr['display'] = 'file'
+                print "Warning: Dot2tex layout can only be used with display mode 'file'"
+                print "         Automatically changing setting"
         if self.attr['display'] == 'file':
             if self.get_layout() == 'dot2tex':
-                if DOT2TEX_INSTALLED and False:
-                    if format != 'pdf' or format != 'ps':
-                        print "Dot2tex only supports pdf and ps formats, falling back to pdf"
-                        format = 'pdf'
-                    self.set_layout('dot')
-                    tex = dot2tex.dot2tex(self.to_string(), autosize=True, texmode = 'math', template = DOT2TEX_TEMPLATE)
-                    f = open(basename+'.tex', 'w')
-                    f.write(tex)
-                    f.close()
+                try:
+                    if DOT2TEX_INSTALLED:
+                        if format != 'pdf' or format != 'ps':
+                            print "Dot2tex only supports pdf and ps formats, falling back to pdf"
+                            format = 'pdf'
+                        self.set_layout('dot')
+                        tex = dot2tex.dot2tex(self.to_string(), autosize=True, texmode = 'math', template = DOT2TEX_TEMPLATE)
+                    else:
+                        print "Error: Dot2tex not installed."
+                except:
+                    try:
+                        self.set_layout('dot')
+                        self.write(basename+'.dot', self.get_layout(), 'dot')
+                        sp = subprocess.Popen('dot2tex -t math ' + basename + '.dot', stdout = subprocess.PIPE, 
+                                              stderr = subprocess.STDOUT)
+                        tex = sp.communicate()[0]
+                    except:
+                        print "There was an error running dot2tex."
+                f = open(basename+'.tex', 'w')
+                f.write(tex)
+                f.close()
+                try: 
                     subprocess.call(['latex', basename])
                     if format == 'ps':
                         subprocess.call(['dvips', basename])
                     elif format == 'pdf':
                         subprocess.call(['pdflatex', basename])
                     self.set_layout('dot2tex')
-                else:
-                    print "Dot2tex mode is broken due to changes in the dot2tex package, falling back to graphviz"
-                    self.set_layout('dot')
-                    self.write(basename+'.'+format, self.get_layout(), format)
+                except:
+                    print "There was an error runing latex. Is it installed?"
             else:
                 self.write(basename+'.'+format, self.get_layout(), format)
             return
