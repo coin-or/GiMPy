@@ -15,8 +15,6 @@ Pypi download page is here:
 
 https://pypi.python.org/pypi/coinor.gimpy
 
-## Installation Notes
-
 To install, do
 
 ```
@@ -51,14 +49,14 @@ the latter only seems to work with version `2.9.0dev` available
 [here](https://github.com/Alwnikrotikz/dot2tex). For the former method, just 
 using `easy_install dot2tex` should work fine.
 
-# Additional Notes for Windows Users
+### Additional Notes for Windows Users
 
 On Windows, if you want to use `xdot`, there are some additional particulars.
   * You must install the 32-bit version of Python 2.7
   * You must install the [PyGtk version 2.22.6](http://ftp.gnome.org/pub/GNOME/binaries/win32/pygtk/2.22/pygtk-all-in-one-2.22.6.win32-py2.7.msi). Version 2.24 is buggy on Windows.
   * You must install version 0.6 of xdot with e.g., `pip install xdot==0.6` 
   
-# Additional Notes for Linux and OS X Users
+### Additional Notes for Linux and OS X Users
 
 There have been reports of incompatibilities with recent versions of PyGtk, but I have not attempted yet to track this down. If things break, you may try some variant of the instructions above for installing on Windows.
 
