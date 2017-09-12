@@ -1,4 +1,4 @@
-#GiMPy 1.3
+# GiMPy 1.3
 
 [![DOI](https://zenodo.org/badge/18214894.svg)](https://zenodo.org/badge/latestdoi/18214894)
 
@@ -27,7 +27,7 @@ or
 pip install coinor.gimpy
 ```
 
-##Installation Notes
+## Installation Notes
 
 In order for GiMPy to visualize the graphs it produces, it's necessary to install 
   [GraphViz](http://www.graphviz.org/Download.php) (**Important**: after installing
@@ -62,9 +62,9 @@ On Windows, if you want to use `xdot`, there are some additional particulars.
 
 There have been reports of incompatibilities with recent versions of PyGtk, but I have not attempted yet to track this down. If things break, you may try some variant of the instructions above for installing on Windows.
 
-##Examples
+## Examples
 
-###Forestry Model
+### Forestry Model
 ![Forestry](https://raw.githubusercontent.com/coin-or/GiMPy/master/images/forestry.png)
 ###Display Window in XDot
 ![XDot](https://raw.githubusercontent.com/coin-or/GiMPy/master/images/xdot.png)
