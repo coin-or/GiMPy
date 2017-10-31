@@ -1138,7 +1138,7 @@ class Graph(object):
                 neighbor_node.set_attr('depth', -priority)
         else:
             distance = self.get_node(current).get_attr('distance') + 1
-            if (algo == 'UnweightedSPT' or algo == 'BFS' and
+            if ((algo == 'UnweightedSPT' or algo == 'BFS') and
                 neighbor_node.get_attr('distance') is not None):
                 return
             neighbor_node.set_attr('distance', distance)
