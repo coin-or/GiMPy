@@ -3119,15 +3119,15 @@ After installation, ensure that the PATH variable is properly set.'''
                         n = random.randint(1, numnodes-1)
                         if (((m,n) not in self.edge_attr and m != n) and
                             (parallel_allowed or (n, m) not in self.edge_attr)):
-                                if length_range is not None:
-                                    length = random.randint(length_range[0],
-                                                     length_range[1])
-                                    self.add_edge(m, n, cost = length, **edge_format)
-                                    if add_labels:
-                                        self.set_edge_attr(m, n, 'label', str(length))
+                            if length_range is not None:
+                                length = random.randint(length_range[0],
+                                                        length_range[1])
+                                self.add_edge(m, n, cost = length, **edge_format)
+                                if add_labels:
+                                    self.set_edge_attr(m, n, 'label', str(length))
                                 else:
                                     self.add_edge(m, n, **edge_format)
-                                i += 1
+                        i += 1
             elif density != None:
                 for m in range(numnodes):
                     if self.graph_type == DIRECTED_GRAPH:
