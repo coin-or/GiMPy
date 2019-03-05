@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type = "text/xsl" href = "https://projects.coin-or.org/svn/CoinWeb/trunk/projects/autoGen.xsl"?>
+<projectData xmlns="coin-or.org" 
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="https://projects.coin-or.org/svn/CoinWeb/trunk/projects/autoGen.xsd">
+
+  <projectBasics>
+
+      <projectName> GiMPy </projectName>
+
+      <projectRepo> GiMPy </projectRepo>
+
+      <projectDescription>
+        Graph Methods in Python (GiMPy) is a Python graph library containing
+        pure Python implementations of a variety of graph algorithms. The goal
+        is clarity in implementation rather than eficiency. Most methods have
+        an accompanying visualization and are thus appropriate for use in the
+        classroom.
+      </projectDescription>
+
+      <projectShortDescription>
+        A Python graph library.
+      </projectShortDescription>
+
+      <projectManager> Ted Ralphs, ted at lehigh.edu </projectManager>
+
+      <projectHomePage> https://github.com/coin-or/GiMPy </projectHomePage>
+
+      <projectLicense> Eclipse Public License 1.0 </projectLicense>
+      <projectLicenseURL>
+        http://www.opensource.org/licenses/eclipse-1.0
+      </projectLicenseURL>
+
+      <coinLinkedProjects>
+      </coinLinkedProjects>
+
+      <otherLinkedPackages>
+      </otherLinkedPackages>
+
+      <projectLanguage> Python </projectLanguage>
+
+      <developmentStatus>
+
+          <activityStatus>Active</activityStatus>
+
+          <maturityLevel>5</maturityLevel>
+
+      </developmentStatus>
+
+      <testedPlatforms>
+      <platform>                                              
+         <operatingSystem>Microsoft Windows</operatingSystem> 
+         <compiler>Python 2.7</compiler>                       
+      </platform>                                             
+                                                              
+      <platform>                                              
+         <operatingSystem>Linux</operatingSystem> 
+         <compiler>Python 2.7</compiler>                       
+      </platform>                                             
+
+      <platform>                                              
+         <operatingSystem>OS X</operatingSystem> 
+         <compiler>Python 2.7</compiler>                       
+      </platform>                                             
+
+      </testedPlatforms>
+
+      <projectCategories>
+
+          <category>
+             Graphs
+          </category>
+          
+      </projectCategories>
+      
+  </projectBasics>
+
+  <leftMenuLinks>
+
+          <documentation> https://coin-or.github.io/GiMPy </documentation>
+
+          <sourceCodeDownload>
+            https://github.com/coin-or/GiMPy
+          </sourceCodeDownload>
+
+          <binaryDownload>
+            https://pypi.python.org/pypi/coinor.gimpy
+          </binaryDownload>
+
+          <mailingList> https://github.com/coin-or/GiMPy/issues </mailingList>
+
+  </leftMenuLinks>
+
+</projectData>
