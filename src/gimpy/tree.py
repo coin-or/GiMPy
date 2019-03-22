@@ -1,9 +1,12 @@
 '''
 Tree class built on top of Graph class.
 '''
+from __future__ import print_function
+from __future__ import absolute_import
+from builtins import str
 
-from graph import Graph, Node
-from global_constants import *
+from .graph import Graph, Node
+from .global_constants import *
 try:
     from src.blimpy import Stack, Queue
 except ImportError:
@@ -323,19 +326,19 @@ class BinaryTree(Tree):
             first_child = self.get_right_child
             second_child = self.get_left_child
         if order == 'pre':
-            print root
+            print(root)
         if first_child(root) is not None:
             if display:
                 self.display(highlight = [root])
             self.print_nodes(order, priority, display, first_child(root))
         if order == 'in':
-            print root
+            print(root)
         if second_child(root) is not None:
             if display:
                 self.display(highlight = [root])
             self.print_nodes(order, priority, display, second_child(root))
         if order == 'post':
-            print root
+            print(root)
         if display:
             self.display(highlight = [root])
         if old_display:
@@ -435,18 +438,18 @@ class BinaryTree(Tree):
         if self.get_left_child(root):
             if display:
                 self.display(highlight = [root])
-            print '(',
+            print('(', end=' ')
             self.printexp(display, self.get_left_child(root))
         if isinstance(root, Node):
             root_label = root.attr['label']
         else:
             root_label = self.get_node_attr(root,'label')
-        print root_label,
+        print(root_label, end=' ')
         if display:
                 self.display(highlight = [root])
         if self.get_right_child(root):
             self.printexp(display, self.get_right_child(root))
-            print ')',
+            print(')', end=' ')
             if display:
                 self.display(highlight = [root])
 
@@ -467,17 +470,17 @@ class BinaryTree(Tree):
             root_label = root.attr['label']
         else:
             root_label = self.get_node_attr(root,'label')
-        print root_label,
+        print(root_label, end=' ')
         if display:
                 self.display(highlight = [root])
         if self.get_right_child(root):
             res2 = self.postordereval(display, self.get_right_child(root))
         if res1 and res2:
             result = opers[root_label](res1 , res2)
-            print '=', result
+            print('=', result)
             if display:
                 self.display(highlight = [root])
-            print result,
+            print(result, end=' ')
             return result
         else:
             return int(root_label) 
@@ -491,6 +494,6 @@ if __name__ == '__main__':
     T.add_right_child('5', '+')
     T.add_right_child('7', '*')
     T.printexp()
-    print
+    print()
     T.postordereval()
 

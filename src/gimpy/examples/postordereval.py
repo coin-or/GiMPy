@@ -3,6 +3,7 @@ Created on Oct 15, 2012
 
 @author: tkr2
 '''
+from __future__ import print_function
 
 from coinor.gimpy import BinaryTree
 
@@ -14,5 +15,5 @@ if __name__ == '__main__':
     T.add_right_child(3, 1, label = '5')
     T.add_right_child(4, 0, label = '7')
     T.printexp(True)
-    print
+    print()
     T.postordereval(True)

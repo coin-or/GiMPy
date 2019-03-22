@@ -1,8 +1,9 @@
-from global_constants import *
-import graph
-import examples
-from tree import Tree
-from tree import BinaryTree
+from __future__ import absolute_import
+from .global_constants import *
+from . import graph
+from . import examples
+from .tree import Tree
+from .tree import BinaryTree
 
 Graph = graph.Graph
 DisjointSet = graph.DisjointSet
