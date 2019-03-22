@@ -39,6 +39,6 @@ MAT = {"x1" : [2],
 RHS = [29]
 
 #List of variable indices
-VARIABLES = OBJ.keys()
+VARIABLES = list(OBJ.keys())
 VARIABLES.sort()
 

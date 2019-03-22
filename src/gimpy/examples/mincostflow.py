@@ -10,6 +10,7 @@ black: there is no flow on the arc
 red  : the flow equals to the arc capacity
 green: there is positive flow on the arc, less then capacity.
 '''
+from __future__ import print_function
 
 try:
     from src.gimpy import Graph, DIRECTED_GRAPH
@@ -50,4 +51,4 @@ if __name__=='__main__':
     for n in nl:
         for m in nl:
             if g.check_edge(n, m):
-                print n, m, g.get_edge_attr(n, m, 'flow')
+                print(n, m, g.get_edge_attr(n, m, 'flow'))

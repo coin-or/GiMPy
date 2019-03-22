@@ -1,6 +1,7 @@
 '''
 This file has global constants required for GIMPy.
 '''
+from past.builtins import basestring
 
 import re     # for compile()
 
@@ -138,7 +139,7 @@ def quote_if_necessary(s):
                    "\n" : r'\n',
                    "\r" : r'\r',
                    "\\ " : r'\\ '}
-        for (a,b) in replace.items():
+        for (a,b) in list(replace.items()):
             s = s.replace(a, b)
         return '"' + s + '"'
     return s

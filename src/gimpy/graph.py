@@ -47,14 +47,23 @@ TODO(aykut):
 future:
 -> The solution we find is not strongly feasible. Fix this.
 '''
+from __future__ import division
+from __future__ import print_function
+from __future__ import absolute_import
+from future import standard_library
+standard_library.install_aliases()
+from builtins import str
+from builtins import range
+from past.utils import old_div
+from builtins import object
 
-from global_constants import *
+from .global_constants import *
 try:
     from src.blimpy import Stack, Queue, PriorityQueue
 except ImportError:
     from coinor.blimpy import Stack, Queue, PriorityQueue
 import subprocess # for call()
-import StringIO   # for StringIO()
+import io   # for StringIO()
 import copy       # for deepcopy()
 import sys        # for exit()
 import random     # for seed, random, randint
@@ -229,7 +238,7 @@ class Graph(object):
             if PYGAME_INSTALLED:
                 pygame.init()
             else:
-                print "Pygame module not installed, graphical display disabled"
+                print("Pygame module not installed, graphical display disabled")
         elif 'display' not in self.attr:
             self.attr['display']='off'
         if 'layout' not in self.attr:
@@ -442,7 +451,7 @@ class Graph(object):
         Return:
             List of nodes.
         '''
-        return self.neighbors.keys()
+        return list(self.neighbors.keys())
 
     def get_edge_list(self):
         '''
@@ -452,7 +461,7 @@ class Graph(object):
         Return:
             List of edges, edges are tuples and in (source,sink) format.
         '''
-        return self.edge_attr.keys()
+        return list(self.edge_attr.keys())
 
     def get_node_num(self):
         '''
@@ -937,7 +946,7 @@ class Graph(object):
             if q is None:
                 q = PriorityQueue()
         else:
-            print "Unknown search algorithm...exiting"
+            print("Unknown search algorithm...exiting")
             return
         neighbors = self.neighbors
         if self.graph_type == DIRECTED_GRAPH and reverse:
@@ -1294,7 +1303,7 @@ class Graph(object):
                 self.set_node_attr(n, 'distance',
                                    2*len(nl) + 1)
         if disconnect:
-            print 'Warning: graph contains nodes not connected to the sink...'
+            print('Warning: graph contains nodes not connected to the sink...')
         if algo == 'FIFO':
             q = Queue()
         elif algo == 'SAP':
@@ -1632,17 +1641,17 @@ class Graph(object):
                                  stdout=subprocess.PIPE,
                                  stderr=subprocess.PIPE)
         except OSError:
-            print '''Graphviz executable not found.
+            print('''Graphviz executable not found.
 Graphviz must be installed and in your search path.
 Please visit http://www.graphviz.org/ for information on installation.
-After installation, ensure that the PATH variable is properly set.'''
+After installation, ensure that the PATH variable is properly set.''')
             return
         stdout_output, stderr_output = p.communicate()
         if p.returncode != 0 :
             raise Exception('Graphviz executable terminated with status: %d. stderr follows: %s' % (
                     p.returncode, stderr_output))
         elif stderr_output:
-            print stderr_output
+            print(stderr_output)
         return stdout_output
 
     def display(self, highlight = None, basename = 'graph', format = 'png',
@@ -1680,19 +1689,19 @@ After installation, ensure that the PATH variable is properly set.'''
         if self.get_layout() == 'dot2tex':
             if self.attr['display'] != 'file':
                 self.attr['display'] = 'file'
-                print "Warning: Dot2tex layout can only be used with display mode 'file'"
-                print "         Automatically changing setting"
+                print("Warning: Dot2tex layout can only be used with display mode 'file'")
+                print("         Automatically changing setting")
         if self.attr['display'] == 'file':
             if self.get_layout() == 'dot2tex':
                 try:
                     if DOT2TEX_INSTALLED:
                         if format != 'pdf' or format != 'ps':
-                            print "Dot2tex only supports pdf and ps formats, falling back to pdf"
+                            print("Dot2tex only supports pdf and ps formats, falling back to pdf")
                             format = 'pdf'
                         self.set_layout('dot')
                         tex = dot2tex.dot2tex(self.to_string(), autosize=True, texmode = 'math', template = DOT2TEX_TEMPLATE)
                     else:
-                        print "Error: Dot2tex not installed."
+                        print("Error: Dot2tex not installed.")
                 except:
                     try:
                         self.set_layout('dot')
@@ -1701,7 +1710,7 @@ After installation, ensure that the PATH variable is properly set.'''
                                               stderr = subprocess.STDOUT)
                         tex = sp.communicate()[0]
                     except:
-                        print "There was an error running dot2tex."
+                        print("There was an error running dot2tex.")
                 f = open(basename+'.tex', 'w')
                 f.write(tex)
                 f.close()
@@ -1713,14 +1722,14 @@ After installation, ensure that the PATH variable is properly set.'''
                         subprocess.call(['pdflatex', basename])
                     self.set_layout('dot2tex')
                 except:
-                    print "There was an error runing latex. Is it installed?"
+                    print("There was an error runing latex. Is it installed?")
             else:
                 self.write(basename+'.'+format, self.get_layout(), format)
             return
         elif self.attr['display'] == 'pygame':
             output = self.create(self.get_layout(), format)
             if output is not None:
-                im = StringIO.StringIO(self.create(self.get_layout(), format))
+                im = io.StringIO(self.create(self.get_layout(), format))
                 picture = pygame.image.load(im, format)
                 screen = pygame.display.set_mode(picture.get_size())
                 screen.blit(picture, picture.get_rect())
@@ -1736,15 +1745,15 @@ After installation, ensure that the PATH variable is properly set.'''
                         # not appropriate here.
                         #sys.exit()
             else:
-                print 'Error in displaying graph. Display disabled'
+                print('Error in displaying graph. Display disabled')
                 self.set_display_mode('off')
         elif self.attr['display'] == 'PIL':
-            im = StringIO.StringIO(self.create(self.get_layout(), format))
+            im = io.StringIO(self.create(self.get_layout(), format))
             if PIL_INSTALLED:
                 im2 = PIL_Image.open(im)
                 im2.show()
             else:
-                print 'Error: PIL not installed. Display disabled.'
+                print('Error: PIL not installed. Display disabled.')
                 self.attr['display'] = 'off'
         elif self.attr['display'] == 'xdot':
             if XDOT_INSTALLED:
@@ -1753,15 +1762,15 @@ After installation, ensure that the PATH variable is properly set.'''
                 window.connect('destroy', gtk.main_quit)
                 gtk.main()
             else:
-                print 'Error: xdot not installed. Display disabled.'
+                print('Error: xdot not installed. Display disabled.')
                 self.attr['display'] = 'off'
         elif self.attr['display'] == 'svg':
             if not ETREE_INSTALLED:
-                print 'Error: etree not installed (display mode: svg). Display disabled.'
+                print('Error: etree not installed (display mode: svg). Display disabled.')
                 self.attr['display'] = 'off'
         else:
-            print "Unknown display mode: ",
-            print self.attr['display']
+            print("Unknown display mode: ", end=' ')
+            print(self.attr['display'])
         if highlight != None:
             for n in highlight:
                 if not isinstance(n, Node):
@@ -2423,7 +2432,7 @@ After installation, ensure that the PATH variable is properly set.'''
         Post:
             (1) color attribute of edges.
         '''
-        tel = t.edge_attr.keys()
+        tel = list(t.edge_attr.keys())
         for e in self.get_edge_list():
             flow_e = self.edge_attr[e]['flow']
             capacity_e = self.edge_attr[e]['capacity']
@@ -2451,11 +2460,11 @@ After installation, ensure that the PATH variable is properly set.'''
             Prints all positive flows to stdout. This method can be used for
             debugging purposes.
         '''
-        print 'printing current edge, flow, capacity'
+        print('printing current edge, flow, capacity')
         for e in self.edge_attr:
             if self.edge_attr[e]['flow']!=0:
-                print e, str(self.edge_attr[e]['flow']).ljust(4),
-                print str(self.edge_attr[e]['capacity']).ljust(4)
+                print(e, str(self.edge_attr[e]['flow']).ljust(4), end=' ')
+                print(str(self.edge_attr[e]['capacity']).ljust(4))
 
     def simplex_redraw(self, display, root):
         '''
@@ -2527,7 +2536,7 @@ After installation, ensure that the PATH variable is properly set.'''
         '''
         # augment min_capacity along cycle
         n = len(cycle)
-        tel = t.edge_attr.keys()
+        tel = list(t.edge_attr.keys())
         index = 0
         while index < (n-1):
             if (cycle[index], cycle[index+1]) in tel:
@@ -2725,7 +2734,7 @@ After installation, ensure that the PATH variable is properly set.'''
         nl = solution_g.get_node_list()
         current = nl[0]
         pred = solution_g.simplex_search(current, current)
-        separated = pred.keys()
+        separated = list(pred.keys())
         for n in nl:
             if solution_g.get_node(n).get_attr('component') != current:
                 # find an arc from n to seperated
@@ -2801,7 +2810,7 @@ After installation, ensure that the PATH variable is properly set.'''
         # find amount to augment
         index = 0
         k = len(cycle)
-        el = self.edge_attr.keys()
+        el = list(self.edge_attr.keys())
         # check arc (cycle[k-1], cycle[0])
         if (cycle[k-1], cycle[0]) in el:
             min_capacity = self.edge_attr[(cycle[k-1], cycle[0])]['capacity']-\
@@ -3055,15 +3064,15 @@ After installation, ensure that the PATH variable is properly set.'''
                     break
             if 'pivot' in args:
                 if not self.network_simplex(display, args['pivot'], root):
-                    print 'problem is infeasible'
+                    print('problem is infeasible')
             else:
                 if not self.network_simplex(display, 'dantzig', root):
-                    print 'problem is infeasible'
+                    print('problem is infeasible')
         elif algorithm is 'cycle_canceling':
             if not self.cycle_canceling(display):
-                print 'problem is infeasible'
+                print('problem is infeasible')
         else:
-            print args['algo'], 'is not a defined algorithm. Exiting.'
+            print(args['algo'], 'is not a defined algorithm. Exiting.')
             return
 
     def random(self, numnodes = 10, degree_range = (2, 4), length_range = (1, 10),
@@ -3148,7 +3157,7 @@ After installation, ensure that the PATH variable is properly set.'''
                                 else:
                                     self.add_edge(m, n, **edge_format)
             else:
-                print "Must set either degree range or density"
+                print("Must set either degree range or density")
         else:
             for m in range(numnodes):
                 ''' Assigns random coordinates (between 1 and 20) to the nodes
@@ -3192,7 +3201,7 @@ After installation, ensure that the PATH variable is properly set.'''
                                 if add_labels:
                                     self.set_edge_attr(m, lengths[i][0], 'label', str(int(lengths[i][1])))
                     else:
-                        print "Unknown node selection rule...exiting"
+                        print("Unknown node selection rule...exiting")
                         return
             elif density != None:
                 for m in range(numnodes):
@@ -3217,7 +3226,7 @@ After installation, ensure that the PATH variable is properly set.'''
                                 else:
                                     self.add_edge(m, n, **edge_format)
             else:
-                print "Must set either degree range or density"
+                print("Must set either degree range or density")
 
     def page_rank(self, damping_factor=0.85, max_iterations=100,
                   min_delta=0.00001):
@@ -3245,10 +3254,10 @@ After installation, ensure that the PATH variable is properly set.'''
         if graph_size == 0:
             return {}
         #value for nodes without inbound links
-        min_value = (1.0-damping_factor)/graph_size
+        min_value = old_div((1.0-damping_factor),graph_size)
         # itialize the page rank dict with 1/N for all nodes
-        pagerank = dict.fromkeys(nodes, 1.0/graph_size)
-        for _ in xrange(max_iterations):
+        pagerank = dict.fromkeys(nodes, old_div(1.0,graph_size))
+        for _ in range(max_iterations):
             diff = 0 #total difference compared to last iteraction
             # computes each node PageRank based on inbound links
             for node in nodes:
@@ -3295,7 +3304,7 @@ After installation, ensure that the PATH variable is properly set.'''
         '''
         degree = {}
         if self.attr['type'] is not DIRECTED_GRAPH:
-            print 'This function only works for directed graphs'
+            print('This function only works for directed graphs')
             return
         for n in self.get_node_list():
             degree[n] = len(self.get_in_neighbors(n))
@@ -3313,7 +3322,7 @@ After installation, ensure that the PATH variable is properly set.'''
         '''
         degree = {}
         if self.attr['type'] is not DIRECTED_GRAPH:
-            print 'This function only works for directed graphs'
+            print('This function only works for directed graphs')
             return
         for n in self.get_node_list():
             degree[n] = len(self.get_out_neighbors(n))
@@ -3333,7 +3342,7 @@ After installation, ensure that the PATH variable is properly set.'''
         '''
 
         if self.attr['type'] is not UNDIRECTED_GRAPH:
-            print 'This function only works for undirected graphs'
+            print('This function only works for undirected graphs')
             return
         diameter = 'infinity'
         eccentricity_n = 0
@@ -3492,5 +3501,5 @@ if __name__ == '__main__':
     G.set_display_mode('pygame')
     G.display()
     #G.dfs(0)
-    G.search(0, display = 'pygame', algo = 'Dijkstra')
+    G.search(0, display = 'pygame', algo = 'Prim')
     #G.minimum_spanning_tree_kruskal()

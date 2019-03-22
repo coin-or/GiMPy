@@ -1,3 +1,5 @@
+from builtins import str
+from builtins import range
 from coinor.gimpy import Graph
 from coinor.gimpy import DIRECTED_GRAPH
 

@@ -12,6 +12,10 @@ branching variable (most fractional and fixed). The complete_enumeration
 variable can be used to turn off fathoming by bound.
 
 '''
+from __future__ import print_function
+from __future__ import absolute_import
+from builtins import str
+from builtins import range
 
 from pulp import LpVariable, lpSum, LpProblem, LpMaximize, LpConstraint, LpStatus, value
 import math
@@ -68,7 +72,7 @@ T.create_cluster(['C', 'I', 'S', 'P'], cluster_attrs)
 
 import_instance = False
 if import_instance:
-    from milp2 import CONSTRAINTS, VARIABLES, OBJ, MAT, RHS
+    from .milp2 import CONSTRAINTS, VARIABLES, OBJ, MAT, RHS
 
     #the number of variables and constraints
     numVars = len(VARIABLES)
@@ -125,24 +129,24 @@ lp_count = 0
 #List of incumbent solution variable values
 opt = dict([(i, 0) for i in VARIABLES])
 
-print "==========================================="
-print "Starting Branch and Bound"
+print("===========================================")
+print("Starting Branch and Bound")
 
 if branch_strategy == MOST_FRAC:
-    print "Most fractional variable"
+    print("Most fractional variable")
 elif branch_strategy == FIXED:
-    print "Fixed order"
+    print("Fixed order")
 else:
-    print "Unknown branching strategy %s" %branch_strategy
+    print("Unknown branching strategy %s" %branch_strategy)
 
 if search_strategy == DEPTH_FIRST:
-    print "Depth first search strategy"
+    print("Depth first search strategy")
 elif search_strategy == BEST_FIRST:
-    print "Best first search strategy"
+    print("Best first search strategy")
 else:
-    print "Unknown search strategy %s" %search_strategy
+    print("Unknown search strategy %s" %search_strategy)
 
-print "==========================================="
+print("===========================================")
 
 # List of candidate nodes
 Q = PriorityQueue()
@@ -165,10 +169,10 @@ while not Q.isEmpty():
     else:
         cur_depth = 0
 
-    print ""
-    print "----------------------------------------------------"
-    print ""
-    print "Node: %s, Depth: %s, LB: %s" %(cur_index,cur_depth,LB)
+    print("")
+    print("----------------------------------------------------")
+    print("")
+    print("Node: %s, Depth: %s, LB: %s" %(cur_index,cur_depth,LB))
 
     #====================================
     #    LP Relaxation
@@ -183,13 +187,13 @@ while not Q.isEmpty():
     #Fix all prescribed variables
     branch_vars = []
     if cur_index is not 0:
-        print "Branching variables: "
+        print("Branching variables: ")
         branch_vars.append(branch_var)
         if sense == '>=':
             prob += LpConstraint(lpSum(var[branch_var]) >= rhs)
         else:
             prob += LpConstraint(lpSum(var[branch_var]) <= rhs)
-        print branch_var,
+        print(branch_var, end=' ')
         pred = parent
         while str(pred) is not '0':
             pred_branch_var = T.get_node_attr(pred, 'branch_var')
@@ -199,11 +203,11 @@ while not Q.isEmpty():
                 prob += LpConstraint(lpSum(var[pred_branch_var]) <= pred_rhs)
             else:
                 prob += LpConstraint(lpSum(var[pred_branch_var]) >= pred_rhs)
-            print pred_branch_var,
+            print(pred_branch_var, end=' ')
             branch_vars.append(pred_branch_var)
             pred = T.get_node_attr(pred, 'parent')
 
-    print ""
+    print("")
 
     # Solve the LP relaxation
     prob.solve()
@@ -215,10 +219,10 @@ while not Q.isEmpty():
 
     # Print status
     if infeasible:
-        print "LP Solved, status: Infeasible"
+        print("LP Solved, status: Infeasible")
     else:
-        print "LP Solved, status: %s, obj: %s" %(LpStatus[prob.status],
-                                                 value(prob.objective))
+        print("LP Solved, status: %s, obj: %s" %(LpStatus[prob.status],
+                                                 value(prob.objective)))
 
 
     if(LpStatus[prob.status] == "Optimal"):
@@ -241,42 +245,42 @@ while not Q.isEmpty():
                 #these two have different data structures first one list
                 #second one dictionary
                 opt[i] = var_values[i]
-            print "New best solution found, objective: %s" %relax
+            print("New best solution found, objective: %s" %relax)
             for i in VARIABLES:
                 if var_values[i] > 0:
-                    print "%s = %s" %(i, var_values[i])
+                    print("%s = %s" %(i, var_values[i]))
         elif (integer_solution and relax<=LB):
-            print "New integer solution found, objective: %s" %relax
+            print("New integer solution found, objective: %s" %relax)
             for i in VARIABLES:
                 if var_values[i] > 0:
-                    print "%s = %s" %(i, var_values[i])
+                    print("%s = %s" %(i, var_values[i]))
         else:
-            print "Fractional solution:"
+            print("Fractional solution:")
             for i in VARIABLES:
                 if var_values[i] > 0:
-                    print "%s = %s" %(i, var_values[i])
+                    print("%s = %s" %(i, var_values[i]))
 
     #For complete enumeration
     if complete_enumeration:
         relax = LB - 1
 
     if integer_solution:
-        print "Integer solution"
+        print("Integer solution")
         status = 'S'
         BAKstatus = 'integer'
         color = 'lightblue'
     elif infeasible:
-        print "Infeasible node"
+        print("Infeasible node")
         status = 'I'
         BAKstatus = 'infeasible'
         color = 'orange'
     elif not complete_enumeration and relax <= LB:
-        print "Node pruned by bound (obj: %s, UB: %s)" %(relax,LB)
+        print("Node pruned by bound (obj: %s, UB: %s)" %(relax,LB))
         status = 'P'
         BAKstatus = 'fathomed'
         color = 'red'
     elif cur_depth >= numVars :
-        print "Reached a leaf"
+        print("Reached a leaf")
         BAKstatus = 'fathomed'
         status = 'L'
     else:
@@ -364,11 +368,11 @@ while not Q.isEmpty():
                     branching_var = i
 
         else:
-            print "Unknown branching strategy %s" %branch_strategy
+            print("Unknown branching strategy %s" %branch_strategy)
             exit()
 
         if branching_var >= 0:
-            print "Branching on variable %s" %branching_var
+            print("Branching on variable %s" %branching_var)
 
         #Create new nodes
         if search_strategy == DEPTH_FIRST:
@@ -391,20 +395,20 @@ if ((XDOT_INSTALLED and display_mode == 'xdot' and layout != 'ladot') or
 if layout == 'ladot':
     T.write_as_dot(filename = 'graph')
 
-print ""
-print "==========================================="
-print "Branch and bound completed in %sms" %timer
-print "Strategy: %s" %branch_strategy
+print("")
+print("===========================================")
+print("Branch and bound completed in %sms" %timer)
+print("Strategy: %s" %branch_strategy)
 if complete_enumeration:
-    print "Complete enumeration"
-print "%s nodes visited " %node_count
-print "%s LP's solved" %lp_count
-print "==========================================="
-print "Optimal solution"
+    print("Complete enumeration")
+print("%s nodes visited " %node_count)
+print("%s LP's solved" %lp_count)
+print("===========================================")
+print("Optimal solution")
 #print optimal solution
 for i in sorted(VARIABLES):
     if opt[i] > 0:
-        print "%s = %s" %(i, opt[i])
-print "Objective function value"
-print LB
-print "==========================================="
+        print("%s = %s" %(i, opt[i]))
+print("Objective function value")
+print(LB)
+print("===========================================")

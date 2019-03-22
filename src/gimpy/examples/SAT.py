@@ -1,3 +1,4 @@
+from __future__ import print_function
 try:
     from src.gimpy import Graph
 except ImportError:
@@ -37,6 +38,6 @@ if __name__ == '__main__':
     
     G.set_display_mode('xdot')
 
-    print G
+    print(G)
 
     G.display(basename='Turing')
