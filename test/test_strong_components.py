@@ -1,3 +1,4 @@
+from __future__ import print_function
 from gimpy import Graph, DIRECTED_GRAPH
 
 def generate_test_instance1():
@@ -35,5 +36,5 @@ if __name__=='__main__':
     #g.label_strong_component(0)
     g.tarjan()
     for n in g.get_node_list():
-        print n, g.get_node_attr(n, 'component')
+        print(n, g.get_node_attr(n, 'component'))
     g.display()

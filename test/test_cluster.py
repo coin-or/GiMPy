@@ -7,6 +7,7 @@ the methods in the literature and measuring running time performances. Hence
 it is teaching/research oriented. This script demonstrates the Graph class's
 capability as a graphviz interface.
 '''
+from __future__ import print_function
 
 from gimpy import Graph, DIRECTED_GRAPH
 
@@ -44,6 +45,6 @@ if __name__=='__main__':
     # create second cluster
     c.create_cluster(['b0', 'b1', 'b2', 'b3'], cluster_attrs, node_attrs)
     # print graph in dot language to stdout
-    print c.to_string()
+    print(c.to_string())
     c.set_display_mode('pygame')
     c.display()

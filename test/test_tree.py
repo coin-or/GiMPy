@@ -1,3 +1,4 @@
+from __future__ import print_function
 from gimpy import BinaryTree
 
 if __name__=='__main__':
@@ -16,7 +17,7 @@ if __name__=='__main__':
     t.dfs()
     # test bfs
     t.bfs()
-    print 'off display done'
+    print('off display done')
     # test print_nodes(display='pygame')
     t.print_nodes(display='pygame')
     # test dfs(display='pygame')

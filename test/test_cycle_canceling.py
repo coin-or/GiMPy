@@ -1,6 +1,9 @@
 '''
 tests if cycle canceling method works properly.
 '''
+from __future__ import print_function
+from builtins import str
+from builtins import range
 
 from test_algorithms import generate_graph
 
@@ -17,7 +20,7 @@ from test_algorithms import generate_graph
 
 if __name__=='__main__':
     generator = (10, 0.8, 3, 2, (5,10), (0,5), (100,200))
-    print 'Seed'.ljust(5), 'simplex'.ljust(8), 'cycle canceling'
+    print('Seed'.ljust(5), 'simplex'.ljust(8), 'cycle canceling')
     for seed in range(10):
         # cycle canceling flows
         cc_flows = {}
@@ -39,4 +42,4 @@ if __name__=='__main__':
             cost_e = g.get_edge_attr(e[0], e[1], 'cost')
             s_cost += s_flows[e]*cost_e
             cc_cost += cc_flows[e]*cost_e
-        print str(seed).ljust(5), str(s_cost).ljust(8), str(cc_cost)
+        print(str(seed).ljust(5), str(s_cost).ljust(8), str(cc_cost))

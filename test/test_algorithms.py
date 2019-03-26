@@ -2,6 +2,11 @@
 This script runs algorithms provided by gimpy. Measures running times of
 algorithms and compares it to theoretical running times (after scaling).
 '''
+from __future__ import division
+from __future__ import print_function
+from builtins import str
+from builtins import range
+from past.utils import old_div
 
 try:
     from src.gimpy import Graph, DIRECTED_GRAPH
@@ -304,11 +309,11 @@ def produce_graphs():
     theoretical.
     '''
     # get number of runs, common for all graphs
-    n = range(len(run_time['DFS']['theoretical']))
+    n = list(range(len(run_time['DFS']['theoretical'])))
     for a in algo:
         # ========= gimpy
         # create graph for algorithm a
-        scale = run_time[a]['gimpy'][-1] / run_time[a]['theoretical'][-1]
+        scale = old_div(run_time[a]['gimpy'][-1], run_time[a]['theoretical'][-1])
         scaled_theoretical = [scale*t for t in run_time[a]['theoretical']]
         pyplot.plot(n, run_time[a]['gimpy'], 'bs', label='actual runtime')
         pyplot.plot(n, scaled_theoretical, 'g^', label='theoretical runtime')
@@ -317,36 +322,36 @@ def produce_graphs():
         pyplot.xlabel('instances')
         pyplot.ylabel('running time')
         pyplot.savefig(a+'.png')
-        print a+".png written to disk."
+        print(a+".png written to disk.")
         pyplot.close()
 
 if __name__=='__main__':
     nr_seed = 1
     for i in range(nr_seed):
-        print "Seed", i
+        print("Seed", i)
         for gen in dense_generator:
-            print gen
+            print(gen)
             #gen = (numnodes, density, demand_numnodes, supply_numnodes,
             #       demand_range, cost_range, capacity_range)
             # generate graphs
             rg = generate_graph(i+1, gen)
-            print "Testing DFS..."
+            print("Testing DFS...")
             test_DFS(rg)
-            print "Testing BFS..."
+            print("Testing BFS...")
             test_BFS(rg)
-            print "Testing Dijkstra..."
+            print("Testing Dijkstra...")
             test_dijkstra(rg)
-            print "Testing Kruskal..."
+            print("Testing Kruskal...")
             test_kruskal(rg)
-            print "Testing Prim..."
+            print("Testing Prim...")
             test_prim(rg)
-            print "Testing PreflowPush..."
+            print("Testing PreflowPush...")
             test_preflow_push(rg)
-            print "Testing augmenting path..."
+            print("Testing augmenting path...")
             test_augmenting_path(rg)
-            print "Testing cycle canceling..."
+            print("Testing cycle canceling...")
             test_cycle_canceling(rg)
-            print "Testing network simplex..."
+            print("Testing network simplex...")
             test_network_simplex(rg)
             insert_theoretical_runing_times(rg)
     write_result_files()
