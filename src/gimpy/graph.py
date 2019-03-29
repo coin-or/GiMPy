@@ -1610,7 +1610,7 @@ class Graph(object):
         '''
         if layout == None:
             layout = self.get_layout()
-        f = file(basename, "w+b")
+        f = open(basename, "w+b")
         if format == 'dot':
             f.write(self.to_string())
         else:
