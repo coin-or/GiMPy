@@ -108,6 +108,14 @@ except ImportError:
 else:
     ETREE_INSTALLED = True
 
+try:
+    import matplotlib.pyplot as plt
+except ImportError:
+    MATPLOTLIB_INSTALLED = False
+else:
+    MATPLOTLIB_INSTALLED = True
+    plt.rcParams['figure.dpi'] = 300
+
 class Node(object):
     '''
     Node class. A node object keeps node attributes. Has a method to write
@@ -1727,10 +1735,10 @@ After installation, ensure that the PATH variable is properly set.''')
                 self.write(basename+'.'+format, self.get_layout(), format)
             return
         elif self.attr['display'] == 'pygame':
-            output = self.create(self.get_layout(), format)
-            if output is not None:
-                im = io.StringIO(self.create(self.get_layout(), format))
-                picture = pygame.image.load(im, format)
+            if PYGAME_INSTALLED:
+                tmp_fd, tmp_name = tempfile.mkstemp()
+                self.write(tmp_name, self.get_layout(), format)
+                picture = pygame.image.load(tmp_name, 'png')
                 screen = pygame.display.set_mode(picture.get_size())
                 screen.blit(picture, picture.get_rect())
                 pygame.display.flip()
@@ -1745,15 +1753,36 @@ After installation, ensure that the PATH variable is properly set.''')
                         # not appropriate here.
                         #sys.exit()
             else:
-                print('Error in displaying graph. Display disabled')
-                self.set_display_mode('off')
+                print('Error: Pygame not installed. Display disabled.')
+                self.attr['display'] = 'off'
         elif self.attr['display'] == 'PIL':
-            im = io.StringIO(self.create(self.get_layout(), format))
+            tmp_fd, tmp_name = tempfile.mkstemp()
+            self.write(tmp_name, self.get_layout(), format)
             if PIL_INSTALLED:
-                im2 = PIL_Image.open(im)
-                im2.show()
+                im = PIL_Image.open(tmp_name)
+                im.show()
             else:
                 print('Error: PIL not installed. Display disabled.')
+                self.attr['display'] = 'off'
+        elif self.attr['display'] == 'matplotlib':
+            print(self.to_string())
+            tmp_fd, tmp_name = tempfile.mkstemp()
+            self.write(tmp_name, self.get_layout(), format)
+            if MATPLOTLIB_INSTALLED:
+                im = PIL_Image.open(tmp_name)
+                plt.figure(1)
+                plt.clf()
+                plt.axis('off')
+                plt.imshow(im, 
+                           #extent = (0, 100, 0, 100)
+                           )
+                plt.draw()
+                if plt.waitforbuttonpress(timeout = 10000):
+                    plt.close()
+                    exit()
+                im.close()
+            else:
+                print('Error: Matplotlib not installed. Display disabled.')
                 self.attr['display'] = 'off'
         elif self.attr['display'] == 'xdot':
             if XDOT_INSTALLED:
