@@ -114,7 +114,7 @@ except ImportError:
     MATPLOTLIB_INSTALLED = False
 else:
     MATPLOTLIB_INSTALLED = True
-    matplotlib.use('Qt5Agg')
+#    matplotlib.use('TkAgg')
     import matplotlib.pyplot as plt
     plt.rcParams['figure.dpi'] = 300
 
