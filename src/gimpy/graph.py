@@ -1774,7 +1774,7 @@ After installation, ensure that the PATH variable is properly set.''')
                 plt.figure(1)
                 plt.clf()
                 plt.axis('off')
-                plt.imshow(im, resample=True
+                plt.imshow(im, interpolation='bilinear' #resample=True
                            #extent = (0, 100, 0, 100)
                            )
                 plt.draw()
