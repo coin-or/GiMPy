@@ -109,11 +109,13 @@ else:
     ETREE_INSTALLED = True
 
 try:
-    import matplotlib.pyplot as plt
+    import matplotlib
 except ImportError:
     MATPLOTLIB_INSTALLED = False
 else:
     MATPLOTLIB_INSTALLED = True
+    matplotlib.use('Qt5Agg')
+    import matplotlib.pyplot as plt
     plt.rcParams['figure.dpi'] = 300
 
 class Node(object):
@@ -1765,15 +1767,14 @@ After installation, ensure that the PATH variable is properly set.''')
                 print('Error: PIL not installed. Display disabled.')
                 self.attr['display'] = 'off'
         elif self.attr['display'] == 'matplotlib':
-            print(self.to_string())
             tmp_fd, tmp_name = tempfile.mkstemp()
             self.write(tmp_name, self.get_layout(), format)
-            if MATPLOTLIB_INSTALLED:
+            if MATPLOTLIB_INSTALLED and PIL_INSTALLED:
                 im = PIL_Image.open(tmp_name)
                 plt.figure(1)
                 plt.clf()
                 plt.axis('off')
-                plt.imshow(im, 
+                plt.imshow(im, resample=True
                            #extent = (0, 100, 0, 100)
                            )
                 plt.draw()
