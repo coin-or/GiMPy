@@ -26,7 +26,7 @@ from coinor.gimpy import BinaryTree, ETREE_INSTALLED, PYGAME_INSTALLED, XDOT_INS
 #from coinor.gimpy import Cluster
 
 try:
-    from coinor.grumpy import BBTree, gexf_installed
+    from coinor.grumpy import BBTree
     grumpy_installed = True
 except ImportError:
     grumpy_installed = False
@@ -195,7 +195,7 @@ while not Q.isEmpty():
             prob += LpConstraint(lpSum(var[branch_var]) <= rhs)
         print(branch_var, end=' ')
         pred = parent
-        while str(pred) is not '0':
+        while not str(pred) == '0':
             pred_branch_var = T.get_node_attr(pred, 'branch_var')
             pred_rhs = T.get_node_attr(pred, 'rhs')
             pred_sense = T.get_node_attr(pred, 'sense')
@@ -340,14 +340,12 @@ while not Q.isEmpty():
         numNodes = len(T.get_node_list())
         if numNodes % display_interval == 0 and not layout != 'ladot':
             T.display(highlight = [cur_index])
-    elif gexf_installed and display_mode == 'gexf':
-        T.write_as_dynamic_gexf("graph")
 
     if status == 'C':
 
         # Branching:
         # Choose a variable for branching
-        branching_var = -1
+        branching_var = None
         if branch_strategy == FIXED:
             #fixed order
             for i in VARIABLES:
@@ -371,7 +369,7 @@ while not Q.isEmpty():
             print("Unknown branching strategy %s" %branch_strategy)
             exit()
 
-        if branching_var >= 0:
+        if branching_var is not None:
             print("Branching on variable %s" %branching_var)
 
         #Create new nodes
