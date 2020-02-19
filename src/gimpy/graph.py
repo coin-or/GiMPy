@@ -1665,7 +1665,7 @@ After installation, ensure that the PATH variable is properly set.''')
         return stdout_output
 
     def display(self, highlight = None, basename = 'graph', format = 'png',
-                pause = True):
+                pause = False, wait_for_click = True):
         '''
         API:
             display(self, highlight = None, basename = 'graph', format = 'png',
@@ -1682,9 +1682,13 @@ After installation, ensure that the PATH variable is properly set.''')
             highlight: List of nodes to be highlighted.
             basename: File name. It will be used if display mode is 'file'.
             format: Image format, all format supported by Dot are wellcome.
-            pause: If display is 'pygame' and pause is True pygame will pause
+            pause: If display is 'pygame' and pause is True, pygame will pause
             and wait for user input before closing the display. It will close
-            display window straightaway otherwise.
+            display window straightaway otherwise. If display is 'matplotlib',
+            window will remain open until closed.
+            wait_for_click: If display is 'matplotlib', setting to True will 
+            wait for a button click before proceeding. This is useful when 
+            animating an algorithm. 
         Post:
             A display window will pop up or a file will be written depending
             on display mode.
@@ -1777,10 +1781,13 @@ After installation, ensure that the PATH variable is properly set.''')
                 plt.imshow(im, interpolation='bilinear' #resample=True
                            #extent = (0, 100, 0, 100)
                            )
-                plt.draw()
-                if plt.waitforbuttonpress(timeout = 10000):
-                    plt.close()
-                    exit()
+                if wait_for_click == True:
+                    plt.draw()
+                    if plt.waitforbuttonpress(timeout = 10000):
+                        plt.close()
+                        exit()
+                else:
+                    plt.show(block=pause)
                 im.close()
             else:
                 print('Error: Matplotlib not installed. Display disabled.')
