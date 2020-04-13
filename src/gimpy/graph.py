@@ -81,13 +81,6 @@ else:
     XDOT_INSTALLED = True
 
 try:
-    import pygame # for locals.QUIT, locals.KEYDOWN,display,image,event,init
-except ImportError:
-    PYGAME_INSTALLED = False
-else:
-    PYGAME_INSTALLED = True
-
-try:
     import dot2tex # for dot2tex method
 except ImportError:
     DOT2TEX_INSTALLED = False
@@ -100,13 +93,6 @@ except ImportError:
     PIL_INSTALLED = False
 else:
     PIL_INSTALLED = True
-
-try:
-    import lxml # for etree
-except ImportError:
-    ETREE_INSTALLED = False
-else:
-    ETREE_INSTALLED = True
 
 try:
     import matplotlib
@@ -244,12 +230,7 @@ class Graph(object):
         self.nodes = {}
         self.edge_connect_symbol = EDGE_CONNECT_SYMBOL[self.graph_type]
         self.out_neighbors = self.neighbors
-        if 'display' in self.attr and self.attr['display']=='pygame':
-            if PYGAME_INSTALLED:
-                pygame.init()
-            else:
-                print("Pygame module not installed, graphical display disabled")
-        elif 'display' not in self.attr:
+        if 'display' not in self.attr:
             self.attr['display']='off'
         if 'layout' not in self.attr:
             self.attr['layout'] = 'fdp'
@@ -1740,27 +1721,6 @@ After installation, ensure that the PATH variable is properly set.''')
             else:
                 self.write(basename+'.'+format, self.get_layout(), format)
             return
-        elif self.attr['display'] == 'pygame':
-            if PYGAME_INSTALLED:
-                tmp_fd, tmp_name = tempfile.mkstemp()
-                self.write(tmp_name, self.get_layout(), format)
-                picture = pygame.image.load(tmp_name, 'png')
-                screen = pygame.display.set_mode(picture.get_size())
-                screen.blit(picture, picture.get_rect())
-                pygame.display.flip()
-                while pause:
-                    e = pygame.event.poll()
-                    if e.type == pygame.KEYDOWN:
-                        break
-                    if e.type == pygame.QUIT:
-                        pause = False
-                        pygame.display.quit()
-                        # sys.exit() exits the whole program and I (aykut) guess it is
-                        # not appropriate here.
-                        #sys.exit()
-            else:
-                print('Error: Pygame not installed. Display disabled.')
-                self.attr['display'] = 'off'
         elif self.attr['display'] == 'PIL':
             tmp_fd, tmp_name = tempfile.mkstemp()
             self.write(tmp_name, self.get_layout(), format)
@@ -1783,14 +1743,17 @@ After installation, ensure that the PATH variable is properly set.''')
                            )
                 if wait_for_click == True:
                     plt.draw()
-                    if plt.waitforbuttonpress(timeout = 10000):
-                        plt.close()
+                    try:
+                        if plt.waitforbuttonpress(timeout = 10000):
+                            plt.close()
+                            exit()
+                    except:
                         exit()
                 else:
                     plt.show(block=pause)
                 im.close()
             else:
-                print('Error: Matplotlib not installed. Display disabled.')
+                print('Warning: Either matplotlib or Pillow is not installed. Display disabled.')
                 self.attr['display'] = 'off'
         elif self.attr['display'] == 'xdot':
             if XDOT_INSTALLED:
@@ -1800,10 +1763,6 @@ After installation, ensure that the PATH variable is properly set.''')
                 gtk.main()
             else:
                 print('Error: xdot not installed. Display disabled.')
-                self.attr['display'] = 'off'
-        elif self.attr['display'] == 'svg':
-            if not ETREE_INSTALLED:
-                print('Error: etree not installed (display mode: svg). Display disabled.')
                 self.attr['display'] = 'off'
         else:
             print("Unknown display mode: ", end=' ')
