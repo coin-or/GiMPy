@@ -59,20 +59,20 @@ On Windows, if you want to use `xdot`, there are some additional particulars.
 
 There have been reports of incompatibilities with recent versions of PyGtk, but I have not attempted yet to track this down. If things break, you may try some variant of the instructions above for installing on Windows.
 
-##Examples
+## Examples
 
-###Forestry Model
+### Forestry Model
 ![Forestry](https://raw.githubusercontent.com/coin-or/GiMPy/master/images/forestry.png)
-###Display Window in XDot
+### Display Window in XDot
 ![XDot](https://raw.githubusercontent.com/coin-or/GiMPy/master/images/xdot.png)
-###Lehigh ISE Prerequisite Graph
+### Lehigh ISE Prerequisite Graph
 ![ISE Prerequisites](https://raw.githubusercontent.com/coin-or/GiMPy/master/images/ISERequirements.png)
-###Graph of Actors Starring Together in Movies in IMDB
+### Graph of Actors Starring Together in Movies in IMDB
 ![Bacon](https://raw.githubusercontent.com/coin-or/GiMPy/master/images/bacon.png)
-###Branch and Bound Tree
+### Branch and Bound Tree
 ![Branch and Bound](https://raw.githubusercontent.com/coin-or/GrUMPy/master/images/BranchAndBound.png)
-###SAT Game Tree
+### SAT Game Tree
 ![SAT](https://raw.githubusercontent.com/coin-or/GiMPy/master/images/Turing.png)
-###Flow Problem
+### Flow Problem
 ![Max Flow](https://raw.githubusercontent.com/coin-or/GiMPy/master/images/maxflow.png)
 
