@@ -20,10 +20,7 @@ from builtins import range
 from pulp import LpVariable, lpSum, LpProblem, LpMaximize, LpConstraint, LpStatus, value
 import math
 import time
-from coinor.gimpy import BinaryTree, ETREE_INSTALLED, PYGAME_INSTALLED, XDOT_INSTALLED
-
-#from coinor.gimpy import etree_installed, pygame_installed, xdot_installed
-#from coinor.gimpy import Cluster
+from coinor.gimpy import BinaryTree, ETREE_INSTALLED, XDOT_INSTALLED
 
 try:
     from coinor.grumpy import BBTree
@@ -335,7 +332,7 @@ while not Q.isEmpty():
                            highlight = cur_index)
     iter_count += 1
 
-    if ((PYGAME_INSTALLED and display_mode == 'pygame')
+    if ((MATPLOTLIB_INSTALLED and display_mode == 'matplotlib')
          or (XDOT_INSTALLED and display_mode == 'xdot')):
         numNodes = len(T.get_node_list())
         if numNodes % display_interval == 0 and not layout != 'ladot':

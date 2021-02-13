@@ -153,7 +153,7 @@ class mGraph(Graph):
             (1) check Pre section of min_cost_flow()
         Inputs:
             pivot: specifies pivot rule. Check min_cost_flow()
-            display: 'off' for no display, 'pygame' for live update of
+            display: 'off' for no display, 'matplotlib' for live update of
             spanning tree.
         Post:
             (1) Changes 'flow' attribute of edges.
@@ -216,7 +216,7 @@ if __name__=='__main__':
         root = 0
         #==========solve using simplex, first eligible
         start = time.clock()
-        tup = g.network_simplex('pygame', 'first_eligible', root)
+        tup = g.network_simplex('matplotlib', 'first_eligible', root)
         elapsed_time = time.clock() - start
         if tup[0]:
             sol = get_solution(g)
@@ -238,7 +238,7 @@ if __name__=='__main__':
         eligible_file.write(e_line)
         #==========solve using simplex, dantzig
         start = time.clock()
-        tup = g.network_simplex('pygame', 'dantzig', root)
+        tup = g.network_simplex('matplotlib', 'dantzig', root)
         elapsed_time = time.clock() - start
         if tup[0]:
             sol = get_solution(g)
