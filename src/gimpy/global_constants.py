@@ -60,7 +60,6 @@ DIRECTED_GRAPH = 'digraph'
 UNDIRECTED_GRAPH = 'graph'
 #DEFAULT_ATTR = {'strict':None, 'name':'graph'}
 EDGE_CONNECT_SYMBOL = {DIRECTED_GRAPH:' -> ', UNDIRECTED_GRAPH:' -- '}
-PYGAME_INSTALLED = None # it wil be set when we try to import pygame
 DOT2TEX_INSTALLED = None # it wil be set when we try to import
 PIL_INSTALLED = None
 XDOT_INSTALLED = None

@@ -67,7 +67,7 @@ import io   # for StringIO()
 import copy       # for deepcopy()
 import sys        # for exit()
 import random     # for seed, random, randint
-import tempfile   # for mkstemp()
+import tempfile   # for NamedTemporaryFile()
 import os         # for close()
 import operator   # for itemgetter()
 
@@ -103,6 +103,10 @@ else:
 #    matplotlib.use('TkAgg')
     import matplotlib.pyplot as plt
     plt.rcParams['figure.dpi'] = 300
+
+def handle_close(evt):
+    print('Figure closed. Exiting!')
+    exit()
 
 class Node(object):
     '''
@@ -608,7 +612,7 @@ class Graph(object):
         edge.append(self.edge_connect_symbol)
         edge.append(quote_if_necessary(str(e[1])))
         # return if there is nothing in self.edge_attr[e]
-        if len(self.edge_attr[e]) is 0:
+        if len(self.edge_attr[e]) == 0:
             return ''.join(edge)
         edge.append('  [')
         for a in self.edge_attr[e]:
@@ -1601,12 +1605,11 @@ class Graph(object):
         '''
         if layout == None:
             layout = self.get_layout()
-        f = open(basename, "w+b")
-        if format == 'dot':
-            f.write(self.to_string())
-        else:
-            f.write(self.create(layout, format))
-        f.close()
+        with open(basename, "w+b") as f:
+            if format == 'dot':
+                f.write(bytearray(self.to_string(), 'utf8'))
+            else:
+                f.write(self.create(layout, format))
 
     def create(self, layout, format, **args):
         '''
@@ -1620,30 +1623,25 @@ class Graph(object):
         Return:
             Returns postscript representation of graph.
         '''
-        tmp_fd, tmp_name = tempfile.mkstemp()
-        tmp_file = os.fdopen(tmp_fd, 'w')
-        tmp_file.write(self.to_string())
-        # ne need for os.close(tmp_fd), since we have tmp_file.close(tmp_file)
-        tmp_file.close()
-        tmp_dir = os.path.dirname(tmp_name)
-        try:
-            p = subprocess.Popen([layout, '-T'+format, tmp_name],
-                                 cwd=tmp_dir,
-                                 stdout=subprocess.PIPE,
-                                 stderr=subprocess.PIPE)
-        except OSError:
-            print('''Graphviz executable not found.
-Graphviz must be installed and in your search path.
-Please visit http://www.graphviz.org/ for information on installation.
-After installation, ensure that the PATH variable is properly set.''')
-            return
-        stdout_output, stderr_output = p.communicate()
-        if p.returncode != 0 :
-            raise Exception('Graphviz executable terminated with status: %d. stderr follows: %s' % (
-                    p.returncode, stderr_output))
-        elif stderr_output:
-            print(stderr_output)
-        return stdout_output
+        with tempfile.NamedTemporaryFile() as tmp_file:
+            tmp_file.write(bytearray(self.to_string(), 'utf8'))
+            try:
+                p = subprocess.run([layout, '-T'+format, tmp_file.name],
+                                   capture_output = True)
+            except OSError:
+                print('''Graphviz executable not found.
+                Graphviz must be installed and in your search path.
+                Please visit http://www.graphviz.org/ for information on installation.
+                After installation, ensure that the PATH variable is properly set.''')
+                return
+
+            p.check_returncode()
+
+            if p.stderr:
+                print(p.stderr)
+            return p.stdout
+
+        raise Exception('Something went wrong when trying call Graphviz')
 
     def display(self, highlight = None, basename = 'graph', format = 'png',
                 pause = False, wait_for_click = True):
@@ -1653,7 +1651,7 @@ After installation, ensure that the PATH variable is properly set.''')
                 pause = True)
         Description:
             Displays graph according to the arguments provided.
-            Current display modes: 'off', 'file', 'pygame', 'PIL', 'xdot',
+            Current display modes: 'off', 'file', 'PIL', 'matplotlib', 'xdot',
             'svg'
             Current layout modes: Layouts provided by graphviz ('dot', 'fdp',
             'circo', etc.) and 'dot2tex'.
@@ -1663,10 +1661,7 @@ After installation, ensure that the PATH variable is properly set.''')
             highlight: List of nodes to be highlighted.
             basename: File name. It will be used if display mode is 'file'.
             format: Image format, all format supported by Dot are wellcome.
-            pause: If display is 'pygame' and pause is True, pygame will pause
-            and wait for user input before closing the display. It will close
-            display window straightaway otherwise. If display is 'matplotlib',
-            window will remain open until closed.
+            pause: If display is 'matplotlib', window will remain open until closed.
             wait_for_click: If display is 'matplotlib', setting to True will 
             wait for a button click before proceeding. This is useful when 
             animating an algorithm. 
@@ -1701,14 +1696,11 @@ After installation, ensure that the PATH variable is properly set.''')
                     try:
                         self.set_layout('dot')
                         self.write(basename+'.dot', self.get_layout(), 'dot')
-                        sp = subprocess.Popen('dot2tex -t math ' + basename + '.dot', stdout = subprocess.PIPE, 
-                                              stderr = subprocess.STDOUT)
-                        tex = sp.communicate()[0]
+                        p = subprocess.call(['dot2tex', '-t math', basename + '.dot'])
                     except:
                         print("There was an error running dot2tex.")
-                f = open(basename+'.tex', 'w')
-                f.write(tex)
-                f.close()
+                with open(basename+'.tex', 'w') as f:
+                    f.write(tex)
                 try: 
                     subprocess.call(['latex', basename])
                     if format == 'ps':
@@ -1722,36 +1714,37 @@ After installation, ensure that the PATH variable is properly set.''')
                 self.write(basename+'.'+format, self.get_layout(), format)
             return
         elif self.attr['display'] == 'PIL':
-            tmp_fd, tmp_name = tempfile.mkstemp()
-            self.write(tmp_name, self.get_layout(), format)
             if PIL_INSTALLED:
-                im = PIL_Image.open(tmp_name)
-                im.show()
+                with tempfile.NamedTemporaryFile(mode='w') as tmp_file:
+                    self.write(tmp_file.name, self.get_layout(), format)
+                    im = PIL_Image.open(tmp_file.name)
+                    im.show()
             else:
                 print('Error: PIL not installed. Display disabled.')
                 self.attr['display'] = 'off'
         elif self.attr['display'] == 'matplotlib':
-            tmp_fd, tmp_name = tempfile.mkstemp()
-            self.write(tmp_name, self.get_layout(), format)
             if MATPLOTLIB_INSTALLED and PIL_INSTALLED:
-                im = PIL_Image.open(tmp_name)
-                plt.figure(1)
-                plt.clf()
-                plt.axis('off')
-                plt.imshow(im, interpolation='bilinear' #resample=True
-                           #extent = (0, 100, 0, 100)
-                           )
-                if wait_for_click == True:
-                    plt.draw()
-                    try:
-                        if plt.waitforbuttonpress(timeout = 10000):
-                            plt.close()
+                with tempfile.NamedTemporaryFile(mode='w') as tmp_file:
+                    self.write(tmp_file.name, self.get_layout(), format)
+                    im = PIL_Image.open(tmp_file.name, formats=['PNG'])
+                    fig = plt.figure(1)
+                    fig.canvas.mpl_connect('close_event', handle_close)
+                    plt.clf()
+                    plt.axis('off')
+                    plt.imshow(im, interpolation='bilinear' #resample=True
+                               #extent = (0, 100, 0, 100)
+                    )
+                    if wait_for_click == True:
+                        plt.draw()
+                        try:
+                            if plt.waitforbuttonpress(timeout = 10000):
+                                plt.close()
+                                exit()
+                        except:
                             exit()
-                    except:
-                        exit()
-                else:
-                    plt.show(block=pause)
-                im.close()
+                    else:
+                        plt.show(block=pause)
+                        im.close()
             else:
                 print('Warning: Either matplotlib or Pillow is not installed. Display disabled.')
                 self.attr['display'] = 'off'
@@ -2276,7 +2269,7 @@ After installation, ensure that the PATH variable is properly set.''')
             (1) check Pre section of min_cost_flow()
         Input:
             pivot: specifies pivot rule. Check min_cost_flow()
-            display: 'off' for no display, 'pygame' for live update of
+            display: 'off' for no display, 'matplotlib' for live update of
             spanning tree.
             root: Root node for the underlying spanning trees that will be
             generated by network simplex algorthm.
@@ -3012,7 +3005,7 @@ After installation, ensure that the PATH variable is properly set.''')
             solving max flow. (max flow problem is solved to get a feasible
             flow).
         Input:
-            display: 'off' for no display, 'pygame' for live update of tree
+            display: 'off' for no display, 'matplotlib' for live update of tree
             args: may have the following
                 display: display method, if not given current mode (the one
                     specified by __init__ or set_display) will be used.
@@ -3051,7 +3044,7 @@ After installation, ensure that the PATH variable is properly set.''')
             algorithm = args['algo']
         else:
             algorithm = 'simplex'
-        if algorithm is 'simplex':
+        if algorithm == 'simplex':
             if 'root' in args:
                 root = args['root']
             else:
@@ -3064,7 +3057,7 @@ After installation, ensure that the PATH variable is properly set.''')
             else:
                 if not self.network_simplex(display, 'dantzig', root):
                     print('problem is infeasible')
-        elif algorithm is 'cycle_canceling':
+        elif algorithm == 'cycle_canceling':
             if not self.cycle_canceling(display):
                 print('problem is infeasible')
         else:
@@ -3168,7 +3161,7 @@ After installation, ensure that the PATH variable is properly set.''')
                     degree = random.randint(degree_range[0], degree_range[1])
                     i = 0
                     neighbors = []
-                    if node_selection is 'random':
+                    if node_selection == 'random':
                         while i < degree:
                             length = round((((self.get_node(n).get_attr('locationx') -
                                               self.get_node(m).get_attr('locationx')) ** 2 +
@@ -3182,7 +3175,7 @@ After installation, ensure that the PATH variable is properly set.''')
                                 if add_labels:
                                     self.set_edge_attr(m, n, 'label', str(int(length)))
                                 i += 1
-                    elif node_selection is 'closest':
+                    elif node_selection == 'closest':
                         lengths = []
                         for n in range(numnodes):
                             lengths.append((n, round((((self.get_node(n).get_attr('locationx') -
@@ -3353,7 +3346,7 @@ After installation, ensure that the PATH variable is properly set.''')
                 distance_n_m = len(path_n_m)-1
                 if distance_n_m > eccentricity_n:
                     eccentricity_n = distance_n_m
-            if diameter is 'infinity' or eccentricity_n > diameter:
+            if diameter == 'infinity' or eccentricity_n > diameter:
                 diameter = eccentricity_n
         return diameter
 
@@ -3494,8 +3487,8 @@ if __name__ == '__main__':
              #degree_range = (2, 4),
              #length_range = (1, 10)
              )
-    G.set_display_mode('pygame')
+    G.set_display_mode('matplotlib')
     G.display()
     #G.dfs(0)
-    G.search(0, display = 'pygame', algo = 'Prim')
+    G.search(0, display = 'matplotlib', algo = 'Prim')
     #G.minimum_spanning_tree_kruskal()

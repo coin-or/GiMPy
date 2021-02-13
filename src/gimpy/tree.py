@@ -487,7 +487,7 @@ class BinaryTree(Tree):
 
 if __name__ == '__main__':
 
-    T = BinaryTree(display = 'pygame')
+    T = BinaryTree(display = 'matplotlib')
     T.add_root('*')
     T.add_left_child('+', '*')
     T.add_left_child('4', '+')
