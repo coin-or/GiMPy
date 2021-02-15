@@ -11,8 +11,8 @@ G.random(numnodes = 10, Euclidean = True, seedInput = 11,
          #degree_range = (2, 4),
          #length_range = (1, 10)
          )
-G.set_display_mode('matplotlib')
+G.set_display_mode('off')
 G.display()
 #G.dfs(0)
-G.search(0, display = 'matplotlib', algo = 'Dijkstra')
+G.search(0, display = 'off', algo = 'Dijkstra')
         

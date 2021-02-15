@@ -39,7 +39,7 @@ if __name__=='__main__':
     g.add_edge(4, 5, capacity=10, label='10')
     g.add_edge(6, 7, capacity=30, label='30')
     g.add_edge(5, 7, capacity=20, label='20')
-    g.set_display_mode('matplotlib')
+    g.set_display_mode('off')
 
 #    g.max_flow_preflowpush(1, 7, algo = 'HighestLabel')
     g.max_flow(1, 7, algo = 'BFS')

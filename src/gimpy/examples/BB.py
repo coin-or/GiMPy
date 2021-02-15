@@ -20,7 +20,7 @@ from builtins import range
 from pulp import LpVariable, lpSum, LpProblem, LpMaximize, LpConstraint, LpStatus, value
 import math
 import time
-from coinor.gimpy import BinaryTree, ETREE_INSTALLED, XDOT_INSTALLED
+from coinor.gimpy import BinaryTree, ETREE_INSTALLED, XDOT_INSTALLED, MATPLOTLIB_INSTALLED
 
 try:
     from coinor.grumpy import BBTree

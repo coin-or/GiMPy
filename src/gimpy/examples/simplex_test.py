@@ -215,9 +215,9 @@ if __name__=='__main__':
         g, d, s = generate_graph(seed_i)
         root = 0
         #==========solve using simplex, first eligible
-        start = time.clock()
-        tup = g.network_simplex('matplotlib', 'first_eligible', root)
-        elapsed_time = time.clock() - start
+        start = time.perf_counter()
+        tup = g.network_simplex('off', 'first_eligible', root)
+        elapsed_time = time.perf_counter() - start
         if tup[0]:
             sol = get_solution(g)
             eligible_obj_value = get_obj_value(g)
@@ -237,9 +237,9 @@ if __name__=='__main__':
             str(pulp_obj_value).ljust(6)+str(elapsed_time).ljust(7)+str(tup[1])+'\n'
         eligible_file.write(e_line)
         #==========solve using simplex, dantzig
-        start = time.clock()
-        tup = g.network_simplex('matplotlib', 'dantzig', root)
-        elapsed_time = time.clock() - start
+        start = time.perf_counter()
+        tup = g.network_simplex('off', 'dantzig', root)
+        elapsed_time = time.perf_counter() - start
         if tup[0]:
             sol = get_solution(g)
             dantzig_obj_value = get_obj_value(g)

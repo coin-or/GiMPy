@@ -6,7 +6,7 @@ except ImportError:
 
 if __name__ == '__main__':
     G = Graph(graph_type = 'digraph', splines = 'true', layout = 'dot2tex', 
-              display = 'matplotlib', rankdir = 'LR', fontsize = '44', 
+              display = 'off', rankdir = 'LR', fontsize = '44', 
               d2tgraphstyle = 'every text node part/.style={align=left}',
               )
     node_format = {
@@ -36,7 +36,7 @@ if __name__ == '__main__':
     G.add_edge('4', '9', label = r'x_3 = \text{TRUE}')
     G.add_edge('4', '10', label = r'x_3 = \text{FALSE}')
     
-    G.set_display_mode('matplotlib')
+    G.set_display_mode('file')
 
     print(G)
 

@@ -39,7 +39,7 @@ if __name__=='__main__':
     g.add_edge(4, 5, cost=1, capacity=1, label='(3, 1)')
     g.add_edge(6, 7, cost=0, capacity=2, label='(0, 2)')
     g.add_edge(5, 7, cost=0, capacity=2, label='(0, 2)')
-    g.set_display_mode('matplotlib')
+    g.set_display_mode('off')
     g.display()
     
 #    g.cycle_canceling('matplotlib')

@@ -64,5 +64,5 @@ def generate_graph2():
 
 if __name__=='__main__':
     g = generate_graph()
-    g.set_display_mode('matplotlib')
+    g.set_display_mode('off')
     g.min_cost_flow(algo='simplex')
