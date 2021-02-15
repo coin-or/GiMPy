@@ -67,7 +67,7 @@ import io   # for StringIO()
 import copy       # for deepcopy()
 import sys        # for exit()
 import random     # for seed, random, randint
-import tempfile   # for NamedTemporaryFile()
+import tempfile   # for mkstemp()
 import os         # for close()
 import operator   # for itemgetter()
 
@@ -1590,7 +1590,7 @@ class Graph(object):
         if value == 'dot2tex':
             self.attr['d2tgraphstyle'] = 'every text node part/.style={align=center}'
 
-    def write(self, basename = 'graph', layout = None, format='png'):
+    def write(self, file_obj, layout = None, format='png'):
         '''
         API:
             write(self, basename = 'graph', layout = None, format='png')
@@ -1605,11 +1605,12 @@ class Graph(object):
         '''
         if layout == None:
             layout = self.get_layout()
-        with open(basename, "w+b") as f:
-            if format == 'dot':
-                f.write(bytearray(self.to_string(), 'utf8'))
-            else:
-                f.write(self.create(layout, format))
+        if format == 'dot':
+            file_obj.write(bytearray(self.to_string(), 'utf8'))
+        else:
+            out = self.create(layout, format)
+            if (out != None):
+                file_obj.write(out)
 
     def create(self, layout, format, **args):
         '''
@@ -1623,25 +1624,28 @@ class Graph(object):
         Return:
             Returns postscript representation of graph.
         '''
-        with tempfile.NamedTemporaryFile() as tmp_file:
-            tmp_file.write(bytearray(self.to_string(), 'utf8'))
-            try:
-                p = subprocess.run([layout, '-T'+format, tmp_file.name],
-                                   capture_output = True)
-            except OSError:
-                print('''Graphviz executable not found.
-                Graphviz must be installed and in your search path.
-                Please visit http://www.graphviz.org/ for information on installation.
-                After installation, ensure that the PATH variable is properly set.''')
-                return
+        tmp_fd, tmp_name = tempfile.mkstemp()
+        tmp_file = os.fdopen(tmp_fd, 'w')
+        tmp_file.write(self.to_string())
+        tmp_file.close()
+        try:
+            p = subprocess.run([layout, '-T'+format, tmp_name],
+                               capture_output = True)
+        except OSError:
+            print('''Graphviz executable not found.
+Graphviz must be installed and in your search path.
+Please visit http://www.graphviz.org/ for information on installation.
+After installation, ensure that the PATH variable is properly set.''')
+            return None
 
-            p.check_returncode()
+        
+        p.check_returncode()
 
-            if p.stderr:
-                print(p.stderr)
-            return p.stdout
-
-        raise Exception('Something went wrong when trying call Graphviz')
+        os.remove(tmp_name)
+            
+        if p.stderr:
+            print(p.stderr)
+        return p.stdout
 
     def display(self, highlight = None, basename = 'graph', format = 'png',
                 pause = False, wait_for_click = True):
@@ -1695,8 +1699,10 @@ class Graph(object):
                 except:
                     try:
                         self.set_layout('dot')
-                        self.write(basename+'.dot', self.get_layout(), 'dot')
-                        p = subprocess.call(['dot2tex', '-t math', basename + '.dot'])
+                        with open(basename+'.dot', "w+b") as f:
+                            self.write(f, self.get_layout(), 'dot')
+                            p = subprocess.call(['dot2tex', '-t math',
+                                                 basename + '.dot'])
                     except:
                         print("There was an error running dot2tex.")
                 with open(basename+'.tex', 'w') as f:
@@ -1711,40 +1717,47 @@ class Graph(object):
                 except:
                     print("There was an error runing latex. Is it installed?")
             else:
-                self.write(basename+'.'+format, self.get_layout(), format)
+                with open(basename+'.'+format, "w+b") as f:
+                    self.write(f, self.get_layout(), format)
             return
         elif self.attr['display'] == 'PIL':
             if PIL_INSTALLED:
-                with tempfile.NamedTemporaryFile(mode='w') as tmp_file:
-                    self.write(tmp_file.name, self.get_layout(), format)
-                    im = PIL_Image.open(tmp_file.name)
-                    im.show()
+                tmp_fd, tmp_name = tempfile.mkstemp()
+                tmp_file = os.fdopen(tmp_fd, 'w+b')
+                self.write(tmp_file, self.get_layout(), format)
+                tmp_file.close()
+                im = PIL_Image.open(tmp_name)
+                im.show()
+                os.remove(tmp_name)
             else:
                 print('Error: PIL not installed. Display disabled.')
                 self.attr['display'] = 'off'
         elif self.attr['display'] == 'matplotlib':
             if MATPLOTLIB_INSTALLED and PIL_INSTALLED:
-                with tempfile.NamedTemporaryFile(mode='w') as tmp_file:
-                    self.write(tmp_file.name, self.get_layout(), format)
-                    im = PIL_Image.open(tmp_file.name, formats=['PNG'])
-                    fig = plt.figure(1)
-                    fig.canvas.mpl_connect('close_event', handle_close)
-                    plt.clf()
-                    plt.axis('off')
-                    plt.imshow(im, interpolation='bilinear' #resample=True
-                               #extent = (0, 100, 0, 100)
-                    )
-                    if wait_for_click == True:
-                        plt.draw()
-                        try:
-                            if plt.waitforbuttonpress(timeout = 10000):
-                                plt.close()
-                                exit()
-                        except:
+                tmp_fd, tmp_name = tempfile.mkstemp()
+                tmp_file = os.fdopen(tmp_fd, 'w+b')
+                self.write(tmp_file, self.get_layout(), format)
+                tmp_file.close()
+                im = PIL_Image.open(tmp_name)
+                fig = plt.figure(1)
+                fig.canvas.mpl_connect('close_event', handle_close)
+                plt.clf()
+                plt.axis('off')
+                plt.imshow(im, interpolation='bilinear' #resample=True
+                           #extent = (0, 100, 0, 100)
+                )
+                if wait_for_click == True:
+                    plt.draw()
+                    try:
+                        if plt.waitforbuttonpress(timeout = 10000):
+                            plt.close()
                             exit()
-                    else:
-                        plt.show(block=pause)
-                        im.close()
+                    except:
+                        exit()
+                else:
+                    plt.show(block=pause)
+                im.close()
+                os.remove(tmp_name)
             else:
                 print('Warning: Either matplotlib or Pillow is not installed. Display disabled.')
                 self.attr['display'] = 'off'
