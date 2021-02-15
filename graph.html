@@ -3,23 +3,25 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
-<meta name="generator" content="pdoc 0.5.3" />
+<meta name="generator" content="pdoc 0.9.2" />
 <title>coinor.gimpy.graph API documentation</title>
 <meta name="description" content="A Graph class implementation. The aim for this implementation is
 1. To reflect implementation methods in literature as much as possible
 3. To have …" />
-<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
-<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
-<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.name small{font-weight:normal}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase;cursor:pointer}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
-<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
 <style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
 </head>
 <body>
 <main>
 <article id="content">
 <header>
-<h1 class="title"><code>coinor.gimpy.graph</code> module</h1>
+<h1 class="title">Module <code>coinor.gimpy.graph</code></h1>
 </header>
 <section id="section-intro">
 <p>A Graph class implementation. The aim for this implementation is
@@ -45,16 +47,13 @@ argument is not specified global display setting will be used for display
 purposes of the algorithm method implements. You can use display argument to
 get visualization of algorithm without changing global display behavior of your
 Graph/Tree object.</p>
-<dl>
-<dt>Method documentation strings are orginized as follows.</dt>
-<dt><strong><code>API</code></strong> :&ensp;<code>method_name</code>(<code>arguments</code>)</dt>
-<dd>&nbsp;</dd>
-<dt>Description: Description of the method.</dt>
-<dt>Input: Arguments and their explanation.</dt>
-<dt><strong><code>Pre</code></strong> :&ensp;<code>Necessary</code> <code>class</code> <code>attributes</code> <code>that</code> <code>should</code> <code>exists</code>, <code>methods</code> <code>to</code> <code>be</code> <code>called</code></dt>
-<dd>before this method.</dd>
-</dl>
-<p>Post: Class attributes changed within the method.
+<p>Method documentation strings are orginized as follows.
+API: method_name(arguments)
+Description: Description of the method.
+Input: Arguments and their explanation.
+Pre: Necessary class attributes that should exists, methods to be called
+before this method.
+Post: Class attributes changed within the method.
 Return: Return value of the method.</p>
 <p>TODO(aykut):
 -&gt; svg display mode
@@ -64,7 +63,9 @@ Return: Return value of the method.</p>
 future:
 -&gt; The solution we find is not strongly feasible. Fix this.</p>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">&#39;&#39;&#39;
 A Graph class implementation. The aim for this implementation is
 1. To reflect implementation methods in literature as much as possible
@@ -148,13 +149,6 @@ else:
     XDOT_INSTALLED = True
 
 try:
-    import pygame # for locals.QUIT, locals.KEYDOWN,display,image,event,init
-except ImportError:
-    PYGAME_INSTALLED = False
-else:
-    PYGAME_INSTALLED = True
-
-try:
     import dot2tex # for dot2tex method
 except ImportError:
     DOT2TEX_INSTALLED = False
@@ -169,11 +163,18 @@ else:
     PIL_INSTALLED = True
 
 try:
-    import lxml # for etree
+    import matplotlib
 except ImportError:
-    ETREE_INSTALLED = False
+    MATPLOTLIB_INSTALLED = False
 else:
-    ETREE_INSTALLED = True
+    MATPLOTLIB_INSTALLED = True
+#    matplotlib.use(&#39;TkAgg&#39;)
+    import matplotlib.pyplot as plt
+    plt.rcParams[&#39;figure.dpi&#39;] = 300
+
+def handle_close(evt):
+    print(&#39;Figure closed. Exiting!&#39;)
+    plt.close(&#39;all&#39;)
 
 class Node(object):
     &#39;&#39;&#39;
@@ -301,12 +302,7 @@ class Graph(object):
         self.nodes = {}
         self.edge_connect_symbol = EDGE_CONNECT_SYMBOL[self.graph_type]
         self.out_neighbors = self.neighbors
-        if &#39;display&#39; in self.attr and self.attr[&#39;display&#39;]==&#39;pygame&#39;:
-            if PYGAME_INSTALLED:
-                pygame.init()
-            else:
-                print(&#34;Pygame module not installed, graphical display disabled&#34;)
-        elif &#39;display&#39; not in self.attr:
+        if &#39;display&#39; not in self.attr:
             self.attr[&#39;display&#39;]=&#39;off&#39;
         if &#39;layout&#39; not in self.attr:
             self.attr[&#39;layout&#39;] = &#39;fdp&#39;
@@ -684,7 +680,7 @@ class Graph(object):
         edge.append(self.edge_connect_symbol)
         edge.append(quote_if_necessary(str(e[1])))
         # return if there is nothing in self.edge_attr[e]
-        if len(self.edge_attr[e]) is 0:
+        if len(self.edge_attr[e]) == 0:
             return &#39;&#39;.join(edge)
         edge.append(&#39;  [&#39;)
         for a in self.edge_attr[e]:
@@ -1662,7 +1658,7 @@ class Graph(object):
         if value == &#39;dot2tex&#39;:
             self.attr[&#39;d2tgraphstyle&#39;] = &#39;every text node part/.style={align=center}&#39;
 
-    def write(self, basename = &#39;graph&#39;, layout = None, format=&#39;png&#39;):
+    def write(self, file_obj, layout = None, format=&#39;png&#39;):
         &#39;&#39;&#39;
         API:
             write(self, basename = &#39;graph&#39;, layout = None, format=&#39;png&#39;)
@@ -1677,12 +1673,12 @@ class Graph(object):
         &#39;&#39;&#39;
         if layout == None:
             layout = self.get_layout()
-        f = open(basename, &#34;w+b&#34;)
         if format == &#39;dot&#39;:
-            f.write(self.to_string())
+            file_obj.write(bytearray(self.to_string(), &#39;utf8&#39;))
         else:
-            f.write(self.create(layout, format))
-        f.close()
+            out = self.create(layout, format)
+            if (out != None):
+                file_obj.write(out)
 
     def create(self, layout, format, **args):
         &#39;&#39;&#39;
@@ -1699,37 +1695,35 @@ class Graph(object):
         tmp_fd, tmp_name = tempfile.mkstemp()
         tmp_file = os.fdopen(tmp_fd, &#39;w&#39;)
         tmp_file.write(self.to_string())
-        # ne need for os.close(tmp_fd), since we have tmp_file.close(tmp_file)
         tmp_file.close()
-        tmp_dir = os.path.dirname(tmp_name)
         try:
-            p = subprocess.Popen([layout, &#39;-T&#39;+format, tmp_name],
-                                 cwd=tmp_dir,
-                                 stdout=subprocess.PIPE,
-                                 stderr=subprocess.PIPE)
+            p = subprocess.run([layout, &#39;-T&#39;+format, tmp_name],
+                               capture_output = True)
         except OSError:
             print(&#39;&#39;&#39;Graphviz executable not found.
 Graphviz must be installed and in your search path.
 Please visit http://www.graphviz.org/ for information on installation.
 After installation, ensure that the PATH variable is properly set.&#39;&#39;&#39;)
-            return
-        stdout_output, stderr_output = p.communicate()
-        if p.returncode != 0 :
-            raise Exception(&#39;Graphviz executable terminated with status: %d. stderr follows: %s&#39; % (
-                    p.returncode, stderr_output))
-        elif stderr_output:
-            print(stderr_output)
-        return stdout_output
+            return None
+
+        
+        p.check_returncode()
+
+        os.remove(tmp_name)
+            
+        if p.stderr:
+            print(p.stderr)
+        return p.stdout
 
     def display(self, highlight = None, basename = &#39;graph&#39;, format = &#39;png&#39;,
-                pause = True):
+                pause = False, wait_for_click = True):
         &#39;&#39;&#39;
         API:
             display(self, highlight = None, basename = &#39;graph&#39;, format = &#39;png&#39;,
                 pause = True)
         Description:
             Displays graph according to the arguments provided.
-            Current display modes: &#39;off&#39;, &#39;file&#39;, &#39;pygame&#39;, &#39;PIL&#39;, &#39;xdot&#39;,
+            Current display modes: &#39;off&#39;, &#39;file&#39;, &#39;PIL&#39;, &#39;matplotlib&#39;, &#39;xdot&#39;,
             &#39;svg&#39;
             Current layout modes: Layouts provided by graphviz (&#39;dot&#39;, &#39;fdp&#39;,
             &#39;circo&#39;, etc.) and &#39;dot2tex&#39;.
@@ -1739,9 +1733,10 @@ After installation, ensure that the PATH variable is properly set.&#39;&#39;&#39
             highlight: List of nodes to be highlighted.
             basename: File name. It will be used if display mode is &#39;file&#39;.
             format: Image format, all format supported by Dot are wellcome.
-            pause: If display is &#39;pygame&#39; and pause is True pygame will pause
-            and wait for user input before closing the display. It will close
-            display window straightaway otherwise.
+            pause: If display is &#39;matplotlib&#39;, window will remain open until closed.
+            wait_for_click: If display is &#39;matplotlib&#39;, setting to True will 
+            wait for a button click before proceeding. This is useful when 
+            animating an algorithm. 
         Post:
             A display window will pop up or a file will be written depending
             on display mode.
@@ -1772,15 +1767,14 @@ After installation, ensure that the PATH variable is properly set.&#39;&#39;&#39
                 except:
                     try:
                         self.set_layout(&#39;dot&#39;)
-                        self.write(basename+&#39;.dot&#39;, self.get_layout(), &#39;dot&#39;)
-                        sp = subprocess.Popen(&#39;dot2tex -t math &#39; + basename + &#39;.dot&#39;, stdout = subprocess.PIPE, 
-                                              stderr = subprocess.STDOUT)
-                        tex = sp.communicate()[0]
+                        with open(basename+&#39;.dot&#39;, &#34;w+b&#34;) as f:
+                            self.write(f, self.get_layout(), &#39;dot&#39;)
+                            p = subprocess.call([&#39;dot2tex&#39;, &#39;-t math&#39;,
+                                                 basename + &#39;.dot&#39;])
                     except:
                         print(&#34;There was an error running dot2tex.&#34;)
-                f = open(basename+&#39;.tex&#39;, &#39;w&#39;)
-                f.write(tex)
-                f.close()
+                with open(basename+&#39;.tex&#39;, &#39;w&#39;) as f:
+                    f.write(tex)
                 try: 
                     subprocess.call([&#39;latex&#39;, basename])
                     if format == &#39;ps&#39;:
@@ -1791,36 +1785,49 @@ After installation, ensure that the PATH variable is properly set.&#39;&#39;&#39
                 except:
                     print(&#34;There was an error runing latex. Is it installed?&#34;)
             else:
-                self.write(basename+&#39;.&#39;+format, self.get_layout(), format)
+                with open(basename+&#39;.&#39;+format, &#34;w+b&#34;) as f:
+                    self.write(f, self.get_layout(), format)
             return
-        elif self.attr[&#39;display&#39;] == &#39;pygame&#39;:
-            output = self.create(self.get_layout(), format)
-            if output is not None:
-                im = io.StringIO(self.create(self.get_layout(), format))
-                picture = pygame.image.load(im, format)
-                screen = pygame.display.set_mode(picture.get_size())
-                screen.blit(picture, picture.get_rect())
-                pygame.display.flip()
-                while pause:
-                    e = pygame.event.poll()
-                    if e.type == pygame.KEYDOWN:
-                        break
-                    if e.type == pygame.QUIT:
-                        pause = False
-                        pygame.display.quit()
-                        # sys.exit() exits the whole program and I (aykut) guess it is
-                        # not appropriate here.
-                        #sys.exit()
-            else:
-                print(&#39;Error in displaying graph. Display disabled&#39;)
-                self.set_display_mode(&#39;off&#39;)
         elif self.attr[&#39;display&#39;] == &#39;PIL&#39;:
-            im = io.StringIO(self.create(self.get_layout(), format))
             if PIL_INSTALLED:
-                im2 = PIL_Image.open(im)
-                im2.show()
+                tmp_fd, tmp_name = tempfile.mkstemp()
+                tmp_file = os.fdopen(tmp_fd, &#39;w+b&#39;)
+                self.write(tmp_file, self.get_layout(), format)
+                tmp_file.close()
+                im = PIL_Image.open(tmp_name)
+                im.show()
+                os.remove(tmp_name)
             else:
                 print(&#39;Error: PIL not installed. Display disabled.&#39;)
+                self.attr[&#39;display&#39;] = &#39;off&#39;
+        elif self.attr[&#39;display&#39;] == &#39;matplotlib&#39;:
+            if MATPLOTLIB_INSTALLED and PIL_INSTALLED:
+                tmp_fd, tmp_name = tempfile.mkstemp()
+                tmp_file = os.fdopen(tmp_fd, &#39;w+b&#39;)
+                self.write(tmp_file, self.get_layout(), format)
+                tmp_file.close()
+                im = PIL_Image.open(tmp_name)
+                fig = plt.figure(1)
+                fig.canvas.mpl_connect(&#39;close_event&#39;, handle_close)
+                plt.clf()
+                plt.axis(&#39;off&#39;)
+                plt.imshow(im, interpolation=&#39;bilinear&#39; #resample=True
+                           #extent = (0, 100, 0, 100)
+                )
+                if wait_for_click == True:
+                    plt.draw()
+                    try:
+                        if plt.waitforbuttonpress(timeout = 10000):
+                            plt.close()
+                            exit()
+                    except:
+                        exit()
+                else:
+                    plt.show(block=pause)
+                im.close()
+                os.remove(tmp_name)
+            else:
+                print(&#39;Warning: Either matplotlib or Pillow is not installed. Display disabled.&#39;)
                 self.attr[&#39;display&#39;] = &#39;off&#39;
         elif self.attr[&#39;display&#39;] == &#39;xdot&#39;:
             if XDOT_INSTALLED:
@@ -1830,10 +1837,6 @@ After installation, ensure that the PATH variable is properly set.&#39;&#39;&#39
                 gtk.main()
             else:
                 print(&#39;Error: xdot not installed. Display disabled.&#39;)
-                self.attr[&#39;display&#39;] = &#39;off&#39;
-        elif self.attr[&#39;display&#39;] == &#39;svg&#39;:
-            if not ETREE_INSTALLED:
-                print(&#39;Error: etree not installed (display mode: svg). Display disabled.&#39;)
                 self.attr[&#39;display&#39;] = &#39;off&#39;
         else:
             print(&#34;Unknown display mode: &#34;, end=&#39; &#39;)
@@ -2347,7 +2350,7 @@ After installation, ensure that the PATH variable is properly set.&#39;&#39;&#39
             (1) check Pre section of min_cost_flow()
         Input:
             pivot: specifies pivot rule. Check min_cost_flow()
-            display: &#39;off&#39; for no display, &#39;pygame&#39; for live update of
+            display: &#39;off&#39; for no display, &#39;matplotlib&#39; for live update of
             spanning tree.
             root: Root node for the underlying spanning trees that will be
             generated by network simplex algorthm.
@@ -3083,7 +3086,7 @@ After installation, ensure that the PATH variable is properly set.&#39;&#39;&#39
             solving max flow. (max flow problem is solved to get a feasible
             flow).
         Input:
-            display: &#39;off&#39; for no display, &#39;pygame&#39; for live update of tree
+            display: &#39;off&#39; for no display, &#39;matplotlib&#39; for live update of tree
             args: may have the following
                 display: display method, if not given current mode (the one
                     specified by __init__ or set_display) will be used.
@@ -3122,7 +3125,7 @@ After installation, ensure that the PATH variable is properly set.&#39;&#39;&#39
             algorithm = args[&#39;algo&#39;]
         else:
             algorithm = &#39;simplex&#39;
-        if algorithm is &#39;simplex&#39;:
+        if algorithm == &#39;simplex&#39;:
             if &#39;root&#39; in args:
                 root = args[&#39;root&#39;]
             else:
@@ -3135,7 +3138,7 @@ After installation, ensure that the PATH variable is properly set.&#39;&#39;&#39
             else:
                 if not self.network_simplex(display, &#39;dantzig&#39;, root):
                     print(&#39;problem is infeasible&#39;)
-        elif algorithm is &#39;cycle_canceling&#39;:
+        elif algorithm == &#39;cycle_canceling&#39;:
             if not self.cycle_canceling(display):
                 print(&#39;problem is infeasible&#39;)
         else:
@@ -3239,7 +3242,7 @@ After installation, ensure that the PATH variable is properly set.&#39;&#39;&#39
                     degree = random.randint(degree_range[0], degree_range[1])
                     i = 0
                     neighbors = []
-                    if node_selection is &#39;random&#39;:
+                    if node_selection == &#39;random&#39;:
                         while i &lt; degree:
                             length = round((((self.get_node(n).get_attr(&#39;locationx&#39;) -
                                               self.get_node(m).get_attr(&#39;locationx&#39;)) ** 2 +
@@ -3253,7 +3256,7 @@ After installation, ensure that the PATH variable is properly set.&#39;&#39;&#39
                                 if add_labels:
                                     self.set_edge_attr(m, n, &#39;label&#39;, str(int(length)))
                                 i += 1
-                    elif node_selection is &#39;closest&#39;:
+                    elif node_selection == &#39;closest&#39;:
                         lengths = []
                         for n in range(numnodes):
                             lengths.append((n, round((((self.get_node(n).get_attr(&#39;locationx&#39;) -
@@ -3424,7 +3427,7 @@ After installation, ensure that the PATH variable is properly set.&#39;&#39;&#39
                 distance_n_m = len(path_n_m)-1
                 if distance_n_m &gt; eccentricity_n:
                     eccentricity_n = distance_n_m
-            if diameter is &#39;infinity&#39; or eccentricity_n &gt; diameter:
+            if diameter == &#39;infinity&#39; or eccentricity_n &gt; diameter:
                 diameter = eccentricity_n
         return diameter
 
@@ -3565,10 +3568,10 @@ if __name__ == &#39;__main__&#39;:
              #degree_range = (2, 4),
              #length_range = (1, 10)
              )
-    G.set_display_mode(&#39;pygame&#39;)
+    G.set_display_mode(&#39;matplotlib&#39;)
     G.display()
     #G.dfs(0)
-    G.search(0, display = &#39;pygame&#39;, algo = &#39;Prim&#39;)
+    G.search(0, display = &#39;matplotlib&#39;, algo = &#39;Prim&#39;)
     #G.minimum_spanning_tree_kruskal()</code></pre>
 </details>
 </section>
@@ -3577,18 +3580,46 @@ if __name__ == &#39;__main__&#39;:
 <section>
 </section>
 <section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="coinor.gimpy.graph.handle_close"><code class="name flex">
+<span>def <span class="ident">handle_close</span></span>(<span>evt)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def handle_close(evt):
+    print(&#39;Figure closed. Exiting!&#39;)
+    plt.close(&#39;all&#39;)</code></pre>
+</details>
+</dd>
+</dl>
 </section>
 <section>
 <h2 class="section-title" id="header-classes">Classes</h2>
 <dl>
 <dt id="coinor.gimpy.graph.DisjointSet"><code class="flex name class">
 <span>class <span class="ident">DisjointSet</span></span>
-<span>(</span><span><small>ancestors:</small> <a title="coinor.gimpy.graph.Graph" href="#coinor.gimpy.graph.Graph">Graph</a>)</span>
+<span>(</span><span>optimize=True, **attrs)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Disjoint set data structure. Inherits Graph class.</p></section>
+<div class="desc"><p>Disjoint set data structure. Inherits Graph class.</p>
+<h2 id="api">Api</h2>
+<p><strong>init</strong>(self, optimize = True, **attrs):</p>
+<h2 id="description">Description</h2>
+<p>Class constructor.</p>
+<h2 id="input">Input</h2>
+<p>optimize: Optimizes find() if True.
+attrs: Graph attributes.</p>
+<h2 id="post">Post</h2>
+<p>self.optimize will be updated.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">class DisjointSet(Graph):
     &#39;&#39;&#39;
     Disjoint set data structure. Inherits Graph class.
@@ -3674,62 +3705,28 @@ if __name__ == &#39;__main__&#39;:
                     self.add_edge(e[0], current)
         return current</code></pre>
 </details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="coinor.gimpy.graph.Graph" href="#coinor.gimpy.graph.Graph">Graph</a></li>
+</ul>
 <h3>Methods</h3>
 <dl>
-<dt id="coinor.gimpy.graph.DisjointSet.__init__"><code class="name flex">
-<span>def <span class="ident">__init__</span></span>(<span>self, optimize=True, **attrs)</span>
-</code></dt>
-<dd>
-<section class="desc"><h2 id="api">API</h2>
-<p><strong>init</strong>(self, optimize = True, **attrs):</p>
-<h2 id="description">Description</h2>
-<p>Class constructor.</p>
-<h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>optimize</code></strong></dt>
-<dd>Optimizes find() if True.</dd>
-<dt><strong><code>attrs</code></strong></dt>
-<dd>Graph attributes.</dd>
-</dl>
-<h2 id="post">Post</h2>
-<p>self.optimize will be updated.</p></section>
-<details class="source">
-<summary>Source code</summary>
-<pre><code class="python">def __init__(self, optimize = True, **attrs):
-    &#39;&#39;&#39;
-    API:
-        __init__(self, optimize = True, **attrs):
-    Description:
-        Class constructor.
-    Input:
-        optimize: Optimizes find() if True.
-        attrs: Graph attributes.
-    Post:
-        self.optimize will be updated.
-    &#39;&#39;&#39;
-    attrs[&#39;type&#39;] = DIRECTED_GRAPH
-    Graph.__init__(self, **attrs)
-    self.sizes = {}
-    self.optimize = optimize</code></pre>
-</details>
-</dd>
 <dt id="coinor.gimpy.graph.DisjointSet.add"><code class="name flex">
 <span>def <span class="ident">add</span></span>(<span>self, aList)</span>
 </code></dt>
 <dd>
-<section class="desc"><h2 id="api">API</h2>
+<div class="desc"><h2 id="api">Api</h2>
 <p>add(self, aList)</p>
 <h2 id="description">Description</h2>
 <p>Adds items in the list to the set.</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>aList</code></strong></dt>
-<dd>List of items.</dd>
-</dl>
+<p>aList: List of items.</p>
 <h2 id="post">Post</h2>
-<p>self.sizes will be updated.</p></section>
+<p>self.sizes will be updated.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def add(self, aList):
     &#39;&#39;&#39;
     API:
@@ -3751,19 +3748,18 @@ if __name__ == &#39;__main__&#39;:
 <span>def <span class="ident">find</span></span>(<span>self, i)</span>
 </code></dt>
 <dd>
-<section class="desc"><h2 id="api">API</h2>
+<div class="desc"><h2 id="api">Api</h2>
 <p>find(self, i)</p>
 <h2 id="description">Description</h2>
 <p>Returns root of set that has i.</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>i</code></strong></dt>
-<dd>Item.</dd>
-</dl>
+<p>i: Item.</p>
 <h2 id="return">Return</h2>
-<p>Returns root of set that has i.</p></section>
+<p>Returns root of set that has i.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def find(self, i):
     &#39;&#39;&#39;
     API:
@@ -3793,21 +3789,19 @@ if __name__ == &#39;__main__&#39;:
 <span>def <span class="ident">union</span></span>(<span>self, i, j)</span>
 </code></dt>
 <dd>
-<section class="desc"><h2 id="api">API</h2>
+<div class="desc"><h2 id="api">Api</h2>
 <p>union(self, i, j):</p>
 <h2 id="description">Description</h2>
 <p>Finds sets of i and j and unites them.</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>i</code></strong></dt>
-<dd>Item.</dd>
-<dt><strong><code>j</code></strong></dt>
-<dd>Item.</dd>
-</dl>
+<p>i: Item.
+j: Item.</p>
 <h2 id="post">Post</h2>
-<p>self.sizes will be updated.</p></section>
+<p>self.sizes will be updated.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def union(self, i, j):
     &#39;&#39;&#39;
     API:
@@ -3926,12 +3920,25 @@ if __name__ == &#39;__main__&#39;:
 </dd>
 <dt id="coinor.gimpy.graph.Graph"><code class="flex name class">
 <span>class <span class="ident">Graph</span></span>
+<span>(</span><span>**attr)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Graph class, implemented using adjacency list. See GIMPy README for more
-information.</p></section>
+<div class="desc"><p>Graph class, implemented using adjacency list. See GIMPy README for more
+information.</p>
+<p>API: <strong>init</strong>(self, **attrs)
+Description:
+Graph class constructor. Sets attributes using argument.</p>
+<h2 id="input">Input</h2>
+<p>**attrs: Graph attributes.</p>
+<h2 id="post">Post</h2>
+<p>Sets following attributes using **attrs; self.attr,
+self.graph_type. Creates following initial attributes;
+self.neighbors, self.in_neighbors, self.nodes, self.out_neighbors,
+self.cluster</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">class Graph(object):
     &#39;&#39;&#39;
     Graph class, implemented using adjacency list. See GIMPy README for more
@@ -3975,12 +3982,7 @@ information.</p></section>
         self.nodes = {}
         self.edge_connect_symbol = EDGE_CONNECT_SYMBOL[self.graph_type]
         self.out_neighbors = self.neighbors
-        if &#39;display&#39; in self.attr and self.attr[&#39;display&#39;]==&#39;pygame&#39;:
-            if PYGAME_INSTALLED:
-                pygame.init()
-            else:
-                print(&#34;Pygame module not installed, graphical display disabled&#34;)
-        elif &#39;display&#39; not in self.attr:
+        if &#39;display&#39; not in self.attr:
             self.attr[&#39;display&#39;]=&#39;off&#39;
         if &#39;layout&#39; not in self.attr:
             self.attr[&#39;layout&#39;] = &#39;fdp&#39;
@@ -4358,7 +4360,7 @@ information.</p></section>
         edge.append(self.edge_connect_symbol)
         edge.append(quote_if_necessary(str(e[1])))
         # return if there is nothing in self.edge_attr[e]
-        if len(self.edge_attr[e]) is 0:
+        if len(self.edge_attr[e]) == 0:
             return &#39;&#39;.join(edge)
         edge.append(&#39;  [&#39;)
         for a in self.edge_attr[e]:
@@ -5336,7 +5338,7 @@ information.</p></section>
         if value == &#39;dot2tex&#39;:
             self.attr[&#39;d2tgraphstyle&#39;] = &#39;every text node part/.style={align=center}&#39;
 
-    def write(self, basename = &#39;graph&#39;, layout = None, format=&#39;png&#39;):
+    def write(self, file_obj, layout = None, format=&#39;png&#39;):
         &#39;&#39;&#39;
         API:
             write(self, basename = &#39;graph&#39;, layout = None, format=&#39;png&#39;)
@@ -5351,12 +5353,12 @@ information.</p></section>
         &#39;&#39;&#39;
         if layout == None:
             layout = self.get_layout()
-        f = open(basename, &#34;w+b&#34;)
         if format == &#39;dot&#39;:
-            f.write(self.to_string())
+            file_obj.write(bytearray(self.to_string(), &#39;utf8&#39;))
         else:
-            f.write(self.create(layout, format))
-        f.close()
+            out = self.create(layout, format)
+            if (out != None):
+                file_obj.write(out)
 
     def create(self, layout, format, **args):
         &#39;&#39;&#39;
@@ -5373,37 +5375,35 @@ information.</p></section>
         tmp_fd, tmp_name = tempfile.mkstemp()
         tmp_file = os.fdopen(tmp_fd, &#39;w&#39;)
         tmp_file.write(self.to_string())
-        # ne need for os.close(tmp_fd), since we have tmp_file.close(tmp_file)
         tmp_file.close()
-        tmp_dir = os.path.dirname(tmp_name)
         try:
-            p = subprocess.Popen([layout, &#39;-T&#39;+format, tmp_name],
-                                 cwd=tmp_dir,
-                                 stdout=subprocess.PIPE,
-                                 stderr=subprocess.PIPE)
+            p = subprocess.run([layout, &#39;-T&#39;+format, tmp_name],
+                               capture_output = True)
         except OSError:
             print(&#39;&#39;&#39;Graphviz executable not found.
 Graphviz must be installed and in your search path.
 Please visit http://www.graphviz.org/ for information on installation.
 After installation, ensure that the PATH variable is properly set.&#39;&#39;&#39;)
-            return
-        stdout_output, stderr_output = p.communicate()
-        if p.returncode != 0 :
-            raise Exception(&#39;Graphviz executable terminated with status: %d. stderr follows: %s&#39; % (
-                    p.returncode, stderr_output))
-        elif stderr_output:
-            print(stderr_output)
-        return stdout_output
+            return None
+
+        
+        p.check_returncode()
+
+        os.remove(tmp_name)
+            
+        if p.stderr:
+            print(p.stderr)
+        return p.stdout
 
     def display(self, highlight = None, basename = &#39;graph&#39;, format = &#39;png&#39;,
-                pause = True):
+                pause = False, wait_for_click = True):
         &#39;&#39;&#39;
         API:
             display(self, highlight = None, basename = &#39;graph&#39;, format = &#39;png&#39;,
                 pause = True)
         Description:
             Displays graph according to the arguments provided.
-            Current display modes: &#39;off&#39;, &#39;file&#39;, &#39;pygame&#39;, &#39;PIL&#39;, &#39;xdot&#39;,
+            Current display modes: &#39;off&#39;, &#39;file&#39;, &#39;PIL&#39;, &#39;matplotlib&#39;, &#39;xdot&#39;,
             &#39;svg&#39;
             Current layout modes: Layouts provided by graphviz (&#39;dot&#39;, &#39;fdp&#39;,
             &#39;circo&#39;, etc.) and &#39;dot2tex&#39;.
@@ -5413,9 +5413,10 @@ After installation, ensure that the PATH variable is properly set.&#39;&#39;&#39
             highlight: List of nodes to be highlighted.
             basename: File name. It will be used if display mode is &#39;file&#39;.
             format: Image format, all format supported by Dot are wellcome.
-            pause: If display is &#39;pygame&#39; and pause is True pygame will pause
-            and wait for user input before closing the display. It will close
-            display window straightaway otherwise.
+            pause: If display is &#39;matplotlib&#39;, window will remain open until closed.
+            wait_for_click: If display is &#39;matplotlib&#39;, setting to True will 
+            wait for a button click before proceeding. This is useful when 
+            animating an algorithm. 
         Post:
             A display window will pop up or a file will be written depending
             on display mode.
@@ -5446,15 +5447,14 @@ After installation, ensure that the PATH variable is properly set.&#39;&#39;&#39
                 except:
                     try:
                         self.set_layout(&#39;dot&#39;)
-                        self.write(basename+&#39;.dot&#39;, self.get_layout(), &#39;dot&#39;)
-                        sp = subprocess.Popen(&#39;dot2tex -t math &#39; + basename + &#39;.dot&#39;, stdout = subprocess.PIPE, 
-                                              stderr = subprocess.STDOUT)
-                        tex = sp.communicate()[0]
+                        with open(basename+&#39;.dot&#39;, &#34;w+b&#34;) as f:
+                            self.write(f, self.get_layout(), &#39;dot&#39;)
+                            p = subprocess.call([&#39;dot2tex&#39;, &#39;-t math&#39;,
+                                                 basename + &#39;.dot&#39;])
                     except:
                         print(&#34;There was an error running dot2tex.&#34;)
-                f = open(basename+&#39;.tex&#39;, &#39;w&#39;)
-                f.write(tex)
-                f.close()
+                with open(basename+&#39;.tex&#39;, &#39;w&#39;) as f:
+                    f.write(tex)
                 try: 
                     subprocess.call([&#39;latex&#39;, basename])
                     if format == &#39;ps&#39;:
@@ -5465,36 +5465,49 @@ After installation, ensure that the PATH variable is properly set.&#39;&#39;&#39
                 except:
                     print(&#34;There was an error runing latex. Is it installed?&#34;)
             else:
-                self.write(basename+&#39;.&#39;+format, self.get_layout(), format)
+                with open(basename+&#39;.&#39;+format, &#34;w+b&#34;) as f:
+                    self.write(f, self.get_layout(), format)
             return
-        elif self.attr[&#39;display&#39;] == &#39;pygame&#39;:
-            output = self.create(self.get_layout(), format)
-            if output is not None:
-                im = io.StringIO(self.create(self.get_layout(), format))
-                picture = pygame.image.load(im, format)
-                screen = pygame.display.set_mode(picture.get_size())
-                screen.blit(picture, picture.get_rect())
-                pygame.display.flip()
-                while pause:
-                    e = pygame.event.poll()
-                    if e.type == pygame.KEYDOWN:
-                        break
-                    if e.type == pygame.QUIT:
-                        pause = False
-                        pygame.display.quit()
-                        # sys.exit() exits the whole program and I (aykut) guess it is
-                        # not appropriate here.
-                        #sys.exit()
-            else:
-                print(&#39;Error in displaying graph. Display disabled&#39;)
-                self.set_display_mode(&#39;off&#39;)
         elif self.attr[&#39;display&#39;] == &#39;PIL&#39;:
-            im = io.StringIO(self.create(self.get_layout(), format))
             if PIL_INSTALLED:
-                im2 = PIL_Image.open(im)
-                im2.show()
+                tmp_fd, tmp_name = tempfile.mkstemp()
+                tmp_file = os.fdopen(tmp_fd, &#39;w+b&#39;)
+                self.write(tmp_file, self.get_layout(), format)
+                tmp_file.close()
+                im = PIL_Image.open(tmp_name)
+                im.show()
+                os.remove(tmp_name)
             else:
                 print(&#39;Error: PIL not installed. Display disabled.&#39;)
+                self.attr[&#39;display&#39;] = &#39;off&#39;
+        elif self.attr[&#39;display&#39;] == &#39;matplotlib&#39;:
+            if MATPLOTLIB_INSTALLED and PIL_INSTALLED:
+                tmp_fd, tmp_name = tempfile.mkstemp()
+                tmp_file = os.fdopen(tmp_fd, &#39;w+b&#39;)
+                self.write(tmp_file, self.get_layout(), format)
+                tmp_file.close()
+                im = PIL_Image.open(tmp_name)
+                fig = plt.figure(1)
+                fig.canvas.mpl_connect(&#39;close_event&#39;, handle_close)
+                plt.clf()
+                plt.axis(&#39;off&#39;)
+                plt.imshow(im, interpolation=&#39;bilinear&#39; #resample=True
+                           #extent = (0, 100, 0, 100)
+                )
+                if wait_for_click == True:
+                    plt.draw()
+                    try:
+                        if plt.waitforbuttonpress(timeout = 10000):
+                            plt.close()
+                            exit()
+                    except:
+                        exit()
+                else:
+                    plt.show(block=pause)
+                im.close()
+                os.remove(tmp_name)
+            else:
+                print(&#39;Warning: Either matplotlib or Pillow is not installed. Display disabled.&#39;)
                 self.attr[&#39;display&#39;] = &#39;off&#39;
         elif self.attr[&#39;display&#39;] == &#39;xdot&#39;:
             if XDOT_INSTALLED:
@@ -5504,10 +5517,6 @@ After installation, ensure that the PATH variable is properly set.&#39;&#39;&#39
                 gtk.main()
             else:
                 print(&#39;Error: xdot not installed. Display disabled.&#39;)
-                self.attr[&#39;display&#39;] = &#39;off&#39;
-        elif self.attr[&#39;display&#39;] == &#39;svg&#39;:
-            if not ETREE_INSTALLED:
-                print(&#39;Error: etree not installed (display mode: svg). Display disabled.&#39;)
                 self.attr[&#39;display&#39;] = &#39;off&#39;
         else:
             print(&#34;Unknown display mode: &#34;, end=&#39; &#39;)
@@ -6021,7 +6030,7 @@ After installation, ensure that the PATH variable is properly set.&#39;&#39;&#39
             (1) check Pre section of min_cost_flow()
         Input:
             pivot: specifies pivot rule. Check min_cost_flow()
-            display: &#39;off&#39; for no display, &#39;pygame&#39; for live update of
+            display: &#39;off&#39; for no display, &#39;matplotlib&#39; for live update of
             spanning tree.
             root: Root node for the underlying spanning trees that will be
             generated by network simplex algorthm.
@@ -6757,7 +6766,7 @@ After installation, ensure that the PATH variable is properly set.&#39;&#39;&#39
             solving max flow. (max flow problem is solved to get a feasible
             flow).
         Input:
-            display: &#39;off&#39; for no display, &#39;pygame&#39; for live update of tree
+            display: &#39;off&#39; for no display, &#39;matplotlib&#39; for live update of tree
             args: may have the following
                 display: display method, if not given current mode (the one
                     specified by __init__ or set_display) will be used.
@@ -6796,7 +6805,7 @@ After installation, ensure that the PATH variable is properly set.&#39;&#39;&#39
             algorithm = args[&#39;algo&#39;]
         else:
             algorithm = &#39;simplex&#39;
-        if algorithm is &#39;simplex&#39;:
+        if algorithm == &#39;simplex&#39;:
             if &#39;root&#39; in args:
                 root = args[&#39;root&#39;]
             else:
@@ -6809,7 +6818,7 @@ After installation, ensure that the PATH variable is properly set.&#39;&#39;&#39
             else:
                 if not self.network_simplex(display, &#39;dantzig&#39;, root):
                     print(&#39;problem is infeasible&#39;)
-        elif algorithm is &#39;cycle_canceling&#39;:
+        elif algorithm == &#39;cycle_canceling&#39;:
             if not self.cycle_canceling(display):
                 print(&#39;problem is infeasible&#39;)
         else:
@@ -6913,7 +6922,7 @@ After installation, ensure that the PATH variable is properly set.&#39;&#39;&#39
                     degree = random.randint(degree_range[0], degree_range[1])
                     i = 0
                     neighbors = []
-                    if node_selection is &#39;random&#39;:
+                    if node_selection == &#39;random&#39;:
                         while i &lt; degree:
                             length = round((((self.get_node(n).get_attr(&#39;locationx&#39;) -
                                               self.get_node(m).get_attr(&#39;locationx&#39;)) ** 2 +
@@ -6927,7 +6936,7 @@ After installation, ensure that the PATH variable is properly set.&#39;&#39;&#39
                                 if add_labels:
                                     self.set_edge_attr(m, n, &#39;label&#39;, str(int(length)))
                                 i += 1
-                    elif node_selection is &#39;closest&#39;:
+                    elif node_selection == &#39;closest&#39;:
                         lengths = []
                         for n in range(numnodes):
                             lengths.append((n, round((((self.get_node(n).get_attr(&#39;locationx&#39;) -
@@ -7098,7 +7107,7 @@ After installation, ensure that the PATH variable is properly set.&#39;&#39;&#39
                 distance_n_m = len(path_n_m)-1
                 if distance_n_m &gt; eccentricity_n:
                     eccentricity_n = distance_n_m
-            if diameter is &#39;infinity&#39; or eccentricity_n &gt; diameter:
+            if diameter == &#39;infinity&#39; or eccentricity_n &gt; diameter:
                 diameter = eccentricity_n
         return diameter
 
@@ -7134,112 +7143,34 @@ After installation, ensure that the PATH variable is properly set.&#39;&#39;&#39
 </details>
 <h3>Subclasses</h3>
 <ul class="hlist">
+<li><a title="coinor.gimpy.examples.simplex_test.mGraph" href="examples/simplex_test.html#coinor.gimpy.examples.simplex_test.mGraph">mGraph</a></li>
 <li><a title="coinor.gimpy.graph.DisjointSet" href="#coinor.gimpy.graph.DisjointSet">DisjointSet</a></li>
 <li><a title="coinor.gimpy.tree.Tree" href="tree.html#coinor.gimpy.tree.Tree">Tree</a></li>
 </ul>
 <h3>Methods</h3>
 <dl>
-<dt id="coinor.gimpy.graph.Graph.__init__"><code class="name flex">
-<span>def <span class="ident">__init__</span></span>(<span>self, **attr)</span>
-</code></dt>
-<dd>
-<section class="desc"><dl>
-<dt><strong><code>API</code></strong> :&ensp;<code>__init__</code>(<code>self</code>, **<code>attrs</code>)</dt>
-<dd>&nbsp;</dd>
-</dl>
-<p>Description:
-Graph class constructor. Sets attributes using argument.</p>
-<h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>**attrs</code></strong></dt>
-<dd>Graph attributes.</dd>
-</dl>
-<h2 id="post">Post</h2>
-<p>Sets following attributes using **attrs; self.attr,
-self.graph_type. Creates following initial attributes;
-self.neighbors, self.in_neighbors, self.nodes, self.out_neighbors,
-self.cluster</p></section>
-<details class="source">
-<summary>Source code</summary>
-<pre><code class="python">def __init__(self, **attr):
-    &#39;&#39;&#39;
-    API: __init__(self, **attrs)
-    Description:
-    Graph class constructor. Sets attributes using argument.
-    Input:
-        **attrs: Graph attributes.
-    Post:
-        Sets following attributes using **attrs; self.attr,
-        self.graph_type. Creates following initial attributes;
-        self.neighbors, self.in_neighbors, self.nodes, self.out_neighbors,
-        self.cluster
-    &#39;&#39;&#39;
-    # graph attributes
-    self.attr = copy.deepcopy(DEFAULT_GRAPH_ATTRIBUTES)
-    # set attributes using constructor
-    for a in attr:
-        self.attr[a] = attr[a]
-    # set name
-    if &#39;name&#39; in self.attr:
-        self.name = self.attr[&#39;name&#39;]
-    else:
-        self.name = &#39;G&#39;
-    # edge attributes
-    self.edge_attr = dict()
-    # we treat type attribute and keep it in a separate class attribute
-    if &#39;type&#39; in self.attr:
-        self.graph_type = self.attr[&#39;type&#39;]
-    else:
-        self.graph_type = UNDIRECTED_GRAPH
-    # adjacency list of nodes, it is a dictionary of lists
-    self.neighbors = {}
-    # if the graph is undirected we do not need in_neighbor
-    if self.graph_type is DIRECTED_GRAPH:
-        self.in_neighbors = {}
-    self.nodes = {}
-    self.edge_connect_symbol = EDGE_CONNECT_SYMBOL[self.graph_type]
-    self.out_neighbors = self.neighbors
-    if &#39;display&#39; in self.attr and self.attr[&#39;display&#39;]==&#39;pygame&#39;:
-        if PYGAME_INSTALLED:
-            pygame.init()
-        else:
-            print(&#34;Pygame module not installed, graphical display disabled&#34;)
-    elif &#39;display&#39; not in self.attr:
-        self.attr[&#39;display&#39;]=&#39;off&#39;
-    if &#39;layout&#39; not in self.attr:
-        self.attr[&#39;layout&#39;] = &#39;fdp&#39;
-    self.attr[&#39;cluster_count&#39;] = 0
-    self.cluster = {}</code></pre>
-</details>
-</dd>
 <dt id="coinor.gimpy.graph.Graph.add_edge"><code class="name flex">
 <span>def <span class="ident">add_edge</span></span>(<span>self, name1, name2, **attr)</span>
 </code></dt>
 <dd>
-<section class="desc"><dl>
-<dt><strong><code>API</code></strong> :&ensp;<code>add_edge</code>(<code>self</code>, <code>name1</code>, <code>name2</code>, **<code>attr</code>)</dt>
-<dd>&nbsp;</dd>
-</dl>
-<p>Description:
+<div class="desc"><p>API: add_edge(self, name1, name2, **attr)
+Description:
 Adds edge to the graph. Sets edge attributes using attr argument.</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>name1</code></strong></dt>
-<dd>Name of the source node (if directed).</dd>
-<dt><strong><code>name2</code></strong></dt>
-<dd>Name of the sink node (if directed).</dd>
-<dt><strong><code>attr</code></strong></dt>
-<dd>Edge attributes.</dd>
-</dl>
+<p>name1: Name of the source node (if directed).
+name2: Name of the sink node (if directed).
+attr: Edge attributes.</p>
 <h2 id="pre">Pre</h2>
 <p>Graph should not already contain this edge. We do not allow
 multiple edges with same source and sink nodes.</p>
 <h2 id="post">Post</h2>
 <p>self.edge_attr is updated.
 self.neighbors, self.nodes and self.in_neighbors are updated if
-graph was missing at least one of the nodes.</p></section>
+graph was missing at least one of the nodes.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def add_edge(self, name1, name2, **attr):
     &#39;&#39;&#39;
     API: add_edge(self, name1, name2, **attr)
@@ -7279,28 +7210,23 @@ graph was missing at least one of the nodes.</p></section>
 <span>def <span class="ident">add_node</span></span>(<span>self, name, **attr)</span>
 </code></dt>
 <dd>
-<section class="desc"><dl>
-<dt><strong><code>API</code></strong> :&ensp;<code>add_node</code>(<code>self</code>, <code>name</code>, **<code>attr</code>)</dt>
-<dd>&nbsp;</dd>
-</dl>
-<p>Description:
+<div class="desc"><p>API: add_node(self, name, **attr)
+Description:
 Adds node to the graph.</p>
 <h2 id="pre">Pre</h2>
 <p>Graph should not contain a node with this name. We do not allow
 multiple nodes with the same name.</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>name</code></strong></dt>
-<dd>Name of the node.</dd>
-<dt><strong><code>attr</code></strong></dt>
-<dd>Node attributes.</dd>
-</dl>
+<p>name: Name of the node.
+attr: Node attributes.</p>
 <h2 id="post">Post</h2>
 <p>self.neighbors, self.nodes and self.in_neighbors are updated.</p>
 <h2 id="return">Return</h2>
-<p>Node (a Node class instance) added to the graph.</p></section>
+<p>Node (a Node class instance) added to the graph.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def add_node(self, name, **attr):
     &#39;&#39;&#39;
     API: add_node(self, name, **attr)
@@ -7330,23 +7256,21 @@ multiple nodes with the same name.</p>
 <span>def <span class="ident">augment_cycle</span></span>(<span>self, amount, cycle)</span>
 </code></dt>
 <dd>
-<section class="desc"><h2 id="api">API</h2>
+<div class="desc"><h2 id="api">Api</h2>
 <p>augment_cycle(self, amount, cycle):</p>
 <h2 id="description">Description</h2>
 <p>Augments 'amount' unit of flow along cycle.</p>
 <h2 id="pre">Pre</h2>
 <p>Arcs should have 'flow' attribute.</p>
 <h2 id="inputs">Inputs</h2>
-<dl>
-<dt><strong><code>amount</code></strong></dt>
-<dd>An integer representing the amount to augment</dd>
-<dt><strong><code>cycle</code></strong></dt>
-<dd>A list representing a cycle</dd>
-</dl>
+<p>amount: An integer representing the amount to augment
+cycle: A list representing a cycle</p>
 <h2 id="post">Post</h2>
-<p>Changes 'flow' attributes of arcs.</p></section>
+<p>Changes 'flow' attributes of arcs.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def augment_cycle(self, amount, cycle):
     &#39;&#39;&#39;
     API:
@@ -7387,26 +7311,20 @@ multiple nodes with the same name.</p>
 <span>def <span class="ident">bfs</span></span>(<span>self, root, display=None, component=None)</span>
 </code></dt>
 <dd>
-<section class="desc"><dl>
-<dt><strong><code>API</code></strong> :&ensp;<code>bfs</code>(<code>self</code>, <code>root</code>, <code>display</code> = <code>None</code>, <code>component</code>=<code>None</code>)</dt>
-<dd>&nbsp;</dd>
-</dl>
-<p>Description:
+<div class="desc"><p>API: bfs(self, root, display = None, component=None)
+Description:
 Make a breadth-first search starting from node with name root.</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>root</code></strong></dt>
-<dd>Starting node name.</dd>
-<dt><strong><code>display</code></strong></dt>
-<dd>display method.</dd>
-<dt><strong><code>component</code></strong></dt>
-<dd>component number.</dd>
-</dl>
+<p>root: Starting node name.
+display: display method.
+component: component number.</p>
 <h2 id="post">Post</h2>
 <p>Nodes will have 'component' attribute that will have component
-number as value.</p></section>
+number as value.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def bfs(self, root, display = None, component = None):
     &#39;&#39;&#39;
     API: bfs(self, root, display = None, component=None)
@@ -7427,23 +7345,18 @@ number as value.</p></section>
 <span>def <span class="ident">check_edge</span></span>(<span>self, name1, name2)</span>
 </code></dt>
 <dd>
-<section class="desc"><dl>
-<dt><strong><code>API</code></strong> :&ensp;<code>check_edge</code>(<code>self</code>, <code>name1</code>, <code>name2</code>)</dt>
-<dd>&nbsp;</dd>
-</dl>
-<p>Description:
+<div class="desc"><p>API: check_edge(self, name1, name2)
+Description:
 Return True if edge exists, False otherwise.</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>name1</code></strong></dt>
-<dd>name of the source node.</dd>
-<dt><strong><code>name2</code></strong></dt>
-<dd>name of the sink node.</dd>
-</dl>
+<p>name1: name of the source node.
+name2: name of the sink node.</p>
 <h2 id="return">Return</h2>
-<p>Returns True if edge exists, False otherwise.</p></section>
+<p>Returns True if edge exists, False otherwise.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def check_edge(self, name1, name2):
     &#39;&#39;&#39;
     API: check_edge(self, name1, name2)
@@ -7466,21 +7379,19 @@ Return True if edge exists, False otherwise.</p>
 <span>def <span class="ident">create</span></span>(<span>self, layout, format, **args)</span>
 </code></dt>
 <dd>
-<section class="desc"><h2 id="api">API</h2>
+<div class="desc"><h2 id="api">Api</h2>
 <p>create(self, layout, format, **args)</p>
 <h2 id="description">Description</h2>
 <p>Returns postscript representation of graph.</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>layout</code></strong></dt>
-<dd>Dot layout for generating graph image.</dd>
-<dt><strong><code>format</code></strong></dt>
-<dd>Image format, all format supported by Dot are wellcome.</dd>
-</dl>
+<p>layout: Dot layout for generating graph image.
+format: Image format, all format supported by Dot are wellcome.</p>
 <h2 id="return">Return</h2>
-<p>Returns postscript representation of graph.</p></section>
+<p>Returns postscript representation of graph.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">    def create(self, layout, format, **args):
         &#39;&#39;&#39;
         API:
@@ -7496,53 +7407,48 @@ Return True if edge exists, False otherwise.</p>
         tmp_fd, tmp_name = tempfile.mkstemp()
         tmp_file = os.fdopen(tmp_fd, &#39;w&#39;)
         tmp_file.write(self.to_string())
-        # ne need for os.close(tmp_fd), since we have tmp_file.close(tmp_file)
         tmp_file.close()
-        tmp_dir = os.path.dirname(tmp_name)
         try:
-            p = subprocess.Popen([layout, &#39;-T&#39;+format, tmp_name],
-                                 cwd=tmp_dir,
-                                 stdout=subprocess.PIPE,
-                                 stderr=subprocess.PIPE)
+            p = subprocess.run([layout, &#39;-T&#39;+format, tmp_name],
+                               capture_output = True)
         except OSError:
             print(&#39;&#39;&#39;Graphviz executable not found.
 Graphviz must be installed and in your search path.
 Please visit http://www.graphviz.org/ for information on installation.
 After installation, ensure that the PATH variable is properly set.&#39;&#39;&#39;)
-            return
-        stdout_output, stderr_output = p.communicate()
-        if p.returncode != 0 :
-            raise Exception(&#39;Graphviz executable terminated with status: %d. stderr follows: %s&#39; % (
-                    p.returncode, stderr_output))
-        elif stderr_output:
-            print(stderr_output)
-        return stdout_output</code></pre>
+            return None
+
+        
+        p.check_returncode()
+
+        os.remove(tmp_name)
+            
+        if p.stderr:
+            print(p.stderr)
+        return p.stdout</code></pre>
 </details>
 </dd>
 <dt id="coinor.gimpy.graph.Graph.create_cluster"><code class="name flex">
 <span>def <span class="ident">create_cluster</span></span>(<span>self, node_list, cluster_attrs={}, node_attrs={})</span>
 </code></dt>
 <dd>
-<section class="desc"><h2 id="api">API</h2>
+<div class="desc"><h2 id="api">Api</h2>
 <p>create_cluster(self, node_list, cluster_attrs, node_attrs)</p>
 <h2 id="description">Description</h2>
 <p>Creates a cluster from the node given in the node list.</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>node_list</code></strong></dt>
-<dd>List of nodes in the cluster.</dd>
-<dt><strong><code>cluster_attrs</code></strong></dt>
-<dd>Dictionary of cluster attributes, see Dot language</dd>
-<dt>grammer documentation for details.</dt>
-<dt><strong><code>node_attrs</code></strong></dt>
-<dd>Dictionary of node attributes. It will overwrite</dd>
-</dl>
-<p>previous attributes of the nodes in the cluster.</p>
+<p>node_list: List of nodes in the cluster.
+cluster_attrs: Dictionary of cluster attributes, see Dot language
+grammer documentation for details.
+node_attrs: Dictionary of node attributes. It will overwrite
+previous attributes of the nodes in the cluster.</p>
 <h2 id="post">Post</h2>
 <p>A cluster will be created. Attributes of the nodes in the cluster
-may change.</p></section>
+may change.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def create_cluster(self, node_list, cluster_attrs={}, node_attrs={}):
     &#39;&#39;&#39;
     API:
@@ -7578,20 +7484,19 @@ may change.</p></section>
 <span>def <span class="ident">create_residual_graph</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<section class="desc"><dl>
-<dt><strong><code>API</code></strong> :&ensp;<code>create_residual_graph</code>(<code>self</code>)</dt>
-<dd>&nbsp;</dd>
-</dl>
-<p>Description:
+<div class="desc"><p>API: create_residual_graph(self)
+Description:
 Creates and returns residual graph, which is a Graph instance
 itself.</p>
 <h2 id="pre">Pre</h2>
 <p>(1) Arcs should have 'flow', 'capacity' and 'cost' attribute
 (2) Graph should be a directed graph</p>
 <h2 id="return">Return</h2>
-<p>Returns residual graph, which is a Graph instance.</p></section>
+<p>Returns residual graph, which is a Graph instance.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def create_residual_graph(self):
     &#39;&#39;&#39;
     API: create_residual_graph(self)
@@ -7624,7 +7529,7 @@ itself.</p>
 <span>def <span class="ident">cycle_canceling</span></span>(<span>self, display)</span>
 </code></dt>
 <dd>
-<section class="desc"><h2 id="api">API</h2>
+<div class="desc"><h2 id="api">Api</h2>
 <p>cycle_canceling(self, display)</p>
 <h2 id="description">Description</h2>
 <p>Solves minimum cost feasible flow problem using cycle canceling
@@ -7632,10 +7537,7 @@ algorithm. Returns True when an optimal solution is found, returns
 False otherwise. 'flow' attribute values of arcs should be
 considered as junk when returned False.</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>display</code></strong></dt>
-<dd>Display method.</dd>
-</dl>
+<p>display: Display method.</p>
 <h2 id="pre">Pre</h2>
 <p>(1) Arcs should have 'capacity' and 'cost' attribute.
 (2) Nodes should have 'demand' attribute, this value should be
@@ -7646,9 +7548,11 @@ node and 0 if it is transhipment node.
 <p>Changes 'flow' attributes of arcs.</p>
 <h2 id="return">Return</h2>
 <p>Returns True when an optimal solution is found, returns False
-otherwise.</p></section>
+otherwise.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def cycle_canceling(self, display):
     &#39;&#39;&#39;
     API:
@@ -7696,23 +7600,19 @@ otherwise.</p></section>
 <span>def <span class="ident">del_edge</span></span>(<span>self, e)</span>
 </code></dt>
 <dd>
-<section class="desc"><dl>
-<dt><strong><code>API</code></strong> :&ensp;<code>del_edge</code>(<code>self</code>, <code>e</code>)</dt>
-<dd>&nbsp;</dd>
-</dl>
-<p>Description:
+<div class="desc"><p>API: del_edge(self, e)
+Description:
 Removes edge from graph.</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>e</code></strong></dt>
-<dd>Tuple that represents edge, in (source,sink) form.</dd>
-</dl>
+<p>e: Tuple that represents edge, in (source,sink) form.</p>
 <h2 id="pre">Pre</h2>
 <p>Graph should contain this edge.</p>
 <h2 id="post">Post</h2>
-<p>self.edge_attr, self.neighbors and self.in_neighbors are updated.</p></section>
+<p>self.edge_attr, self.neighbors and self.in_neighbors are updated.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def del_edge(self, e):
     &#39;&#39;&#39;
     API: del_edge(self, e)
@@ -7748,23 +7648,19 @@ Removes edge from graph.</p>
 <span>def <span class="ident">del_node</span></span>(<span>self, name)</span>
 </code></dt>
 <dd>
-<section class="desc"><dl>
-<dt><strong><code>API</code></strong> :&ensp;<code>del_node</code>(<code>self</code>, <code>name</code>)</dt>
-<dd>&nbsp;</dd>
-</dl>
-<p>Description:
+<div class="desc"><p>API: del_node(self, name)
+Description:
 Removes node from Graph.</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>name</code></strong></dt>
-<dd>Name of the node.</dd>
-</dl>
+<p>name: Name of the node.</p>
 <h2 id="pre">Pre</h2>
 <p>Graph should contain a node with this name.</p>
 <h2 id="post">Post</h2>
-<p>self.neighbors, self.nodes and self.in_neighbors are updated.</p></section>
+<p>self.neighbors, self.nodes and self.in_neighbors are updated.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def del_node(self, name):
     &#39;&#39;&#39;
     API: del_node(self, name)
@@ -7798,35 +7694,28 @@ Removes node from Graph.</p>
 <span>def <span class="ident">dfs</span></span>(<span>self, root, disc_count=0, finish_count=1, component=None, transpose=False, display=None, pred=None)</span>
 </code></dt>
 <dd>
-<section class="desc"><dl>
-<dt><strong><code>API</code></strong> :&ensp;<code>dfs</code>(<code>self</code>, <code>root</code>, <code>disc_count</code> = <code>0</code>, <code>finish_count</code> = <code>1</code>, <code>component</code>=<code>None</code>,</dt>
-<dd>transpose=False)</dd>
-</dl>
-<p>Description:
+<div class="desc"><p>API: dfs(self, root, disc_count = 0, finish_count = 1, component=None,
+transpose=False)
+Description:
 Make a depth-first search starting from node with name root.</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>root</code></strong></dt>
-<dd>Starting node name.</dd>
-<dt><strong><code>disc_count</code></strong></dt>
-<dd>Discovery time.</dd>
-<dt><strong><code>finish_count</code></strong></dt>
-<dd>Finishing time.</dd>
-<dt><strong><code>component</code></strong></dt>
-<dd>component number.</dd>
-<dt><strong><code>transpose</code></strong></dt>
-<dd>Goes in the reverse direction along edges if transpose</dd>
-</dl>
-<p>is True.</p>
+<p>root: Starting node name.
+disc_count: Discovery time.
+finish_count: Finishing time.
+component: component number.
+transpose: Goes in the reverse direction along edges if transpose
+is True.</p>
 <h2 id="post">Post</h2>
 <p>Nodes will have 'component' attribute that will have component
 number as value. Updates 'disc_time' and 'finish_time' attributes
 of nodes which represents discovery time and finishing time.</p>
 <h2 id="return">Return</h2>
 <p>Returns a tuple that has discovery time and finish time of the
-last node in the following form (disc_time,finish_time).</p></section>
+last node in the following form (disc_time,finish_time).</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def dfs(self, root, disc_count = 0, finish_count = 1, component = None,
         transpose = False, display = None, pred = None):
     &#39;&#39;&#39;
@@ -7900,47 +7789,44 @@ last node in the following form (disc_time,finish_time).</p></section>
 </details>
 </dd>
 <dt id="coinor.gimpy.graph.Graph.display"><code class="name flex">
-<span>def <span class="ident">display</span></span>(<span>self, highlight=None, basename=&#39;graph&#39;, format=&#39;png&#39;, pause=True)</span>
+<span>def <span class="ident">display</span></span>(<span>self, highlight=None, basename='graph', format='png', pause=False, wait_for_click=True)</span>
 </code></dt>
 <dd>
-<section class="desc"><h2 id="api">API</h2>
+<div class="desc"><h2 id="api">Api</h2>
 <p>display(self, highlight = None, basename = 'graph', format = 'png',
 pause = True)</p>
 <h2 id="description">Description</h2>
 <p>Displays graph according to the arguments provided.
-Current display modes: 'off', 'file', 'pygame', 'PIL', 'xdot',
+Current display modes: 'off', 'file', 'PIL', 'matplotlib', 'xdot',
 'svg'
 Current layout modes: Layouts provided by graphviz ('dot', 'fdp',
 'circo', etc.) and 'dot2tex'.
 Current formats: Formats provided by graphviz ('ps', 'pdf', 'png',
 etc.)</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>highlight</code></strong></dt>
-<dd>List of nodes to be highlighted.</dd>
-<dt><strong><code>basename</code></strong></dt>
-<dd>File name. It will be used if display mode is 'file'.</dd>
-<dt><strong><code>format</code></strong></dt>
-<dd>Image format, all format supported by Dot are wellcome.</dd>
-<dt><strong><code>pause</code></strong></dt>
-<dd>If display is 'pygame' and pause is True pygame will pause</dd>
-</dl>
-<p>and wait for user input before closing the display. It will close
-display window straightaway otherwise.</p>
+<p>highlight: List of nodes to be highlighted.
+basename: File name. It will be used if display mode is 'file'.
+format: Image format, all format supported by Dot are wellcome.
+pause: If display is 'matplotlib', window will remain open until closed.
+wait_for_click: If display is 'matplotlib', setting to True will
+wait for a button click before proceeding. This is useful when
+animating an algorithm. </p>
 <h2 id="post">Post</h2>
 <p>A display window will pop up or a file will be written depending
-on display mode.</p></section>
+on display mode.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def display(self, highlight = None, basename = &#39;graph&#39;, format = &#39;png&#39;,
-            pause = True):
+            pause = False, wait_for_click = True):
     &#39;&#39;&#39;
     API:
         display(self, highlight = None, basename = &#39;graph&#39;, format = &#39;png&#39;,
             pause = True)
     Description:
         Displays graph according to the arguments provided.
-        Current display modes: &#39;off&#39;, &#39;file&#39;, &#39;pygame&#39;, &#39;PIL&#39;, &#39;xdot&#39;,
+        Current display modes: &#39;off&#39;, &#39;file&#39;, &#39;PIL&#39;, &#39;matplotlib&#39;, &#39;xdot&#39;,
         &#39;svg&#39;
         Current layout modes: Layouts provided by graphviz (&#39;dot&#39;, &#39;fdp&#39;,
         &#39;circo&#39;, etc.) and &#39;dot2tex&#39;.
@@ -7950,9 +7836,10 @@ on display mode.</p></section>
         highlight: List of nodes to be highlighted.
         basename: File name. It will be used if display mode is &#39;file&#39;.
         format: Image format, all format supported by Dot are wellcome.
-        pause: If display is &#39;pygame&#39; and pause is True pygame will pause
-        and wait for user input before closing the display. It will close
-        display window straightaway otherwise.
+        pause: If display is &#39;matplotlib&#39;, window will remain open until closed.
+        wait_for_click: If display is &#39;matplotlib&#39;, setting to True will 
+        wait for a button click before proceeding. This is useful when 
+        animating an algorithm. 
     Post:
         A display window will pop up or a file will be written depending
         on display mode.
@@ -7983,15 +7870,14 @@ on display mode.</p></section>
             except:
                 try:
                     self.set_layout(&#39;dot&#39;)
-                    self.write(basename+&#39;.dot&#39;, self.get_layout(), &#39;dot&#39;)
-                    sp = subprocess.Popen(&#39;dot2tex -t math &#39; + basename + &#39;.dot&#39;, stdout = subprocess.PIPE, 
-                                          stderr = subprocess.STDOUT)
-                    tex = sp.communicate()[0]
+                    with open(basename+&#39;.dot&#39;, &#34;w+b&#34;) as f:
+                        self.write(f, self.get_layout(), &#39;dot&#39;)
+                        p = subprocess.call([&#39;dot2tex&#39;, &#39;-t math&#39;,
+                                             basename + &#39;.dot&#39;])
                 except:
                     print(&#34;There was an error running dot2tex.&#34;)
-            f = open(basename+&#39;.tex&#39;, &#39;w&#39;)
-            f.write(tex)
-            f.close()
+            with open(basename+&#39;.tex&#39;, &#39;w&#39;) as f:
+                f.write(tex)
             try: 
                 subprocess.call([&#39;latex&#39;, basename])
                 if format == &#39;ps&#39;:
@@ -8002,36 +7888,49 @@ on display mode.</p></section>
             except:
                 print(&#34;There was an error runing latex. Is it installed?&#34;)
         else:
-            self.write(basename+&#39;.&#39;+format, self.get_layout(), format)
+            with open(basename+&#39;.&#39;+format, &#34;w+b&#34;) as f:
+                self.write(f, self.get_layout(), format)
         return
-    elif self.attr[&#39;display&#39;] == &#39;pygame&#39;:
-        output = self.create(self.get_layout(), format)
-        if output is not None:
-            im = io.StringIO(self.create(self.get_layout(), format))
-            picture = pygame.image.load(im, format)
-            screen = pygame.display.set_mode(picture.get_size())
-            screen.blit(picture, picture.get_rect())
-            pygame.display.flip()
-            while pause:
-                e = pygame.event.poll()
-                if e.type == pygame.KEYDOWN:
-                    break
-                if e.type == pygame.QUIT:
-                    pause = False
-                    pygame.display.quit()
-                    # sys.exit() exits the whole program and I (aykut) guess it is
-                    # not appropriate here.
-                    #sys.exit()
-        else:
-            print(&#39;Error in displaying graph. Display disabled&#39;)
-            self.set_display_mode(&#39;off&#39;)
     elif self.attr[&#39;display&#39;] == &#39;PIL&#39;:
-        im = io.StringIO(self.create(self.get_layout(), format))
         if PIL_INSTALLED:
-            im2 = PIL_Image.open(im)
-            im2.show()
+            tmp_fd, tmp_name = tempfile.mkstemp()
+            tmp_file = os.fdopen(tmp_fd, &#39;w+b&#39;)
+            self.write(tmp_file, self.get_layout(), format)
+            tmp_file.close()
+            im = PIL_Image.open(tmp_name)
+            im.show()
+            os.remove(tmp_name)
         else:
             print(&#39;Error: PIL not installed. Display disabled.&#39;)
+            self.attr[&#39;display&#39;] = &#39;off&#39;
+    elif self.attr[&#39;display&#39;] == &#39;matplotlib&#39;:
+        if MATPLOTLIB_INSTALLED and PIL_INSTALLED:
+            tmp_fd, tmp_name = tempfile.mkstemp()
+            tmp_file = os.fdopen(tmp_fd, &#39;w+b&#39;)
+            self.write(tmp_file, self.get_layout(), format)
+            tmp_file.close()
+            im = PIL_Image.open(tmp_name)
+            fig = plt.figure(1)
+            fig.canvas.mpl_connect(&#39;close_event&#39;, handle_close)
+            plt.clf()
+            plt.axis(&#39;off&#39;)
+            plt.imshow(im, interpolation=&#39;bilinear&#39; #resample=True
+                       #extent = (0, 100, 0, 100)
+            )
+            if wait_for_click == True:
+                plt.draw()
+                try:
+                    if plt.waitforbuttonpress(timeout = 10000):
+                        plt.close()
+                        exit()
+                except:
+                    exit()
+            else:
+                plt.show(block=pause)
+            im.close()
+            os.remove(tmp_name)
+        else:
+            print(&#39;Warning: Either matplotlib or Pillow is not installed. Display disabled.&#39;)
             self.attr[&#39;display&#39;] = &#39;off&#39;
     elif self.attr[&#39;display&#39;] == &#39;xdot&#39;:
         if XDOT_INSTALLED:
@@ -8041,10 +7940,6 @@ on display mode.</p></section>
             gtk.main()
         else:
             print(&#39;Error: xdot not installed. Display disabled.&#39;)
-            self.attr[&#39;display&#39;] = &#39;off&#39;
-    elif self.attr[&#39;display&#39;] == &#39;svg&#39;:
-        if not ETREE_INSTALLED:
-            print(&#39;Error: etree not installed (display mode: svg). Display disabled.&#39;)
             self.attr[&#39;display&#39;] = &#39;off&#39;
     else:
         print(&#34;Unknown display mode: &#34;, end=&#39; &#39;)
@@ -8060,23 +7955,19 @@ on display mode.</p></section>
 <span>def <span class="ident">edge_to_string</span></span>(<span>self, e)</span>
 </code></dt>
 <dd>
-<section class="desc"><dl>
-<dt><strong><code>API</code></strong> :&ensp;<code>edge_to_string</code>(<code>self</code>, <code>e</code>)</dt>
-<dd>&nbsp;</dd>
-</dl>
-<p>Description:
+<div class="desc"><p>API: edge_to_string(self, e)
+Description:
 Return string that represents edge e in dot language.</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>e</code></strong></dt>
-<dd>Edge tuple in (source,sink) format.</dd>
-</dl>
+<p>e: Edge tuple in (source,sink) format.</p>
 <h2 id="pre">Pre</h2>
 <p>Graph should have this edge.</p>
 <h2 id="return">Return</h2>
-<p>String that represents given edge.</p></section>
+<p>String that represents given edge.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def edge_to_string(self, e):
     &#39;&#39;&#39;
     API: edge_to_string(self, e)
@@ -8094,7 +7985,7 @@ Return string that represents edge e in dot language.</p>
     edge.append(self.edge_connect_symbol)
     edge.append(quote_if_necessary(str(e[1])))
     # return if there is nothing in self.edge_attr[e]
-    if len(self.edge_attr[e]) is 0:
+    if len(self.edge_attr[e]) == 0:
         return &#39;&#39;.join(edge)
     edge.append(&#39;  [&#39;)
     for a in self.edge_attr[e]:
@@ -8111,7 +8002,7 @@ Return string that represents edge e in dot language.</p>
 <span>def <span class="ident">fifo_label_correcting</span></span>(<span>self, source)</span>
 </code></dt>
 <dd>
-<section class="desc"><h2 id="api">API</h2>
+<div class="desc"><h2 id="api">Api</h2>
 <p>fifo_label_correcting(self, source)</p>
 <h2 id="description">Description</h2>
 <p>finds shortest path from source to every other node. Returns
@@ -8121,19 +8012,18 @@ and returns to it.</p>
 <p>(1) 'cost' attribute of arcs. It will be used to compute shortest
 path.</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>source</code></strong></dt>
-<dd>source node</dd>
-</dl>
+<p>source: source node</p>
 <h2 id="post">Post</h2>
 <p>Modifies 'distance' attribute of nodes.</p>
 <h2 id="return">Return</h2>
 <p>If there is no negative cycle returns to (True, pred), otherwise
 returns to (False, cycle) where pred is the predecessor dictionary
 and cycle is a list of nodes that represents cycle. It is in
-[n_1, n_2, &hellip;, n_k] form where the cycle has k nodes.</p></section>
+[n_1, n_2, &hellip;, n_k] form where the cycle has k nodes.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def fifo_label_correcting(self, source):
     &#39;&#39;&#39;
     API:
@@ -8187,21 +8077,20 @@ and cycle is a list of nodes that represents cycle. It is in
 <span>def <span class="ident">find_cycle_capacity</span></span>(<span>self, cycle)</span>
 </code></dt>
 <dd>
-<section class="desc"><h2 id="api">API</h2>
+<div class="desc"><h2 id="api">Api</h2>
 <p>find_cycle_capacity(self, cycle):</p>
 <h2 id="description">Description</h2>
 <p>Finds capacity of the cycle input.</p>
 <h2 id="pre">Pre</h2>
 <p>(1) Arcs should have 'capacity' attribute.</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>cycle</code></strong></dt>
-<dd>a list representing a cycle</dd>
-</dl>
+<p>cycle: a list representing a cycle</p>
 <h2 id="return">Return</h2>
-<p>Returns an integer number representing capacity of cycle.</p></section>
+<p>Returns an integer number representing capacity of cycle.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def find_cycle_capacity(self, cycle):
     &#39;&#39;&#39;
     API:
@@ -8232,7 +8121,7 @@ and cycle is a list of nodes that represents cycle. It is in
 <span>def <span class="ident">find_feasible_flow</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<section class="desc"><h2 id="api">API</h2>
+<div class="desc"><h2 id="api">Api</h2>
 <p>find_feasible_flow(self)</p>
 <h2 id="description">Description</h2>
 <p>Solves feasible flow problem, stores solution in 'flow' attribute
@@ -8249,9 +8138,11 @@ considered as junk.</p>
 <p>Keeps solution in 'flow' attribute of arcs.</p>
 <h2 id="return">Return</h2>
 <p>Returns True if a feasible flow is found, returns False, if the
-problem is infeasible</p></section>
+problem is infeasible</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def find_feasible_flow(self):
     &#39;&#39;&#39;
     API:
@@ -8305,7 +8196,7 @@ problem is infeasible</p></section>
 <span>def <span class="ident">floyd_warshall</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<section class="desc"><h2 id="api">API</h2>
+<div class="desc"><h2 id="api">Api</h2>
 <p>floyd_warshall(self)</p>
 <h2 id="description">Description</h2>
 <p>Finds all pair shortest paths and stores it in a list of lists.
@@ -8324,9 +8215,11 @@ shortest path between nodes.</p>
 <p>Arcs should have 'cost' attribute.</p>
 <h2 id="return">Return</h2>
 <p>Returns (validity, distance, nextn). The distances are valid if
-validity is True.</p></section>
+validity is True.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def floyd_warshall(self):
     &#39;&#39;&#39;
     API:
@@ -8397,7 +8290,7 @@ validity is True.</p></section>
 <span>def <span class="ident">floyd_warshall_get_cycle</span></span>(<span>self, distance, nextn, element=None)</span>
 </code></dt>
 <dd>
-<section class="desc"><h2 id="api">API</h2>
+<div class="desc"><h2 id="api">Api</h2>
 <p>floyd_warshall_get_cycle(self, distance, nextn, element = None)</p>
 <h2 id="description">Description</h2>
 <p>Finds a negative cycle in the graph.</p>
@@ -8407,9 +8300,11 @@ validity is True.</p></section>
 distance[(i,i)] &lt; 0 for some node i.</p>
 <h2 id="return">Return</h2>
 <p>Returns the list of nodes on the cycle. Ex: [i,j,k,&hellip;,r], where
-(i,j), (j,k) and (r,i) are some edges in the cycle.</p></section>
+(i,j), (j,k) and (r,i) are some edges in the cycle.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def floyd_warshall_get_cycle(self, distance, nextn, element = None):
     &#39;&#39;&#39;
     API:
@@ -8451,7 +8346,7 @@ distance[(i,i)] &lt; 0 for some node i.</p>
 <span>def <span class="ident">floyd_warshall_get_path</span></span>(<span>self, distance, nextn, i, j)</span>
 </code></dt>
 <dd>
-<section class="desc"><h2 id="api">API</h2>
+<div class="desc"><h2 id="api">Api</h2>
 <p>floyd_warshall_get_path(self, distance, nextn, i, j):</p>
 <h2 id="description">Description</h2>
 <p>Finds shortest path between i and j using distance and nextn
@@ -8461,9 +8356,11 @@ dictionaries.</p>
 (2) The graph does not have a negative cycle, , ie.
 distance[(i,i)] &gt;=0 for all node i.</p>
 <h2 id="return">Return</h2>
-<p>Returns the list of nodes on the path from i to j, ie. [i,&hellip;,j]</p></section>
+<p>Returns the list of nodes on the path from i to j, ie. [i,&hellip;,j]</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def floyd_warshall_get_path(self, distance, nextn, i, j):
     &#39;&#39;&#39;
     API:
@@ -8492,15 +8389,17 @@ distance[(i,i)] &gt;=0 for all node i.</p>
 <span>def <span class="ident">get_degrees</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<section class="desc"><h2 id="api">API</h2>
+<div class="desc"><h2 id="api">Api</h2>
 <p>get_degree(self)</p>
 <h2 id="description">Description</h2>
 <p>Returns degrees of nodes in dictionary format.</p>
 <h2 id="return">Return</h2>
 <p>Returns a dictionary of node degrees. Keys are node names, values
-are corresponding degrees.</p></section>
+are corresponding degrees.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def get_degrees(self):
     &#39;&#39;&#39;
     API:
@@ -8526,7 +8425,7 @@ are corresponding degrees.</p></section>
 <span>def <span class="ident">get_diameter</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<section class="desc"><h2 id="api">API</h2>
+<div class="desc"><h2 id="api">Api</h2>
 <p>get_diameter(self)</p>
 <h2 id="description">Description</h2>
 <p>Returns diameter of the graph. Diameter is defined as follows.
@@ -8534,9 +8433,11 @@ distance(n,m): shortest unweighted path from n to m
 eccentricity(n) = $\max _m distance(n,m)$
 diameter = $\min _n eccentricity(n) = \min _n \max _m distance(n,m)$</p>
 <h2 id="return">Return</h2>
-<p>Returns diameter of the graph.</p></section>
+<p>Returns diameter of the graph.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def get_diameter(self):
     &#39;&#39;&#39;
     API:
@@ -8566,7 +8467,7 @@ diameter = $\min _n eccentricity(n) = \min _n \max _m distance(n,m)$</p>
             distance_n_m = len(path_n_m)-1
             if distance_n_m &gt; eccentricity_n:
                 eccentricity_n = distance_n_m
-        if diameter is &#39;infinity&#39; or eccentricity_n &gt; diameter:
+        if diameter == &#39;infinity&#39; or eccentricity_n &gt; diameter:
             diameter = eccentricity_n
     return diameter</code></pre>
 </details>
@@ -8575,27 +8476,21 @@ diameter = $\min _n eccentricity(n) = \min _n \max _m distance(n,m)$</p>
 <span>def <span class="ident">get_edge_attr</span></span>(<span>self, n, m, attr)</span>
 </code></dt>
 <dd>
-<section class="desc"><dl>
-<dt><strong><code>API</code></strong> :&ensp;<code>get_edge_attr</code>(<code>self</code>, <code>n</code>, <code>m</code>, <code>attr</code>)</dt>
-<dd>&nbsp;</dd>
-</dl>
-<p>Description:
+<div class="desc"><p>API: get_edge_attr(self, n, m, attr)
+Description:
 Returns attribute attr of edge (n,m).</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>n</code></strong></dt>
-<dd>Source node name.</dd>
-<dt><strong><code>m</code></strong></dt>
-<dd>Sink node name.</dd>
-<dt><strong><code>attr</code></strong></dt>
-<dd>Attribute of edge.</dd>
-</dl>
+<p>n: Source node name.
+m: Sink node name.
+attr: Attribute of edge.</p>
 <h2 id="pre">Pre</h2>
 <p>Graph should have this edge.</p>
 <h2 id="return">Return</h2>
-<p>Value of edge attribute attr.</p></section>
+<p>Value of edge attribute attr.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def get_edge_attr(self, n, m, attr):
     &#39;&#39;&#39;
     API: get_edge_attr(self, n, m, attr)
@@ -8623,21 +8518,17 @@ Returns attribute attr of edge (n,m).</p>
 <span>def <span class="ident">get_edge_cost</span></span>(<span>self, edge)</span>
 </code></dt>
 <dd>
-<section class="desc"><dl>
-<dt><strong><code>API</code></strong> :&ensp;<code>get_edge_cost</code>(<code>self</code>, <code>edge</code>)</dt>
-<dd>&nbsp;</dd>
-</dl>
-<p>Description:
+<div class="desc"><p>API: get_edge_cost(self, edge)
+Description:
 Returns cost attr of edge, required for minimum_spanning_tree_kruskal().</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>edge</code></strong></dt>
-<dd>Tuple that represents edge, in (source,sink) form.</dd>
-</dl>
+<p>edge: Tuple that represents edge, in (source,sink) form.</p>
 <h2 id="return">Return</h2>
-<p>Returns cost attribute value of the edge.</p></section>
+<p>Returns cost attribute value of the edge.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def get_edge_cost(self, edge):
     &#39;&#39;&#39;
     API: get_edge_cost(self, edge)
@@ -8655,16 +8546,15 @@ Returns cost attr of edge, required for minimum_spanning_tree_kruskal().</p>
 <span>def <span class="ident">get_edge_list</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<section class="desc"><dl>
-<dt><strong><code>API</code></strong> :&ensp;<code>get_edge_list</code>(<code>self</code>)</dt>
-<dd>&nbsp;</dd>
-</dl>
-<p>Description:
+<div class="desc"><p>API: get_edge_list(self)
+Description:
 Returns edge list.</p>
 <h2 id="return">Return</h2>
-<p>List of edges, edges are tuples and in (source,sink) format.</p></section>
+<p>List of edges, edges are tuples and in (source,sink) format.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def get_edge_list(self):
     &#39;&#39;&#39;
     API: get_edge_list(self)
@@ -8680,16 +8570,15 @@ Returns edge list.</p>
 <span>def <span class="ident">get_edge_num</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<section class="desc"><dl>
-<dt><strong><code>API</code></strong> :&ensp;<code>get_edge_num</code>(<code>self</code>)</dt>
-<dd>&nbsp;</dd>
-</dl>
-<p>Description:
+<div class="desc"><p>API: get_edge_num(self)
+Description:
 Returns number of edges.</p>
 <h2 id="return">Return</h2>
-<p>Number of edges.</p></section>
+<p>Number of edges.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def get_edge_num(self):
     &#39;&#39;&#39;
     API: get_edge_num(self)
@@ -8705,15 +8594,17 @@ Returns number of edges.</p>
 <span>def <span class="ident">get_in_degrees</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<section class="desc"><h2 id="api">API</h2>
+<div class="desc"><h2 id="api">Api</h2>
 <p>get_degree(self)</p>
 <h2 id="description">Description</h2>
 <p>Returns degrees of nodes in dictionary format.</p>
 <h2 id="return">Return</h2>
 <p>Returns a dictionary of node degrees. Keys are node names, values
-are corresponding degrees.</p></section>
+are corresponding degrees.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def get_in_degrees(self):
     &#39;&#39;&#39;
     API:
@@ -8737,23 +8628,19 @@ are corresponding degrees.</p></section>
 <span>def <span class="ident">get_in_neighbors</span></span>(<span>self, name)</span>
 </code></dt>
 <dd>
-<section class="desc"><dl>
-<dt><strong><code>API</code></strong> :&ensp;<code>get_in_neighbors</code>(<code>self</code>, <code>name</code>)</dt>
-<dd>&nbsp;</dd>
-</dl>
-<p>Description:
+<div class="desc"><p>API: get_in_neighbors(self, name)
+Description:
 Returns list of in neighbors of given node.</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>name</code></strong></dt>
-<dd>Node name.</dd>
-</dl>
+<p>name: Node name.</p>
 <h2 id="pre">Pre</h2>
 <p>Graph should have this node.</p>
 <h2 id="return">Return</h2>
-<p>List of in-neighbor node names.</p></section>
+<p>List of in-neighbor node names.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def get_in_neighbors(self, name):
     &#39;&#39;&#39;
     API: get_in_neighbors(self, name)
@@ -8773,14 +8660,16 @@ Returns list of in neighbors of given node.</p>
 <span>def <span class="ident">get_layout</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<section class="desc"><h2 id="api">API</h2>
+<div class="desc"><h2 id="api">Api</h2>
 <p>get_layout(self)
 Description:
 Returns layout attribute of the graph.</p>
 <h2 id="return">Return</h2>
-<p>Returns layout attribute of the graph.</p></section>
+<p>Returns layout attribute of the graph.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def get_layout(self):
     &#39;&#39;&#39;
     API:
@@ -8797,7 +8686,7 @@ Returns layout attribute of the graph.</p>
 <span>def <span class="ident">get_negative_cycle</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<section class="desc"><h2 id="api">API</h2>
+<div class="desc"><h2 id="api">Api</h2>
 <p>get_negative_cycle(self)</p>
 <h2 id="description">Description</h2>
 <p>Finds and returns negative cost cycle using 'cost' attribute of
@@ -8807,9 +8696,11 @@ the following form; n_1-n_2-&hellip;-n_k, when the cycle has k nodes.</p>
 <p>Arcs should have 'cost' attribute.</p>
 <h2 id="return">Return</h2>
 <p>Returns a list of nodes in the cycle if a negative cycle exists,
-returns None otherwise.</p></section>
+returns None otherwise.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def get_negative_cycle(self):
     &#39;&#39;&#39;
     API:
@@ -8838,23 +8729,19 @@ returns None otherwise.</p></section>
 <span>def <span class="ident">get_neighbors</span></span>(<span>self, name)</span>
 </code></dt>
 <dd>
-<section class="desc"><dl>
-<dt><strong><code>API</code></strong> :&ensp;<code>get_neighbors</code>(<code>self</code>, <code>name</code>)</dt>
-<dd>&nbsp;</dd>
-</dl>
-<p>Description:
+<div class="desc"><p>API: get_neighbors(self, name)
+Description:
 Returns list of neighbors of given node.</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>name</code></strong></dt>
-<dd>Node name.</dd>
-</dl>
+<p>name: Node name.</p>
 <h2 id="pre">Pre</h2>
 <p>Graph should have this node.</p>
 <h2 id="return">Return</h2>
-<p>List of neighbor node names.</p></section>
+<p>List of neighbor node names.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def get_neighbors(self, name):
     &#39;&#39;&#39;
     API: get_neighbors(self, name)
@@ -8874,21 +8761,17 @@ Returns list of neighbors of given node.</p>
 <span>def <span class="ident">get_node</span></span>(<span>self, name)</span>
 </code></dt>
 <dd>
-<section class="desc"><dl>
-<dt><strong><code>API</code></strong> :&ensp;<code>get_node</code>(<code>self</code>, <code>name</code>)</dt>
-<dd>&nbsp;</dd>
-</dl>
-<p>Description:
+<div class="desc"><p>API: get_node(self, name)
+Description:
 Returns node object with the provided name.</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>name</code></strong></dt>
-<dd>Name of the node.</dd>
-</dl>
+<p>name: Name of the node.</p>
 <h2 id="return">Return</h2>
-<p>Returns node object if node exists, returns None otherwise.</p></section>
+<p>Returns node object if node exists, returns None otherwise.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def get_node(self, name):
     &#39;&#39;&#39;
     API: get_node(self, name)
@@ -8909,25 +8792,20 @@ Returns node object with the provided name.</p>
 <span>def <span class="ident">get_node_attr</span></span>(<span>self, name, attr)</span>
 </code></dt>
 <dd>
-<section class="desc"><dl>
-<dt><strong><code>API</code></strong> :&ensp;<code>get_node_attr</code>(<code>self</code>, <code>name</code>, <code>attr</code>)</dt>
-<dd>&nbsp;</dd>
-</dl>
-<p>Description:
+<div class="desc"><p>API: get_node_attr(self, name, attr)
+Description:
 Returns attribute attr of given node.</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>name</code></strong></dt>
-<dd>Name of node.</dd>
-<dt><strong><code>attr</code></strong></dt>
-<dd>Attribute of node.</dd>
-</dl>
+<p>name: Name of node.
+attr: Attribute of node.</p>
 <h2 id="pre">Pre</h2>
 <p>Graph should have this node.</p>
 <h2 id="return">Return</h2>
-<p>Value of node attribute attr.</p></section>
+<p>Value of node attribute attr.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def get_node_attr(self, name, attr):
     &#39;&#39;&#39;
     API: get_node_attr(self, name, attr)
@@ -8948,16 +8826,15 @@ Returns attribute attr of given node.</p>
 <span>def <span class="ident">get_node_list</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<section class="desc"><dl>
-<dt><strong><code>API</code></strong> :&ensp;<code>get_node_list</code>(<code>self</code>)</dt>
-<dd>&nbsp;</dd>
-</dl>
-<p>Description:
+<div class="desc"><p>API: get_node_list(self)
+Description:
 Returns node list.</p>
 <h2 id="return">Return</h2>
-<p>List of nodes.</p></section>
+<p>List of nodes.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def get_node_list(self):
     &#39;&#39;&#39;
     API: get_node_list(self)
@@ -8973,16 +8850,15 @@ Returns node list.</p>
 <span>def <span class="ident">get_node_num</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<section class="desc"><dl>
-<dt><strong><code>API</code></strong> :&ensp;<code>get_node_num</code>(<code>self</code>)</dt>
-<dd>&nbsp;</dd>
-</dl>
-<p>Description:
+<div class="desc"><p>API: get_node_num(self)
+Description:
 Returns number of nodes.</p>
 <h2 id="return">Return</h2>
-<p>Number of nodes.</p></section>
+<p>Number of nodes.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def get_node_num(self):
     &#39;&#39;&#39;
     API: get_node_num(self)
@@ -8998,15 +8874,17 @@ Returns number of nodes.</p>
 <span>def <span class="ident">get_out_degrees</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<section class="desc"><h2 id="api">API</h2>
+<div class="desc"><h2 id="api">Api</h2>
 <p>get_degree(self)</p>
 <h2 id="description">Description</h2>
 <p>Returns degrees of nodes in dictionary format.</p>
 <h2 id="return">Return</h2>
 <p>Returns a dictionary of node degrees. Keys are node names, values
-are corresponding degrees.</p></section>
+are corresponding degrees.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def get_out_degrees(self):
     &#39;&#39;&#39;
     API:
@@ -9030,23 +8908,19 @@ are corresponding degrees.</p></section>
 <span>def <span class="ident">get_out_neighbors</span></span>(<span>self, name)</span>
 </code></dt>
 <dd>
-<section class="desc"><dl>
-<dt><strong><code>API</code></strong> :&ensp;<code>get_out_neighbors</code>(<code>self</code>, <code>name</code>)</dt>
-<dd>&nbsp;</dd>
-</dl>
-<p>Description:
+<div class="desc"><p>API: get_out_neighbors(self, name)
+Description:
 Returns list of out-neighbors of given node.</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>name</code></strong></dt>
-<dd>Node name.</dd>
-</dl>
+<p>name: Node name.</p>
 <h2 id="pre">Pre</h2>
 <p>Graph should have this node.</p>
 <h2 id="return">Return</h2>
-<p>List of out-neighbor node names.</p></section>
+<p>List of out-neighbor node names.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def get_out_neighbors(self, name):
     &#39;&#39;&#39;
     API: get_out_neighbors(self, name)
@@ -9066,7 +8940,7 @@ Returns list of out-neighbors of given node.</p>
 <span>def <span class="ident">get_simplex_solution_graph</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<section class="desc"><h2 id="api">API</h2>
+<div class="desc"><h2 id="api">Api</h2>
 <p>get_simplex_solution_graph(self):</p>
 <h2 id="description">Description</h2>
 <p>Assumes a feasible flow solution stored in 'flow' attribute's of
@@ -9077,9 +8951,11 @@ capacity.</p>
 Pre section of min_cost_flow() for details.</p>
 <h2 id="return">Return</h2>
 <p>Graph instance that only has the arcs that have flow strictly
-between 0 and capacity.</p></section>
+between 0 and capacity.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def get_simplex_solution_graph(self):
     &#39;&#39;&#39;
     API:
@@ -9110,27 +8986,23 @@ between 0 and capacity.</p></section>
 <span>def <span class="ident">label_components</span></span>(<span>self, display=None)</span>
 </code></dt>
 <dd>
-<section class="desc"><dl>
-<dt><strong><code>API</code></strong> :&ensp;<code>label_components</code>(<code>self</code>, <code>display</code>=<code>None</code>)</dt>
-<dd>&nbsp;</dd>
-</dl>
-<p>Description:
+<div class="desc"><p>API: label_components(self, display=None)
+Description:
 This method labels the nodes of an undirected graph with component
 numbers so that each node has the same label as all nodes in the
 same component. It will display the algortihm if display argument is
 provided.</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>display</code></strong></dt>
-<dd>display method.</dd>
-</dl>
+<p>display: display method.</p>
 <h2 id="pre">Pre</h2>
 <p>self.graph_type should be UNDIRECTED_GRAPH.</p>
 <h2 id="post">Post</h2>
 <p>Nodes will have 'component' attribute that will have component
-number as value.</p></section>
+number as value.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def label_components(self, display = None):
     &#39;&#39;&#39;
     API: label_components(self, display=None)
@@ -9166,7 +9038,7 @@ number as value.</p></section>
 <span>def <span class="ident">label_correcting_check_cycle</span></span>(<span>self, j, pred)</span>
 </code></dt>
 <dd>
-<section class="desc"><h2 id="api">API</h2>
+<div class="desc"><h2 id="api">Api</h2>
 <p>label_correcting_check_cycle(self, j, pred)</p>
 <h2 id="description">Description</h2>
 <p>Checks if predecessor dictionary has a cycle, j represents the node
@@ -9174,17 +9046,15 @@ that predecessor is recently updated.</p>
 <h2 id="pre">Pre</h2>
 <p>(1) predecessor of source node should be None.</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>j</code></strong></dt>
-<dd>node that predecessor is recently updated.</dd>
-<dt><strong><code>pred</code></strong></dt>
-<dd>predecessor dictionary</dd>
-</dl>
+<p>j: node that predecessor is recently updated.
+pred: predecessor dictionary</p>
 <h2 id="return">Return</h2>
 <p>If there exists a cycle, returns the list that represents the
-cycle, otherwise it returns to None.</p></section>
+cycle, otherwise it returns to None.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def label_correcting_check_cycle(self, j, pred):
     &#39;&#39;&#39;
     API:
@@ -9218,7 +9088,7 @@ cycle, otherwise it returns to None.</p></section>
 <span>def <span class="ident">label_correcting_get_cycle</span></span>(<span>self, j, pred)</span>
 </code></dt>
 <dd>
-<section class="desc"><h2 id="api">API</h2>
+<div class="desc"><h2 id="api">Api</h2>
 <p>label_correcting_get_cycle(self, labelled, pred)</p>
 <h2 id="description">Description</h2>
 <p>In label correcting check cycle it is decided pred has a cycle and
@@ -9228,18 +9098,16 @@ in the cycle using labelled and pred inputs.</p>
 <p>This method should be called from label_correcting_check_cycle(),
 unless you are sure about what you are doing.</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>j</code></strong></dt>
-<dd>Node that predecessor is recently updated. We know that it is</dd>
-<dt>in the cycle</dt>
-<dt><strong><code>pred</code></strong></dt>
-<dd>Predecessor dictionary that contains a cycle</dd>
-</dl>
+<p>j: Node that predecessor is recently updated. We know that it is
+in the cycle
+pred: Predecessor dictionary that contains a cycle</p>
 <h2 id="post">Post</h2>
 <p>Returns a list of nodes that represents cycle. It is in
-[n_1, n_2, &hellip;, n_k] form where the cycle has k nodes.</p></section>
+[n_1, n_2, &hellip;, n_k] form where the cycle has k nodes.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def label_correcting_get_cycle(self, j, pred):
     &#39;&#39;&#39;
     API:
@@ -9273,11 +9141,8 @@ unless you are sure about what you are doing.</p>
 <span>def <span class="ident">label_strong_component</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<section class="desc"><dl>
-<dt><strong><code>API</code></strong> :&ensp;<code>label_strong_component</code>(<code>self</code>)</dt>
-<dd>&nbsp;</dd>
-</dl>
-<p>Description:
+<div class="desc"><p>API: label_strong_component(self)
+Description:
 This method labels the nodes of a directed graph with component
 numbers so that each node has the same label as all nodes in the
 same component.</p>
@@ -9285,9 +9150,11 @@ same component.</p>
 <p>self.graph_type should be DIRECTED_GRAPH.</p>
 <h2 id="post">Post</h2>
 <p>Nodes will have 'component' attribute that will have component
-number as value. Changes 'index' attribute of nodes.</p></section>
+number as value. Changes 'index' attribute of nodes.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def label_strong_component(self):
     &#39;&#39;&#39;
     API: label_strong_component(self)
@@ -9306,14 +9173,11 @@ number as value. Changes 'index' attribute of nodes.</p></section>
 </details>
 </dd>
 <dt id="coinor.gimpy.graph.Graph.max_flow"><code class="name flex">
-<span>def <span class="ident">max_flow</span></span>(<span>self, source, sink, display=None, algo=&#39;DFS&#39;)</span>
+<span>def <span class="ident">max_flow</span></span>(<span>self, source, sink, display=None, algo='DFS')</span>
 </code></dt>
 <dd>
-<section class="desc"><dl>
-<dt><strong><code>API</code></strong> :&ensp;<code>max_flow</code>(<code>self</code>, <code>source</code>, <code>sink</code>, <code>display</code>=<code>None</code>)</dt>
-<dd>&nbsp;</dd>
-</dl>
-<p>Description:
+<div class="desc"><p>API: max_flow(self, source, sink, display=None)
+Description:
 Finds maximum flow from source to sink by a depth-first search based
 augmenting path algorithm.</p>
 <h2 id="pre">Pre</h2>
@@ -9321,18 +9185,15 @@ augmenting path algorithm.</p>
 attribute and for which there does does not exist both arcs (i,j)
 and (j, i) for any pair of nodes i and j.</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>source</code></strong></dt>
-<dd>Source node name.</dd>
-<dt><strong><code>sink</code></strong></dt>
-<dd>Sink node name.</dd>
-<dt><strong><code>display</code></strong></dt>
-<dd>Display mode.</dd>
-</dl>
+<p>source: Source node name.
+sink: Sink node name.
+display: Display mode.</p>
 <h2 id="post">Post</h2>
-<p>The 'flow" attribute of each arc gives a maximum flow.</p></section>
+<p>The 'flow" attribute of each arc gives a maximum flow.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def max_flow(self, source, sink, display = None, algo = &#39;DFS&#39;):
     &#39;&#39;&#39;
     API: max_flow(self, source, sink, display=None)
@@ -9500,14 +9361,12 @@ and (j, i) for any pair of nodes i and j.</p>
 </details>
 </dd>
 <dt id="coinor.gimpy.graph.Graph.max_flow_preflowpush"><code class="name flex">
-<span>def <span class="ident">max_flow_preflowpush</span></span>(<span>self, source, sink, algo=&#39;FIFO&#39;, display=None)</span>
+<span>def <span class="ident">max_flow_preflowpush</span></span>(<span>self, source, sink, algo='FIFO', display=None)</span>
 </code></dt>
 <dd>
-<section class="desc"><dl>
-<dt><strong><code>API</code></strong> :&ensp;<code>max_flow_preflowpush</code>(<code>self</code>, <code>source</code>, <code>sink</code>, <code>algo</code> = <code>'FIFO'</code>,</dt>
-<dd>display = None)</dd>
-</dl>
-<p>Description:
+<div class="desc"><p>API: max_flow_preflowpush(self, source, sink, algo = 'FIFO',
+display = None)
+Description:
 Finds maximum flow from source to sink by a depth-first search based
 augmenting path algorithm.</p>
 <h2 id="pre">Pre</h2>
@@ -9515,20 +9374,16 @@ augmenting path algorithm.</p>
 attribute and for which there does does not exist both arcs (i,j)
 and (j,i) for any pair of nodes i and j.</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>source</code></strong></dt>
-<dd>Source node name.</dd>
-<dt><strong><code>sink</code></strong></dt>
-<dd>Sink node name.</dd>
-<dt><strong><code>algo</code></strong></dt>
-<dd>Algorithm choice, 'FIFO', 'SAP' or 'HighestLabel'.</dd>
-<dt><strong><code>display</code></strong></dt>
-<dd>display method.</dd>
-</dl>
+<p>source: Source node name.
+sink: Sink node name.
+algo: Algorithm choice, 'FIFO', 'SAP' or 'HighestLabel'.
+display: display method.</p>
 <h2 id="post">Post</h2>
-<p>The 'flow' attribute of each arc gives a maximum flow.</p></section>
+<p>The 'flow' attribute of each arc gives a maximum flow.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def max_flow_preflowpush(self, source, sink, algo = &#39;FIFO&#39;, display = None):
     &#39;&#39;&#39;
     API: max_flow_preflowpush(self, source, sink, algo = &#39;FIFO&#39;,
@@ -9642,7 +9497,7 @@ and (j,i) for any pair of nodes i and j.</p>
 <span>def <span class="ident">min_cost_flow</span></span>(<span>self, display=None, **args)</span>
 </code></dt>
 <dd>
-<section class="desc"><h2 id="api">API</h2>
+<div class="desc"><h2 id="api">Api</h2>
 <p>min_cost_flow(self, display='off', **args)</p>
 <h2 id="description">Description</h2>
 <p>Solves minimum cost flow problem using node/edge attributes with
@@ -9658,11 +9513,8 @@ nodes.
 solving max flow. (max flow problem is solved to get a feasible
 flow).</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>display</code></strong></dt>
-<dd>'off' for no display, 'pygame' for live update of tree</dd>
-<dt><strong><code>args</code></strong></dt>
-<dd>may have the following
+<p>display: 'off' for no display, 'matplotlib' for live update of tree
+args: may have the following
 display: display method, if not given current mode (the one
 specified by <strong>init</strong> or set_display) will be used.
 algo: determines algorithm to use, can be one of the following
@@ -9677,8 +9529,7 @@ simplex, may be one of the following; 'first_eligible',
 see Network Flows by Ahuja et al. for pivot rules.
 root: valid if algo is 'simlex', specifies the root node for
 simplex algorithm. It is name of the one of the nodes. It
-will be chosen randomly if not provided.</dd>
-</dl>
+will be chosen randomly if not provided.</p>
 <h2 id="post">Post</h2>
 <p>The 'flow' attribute of each arc gives the optimal flows.
 'distance' attribute of the nodes are also changed during max flow
@@ -9693,9 +9544,11 @@ solves minimum cost feasible flow problem using cycle canceling
 agorithm.
 g.min_cost_flow(algo='simplex', pivot='scaled'):
 solves minimum cost feasible flow problem using network simplex
-agorithm with scaled pivot rule.</p></section>
+agorithm with scaled pivot rule.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def min_cost_flow(self, display = None, **args):
     &#39;&#39;&#39;
     API:
@@ -9714,7 +9567,7 @@ agorithm with scaled pivot rule.</p></section>
         solving max flow. (max flow problem is solved to get a feasible
         flow).
     Input:
-        display: &#39;off&#39; for no display, &#39;pygame&#39; for live update of tree
+        display: &#39;off&#39; for no display, &#39;matplotlib&#39; for live update of tree
         args: may have the following
             display: display method, if not given current mode (the one
                 specified by __init__ or set_display) will be used.
@@ -9753,7 +9606,7 @@ agorithm with scaled pivot rule.</p></section>
         algorithm = args[&#39;algo&#39;]
     else:
         algorithm = &#39;simplex&#39;
-    if algorithm is &#39;simplex&#39;:
+    if algorithm == &#39;simplex&#39;:
         if &#39;root&#39; in args:
             root = args[&#39;root&#39;]
         else:
@@ -9766,7 +9619,7 @@ agorithm with scaled pivot rule.</p></section>
         else:
             if not self.network_simplex(display, &#39;dantzig&#39;, root):
                 print(&#39;problem is infeasible&#39;)
-    elif algorithm is &#39;cycle_canceling&#39;:
+    elif algorithm == &#39;cycle_canceling&#39;:
         if not self.cycle_canceling(display):
             print(&#39;problem is infeasible&#39;)
     else:
@@ -9778,26 +9631,22 @@ agorithm with scaled pivot rule.</p></section>
 <span>def <span class="ident">minimum_spanning_tree_kruskal</span></span>(<span>self, display=None, components=None)</span>
 </code></dt>
 <dd>
-<section class="desc"><dl>
-<dt><strong><code>API</code></strong> :&ensp;<code>minimum_spanning_tree_kruskal</code>(<code>self</code>, <code>display</code> = <code>None</code>,</dt>
-<dd>components = None)</dd>
-</dl>
-<p>Description:
+<div class="desc"><p>API: minimum_spanning_tree_kruskal(self, display = None,
+components = None)
+Description:
 Determines a minimum spanning tree using Kruskal's Algorithm.</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>display</code></strong></dt>
-<dd>Display method.</dd>
-<dt><strong><code>component</code></strong></dt>
-<dd>component number.</dd>
-</dl>
+<p>display: Display method.
+component: component number.</p>
 <h2 id="post">Post</h2>
 <p>'color' attribute of nodes and edges may change.</p>
 <h2 id="return">Return</h2>
 <p>Returns list of edges where edges are tuples in (source,sink)
-format.</p></section>
+format.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def minimum_spanning_tree_kruskal(self, display = None, components = None):
     &#39;&#39;&#39;
     API: minimum_spanning_tree_kruskal(self, display = None,
@@ -9842,32 +9691,27 @@ format.</p></section>
 </details>
 </dd>
 <dt id="coinor.gimpy.graph.Graph.minimum_spanning_tree_prim"><code class="name flex">
-<span>def <span class="ident">minimum_spanning_tree_prim</span></span>(<span>self, source, display=None, q=&lt;src.blimpy.Queues.PriorityQueue object at 0x7f88bb828940&gt;)</span>
+<span>def <span class="ident">minimum_spanning_tree_prim</span></span>(<span>self, source, display=None, q=&lt;coinor.blimpy.Queues.PriorityQueue object&gt;)</span>
 </code></dt>
 <dd>
-<section class="desc"><dl>
-<dt><strong><code>API</code></strong> :&ensp;<code>minimum_spanning_tree_prim</code>(<code>self</code>, <code>source</code>, <code>display</code> = <code>None</code>,</dt>
-<dd>q = PriorityQueue())</dd>
-</dl>
-<p>Description:
+<div class="desc"><p>API: minimum_spanning_tree_prim(self, source, display = None,
+q = PriorityQueue())
+Description:
 Determines a minimum spanning tree of all nodes reachable
 from source using Prim's Algorithm.</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>source</code></strong></dt>
-<dd>Name of source node.</dd>
-<dt><strong><code>display</code></strong></dt>
-<dd>Display method.</dd>
-<dt><strong><code>q</code></strong></dt>
-<dd>Data structure that holds nodes to be processed in a queue.</dd>
-</dl>
+<p>source: Name of source node.
+display: Display method.
+q: Data structure that holds nodes to be processed in a queue.</p>
 <h2 id="post">Post</h2>
 <p>'color', 'distance', 'component' attribute of nodes and edges may
 change.</p>
 <h2 id="return">Return</h2>
-<p>Returns predecessor tree in dictionary format.</p></section>
+<p>Returns predecessor tree in dictionary format.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def minimum_spanning_tree_prim(self, source, display = None,
                                q = PriorityQueue()):
     &#39;&#39;&#39;
@@ -9927,7 +9771,7 @@ change.</p>
 <span>def <span class="ident">network_simplex</span></span>(<span>self, display, pivot, root)</span>
 </code></dt>
 <dd>
-<section class="desc"><h2 id="api">API</h2>
+<div class="desc"><h2 id="api">Api</h2>
 <p>network_simplex(self, display, pivot, root)</p>
 <h2 id="description">Description</h2>
 <p>Solves minimum cost feasible flow problem using network simplex
@@ -9938,23 +9782,20 @@ values of arcs should be considered as junk when returned False.</p>
 <h2 id="pre">Pre</h2>
 <p>(1) check Pre section of min_cost_flow()</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>pivot</code></strong></dt>
-<dd>specifies pivot rule. Check min_cost_flow()</dd>
-<dt><strong><code>display</code></strong></dt>
-<dd>'off' for no display, 'pygame' for live update of</dd>
-<dt>spanning tree.</dt>
-<dt><strong><code>root</code></strong></dt>
-<dd>Root node for the underlying spanning trees that will be</dd>
-</dl>
-<p>generated by network simplex algorthm.</p>
+<p>pivot: specifies pivot rule. Check min_cost_flow()
+display: 'off' for no display, 'matplotlib' for live update of
+spanning tree.
+root: Root node for the underlying spanning trees that will be
+generated by network simplex algorthm.</p>
 <h2 id="post">Post</h2>
 <p>(1) Changes 'flow' attribute of edges.</p>
 <h2 id="return">Return</h2>
 <p>Returns True when an optimal solution is found, returns
-False otherwise.</p></section>
+False otherwise.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def network_simplex(self, display, pivot, root):
     &#39;&#39;&#39;
     API:
@@ -9969,7 +9810,7 @@ False otherwise.</p></section>
         (1) check Pre section of min_cost_flow()
     Input:
         pivot: specifies pivot rule. Check min_cost_flow()
-        display: &#39;off&#39; for no display, &#39;pygame&#39; for live update of
+        display: &#39;off&#39; for no display, &#39;matplotlib&#39; for live update of
         spanning tree.
         root: Root node for the underlying spanning trees that will be
         generated by network simplex algorthm.
@@ -10026,7 +9867,7 @@ False otherwise.</p></section>
 <span>def <span class="ident">page_rank</span></span>(<span>self, damping_factor=0.85, max_iterations=100, min_delta=1e-05)</span>
 </code></dt>
 <dd>
-<section class="desc"><h2 id="api">API</h2>
+<div class="desc"><h2 id="api">Api</h2>
 <p>page_rank(self, damping_factor=0.85, max_iterations=100,
 min_delta=0.00001)</p>
 <h2 id="description">Description</h2>
@@ -10035,21 +9876,18 @@ This function was originally taken from here and modified for this
 graph class: <a href="http://code.google.com/p/python-graph/source/browse/">http://code.google.com/p/python-graph/source/browse/</a>
 trunk/core/pygraph/algorithms/pagerank.py</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>damping_factor</code></strong></dt>
-<dd>Damping factor.</dd>
-<dt><strong><code>max_iterations</code></strong></dt>
-<dd>Maximum number of iterations.</dd>
-<dt><strong><code>min_delta</code></strong></dt>
-<dd>Smallest variation required to have a new iteration.</dd>
-</dl>
+<p>damping_factor: Damping factor.
+max_iterations: Maximum number of iterations.
+min_delta: Smallest variation required to have a new iteration.</p>
 <h2 id="pre">Pre</h2>
 <p>Graph should be a directed graph.</p>
 <h2 id="return">Return</h2>
 <p>Returns dictionary of page-ranks. Keys are node names, values are
-corresponding page-ranks.</p></section>
+corresponding page-ranks.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def page_rank(self, damping_factor=0.85, max_iterations=100,
               min_delta=0.00001):
     &#39;&#39;&#39;
@@ -10099,13 +9937,15 @@ corresponding page-ranks.</p></section>
 <span>def <span class="ident">print_flow</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<section class="desc"><h2 id="api">API</h2>
+<div class="desc"><h2 id="api">Api</h2>
 <p>print_flow(self)</p>
 <h2 id="description">Description</h2>
 <p>Prints all positive flows to stdout. This method can be used for
-debugging purposes.</p></section>
+debugging purposes.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def print_flow(self):
     &#39;&#39;&#39;
     API:
@@ -10125,31 +9965,23 @@ debugging purposes.</p></section>
 <span>def <span class="ident">process_edge_dijkstra</span></span>(<span>self, current, neighbor, pred, q, component)</span>
 </code></dt>
 <dd>
-<section class="desc"><dl>
-<dt><strong><code>API</code></strong> :&ensp;<code>process_edge_dijkstra</code>(<code>self</code>, <code>current</code>, <code>neighbor</code>, <code>pred</code>, <code>q</code>, <code>component</code>)</dt>
-<dd>&nbsp;</dd>
-</dl>
-<p>Description:
+<div class="desc"><p>API: process_edge_dijkstra(self, current, neighbor, pred, q, component)
+Description:
 Used by search() method if the algo argument is 'Dijkstra'. Processes
 edges along Dijkstra's algorithm. User does not need to call this
 method directly.</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>current</code></strong></dt>
-<dd>Name of the current node.</dd>
-<dt><strong><code>neighbor</code></strong></dt>
-<dd>Name of the neighbor node.</dd>
-<dt><strong><code>pred</code></strong></dt>
-<dd>Predecessor tree.</dd>
-<dt><strong><code>q</code></strong></dt>
-<dd>Data structure that holds nodes to be processed in a queue.</dd>
-<dt><strong><code>component</code></strong></dt>
-<dd>component number.</dd>
-</dl>
+<p>current: Name of the current node.
+neighbor: Name of the neighbor node.
+pred: Predecessor tree.
+q: Data structure that holds nodes to be processed in a queue.
+component: component number.</p>
 <h2 id="post">Post</h2>
-<p>'color' attribute of nodes and edges may change.</p></section>
+<p>'color' attribute of nodes and edges may change.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def process_edge_dijkstra(self, current, neighbor, pred, q, component):
     &#39;&#39;&#39;
     API: process_edge_dijkstra(self, current, neighbor, pred, q, component)
@@ -10188,30 +10020,23 @@ method directly.</p>
 <span>def <span class="ident">process_edge_flow</span></span>(<span>self, source, sink, i, j, algo, q)</span>
 </code></dt>
 <dd>
-<section class="desc"><dl>
-<dt><strong><code>API</code></strong> :&ensp;<code>process_edge_flow</code>(<code>self</code>, <code>source</code>, <code>sink</code>, <code>i</code>, <code>j</code>, <code>algo</code>, <code>q</code>)</dt>
-<dd>&nbsp;</dd>
-</dl>
-<p>Description:
+<div class="desc"><p>API: process_edge_flow(self, source, sink, i, j, algo, q)
+Description:
 Used by by max_flow_preflowpush() method. Processes edges along
 prefolow push.</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>source</code></strong></dt>
-<dd>Source node name of flow graph.</dd>
-<dt><strong><code>sink</code></strong></dt>
-<dd>Sink node name of flow graph.</dd>
-<dt><strong><code>i</code></strong></dt>
-<dd>Source node in the processed edge (tail of arc).</dd>
-<dt><strong><code>j</code></strong></dt>
-<dd>Sink node in the processed edge (head of arc).</dd>
-</dl>
+<p>source: Source node name of flow graph.
+sink: Sink node name of flow graph.
+i: Source node in the processed edge (tail of arc).
+j: Sink node in the processed edge (head of arc).</p>
 <h2 id="post">Post</h2>
 <p>The 'flow' and 'excess' attributes of nodes may get updated.</p>
 <h2 id="return">Return</h2>
-<p>Returns False if residual capacity is 0, True otherwise.</p></section>
+<p>Returns False if residual capacity is 0, True otherwise.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def process_edge_flow(self, source, sink, i, j, algo, q):
     &#39;&#39;&#39;
     API: process_edge_flow(self, source, sink, i, j, algo, q)
@@ -10256,31 +10081,23 @@ prefolow push.</p>
 <span>def <span class="ident">process_edge_prim</span></span>(<span>self, current, neighbor, pred, q, component)</span>
 </code></dt>
 <dd>
-<section class="desc"><dl>
-<dt><strong><code>API</code></strong> :&ensp;<code>process_edge_prim</code>(<code>self</code>, <code>current</code>, <code>neighbor</code>, <code>pred</code>, <code>q</code>, <code>component</code>)</dt>
-<dd>&nbsp;</dd>
-</dl>
-<p>Description:
+<div class="desc"><p>API: process_edge_prim(self, current, neighbor, pred, q, component)
+Description:
 Used by search() method if the algo argument is 'Prim'. Processes
 edges along Prim's algorithm. User does not need to call this method
 directly.</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>current</code></strong></dt>
-<dd>Name of the current node.</dd>
-<dt><strong><code>neighbor</code></strong></dt>
-<dd>Name of the neighbor node.</dd>
-<dt><strong><code>pred</code></strong></dt>
-<dd>Predecessor tree.</dd>
-<dt><strong><code>q</code></strong></dt>
-<dd>Data structure that holds nodes to be processed in a queue.</dd>
-<dt><strong><code>component</code></strong></dt>
-<dd>component number.</dd>
-</dl>
+<p>current: Name of the current node.
+neighbor: Name of the neighbor node.
+pred: Predecessor tree.
+q: Data structure that holds nodes to be processed in a queue.
+component: component number.</p>
 <h2 id="post">Post</h2>
-<p>'color' attribute of nodes and edges may change.</p></section>
+<p>'color' attribute of nodes and edges may change.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def process_edge_prim(self, current, neighbor, pred, q, component):
     &#39;&#39;&#39;
     API: process_edge_prim(self, current, neighbor, pred, q, component)
@@ -10318,35 +10135,26 @@ directly.</p>
 <span>def <span class="ident">process_edge_search</span></span>(<span>self, current, neighbor, pred, q, component, algo, **kargs)</span>
 </code></dt>
 <dd>
-<section class="desc"><dl>
-<dt><strong><code>API</code></strong> :&ensp;<code>process_edge_search</code>(<code>self</code>, <code>current</code>, <code>neighbor</code>, <code>pred</code>, <code>q</code>, <code>component</code>,</dt>
-<dd>algo, **kargs)</dd>
-</dl>
-<p>Description:
+<div class="desc"><p>API: process_edge_search(self, current, neighbor, pred, q, component,
+algo, **kargs)
+Description:
 Used by search() method. Processes edges according to the underlying
 algortihm. User does not need to call this method directly.</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>current</code></strong></dt>
-<dd>Name of the current node.</dd>
-<dt><strong><code>neighbor</code></strong></dt>
-<dd>Name of the neighbor node.</dd>
-<dt><strong><code>pred</code></strong></dt>
-<dd>Predecessor tree.</dd>
-<dt><strong><code>q</code></strong></dt>
-<dd>Data structure that holds nodes to be processed in a queue.</dd>
-<dt><strong><code>component</code></strong></dt>
-<dd>component number.</dd>
-<dt><strong><code>algo</code></strong></dt>
-<dd>Search algorithm. See search() documentation.</dd>
-<dt><strong><code>kwargs</code></strong></dt>
-<dd>Keyword arguments.</dd>
-</dl>
+<p>current: Name of the current node.
+neighbor: Name of the neighbor node.
+pred: Predecessor tree.
+q: Data structure that holds nodes to be processed in a queue.
+component: component number.
+algo: Search algorithm. See search() documentation.
+kwargs: Keyword arguments.</p>
 <h2 id="post">Post</h2>
 <p>'color', 'distance', 'component' attribute of nodes and edges may
-change.</p></section>
+change.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def process_edge_search(self, current, neighbor, pred, q, component, algo,
                         **kargs):
     &#39;&#39;&#39;
@@ -10419,26 +10227,20 @@ change.</p></section>
 <span>def <span class="ident">process_node_search</span></span>(<span>self, node, q, **kwargs)</span>
 </code></dt>
 <dd>
-<section class="desc"><dl>
-<dt><strong><code>API</code></strong> :&ensp;<code>process_node_search</code>(<code>self</code>, <code>node</code>, <code>q</code>, **<code>kwargs</code>)</dt>
-<dd>&nbsp;</dd>
-</dl>
-<p>Description:
+<div class="desc"><p>API: process_node_search(self, node, q, **kwargs)
+Description:
 Used by search() method. Process nodes along the search. Should not be
 called by user directly.</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>node</code></strong></dt>
-<dd>Name of the node being processed.</dd>
-<dt><strong><code>q</code></strong></dt>
-<dd>Queue data structure.</dd>
-<dt><strong><code>kwargs</code></strong></dt>
-<dd>Keyword arguments.</dd>
-</dl>
+<p>node: Name of the node being processed.
+q: Queue data structure.
+kwargs: Keyword arguments.</p>
 <h2 id="post">Post</h2>
-<p>'priority' attribute of the node may get updated.</p></section>
+<p>'priority' attribute of the node may get updated.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def process_node_search(self, node, q, **kwargs):
     &#39;&#39;&#39;
     API: process_node_search(self, node, q, **kwargs)
@@ -10457,44 +10259,36 @@ called by user directly.</p>
 </details>
 </dd>
 <dt id="coinor.gimpy.graph.Graph.random"><code class="name flex">
-<span>def <span class="ident">random</span></span>(<span>self, numnodes=10, degree_range=(2, 4), length_range=(1, 10), density=None, edge_format=None, node_format=None, Euclidean=False, seedInput=0, add_labels=True, parallel_allowed=False, node_selection=&#39;closest&#39;, scale=10, scale_cost=5)</span>
+<span>def <span class="ident">random</span></span>(<span>self, numnodes=10, degree_range=(2, 4), length_range=(1, 10), density=None, edge_format=None, node_format=None, Euclidean=False, seedInput=0, add_labels=True, parallel_allowed=False, node_selection='closest', scale=10, scale_cost=5)</span>
 </code></dt>
 <dd>
-<section class="desc"><h2 id="api">API</h2>
+<div class="desc"><h2 id="api">Api</h2>
 <p>random(self, numnodes = 10, degree_range = None, length_range = None,
 density = None, edge_format = None, node_format = None,
 Euclidean = False, seedInput = 0)</p>
 <h2 id="description">Description</h2>
 <p>Populates graph with random edges and nodes.</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>numnodes</code></strong></dt>
-<dd>Number of nodes to add.</dd>
-<dt><strong><code>degree_range</code></strong></dt>
-<dd>A tuple that has lower and upper bounds of degree for</dd>
-<dt>a node.</dt>
-<dt><strong><code>length_range</code></strong></dt>
-<dd>A tuple that has lower and upper bounds for 'cost'</dd>
-<dt>attribute of edges.</dt>
-<dt><strong><code>density</code></strong></dt>
-<dd>Density of edges, ie. 0.5 indicates a node will</dd>
-<dt>approximately have edge to half of the other nodes.</dt>
-<dt><strong><code>edge_format</code></strong></dt>
-<dd>Dictionary that specifies attribute values for edges.</dd>
-<dt><strong><code>node_format</code></strong></dt>
-<dd>Dictionary that specifies attribute values for nodes.</dd>
-<dt><strong><code>Euclidean</code></strong></dt>
-<dd>Creates an Euclidean graph (Euclidean distance between</dd>
-<dt>nodes) if True.</dt>
-<dt><strong><code>seedInput</code></strong></dt>
-<dd>Seed that will be used for random number generation.</dd>
-</dl>
+<p>numnodes: Number of nodes to add.
+degree_range: A tuple that has lower and upper bounds of degree for
+a node.
+length_range: A tuple that has lower and upper bounds for 'cost'
+attribute of edges.
+density: Density of edges, ie. 0.5 indicates a node will
+approximately have edge to half of the other nodes.
+edge_format: Dictionary that specifies attribute values for edges.
+node_format: Dictionary that specifies attribute values for nodes.
+Euclidean: Creates an Euclidean graph (Euclidean distance between
+nodes) if True.
+seedInput: Seed that will be used for random number generation.</p>
 <h2 id="pre">Pre</h2>
 <p>It is recommended to call this method on empty Graph objects.</p>
 <h2 id="post">Post</h2>
-<p>Graph will be populated by nodes and edges.</p></section>
+<p>Graph will be populated by nodes and edges.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def random(self, numnodes = 10, degree_range = (2, 4), length_range = (1, 10),
            density = None, edge_format = None, node_format = None,
            Euclidean = False, seedInput = 0, add_labels = True,
@@ -10592,7 +10386,7 @@ Euclidean = False, seedInput = 0)</p>
                 degree = random.randint(degree_range[0], degree_range[1])
                 i = 0
                 neighbors = []
-                if node_selection is &#39;random&#39;:
+                if node_selection == &#39;random&#39;:
                     while i &lt; degree:
                         length = round((((self.get_node(n).get_attr(&#39;locationx&#39;) -
                                           self.get_node(m).get_attr(&#39;locationx&#39;)) ** 2 +
@@ -10606,7 +10400,7 @@ Euclidean = False, seedInput = 0)</p>
                             if add_labels:
                                 self.set_edge_attr(m, n, &#39;label&#39;, str(int(length)))
                             i += 1
-                elif node_selection is &#39;closest&#39;:
+                elif node_selection == &#39;closest&#39;:
                     lengths = []
                     for n in range(numnodes):
                         lengths.append((n, round((((self.get_node(n).get_attr(&#39;locationx&#39;) -
@@ -10653,21 +10447,17 @@ Euclidean = False, seedInput = 0)</p>
 <span>def <span class="ident">relabel</span></span>(<span>self, i)</span>
 </code></dt>
 <dd>
-<section class="desc"><dl>
-<dt><strong><code>API</code></strong> :&ensp;<code>relabel</code>(<code>self</code>, <code>i</code>)</dt>
-<dd>&nbsp;</dd>
-</dl>
-<p>Description:
+<div class="desc"><p>API: relabel(self, i)
+Description:
 Used by max_flow_preflowpush() method for relabelling node i.</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>i</code></strong></dt>
-<dd>Node that is being relabelled.</dd>
-</dl>
+<p>i: Node that is being relabelled.</p>
 <h2 id="post">Post</h2>
-<p>'distance' attribute of node i is updated.</p></section>
+<p>'distance' attribute of node i is updated.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def relabel(self, i):
     &#39;&#39;&#39;
     API: relabel(self, i)
@@ -10692,15 +10482,13 @@ Used by max_flow_preflowpush() method for relabelling node i.</p>
 </details>
 </dd>
 <dt id="coinor.gimpy.graph.Graph.search"><code class="name flex">
-<span>def <span class="ident">search</span></span>(<span>self, source, destination=None, display=None, component=None, q=None, algo=&#39;DFS&#39;, reverse=False, **kargs)</span>
+<span>def <span class="ident">search</span></span>(<span>self, source, destination=None, display=None, component=None, q=None, algo='DFS', reverse=False, **kargs)</span>
 </code></dt>
 <dd>
-<section class="desc"><dl>
-<dt><strong><code>API</code></strong> :&ensp;<code>search</code>(<code>self</code>, <code>source</code>, <code>destination</code> = <code>None</code>, <code>display</code> = <code>None</code>,</dt>
-<dd>component = None, q = Stack(),
-algo = 'DFS', reverse = False, **kargs)</dd>
-</dl>
-<p>Description:
+<div class="desc"><p>API: search(self, source, destination = None, display = None,
+component = None, q = Stack(),
+algo = 'DFS', reverse = False, **kargs)
+Description:
 Generic search method. Changes behavior (dfs,bfs,dijkstra,prim)
 according to algo argument.
 if destination is not specified:
@@ -10714,21 +10502,13 @@ Optionally, it marks all nodes reachable from "source" with a component
 number. The variable "q" determines the order in which the nodes are
 searched.</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>source</code></strong></dt>
-<dd>Search starts from node with this name.</dd>
-<dt><strong><code>destination</code></strong></dt>
-<dd>Destination node name.</dd>
-<dt><strong><code>display</code></strong></dt>
-<dd>Display method.</dd>
-<dt><strong><code>algo</code></strong></dt>
-<dd>Algortihm that specifies search. Available algortihms are</dd>
-<dt>'DFS', 'BFS', 'Dijkstra' and 'Prim'.</dt>
-<dt><strong><code>reverse</code></strong></dt>
-<dd>Search goes in reverse arc directions if True.</dd>
-<dt><strong><code>kargs</code></strong></dt>
-<dd>Additional keyword arguments.</dd>
-</dl>
+<p>source: Search starts from node with this name.
+destination: Destination node name.
+display: Display method.
+algo: Algortihm that specifies search. Available algortihms are
+'DFS', 'BFS', 'Dijkstra' and 'Prim'.
+reverse: Search goes in reverse arc directions if True.
+kargs: Additional keyword arguments.</p>
 <h2 id="post">Post</h2>
 <p>Nodes will have 'component' attribute that will have component
 number as value (if component argument provided). Color attribute
@@ -10738,9 +10518,11 @@ of nodes and edges may change.</p>
 not specified, returns list of node names in the path from source
 to destionation if destionation is specified and there is a path.
 If there is no path returns predecessor tree in dictionary form.
-See description section.</p></section>
+See description section.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def search(self, source, destination = None, display = None,
            component = None, q = None,
            algo = &#39;DFS&#39;, reverse = False, **kargs):
@@ -10867,19 +10649,18 @@ See description section.</p></section>
 <span>def <span class="ident">set_display_mode</span></span>(<span>self, value)</span>
 </code></dt>
 <dd>
-<section class="desc"><h2 id="api">API</h2>
+<div class="desc"><h2 id="api">Api</h2>
 <p>set_display_mode(self, value)</p>
 <h2 id="description">Description</h2>
 <p>Sets display mode to value.</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>value</code></strong></dt>
-<dd>New display mode.</dd>
-</dl>
+<p>value: New display mode.</p>
 <h2 id="post">Post</h2>
-<p>Display mode attribute of graph is updated.</p></section>
+<p>Display mode attribute of graph is updated.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def set_display_mode(self, value):
     &#39;&#39;&#39;
     API:
@@ -10898,29 +10679,22 @@ See description section.</p></section>
 <span>def <span class="ident">set_edge_attr</span></span>(<span>self, n, m, attr, value)</span>
 </code></dt>
 <dd>
-<section class="desc"><dl>
-<dt><strong><code>API</code></strong> :&ensp;<code>set_edge_attr</code>(<code>self</code>, <code>n</code>, <code>m</code>, <code>attr</code>, <code>value</code>)</dt>
-<dd>&nbsp;</dd>
-</dl>
-<p>Description:
+<div class="desc"><p>API: set_edge_attr(self, n, m, attr, value)
+Description:
 Sets attr attribute of edge (n,m) to value.</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>n</code></strong></dt>
-<dd>Source node name.</dd>
-<dt><strong><code>m</code></strong></dt>
-<dd>Sink node name.</dd>
-<dt><strong><code>attr</code></strong></dt>
-<dd>Attribute of edge to set.</dd>
-<dt><strong><code>value</code></strong></dt>
-<dd>New value of attribute.</dd>
-</dl>
+<p>n: Source node name.
+m: Sink node name.
+attr: Attribute of edge to set.
+value: New value of attribute.</p>
 <h2 id="pre">Pre</h2>
 <p>Graph should have this edge.</p>
 <h2 id="post">Post</h2>
-<p>Edge attribute will be updated.</p></section>
+<p>Edge attribute will be updated.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def set_edge_attr(self, n, m, attr, value):
     &#39;&#39;&#39;
     API: set_edge_attr(self, n, m, attr, value)
@@ -10949,17 +10723,16 @@ Sets attr attribute of edge (n,m) to value.</p>
 <span>def <span class="ident">set_layout</span></span>(<span>self, value)</span>
 </code></dt>
 <dd>
-<section class="desc"><h2 id="api">API</h2>
+<div class="desc"><h2 id="api">Api</h2>
 <p>set_layout(self, value)
 Description:
 Sets layout attribute of the graph to value.</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>value</code></strong></dt>
-<dd>New value of the layout.</dd>
-</dl></section>
+<p>value: New value of the layout.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def set_layout(self, value):
     &#39;&#39;&#39;
     API:
@@ -10978,25 +10751,20 @@ Sets layout attribute of the graph to value.</p>
 <span>def <span class="ident">set_node_attr</span></span>(<span>self, name, attr, value)</span>
 </code></dt>
 <dd>
-<section class="desc"><dl>
-<dt><strong><code>API</code></strong> :&ensp;<code>set_node_attr</code>(<code>self</code>, <code>name</code>, <code>attr</code>)</dt>
-<dd>&nbsp;</dd>
-</dl>
-<p>Description:
+<div class="desc"><p>API: set_node_attr(self, name, attr)
+Description:
 Sets attr attribute of node named name to value.</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>name</code></strong></dt>
-<dd>Name of node.</dd>
-<dt><strong><code>attr</code></strong></dt>
-<dd>Attribute of node to set.</dd>
-</dl>
+<p>name: Name of node.
+attr: Attribute of node to set.</p>
 <h2 id="pre">Pre</h2>
 <p>Graph should have this node.</p>
 <h2 id="post">Post</h2>
-<p>Node attribute will be updated.</p></section>
+<p>Node attribute will be updated.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def set_node_attr(self, name, attr, value):
     &#39;&#39;&#39;
     API: set_node_attr(self, name, attr)
@@ -11017,16 +10785,15 @@ Sets attr attribute of node named name to value.</p>
 <span>def <span class="ident">show_flow</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<section class="desc"><dl>
-<dt><strong><code>API</code></strong> :&ensp;<code>relabel</code>(<code>self</code>, <code>i</code>)</dt>
-<dd>&nbsp;</dd>
-</dl>
-<p>Description:
+<div class="desc"><p>API: relabel(self, i)
+Description:
 Used by max_flow_preflowpush() method for display purposed.</p>
 <h2 id="post">Post</h2>
-<p>'color' and 'label' attribute of edges/nodes are updated.</p></section>
+<p>'color' and 'label' attribute of edges/nodes are updated.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def show_flow(self):
     &#39;&#39;&#39;
     API: relabel(self, i)
@@ -11061,21 +10828,20 @@ Used by max_flow_preflowpush() method for display purposed.</p>
 <span>def <span class="ident">simplex_augment_cycle</span></span>(<span>self, cycle)</span>
 </code></dt>
 <dd>
-<section class="desc"><h2 id="api">API</h2>
+<div class="desc"><h2 id="api">Api</h2>
 <p>simplex_augment_cycle(self, cycle)</p>
 <h2 id="description">Description</h2>
 <p>Augments along the cycle to break it.</p>
 <h2 id="pre">Pre</h2>
 <p>'flow', 'capacity' attributes on arcs.</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>cycle</code></strong></dt>
-<dd>list representing a cycle in the solution</dd>
-</dl>
+<p>cycle: list representing a cycle in the solution</p>
 <h2 id="post">Post</h2>
-<p>'flow' attribute will be modified.</p></section>
+<p>'flow' attribute will be modified.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def simplex_augment_cycle(self, cycle):
     &#39;&#39;&#39;
     API:
@@ -11118,7 +10884,7 @@ Used by max_flow_preflowpush() method for display purposed.</p>
 <span>def <span class="ident">simplex_compute_potentials</span></span>(<span>self, t, root)</span>
 </code></dt>
 <dd>
-<section class="desc"><h2 id="api">API</h2>
+<div class="desc"><h2 id="api">Api</h2>
 <p>simplex_compute_potentials(self, t, root)</p>
 <h2 id="description">Description</h2>
 <p>Computes node potentials for a minimum cost flow problem and stores
@@ -11129,16 +10895,14 @@ Network Flows by Ahuja et al.</p>
 attribute.
 (2) Uses 'thread' and 'pred' attributes of nodes.</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>t</code></strong></dt>
-<dd>Current spanning tree solution, its type is Graph.</dd>
-<dt><strong><code>root</code></strong></dt>
-<dd>root node of the tree.</dd>
-</dl>
+<p>t: Current spanning tree solution, its type is Graph.
+root: root node of the tree.</p>
 <h2 id="post">Post</h2>
-<p>Keeps the node potentials as 'potential' attribute.</p></section>
+<p>Keeps the node potentials as 'potential' attribute.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def simplex_compute_potentials(self, t, root):
     &#39;&#39;&#39;
     API:
@@ -11175,7 +10939,7 @@ attribute.
 <span>def <span class="ident">simplex_connect</span></span>(<span>self, solution_g)</span>
 </code></dt>
 <dd>
-<section class="desc"><h2 id="api">API</h2>
+<div class="desc"><h2 id="api">Api</h2>
 <p>simplex_connect(self, solution_g)</p>
 <h2 id="description">Description</h2>
 <p>At this point we assume that the solution does not have a cycle.
@@ -11185,18 +10949,17 @@ we do nothing and return False.</p>
 <h2 id="pre">Pre</h2>
 <p>(1) We assume there is no cycle in the solution.</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>solution_g</code></strong></dt>
-<dd>current spanning tree solution instance.</dd>
-</dl>
+<p>solution_g: current spanning tree solution instance.</p>
 <h2 id="post">Post</h2>
 <p>(1) solution_g is updated. An arc that does not create a cycle is
 added.
 (2) 'component' attribute of nodes are changed.</p>
 <h2 id="return">Return</h2>
-<p>Returns True if an arc is added, returns False otherwise.</p></section>
+<p>Returns True if an arc is added, returns False otherwise.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def simplex_connect(self, solution_g):
     &#39;&#39;&#39;
     API:
@@ -11238,24 +11001,21 @@ added.
 <span>def <span class="ident">simplex_determine_leaving_arc</span></span>(<span>self, t, k, l)</span>
 </code></dt>
 <dd>
-<section class="desc"><h2 id="api">API</h2>
+<div class="desc"><h2 id="api">Api</h2>
 <p>simplex_determine_leaving_arc(self, t, k, l)</p>
 <h2 id="description">Description</h2>
 <p>Determines and returns the leaving arc.</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>t</code></strong></dt>
-<dd>current spanning tree solution.</dd>
-<dt><strong><code>k</code></strong></dt>
-<dd>tail of the entering arc.</dd>
-<dt><strong><code>l</code></strong></dt>
-<dd>head of the entering arc.</dd>
-</dl>
+<p>t: current spanning tree solution.
+k: tail of the entering arc.
+l: head of the entering arc.</p>
 <h2 id="return">Return</h2>
 <p>Returns the tuple that represents leaving arc, capacity of the
-cycle and cycle.</p></section>
+cycle and cycle.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def simplex_determine_leaving_arc(self, t, k, l):
     &#39;&#39;&#39;
     API:
@@ -11317,7 +11077,7 @@ cycle and cycle.</p></section>
 <span>def <span class="ident">simplex_find_cycle</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<section class="desc"><h2 id="api">API</h2>
+<div class="desc"><h2 id="api">Api</h2>
 <p>simplex_find_cycle(self)</p>
 <h2 id="description">Description</h2>
 <p>Returns a cycle (list of nodes) if the graph has one, returns None
@@ -11325,9 +11085,11 @@ otherwise. Uses DFS. During DFS checks existence of arcs to lower
 depth regions. Note that direction of the arcs are not important.</p>
 <h2 id="return">Return</h2>
 <p>Returns list of nodes that represents cycle. Returns None if the
-graph does not have any cycle.</p></section>
+graph does not have any cycle.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def simplex_find_cycle(self):
     &#39;&#39;&#39;
     API:
@@ -11402,7 +11164,7 @@ graph does not have any cycle.</p></section>
 <span>def <span class="ident">simplex_find_tree</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<section class="desc"><h2 id="api">API</h2>
+<div class="desc"><h2 id="api">Api</h2>
 <p>simplex_find_tree(self)</p>
 <h2 id="description">Description</h2>
 <p>Assumes a feasible flow solution stored in 'flow' attribute's of
@@ -11413,9 +11175,11 @@ solution.</p>
 <h2 id="post">Post</h2>
 <p>(1) 'flow' attributes may change when eliminating cycles.</p>
 <h2 id="return">Return</h2>
-<p>Return a Graph instance that is a spanning tree solution.</p></section>
+<p>Return a Graph instance that is a spanning tree solution.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def simplex_find_tree(self):
     &#39;&#39;&#39;
     API:
@@ -11463,7 +11227,7 @@ solution.</p>
 <span>def <span class="ident">simplex_identify_cycle</span></span>(<span>self, t, k, l)</span>
 </code></dt>
 <dd>
-<section class="desc"><h2 id="api">API</h2>
+<div class="desc"><h2 id="api">Api</h2>
 <p>identify_cycle(self, t, k, l)</p>
 <h2 id="description">Description</h2>
 <p>Identifies and returns to the pivot cycle, which is a list of
@@ -11471,18 +11235,15 @@ nodes.</p>
 <h2 id="pre">Pre</h2>
 <p>(1) t is spanning tree solution, (k,l) is the entering arc.</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>t</code></strong></dt>
-<dd>current spanning tree solution</dd>
-<dt><strong><code>k</code></strong></dt>
-<dd>tail of the entering arc</dd>
-<dt><strong><code>l</code></strong></dt>
-<dd>head of the entering arc</dd>
-</dl>
+<p>t: current spanning tree solution
+k: tail of the entering arc
+l: head of the entering arc</p>
 <h2 id="returns">Returns</h2>
-<p>List of nodes in the cycle.</p></section>
+<p>List of nodes in the cycle.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def simplex_identify_cycle(self, t, k, l):
     &#39;&#39;&#39;
     API:
@@ -11530,21 +11291,19 @@ nodes.</p>
 <span>def <span class="ident">simplex_mark_entering_arc</span></span>(<span>self, k, l)</span>
 </code></dt>
 <dd>
-<section class="desc"><h2 id="api">API</h2>
+<div class="desc"><h2 id="api">Api</h2>
 <p>simplex_mark_entering_arc(self, k, l)</p>
 <h2 id="description">Description</h2>
 <p>Marks entering arc (k,l)</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>k</code></strong></dt>
-<dd>tail of the entering arc</dd>
-<dt><strong><code>l</code></strong></dt>
-<dd>head of the entering arc</dd>
-</dl>
+<p>k: tail of the entering arc
+l: head of the entering arc</p>
 <h2 id="post">Post</h2>
-<p>(1) color attribute of the arc (k,l)</p></section>
+<p>(1) color attribute of the arc (k,l)</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def simplex_mark_entering_arc(self, k, l):
     &#39;&#39;&#39;
     API:
@@ -11564,21 +11323,19 @@ nodes.</p>
 <span>def <span class="ident">simplex_mark_leaving_arc</span></span>(<span>self, p, q)</span>
 </code></dt>
 <dd>
-<section class="desc"><h2 id="api">API</h2>
+<div class="desc"><h2 id="api">Api</h2>
 <p>simplex_mark_leving_arc(self, p, q)</p>
 <h2 id="description">Description</h2>
 <p>Marks leaving arc.</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>p</code></strong></dt>
-<dd>tail of the leaving arc</dd>
-<dt><strong><code>q</code></strong></dt>
-<dd>head of the leaving arc</dd>
-</dl>
+<p>p: tail of the leaving arc
+q: head of the leaving arc</p>
 <h2 id="post">Post</h2>
-<p>Changes color attribute of leaving arc.</p></section>
+<p>Changes color attribute of leaving arc.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def simplex_mark_leaving_arc(self, p, q):
     &#39;&#39;&#39;
     API:
@@ -11598,7 +11355,7 @@ nodes.</p>
 <span>def <span class="ident">simplex_mark_st_arcs</span></span>(<span>self, t)</span>
 </code></dt>
 <dd>
-<section class="desc"><h2 id="api">API</h2>
+<div class="desc"><h2 id="api">Api</h2>
 <p>simplex_mark_st_arcs(self, t)</p>
 <h2 id="description">Description</h2>
 <p>Marks spanning tree arcs.
@@ -11608,14 +11365,13 @@ Case 3, Green: Arcs that are between bounds are green.
 Case 4, Brown: Non-tree arcs at lower bound.
 Case 5, Violet: Non-tree arcs at upper bound.</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>t</code></strong></dt>
-<dd>t is the current spanning tree</dd>
-</dl>
+<p>t: t is the current spanning tree</p>
 <h2 id="post">Post</h2>
-<p>(1) color attribute of edges.</p></section>
+<p>(1) color attribute of edges.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def simplex_mark_st_arcs(self, t):
     &#39;&#39;&#39;
     API:
@@ -11657,7 +11413,7 @@ Case 5, Violet: Non-tree arcs at upper bound.</p>
 <span>def <span class="ident">simplex_optimal</span></span>(<span>self, t)</span>
 </code></dt>
 <dd>
-<section class="desc"><h2 id="api">API</h2>
+<div class="desc"><h2 id="api">Api</h2>
 <p>simplex_optimal(self, t)</p>
 <h2 id="description">Description</h2>
 <p>Checks if the current solution is optimal, if yes returns True,
@@ -11665,15 +11421,14 @@ False otherwise.</p>
 <h2 id="pre">Pre</h2>
 <p>'flow' attributes represents a solution.</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>t</code></strong></dt>
-<dd>Graph instance tat reperesents spanning tree solution.</dd>
-</dl>
+<p>t: Graph instance tat reperesents spanning tree solution.</p>
 <h2 id="return">Return</h2>
 <p>Returns True if the current solution is optimal (optimality
-conditions are satisfied), else returns False</p></section>
+conditions are satisfied), else returns False</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def simplex_optimal(self, t):
     &#39;&#39;&#39;
     API:
@@ -11711,23 +11466,21 @@ conditions are satisfied), else returns False</p></section>
 <span>def <span class="ident">simplex_redraw</span></span>(<span>self, display, root)</span>
 </code></dt>
 <dd>
-<section class="desc"><h2 id="api">API</h2>
+<div class="desc"><h2 id="api">Api</h2>
 <p>simplex_redraw(self, display, root)</p>
 <h2 id="description">Description</h2>
 <p>Returns a new graph instance that is same as self but adds nodes
 and arcs in a way that the resulting tree will be displayed
 properly.</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>display</code></strong></dt>
-<dd>display mode</dd>
-<dt><strong><code>root</code></strong></dt>
-<dd>root node in tree.</dd>
-</dl>
+<p>display: display mode
+root: root node in tree.</p>
 <h2 id="return">Return</h2>
-<p>Returns a graph same as self.</p></section>
+<p>Returns a graph same as self.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def simplex_redraw(self, display, root):
     &#39;&#39;&#39;
     API:
@@ -11784,29 +11537,24 @@ properly.</p>
 <span>def <span class="ident">simplex_remove_arc</span></span>(<span>self, t, p, q, min_capacity, cycle)</span>
 </code></dt>
 <dd>
-<section class="desc"><h2 id="api">API</h2>
+<div class="desc"><h2 id="api">Api</h2>
 <p>simplex_remove_arc(self, p, q, min_capacity, cycle)</p>
 <h2 id="description">Description</h2>
 <p>Removes arc (p,q), updates t, updates flows, where (k,l) is
 the entering arc.</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>t</code></strong></dt>
-<dd>tree solution to be updated.</dd>
-<dt><strong><code>p</code></strong></dt>
-<dd>tail of the leaving arc.</dd>
-<dt><strong><code>q</code></strong></dt>
-<dd>head of the leaving arc.</dd>
-<dt><strong><code>min_capacity</code></strong></dt>
-<dd>capacity of the cycle.</dd>
-<dt><strong><code>cycle</code></strong></dt>
-<dd>cycle obtained when entering arc considered.</dd>
-</dl>
+<p>t: tree solution to be updated.
+p: tail of the leaving arc.
+q: head of the leaving arc.
+min_capacity: capacity of the cycle.
+cycle: cycle obtained when entering arc considered.</p>
 <h2 id="post">Post</h2>
 <p>(1) updates t.
-(2) updates 'flow' attributes.</p></section>
+(2) updates 'flow' attributes.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def simplex_remove_arc(self, t, p, q, min_capacity, cycle):
     &#39;&#39;&#39;
     API:
@@ -11870,7 +11618,7 @@ the entering arc.</p>
 <span>def <span class="ident">simplex_search</span></span>(<span>self, source, component_nr)</span>
 </code></dt>
 <dd>
-<section class="desc"><h2 id="api">API</h2>
+<div class="desc"><h2 id="api">Api</h2>
 <p>simplex_search(self, source, component_nr)</p>
 <h2 id="description">Description</h2>
 <p>Searches graph starting from source. Its difference from usual
@@ -11879,21 +11627,19 @@ is a spanning tree it computes predecessor, thread and depth
 indexes and stores them as node attributes. These values should be
 considered as junk when the graph is not a spanning tree.</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>source</code></strong></dt>
-<dd>source node</dd>
-<dt><strong><code>component_nr</code></strong></dt>
-<dd>component number</dd>
-</dl>
+<p>source: source node
+component_nr: component number</p>
 <h2 id="post">Post</h2>
 <p>(1) Sets the component number of all reachable nodes to component.
 Changes 'component' attribute of nodes.
 (2) Sets 'pred', 'thread' and 'depth' attributes of nodes. These
 values are junk if the graph is not a tree.</p>
 <h2 id="return">Return</h2>
-<p>Returns predecessor dictionary.</p></section>
+<p>Returns predecessor dictionary.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def simplex_search(self, source, component_nr):
     &#39;&#39;&#39;
     API:
@@ -11946,22 +11692,20 @@ values are junk if the graph is not a tree.</p>
 <span>def <span class="ident">simplex_select_entering_arc</span></span>(<span>self, t, pivot)</span>
 </code></dt>
 <dd>
-<section class="desc"><h2 id="api">API</h2>
+<div class="desc"><h2 id="api">Api</h2>
 <p>simplex_select_entering_arc(self, t, pivot)</p>
 <h2 id="description">Description</h2>
 <p>Decides and returns entering arc using pivot rule.</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>t</code></strong></dt>
-<dd>current spanning tree solution</dd>
-<dt><strong><code>pivot</code></strong></dt>
-<dd>May be one of the following; 'first_eligible' or 'dantzig'.</dd>
-</dl>
-<p>'dantzig' is the default value.</p>
+<p>t: current spanning tree solution
+pivot: May be one of the following; 'first_eligible' or 'dantzig'.
+'dantzig' is the default value.</p>
 <h2 id="return">Return</h2>
-<p>Returns entering arc tuple (k,l)</p></section>
+<p>Returns entering arc tuple (k,l)</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def simplex_select_entering_arc(self, t, pivot):
     &#39;&#39;&#39;
     API:
@@ -12029,33 +11773,26 @@ values are junk if the graph is not a tree.</p>
 <span>def <span class="ident">strong_connect</span></span>(<span>self, q, node, index, component)</span>
 </code></dt>
 <dd>
-<section class="desc"><dl>
-<dt><strong><code>API</code></strong> :&ensp;<code>strong_connect</code> (<code>self</code>, <code>q</code>, <code>node</code>, <code>index</code>, <code>component</code>)</dt>
-<dd>&nbsp;</dd>
-</dl>
-<p>Description:
+<div class="desc"><p>API: strong_connect (self, q, node, index, component)
+Description:
 Used by tarjan method. This method should not be called directly by
 user.</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>q</code></strong></dt>
-<dd>Node list.</dd>
-<dt><strong><code>node</code></strong></dt>
-<dd>Node that is being connected to nodes in q.</dd>
-<dt><strong><code>index</code></strong></dt>
-<dd>Index used by tarjan method.</dd>
-<dt><strong><code>component</code></strong></dt>
-<dd>Current component number.</dd>
-</dl>
+<p>q: Node list.
+node: Node that is being connected to nodes in q.
+index: Index used by tarjan method.
+component: Current component number.</p>
 <h2 id="pre">Pre</h2>
 <p>Should be called by tarjan and itself (recursive) only.</p>
 <h2 id="post">Post</h2>
 <p>Nodes will have 'component' attribute that will have component
 number as value. Changes 'index' attribute of nodes.</p>
 <h2 id="return">Return</h2>
-<p>Returns new index and component numbers.</p></section>
+<p>Returns new index and component numbers.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def strong_connect(self, q, node, index, component):
     &#39;&#39;&#39;
     API: strong_connect (self, q, node, index, component)
@@ -12105,20 +11842,19 @@ number as value. Changes 'index' attribute of nodes.</p>
 <span>def <span class="ident">tarjan</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<section class="desc"><dl>
-<dt><strong><code>API</code></strong> :&ensp;<code>tarjan</code>(<code>self</code>)</dt>
-<dd>&nbsp;</dd>
-</dl>
-<p>Description:
+<div class="desc"><p>API: tarjan(self)
+Description:
 Implements Tarjan's algorithm for determining strongly connected set of
 nodes.</p>
 <h2 id="pre">Pre</h2>
 <p>self.graph_type should be DIRECTED_GRAPH.</p>
 <h2 id="post">Post</h2>
 <p>Nodes will have 'component' attribute that will have component
-number as value. Changes 'index' attribute of nodes.</p></section>
+number as value. Changes 'index' attribute of nodes.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def tarjan(self):
     &#39;&#39;&#39;
     API: tarjan(self)
@@ -12143,18 +11879,17 @@ number as value. Changes 'index' attribute of nodes.</p></section>
 <span>def <span class="ident">to_string</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<section class="desc"><dl>
-<dt><strong><code>API</code></strong> :&ensp;<code>to_string</code>(<code>self</code>)</dt>
-<dd>&nbsp;</dd>
-</dl>
-<p>Description:
+<div class="desc"><p>API: to_string(self)
+Description:
 This method is based on pydot Graph class with the same name.
 Returns a string representation of the graph in dot language.
 It will return the graph and all its subelements in string form.</p>
 <h2 id="return">Return</h2>
-<p>String that represents graph in dot language.</p></section>
+<p>String that represents graph in dot language.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def to_string(self):
     &#39;&#39;&#39;
     API: to_string(self)
@@ -12224,27 +11959,24 @@ It will return the graph and all its subelements in string form.</p>
 </details>
 </dd>
 <dt id="coinor.gimpy.graph.Graph.write"><code class="name flex">
-<span>def <span class="ident">write</span></span>(<span>self, basename=&#39;graph&#39;, layout=None, format=&#39;png&#39;)</span>
+<span>def <span class="ident">write</span></span>(<span>self, file_obj, layout=None, format='png')</span>
 </code></dt>
 <dd>
-<section class="desc"><h2 id="api">API</h2>
+<div class="desc"><h2 id="api">Api</h2>
 <p>write(self, basename = 'graph', layout = None, format='png')
 Description:
 Writes graph to dist using layout and format.</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>basename</code></strong></dt>
-<dd>name of the file that will be written.</dd>
-<dt><strong><code>layout</code></strong></dt>
-<dd>Dot layout for generating graph image.</dd>
-<dt><strong><code>format</code></strong></dt>
-<dd>Image format, all format supported by Dot are wellcome.</dd>
-</dl>
+<p>basename: name of the file that will be written.
+layout: Dot layout for generating graph image.
+format: Image format, all format supported by Dot are wellcome.</p>
 <h2 id="post">Post</h2>
-<p>File will be written to disk.</p></section>
+<p>File will be written to disk.</p></div>
 <details class="source">
-<summary>Source code</summary>
-<pre><code class="python">def write(self, basename = &#39;graph&#39;, layout = None, format=&#39;png&#39;):
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def write(self, file_obj, layout = None, format=&#39;png&#39;):
     &#39;&#39;&#39;
     API:
         write(self, basename = &#39;graph&#39;, layout = None, format=&#39;png&#39;)
@@ -12259,24 +11991,35 @@ Writes graph to dist using layout and format.</p>
     &#39;&#39;&#39;
     if layout == None:
         layout = self.get_layout()
-    f = open(basename, &#34;w+b&#34;)
     if format == &#39;dot&#39;:
-        f.write(self.to_string())
+        file_obj.write(bytearray(self.to_string(), &#39;utf8&#39;))
     else:
-        f.write(self.create(layout, format))
-    f.close()</code></pre>
+        out = self.create(layout, format)
+        if (out != None):
+            file_obj.write(out)</code></pre>
 </details>
 </dd>
 </dl>
 </dd>
 <dt id="coinor.gimpy.graph.Node"><code class="flex name class">
 <span>class <span class="ident">Node</span></span>
+<span>(</span><span>name, **attr)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Node class. A node object keeps node attributes. Has a method to write
-node in Dot language grammer.</p></section>
+<div class="desc"><p>Node class. A node object keeps node attributes. Has a method to write
+node in Dot language grammer.</p>
+<p>API: <strong>init</strong>(self, name, **attrs)
+Description:
+Node class constructor. Sets name and attributes using arguments.</p>
+<h2 id="input">Input</h2>
+<p>name: Name of node.
+**attrs: Node attributes.</p>
+<h2 id="post">Post</h2>
+<p>Sets self.name and self.attr.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">class Node(object):
     &#39;&#39;&#39;
     Node class. A node object keeps node attributes. Has a method to write
@@ -12361,63 +12104,21 @@ node in Dot language grammer.</p></section>
 </details>
 <h3>Methods</h3>
 <dl>
-<dt id="coinor.gimpy.graph.Node.__init__"><code class="name flex">
-<span>def <span class="ident">__init__</span></span>(<span>self, name, **attr)</span>
-</code></dt>
-<dd>
-<section class="desc"><dl>
-<dt><strong><code>API</code></strong> :&ensp;<code>__init__</code>(<code>self</code>, <code>name</code>, **<code>attrs</code>)</dt>
-<dd>&nbsp;</dd>
-</dl>
-<p>Description:
-Node class constructor. Sets name and attributes using arguments.</p>
-<h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>name</code></strong></dt>
-<dd>Name of node.</dd>
-<dt><strong><code>**attrs</code></strong></dt>
-<dd>Node attributes.</dd>
-</dl>
-<h2 id="post">Post</h2>
-<p>Sets self.name and self.attr.</p></section>
-<details class="source">
-<summary>Source code</summary>
-<pre><code class="python">def __init__(self, name, **attr):
-    &#39;&#39;&#39;
-    API: __init__(self, name, **attrs)
-    Description:
-    Node class constructor. Sets name and attributes using arguments.
-    Input:
-        name: Name of node.
-        **attrs: Node attributes.
-    Post:
-        Sets self.name and self.attr.
-    &#39;&#39;&#39;
-    self.name = name
-    self.attr = copy.deepcopy(DEFAULT_NODE_ATTRIBUTES)
-    for a in attr:
-        self.attr[a] = attr[a]</code></pre>
-</details>
-</dd>
 <dt id="coinor.gimpy.graph.Node.get_attr"><code class="name flex">
 <span>def <span class="ident">get_attr</span></span>(<span>self, attr)</span>
 </code></dt>
 <dd>
-<section class="desc"><dl>
-<dt><strong><code>API</code></strong> :&ensp;<code>get_attr</code>(<code>self</code>, <code>attr</code>)</dt>
-<dd>&nbsp;</dd>
-</dl>
-<p>Description:
+<div class="desc"><p>API: get_attr(self, attr)
+Description:
 Returns node attribute attr.</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>attr</code></strong></dt>
-<dd>Node attribute to get.</dd>
-</dl>
+<p>attr: Node attribute to get.</p>
 <h2 id="return">Return</h2>
-<p>Returns Node attribute attr if exists returns None, otherwise.</p></section>
+<p>Returns Node attribute attr if exists returns None, otherwise.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def get_attr(self, attr):
     &#39;&#39;&#39;
     API: get_attr(self, attr)
@@ -12438,23 +12139,18 @@ Returns node attribute attr.</p>
 <span>def <span class="ident">set_attr</span></span>(<span>self, attr, value)</span>
 </code></dt>
 <dd>
-<section class="desc"><dl>
-<dt><strong><code>API</code></strong> :&ensp;<code>set_attr</code>(<code>self</code>, <code>attr</code>, <code>value</code>)</dt>
-<dd>&nbsp;</dd>
-</dl>
-<p>Description:
+<div class="desc"><p>API: set_attr(self, attr, value)
+Description:
 Sets node attribute attr to value.</p>
 <h2 id="input">Input</h2>
-<dl>
-<dt><strong><code>attr</code></strong></dt>
-<dd>Node attribute to set.</dd>
-<dt><strong><code>value</code></strong></dt>
-<dd>New value of the attribute.</dd>
-</dl>
+<p>attr: Node attribute to set.
+value: New value of the attribute.</p>
 <h2 id="post">Post</h2>
-<p>Updates self.attr[attr].</p></section>
+<p>Updates self.attr[attr].</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def set_attr(self, attr, value):
     &#39;&#39;&#39;
     API: set_attr(self, attr, value)
@@ -12473,16 +12169,15 @@ Sets node attribute attr to value.</p>
 <span>def <span class="ident">to_string</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<section class="desc"><dl>
-<dt><strong><code>API</code></strong> :&ensp;<code>to_string</code>(<code>self</code>)</dt>
-<dd>&nbsp;</dd>
-</dl>
-<p>Description:
+<div class="desc"><p>API: to_string(self)
+Description:
 Returns string representation of node in dot language.</p>
 <h2 id="return">Return</h2>
-<p>String representation of node.</p></section>
+<p>String representation of node.</p></div>
 <details class="source">
-<summary>Source code</summary>
+<summary>
+<span>Expand source code</span>
+</summary>
 <pre><code class="python">def to_string(self):
     &#39;&#39;&#39;
     API: to_string(self)
@@ -12523,12 +12218,16 @@ Returns string representation of node in dot language.</p>
 <li><code><a title="coinor.gimpy" href="index.html">coinor.gimpy</a></code></li>
 </ul>
 </li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="coinor.gimpy.graph.handle_close" href="#coinor.gimpy.graph.handle_close">handle_close</a></code></li>
+</ul>
+</li>
 <li><h3><a href="#header-classes">Classes</a></h3>
 <ul>
 <li>
 <h4><code><a title="coinor.gimpy.graph.DisjointSet" href="#coinor.gimpy.graph.DisjointSet">DisjointSet</a></code></h4>
 <ul class="">
-<li><code><a title="coinor.gimpy.graph.DisjointSet.__init__" href="#coinor.gimpy.graph.DisjointSet.__init__">__init__</a></code></li>
 <li><code><a title="coinor.gimpy.graph.DisjointSet.add" href="#coinor.gimpy.graph.DisjointSet.add">add</a></code></li>
 <li><code><a title="coinor.gimpy.graph.DisjointSet.find" href="#coinor.gimpy.graph.DisjointSet.find">find</a></code></li>
 <li><code><a title="coinor.gimpy.graph.DisjointSet.union" href="#coinor.gimpy.graph.DisjointSet.union">union</a></code></li>
@@ -12537,7 +12236,6 @@ Returns string representation of node in dot language.</p>
 <li>
 <h4><code><a title="coinor.gimpy.graph.Graph" href="#coinor.gimpy.graph.Graph">Graph</a></code></h4>
 <ul class="">
-<li><code><a title="coinor.gimpy.graph.Graph.__init__" href="#coinor.gimpy.graph.Graph.__init__">__init__</a></code></li>
 <li><code><a title="coinor.gimpy.graph.Graph.add_edge" href="#coinor.gimpy.graph.Graph.add_edge">add_edge</a></code></li>
 <li><code><a title="coinor.gimpy.graph.Graph.add_node" href="#coinor.gimpy.graph.Graph.add_node">add_node</a></code></li>
 <li><code><a title="coinor.gimpy.graph.Graph.augment_cycle" href="#coinor.gimpy.graph.Graph.augment_cycle">augment_cycle</a></code></li>
@@ -12625,7 +12323,6 @@ Returns string representation of node in dot language.</p>
 <li>
 <h4><code><a title="coinor.gimpy.graph.Node" href="#coinor.gimpy.graph.Node">Node</a></code></h4>
 <ul class="">
-<li><code><a title="coinor.gimpy.graph.Node.__init__" href="#coinor.gimpy.graph.Node.__init__">__init__</a></code></li>
 <li><code><a title="coinor.gimpy.graph.Node.get_attr" href="#coinor.gimpy.graph.Node.get_attr">get_attr</a></code></li>
 <li><code><a title="coinor.gimpy.graph.Node.set_attr" href="#coinor.gimpy.graph.Node.set_attr">set_attr</a></code></li>
 <li><code><a title="coinor.gimpy.graph.Node.to_string" href="#coinor.gimpy.graph.Node.to_string">to_string</a></code></li>
@@ -12637,9 +12334,7 @@ Returns string representation of node in dot language.</p>
 </nav>
 </main>
 <footer id="footer">
-<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.5.3</a>.</p>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
 </footer>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-<script>hljs.initHighlightingOnLoad()</script>
 </body>
 </html>
