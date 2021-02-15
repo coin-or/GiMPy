@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.9.2" />
+<title>coinor.gimpy.global_constants API documentation</title>
+<meta name="description" content="This file has global constants required for GIMPy." />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>coinor.gimpy.global_constants</code></h1>
+</header>
+<section id="section-intro">
+<p>This file has global constants required for GIMPy.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#39;&#39;&#39;
+This file has global constants required for GIMPy.
+&#39;&#39;&#39;
+from past.builtins import basestring
+
+import re     # for compile()
+
+class MultipleNodeException(Exception):
+    pass
+
+class MultipleEdgeException(Exception):
+    pass
+
+GRAPH_ATTRIBUTES = set( [&#39;Damping&#39;, &#39;K&#39;, &#39;URL&#39;, &#39;aspect&#39;, &#39;bb&#39;, &#39;bgcolor&#39;,
+    &#39;center&#39;, &#39;charset&#39;, &#39;clusterrank&#39;, &#39;colorscheme&#39;, &#39;comment&#39;, &#39;compound&#39;,
+    &#39;concentrate&#39;, &#39;defaultdist&#39;, &#39;dim&#39;, &#39;dimen&#39;, &#39;diredgeconstraints&#39;,
+    &#39;dpi&#39;, &#39;epsilon&#39;, &#39;esep&#39;, &#39;fontcolor&#39;, &#39;fontname&#39;, &#39;fontnames&#39;,
+    &#39;fontpath&#39;, &#39;fontsize&#39;, &#39;id&#39;, &#39;label&#39;, &#39;labeljust&#39;, &#39;labelloc&#39;,
+    &#39;landscape&#39;, &#39;layers&#39;, &#39;layersep&#39;, &#39;layout&#39;, &#39;levels&#39;, &#39;levelsgap&#39;,
+    &#39;lheight&#39;, &#39;lp&#39;, &#39;lwidth&#39;, &#39;margin&#39;, &#39;maxiter&#39;, &#39;mclimit&#39;, &#39;mindist&#39;,
+    &#39;mode&#39;, &#39;model&#39;, &#39;mosek&#39;, &#39;nodesep&#39;, &#39;nojustify&#39;, &#39;normalize&#39;, &#39;nslimit&#39;,
+    &#39;nslimit1&#39;, &#39;ordering&#39;, &#39;orientation&#39;, &#39;outputorder&#39;, &#39;overlap&#39;,
+    &#39;overlap_scaling&#39;, &#39;pack&#39;, &#39;packmode&#39;, &#39;pad&#39;, &#39;page&#39;, &#39;pagedir&#39;,
+    &#39;quadtree&#39;, &#39;quantum&#39;, &#39;rankdir&#39;, &#39;ranksep&#39;, &#39;ratio&#39;, &#39;remincross&#39;,
+    &#39;repulsiveforce&#39;, &#39;resolution&#39;, &#39;root&#39;, &#39;rotate&#39;, &#39;searchsize&#39;, &#39;sep&#39;,
+    &#39;showboxes&#39;, &#39;size&#39;, &#39;smoothing&#39;, &#39;sortv&#39;, &#39;splines&#39;, &#39;start&#39;,
+    &#39;stylesheet&#39;, &#39;target&#39;, &#39;truecolor&#39;, &#39;viewport&#39;, &#39;voro_margin&#39;,
+    &#39;d2tgraphstyle&#39;,
+    # for subgraphs
+    &#39;rank&#39;])
+DEFAULT_GRAPH_ATTRIBUTES = {}
+EDGE_ATTRIBUTES = set( [&#39;URL&#39;, &#39;arrowhead&#39;, &#39;arrowsize&#39;, &#39;arrowtail&#39;,
+    &#39;color&#39;, &#39;colorscheme&#39;, &#39;comment&#39;, &#39;constraint&#39;, &#39;decorate&#39;, &#39;dir&#39;,
+    &#39;edgeURL&#39;, &#39;edgehref&#39;, &#39;edgetarget&#39;, &#39;edgetooltip&#39;, &#39;fontcolor&#39;,
+    &#39;fontname&#39;, &#39;fontsize&#39;, &#39;headURL&#39;, &#39;headclip&#39;, &#39;headhref&#39;, &#39;headlabel&#39;,
+    &#39;headport&#39;, &#39;headtarget&#39;, &#39;headtooltip&#39;, &#39;href&#39;, &#39;id&#39;, &#39;label&#39;,
+    &#39;labelURL&#39;, &#39;labelangle&#39;, &#39;labeldistance&#39;, &#39;labelfloat&#39;, &#39;labelfontcolor&#39;,
+    &#39;labelfontname&#39;, &#39;labelfontsize&#39;, &#39;labelhref&#39;, &#39;labeltarget&#39;,
+    &#39;labeltooltip&#39;, &#39;layer&#39;, &#39;len&#39;, &#39;lhead&#39;, &#39;lp&#39;, &#39;ltail&#39;, &#39;minlen&#39;,
+    &#39;nojustify&#39;, &#39;penwidth&#39;, &#39;pos&#39;, &#39;samehead&#39;, &#39;sametail&#39;, &#39;showboxes&#39;,
+    &#39;style&#39;, &#39;tailURL&#39;, &#39;tailclip&#39;, &#39;tailhref&#39;, &#39;taillabel&#39;, &#39;tailport&#39;,
+    &#39;tailtarget&#39;, &#39;tailtooltip&#39;, &#39;target&#39;, &#39;tooltip&#39;, &#39;weight&#39;,
+    &#39;rank&#39; ] )
+DEFAULT_EDGE_ATTRIBUTES = {}
+NODE_ATTRIBUTES = set( [&#39;URL&#39;, &#39;color&#39;, &#39;colorscheme&#39;, &#39;comment&#39;,
+    &#39;distortion&#39;, &#39;fillcolor&#39;, &#39;fixedsize&#39;, &#39;fontcolor&#39;, &#39;fontname&#39;,
+    &#39;fontsize&#39;, &#39;group&#39;, &#39;height&#39;, &#39;id&#39;, &#39;image&#39;, &#39;imagescale&#39;, &#39;label&#39;,
+    &#39;labelloc&#39;, &#39;layer&#39;, &#39;margin&#39;, &#39;nojustify&#39;, &#39;orientation&#39;, &#39;penwidth&#39;,
+    &#39;peripheries&#39;, &#39;pin&#39;, &#39;pos&#39;, &#39;rects&#39;, &#39;regular&#39;, &#39;root&#39;, &#39;samplepoints&#39;,
+    &#39;shape&#39;, &#39;shapefile&#39;, &#39;showboxes&#39;, &#39;sides&#39;, &#39;skew&#39;, &#39;sortv&#39;, &#39;style&#39;,
+    &#39;target&#39;, &#39;tooltip&#39;, &#39;vertices&#39;, &#39;width&#39;, &#39;z&#39;,
+    # The following are attributes dot2tex
+    &#39;texlbl&#39;,  &#39;texmode&#39; ] )
+DEFAULT_NODE_ATTRIBUTES = {}
+CLUSTER_ATTRIBUTES = set( [&#39;K&#39;, &#39;URL&#39;, &#39;bgcolor&#39;, &#39;color&#39;, &#39;colorscheme&#39;,
+    &#39;fillcolor&#39;, &#39;fontcolor&#39;, &#39;fontname&#39;, &#39;fontsize&#39;, &#39;label&#39;, &#39;labeljust&#39;,
+    &#39;labelloc&#39;, &#39;lheight&#39;, &#39;lp&#39;, &#39;lwidth&#39;, &#39;nojustify&#39;, &#39;pencolor&#39;,
+    &#39;penwidth&#39;, &#39;peripheries&#39;, &#39;sortv&#39;, &#39;style&#39;, &#39;target&#39;, &#39;tooltip&#39;] )
+DIRECTED_GRAPH = &#39;digraph&#39;
+UNDIRECTED_GRAPH = &#39;graph&#39;
+#DEFAULT_ATTR = {&#39;strict&#39;:None, &#39;name&#39;:&#39;graph&#39;}
+EDGE_CONNECT_SYMBOL = {DIRECTED_GRAPH:&#39; -&gt; &#39;, UNDIRECTED_GRAPH:&#39; -- &#39;}
+DOT2TEX_INSTALLED = None # it wil be set when we try to import
+PIL_INSTALLED = None
+XDOT_INSTALLED = None
+ETREE_INSTALLED = None
+INF = 10000
+
+DOT2TEX_TEMPLATE = r&#39;&#39;&#39;
+\documentclass[landscape]{article}
+\usepackage[x11names, rgb]{xcolor}
+\usepackage[&lt;&lt;textencoding&gt;&gt;]{inputenc}
+\usepackage{tikz}
+\usetikzlibrary{snakes,arrows,shapes}
+\usepackage{amsmath}
+\usepackage[margin=2cm,nohead]{geometry}%
+&lt;&lt;startpreprocsection&gt;&gt;%
+\usepackage[active,auctex]{preview}
+&lt;&lt;endpreprocsection&gt;&gt;%
+&lt;&lt;gvcols&gt;&gt;%
+&lt;&lt;cropcode&gt;&gt;%
+&lt;&lt;docpreamble&gt;&gt;%
+
+\begin{document}
+\pagestyle{empty}
+%
+&lt;&lt;startpreprocsection&gt;&gt;%
+&lt;&lt;preproccode&gt;&gt;
+&lt;&lt;endpreprocsection&gt;&gt;%
+%
+&lt;&lt;startoutputsection&gt;&gt;
+\enlargethispage{100cm}
+% Start of code
+% \begin{tikzpicture}[anchor=mid,&gt;=latex&#39;,join=bevel,&lt;&lt;graphstyle&gt;&gt;]
+\resizebox{\textwidth}{!}{
+\begin{tikzpicture}[&gt;=latex&#39;,join=bevel,&lt;&lt;graphstyle&gt;&gt;]
+\pgfsetlinewidth{1bp}
+&lt;&lt;figpreamble&gt;&gt;%
+&lt;&lt;drawcommands&gt;&gt;
+&lt;&lt;figpostamble&gt;&gt;%
+\end{tikzpicture}
+% End of code
+}
+&lt;&lt;endoutputsection&gt;&gt;
+%
+\end{document}
+%
+&lt;&lt;startfigonlysection&gt;&gt;
+\begin{tikzpicture}[&gt;=latex,join=bevel,&lt;&lt;graphstyle&gt;&gt;]
+\pgfsetlinewidth{1bp}
+&lt;&lt;figpreamble&gt;&gt;%
+&lt;&lt;drawcommands&gt;&gt;
+&lt;&lt;figpostamble&gt;&gt;%
+\end{tikzpicture}
+&lt;&lt;endfigonlysection&gt;&gt;
+&#39;&#39;&#39;
+
+# following globals and two methods are from pydot
+DOT_KEYWORDS = [&#39;graph&#39;, &#39;subgraph&#39;, &#39;digraph&#39;, &#39;node&#39;, &#39;edge&#39;, &#39;strict&#39;]
+ID_RE_ALPHA_NUMS = re.compile(&#39;^[_a-zA-Z][a-zA-Z0-9_,]*$&#39;, re.UNICODE)
+ID_RE_ALPHA_NUMS_WITH_PORTS = re.compile(&#39;^[_a-zA-Z][a-zA-Z0-9_,:\&#34;]*[a-zA-Z0-9_,\&#34;]+$&#39;, re.UNICODE)
+ID_RE_NUM = re.compile(&#39;^[0-9,]+$&#39;, re.UNICODE)
+ID_RE_WITH_PORT = re.compile(&#39;^([^:]*):([^:]*)$&#39;, re.UNICODE)
+ID_RE_DBL_QUOTED = re.compile(&#39;^\&#34;.*\&#34;$&#39;, re.S|re.UNICODE)
+ID_RE_HTML = re.compile(&#39;^&lt;.*&gt;$&#39;, re.S|re.UNICODE)
+
+def quote_if_necessary(s):
+    if isinstance(s, bool):
+        if s is True:
+            return &#39;True&#39;
+        return &#39;False&#39;
+    if not isinstance(s, basestring):
+        return s
+    if not s:
+        return s
+    if needs_quotes(s):
+        replace = {&#39;&#34;&#39;  : r&#39;\&#34;&#39;,
+                   &#34;\n&#34; : r&#39;\n&#39;,
+                   &#34;\r&#34; : r&#39;\r&#39;,
+                   &#34;\\ &#34; : r&#39;\\ &#39;}
+        for (a,b) in list(replace.items()):
+            s = s.replace(a, b)
+        return &#39;&#34;&#39; + s + &#39;&#34;&#39;
+    return s
+
+def needs_quotes(s):
+    &#34;&#34;&#34;Checks whether a string is a dot language ID.
+    It will check whether the string is solely composed
+    by the characters allowed in an ID or not.
+    If the string is one of the reserved keywords it will
+    need quotes too but the user will need to add them
+    manually.
+    &#34;&#34;&#34;
+    # If the name is a reserved keyword it will need quotes but pydot
+    # can&#39;t tell when it&#39;s being used as a keyword or when it&#39;s simply
+    # a name. Hence the user needs to supply the quotes when an element
+    # would use a reserved keyword as name. This function will return
+    # false indicating that a keyword string, if provided as-is, won&#39;t
+    # need quotes.
+    if s in DOT_KEYWORDS:
+        return False
+    chars = [ord(c) for c in s if ord(c)&gt;0x7f or ord(c)==0]
+    if chars and not ID_RE_DBL_QUOTED.match(s) and not ID_RE_HTML.match(s):
+        return True
+    for test_re in [ID_RE_ALPHA_NUMS, ID_RE_NUM, ID_RE_DBL_QUOTED, ID_RE_HTML, ID_RE_ALPHA_NUMS_WITH_PORTS]:
+        if test_re.match(s):
+            return False
+    m = ID_RE_WITH_PORT.match(s)
+    if m:
+        return needs_quotes(m.group(1)) or needs_quotes(m.group(2))
+    return True</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="coinor.gimpy.global_constants.needs_quotes"><code class="name flex">
+<span>def <span class="ident">needs_quotes</span></span>(<span>s)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Checks whether a string is a dot language ID.
+It will check whether the string is solely composed
+by the characters allowed in an ID or not.
+If the string is one of the reserved keywords it will
+need quotes too but the user will need to add them
+manually.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def needs_quotes(s):
+    &#34;&#34;&#34;Checks whether a string is a dot language ID.
+    It will check whether the string is solely composed
+    by the characters allowed in an ID or not.
+    If the string is one of the reserved keywords it will
+    need quotes too but the user will need to add them
+    manually.
+    &#34;&#34;&#34;
+    # If the name is a reserved keyword it will need quotes but pydot
+    # can&#39;t tell when it&#39;s being used as a keyword or when it&#39;s simply
+    # a name. Hence the user needs to supply the quotes when an element
+    # would use a reserved keyword as name. This function will return
+    # false indicating that a keyword string, if provided as-is, won&#39;t
+    # need quotes.
+    if s in DOT_KEYWORDS:
+        return False
+    chars = [ord(c) for c in s if ord(c)&gt;0x7f or ord(c)==0]
+    if chars and not ID_RE_DBL_QUOTED.match(s) and not ID_RE_HTML.match(s):
+        return True
+    for test_re in [ID_RE_ALPHA_NUMS, ID_RE_NUM, ID_RE_DBL_QUOTED, ID_RE_HTML, ID_RE_ALPHA_NUMS_WITH_PORTS]:
+        if test_re.match(s):
+            return False
+    m = ID_RE_WITH_PORT.match(s)
+    if m:
+        return needs_quotes(m.group(1)) or needs_quotes(m.group(2))
+    return True</code></pre>
+</details>
+</dd>
+<dt id="coinor.gimpy.global_constants.quote_if_necessary"><code class="name flex">
+<span>def <span class="ident">quote_if_necessary</span></span>(<span>s)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def quote_if_necessary(s):
+    if isinstance(s, bool):
+        if s is True:
+            return &#39;True&#39;
+        return &#39;False&#39;
+    if not isinstance(s, basestring):
+        return s
+    if not s:
+        return s
+    if needs_quotes(s):
+        replace = {&#39;&#34;&#39;  : r&#39;\&#34;&#39;,
+                   &#34;\n&#34; : r&#39;\n&#39;,
+                   &#34;\r&#34; : r&#39;\r&#39;,
+                   &#34;\\ &#34; : r&#39;\\ &#39;}
+        for (a,b) in list(replace.items()):
+            s = s.replace(a, b)
+        return &#39;&#34;&#39; + s + &#39;&#34;&#39;
+    return s</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="coinor.gimpy.global_constants.MultipleEdgeException"><code class="flex name class">
+<span>class <span class="ident">MultipleEdgeException</span></span>
+<span>(</span><span>*args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Common base class for all non-exit exceptions.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class MultipleEdgeException(Exception):
+    pass</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>builtins.Exception</li>
+<li>builtins.BaseException</li>
+</ul>
+</dd>
+<dt id="coinor.gimpy.global_constants.MultipleNodeException"><code class="flex name class">
+<span>class <span class="ident">MultipleNodeException</span></span>
+<span>(</span><span>*args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Common base class for all non-exit exceptions.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class MultipleNodeException(Exception):
+    pass</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>builtins.Exception</li>
+<li>builtins.BaseException</li>
+</ul>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="coinor.gimpy" href="index.html">coinor.gimpy</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="coinor.gimpy.global_constants.needs_quotes" href="#coinor.gimpy.global_constants.needs_quotes">needs_quotes</a></code></li>
+<li><code><a title="coinor.gimpy.global_constants.quote_if_necessary" href="#coinor.gimpy.global_constants.quote_if_necessary">quote_if_necessary</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="coinor.gimpy.global_constants.MultipleEdgeException" href="#coinor.gimpy.global_constants.MultipleEdgeException">MultipleEdgeException</a></code></h4>
+</li>
+<li>
+<h4><code><a title="coinor.gimpy.global_constants.MultipleNodeException" href="#coinor.gimpy.global_constants.MultipleNodeException">MultipleNodeException</a></code></h4>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
+</footer>
+</body>
+</html>
