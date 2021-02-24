@@ -67,13 +67,16 @@ ETREE_INSTALLED = None
 INF = 10000
 
 DOT2TEX_TEMPLATE = r'''
-\documentclass[landscape]{article}
+\documentclass[landscape]{minimal}
 \usepackage[x11names, rgb]{xcolor}
-\usepackage[<<textencoding>>]{inputenc}
+\usepackage[utf8]{inputenc}
+%\usepackage[margin=2cm,nohead]{geometry}%
+\usepackage[margin=2cm,a4paper]{geometry}
+\usepackage{graphicx}
+\setkeys{Gin}{keepaspectratio}
 \usepackage{tikz}
 \usetikzlibrary{snakes,arrows,shapes}
 \usepackage{amsmath}
-\usepackage[margin=2cm,nohead]{geometry}%
 <<startpreprocsection>>%
 \usepackage[active,auctex]{preview}
 <<endpreprocsection>>%
@@ -92,7 +95,7 @@ DOT2TEX_TEMPLATE = r'''
 \enlargethispage{100cm}
 % Start of code
 % \begin{tikzpicture}[anchor=mid,>=latex',join=bevel,<<graphstyle>>]
-\resizebox{\textwidth}{!}{
+\resizebox{\textwidth}{\textheight}{
 \begin{tikzpicture}[>=latex',join=bevel,<<graphstyle>>]
 \pgfsetlinewidth{1bp}
 <<figpreamble>>%
