@@ -1593,11 +1593,11 @@ class Graph(object):
     def write(self, file_obj, layout = None, format='png'):
         '''
         API:
-            write(self, basename = 'graph', layout = None, format='png')
+            write(self, file_obj, layout = None, format='png')
         Description:
         Writes graph to dist using layout and format.
         Input:
-            basename: name of the file that will be written.
+            file_obj: a file-like object that will be written to.
             layout: Dot layout for generating graph image.
             format: Image format, all format supported by Dot are wellcome.
         Post:
