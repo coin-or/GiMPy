@@ -800,8 +800,8 @@ class Graph(object):
         self.num_components = 0
         self.tarjan()
 
-    def dfs(self, root, disc_count = 0, finish_count = 1, component = None,
-            transpose = False, display = None, pred = None):
+    def dfs(self, root, disc_count = 0, finish_count = 1, topological_order = None,
+            component = None, transpose = False, display = None, pred = None):
         '''
         API: dfs(self, root, disc_count = 0, finish_count = 1, component=None,
             transpose=False)
@@ -853,16 +853,18 @@ class Graph(object):
                 if self.get_node(i).get_attr('disc_time') is None:
                     pred[i] = root
                     disc_count, finish_count = self.dfs(i, disc_count,
-                                                        finish_count,
+                                                        finish_count, topological_order,
                                                         component, transpose,
                                                         pred = pred)
             else:
                 if self.get_node(i).get_attr('component') is None:
                     disc_count, finish_count = self.dfs(i, disc_count,
-                                                        finish_count,
+                                                        finish_count, topological_order,
                                                         component, transpose,
                                                         pred = pred)
         self.get_node(root).set_attr('finish_time', finish_count)
+        if topological_order != None:
+            topological_order.insert(0, root)
         d_time = self.get_node(root).get_attr('disc_time')
         label = '"' + str(d_time) + ',' + str(finish_count) + '"'
         self.get_node(root).set_attr('label', label)
@@ -870,6 +872,61 @@ class Graph(object):
         self.display()
         finish_count += 1
         return disc_count, finish_count
+
+    def hamiltonian(self, source, destination = None, distance = 0,
+                    display = None, pred = None):
+        '''
+        API: tsp(source, destination = None, distance = 0,
+                 display = None, pred = None)
+        Description:
+        Find a Hamiltonian tour starting from source.
+        Input:
+            source: Starting node name
+            destination: ending node name
+            distance: path distance so far
+            pred: predecessor dictionary
+        Post:
+        Return:
+            Returns True if Hamiltonian path is found and fasle otherwise.
+        '''
+        if pred == None:
+            pred = {}
+        if display == None:
+            display = self.attr['display']
+        else:
+            self.set_display_mode(display)
+
+        if (distance == 0):
+            for i in self.get_node_list():
+                self.get_node(i).set_attr('label', '-')
+            self.display()
+
+        if destination != None:
+            if source == destination and distance == self.get_node_num() - 1:
+                return True
+        else:
+            if distance == self.get_node_num():
+                return True
+
+        self.get_node(source).set_attr('visited', True)
+        self.get_node(source).set_attr('label', str(distance))
+        self.get_node(source).set_attr('color', 'blue')
+        if source in pred:
+            self.set_edge_attr(pred[source], source, 'color', 'green')
+        self.display()
+        for i in self.get_neighbors(source):
+            if self.get_node(i).get_attr('visited') is None:
+                pred[i] = source
+                if (self.tsp(i, destination, distance+1, display = display, 
+                            pred = pred)):
+                    return True
+        if source in pred: # this is the original source node
+            self.get_node(source).set_attr('color', 'black')            
+            self.set_edge_attr(pred[source], source, 'color', 'black')
+            self.display()
+            self.get_node(source).set_attr('visited', None)
+            self.get_node(source).set_attr('label', '-')
+        return False
 
     def bfs(self, root, display = None, component = None):
         '''
@@ -885,6 +942,34 @@ class Graph(object):
             number as value.
         '''
         self.search(root, display = display, component = component, q = Queue())
+
+    def acyclic_shortest_path(G, source, destination = None):
+        dist = {}
+        pred = {}
+        order = []
+        found = False
+        G.dfs(source, topological_order = order)
+        for j in range(len(G.get_node_list())):
+            m = order[j]
+            if m == destination:
+                found = True
+                break
+            if len(G.get_in_neighbors(m)) == 0: 
+                dist[m] = 0
+            for n in G.get_out_neighbors(m):
+                estimate = dist[m] + G.get_edge_attr(m ,n, "cost")
+                if n not in dist or dist[n] > estimate:
+                    dist[n] = estimate
+                    pred[n] = m
+        if found:
+            path = [destination]
+            current = destination
+            while current != source:
+                path.insert(0, pred[current])
+                current = pred[current]
+            return path
+                
+        return pred
 
     def search(self, source, destination = None, display = None,
                component = None, q = None,
@@ -937,7 +1022,7 @@ class Graph(object):
             if q is None:
                 q = Queue()
             self.get_node(source).set_attr('component', component)
-        elif algo == 'Dijkstra' or algo == 'Prim':
+        elif algo in ['Dijkstra', 'Prim']:
             if q is None:
                 q = PriorityQueue()
         else:
@@ -3503,5 +3588,5 @@ if __name__ == '__main__':
     G.set_display_mode('matplotlib')
     G.display()
     #G.dfs(0)
-    G.search(0, display = 'matplotlib', algo = 'Prim')
+    G.search(0, display = 'matplotlib', algo = 'BFS')
     #G.minimum_spanning_tree_kruskal()
