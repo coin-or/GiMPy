@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "coinor.gimpy"
+version = "2.1.2"
+description = "Graph Methods in Python"
+readme = "README.md"
+license = { text = "Eclipse Public License" }
+authors = [
+    { name = "Aykut Bulut" },
+    { name = "Ted Ralphs", email = "ted@lehigh.edu" },
+]
+requires-python = ">=3.6"
+dependencies = [
+    "coinor.blimpy",
+]
+
+[project.urls]
+Homepage = "https://github.com/coin-or/GiMPy"
+Documentation = "https://coin-or.github.io/GiMPy"
+Repository = "https://github.com/coin-or/GiMPy"
+
+[tool.setuptools]
+packages = ["coinor", "coinor.gimpy", "coinor.gimpy.examples"]
+
+[tool.setuptools.package-dir]
+"coinor" = "src"
+"coinor.gimpy" = "src/gimpy"
+
