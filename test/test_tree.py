@@ -1,5 +1,5 @@
 from __future__ import print_function
-from gimpy import BinaryTree
+from coinor.gimpy import BinaryTree, MATPLOTLIB_INSTALLED
 
 if __name__=='__main__':
     t = BinaryTree()
@@ -18,12 +18,13 @@ if __name__=='__main__':
     # test bfs
     t.bfs()
     print('off display done')
-    # test print_nodes(display='pygame')
-    t.print_nodes(display='pygame')
-    # test dfs(display='pygame')
-    t.dfs(display='pygame')
-    # test bfs(display='pygame')
-    t.bfs(display='pygame')
+    if MATPLOTLIB_INSTALLED:
+        # test print_nodes(display='matplotlib')
+        t.print_nodes(display='matplotlib')
+        # test dfs(display='matplotlib')
+        t.dfs(display='matplotlib')
+        # test bfs(display='matplotlib')
+        t.bfs(display='matplotlib')
 
 
 

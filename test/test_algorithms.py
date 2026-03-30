@@ -2,11 +2,6 @@
 This script runs algorithms provided by gimpy. Measures running times of
 algorithms and compares it to theoretical running times (after scaling).
 '''
-from __future__ import division
-from __future__ import print_function
-from builtins import str
-from builtins import range
-from past.utils import old_div
 
 try:
     from src.gimpy import Graph, DIRECTED_GRAPH
@@ -313,7 +308,7 @@ def produce_graphs():
     for a in algo:
         # ========= gimpy
         # create graph for algorithm a
-        scale = old_div(run_time[a]['gimpy'][-1], run_time[a]['theoretical'][-1])
+        scale = run_time[a]['gimpy'][-1]/run_time[a]['theoretical'][-1]
         scaled_theoretical = [scale*t for t in run_time[a]['theoretical']]
         pyplot.plot(n, run_time[a]['gimpy'], 'bs', label='actual runtime')
         pyplot.plot(n, scaled_theoretical, 'g^', label='theoretical runtime')

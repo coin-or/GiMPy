@@ -1,8 +1,7 @@
-from gimpy import BinaryTree
-import random
+from coinor.gimpy import BinaryTree
 
 if __name__=='__main__':
-    t = BinaryTree(display='pygame')
+    t = BinaryTree(display='matplotlib')
     t.add_root(0)
     t.add_left_child(1, 0, label='lc', color='red')
     t.add_right_child(2, 0, label='rc', color='red')

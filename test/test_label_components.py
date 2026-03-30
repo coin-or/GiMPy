@@ -1,4 +1,4 @@
-from gimpy import Graph
+from coinor.gimpy import Graph, MATPLOTLIB_INSTALLED
 
 if __name__=='__main__':
     g = Graph()
@@ -11,6 +11,7 @@ if __name__=='__main__':
     g.add_edge(7,8)
     g.add_edge(7,9)
     g.label_components()
-    g.set_display_mode('pygame')
-    g.label_components(display='pygame')
+    if MATPLOTLIB_INSTALLED:
+        g.set_display_mode('matplotlib')
+        g.label_components()
 

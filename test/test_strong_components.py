@@ -1,8 +1,8 @@
 from __future__ import print_function
-from gimpy import Graph, DIRECTED_GRAPH
+from coinor.gimpy import Graph, DIRECTED_GRAPH
 
 def generate_test_instance1():
-    g = Graph(type=DIRECTED_GRAPH, display='pygame')
+    g = Graph(type=DIRECTED_GRAPH, display='matplotlib')
     g.add_edge(0,1)
     g.add_edge(1,2)
     g.add_edge(2,0)
@@ -17,7 +17,7 @@ def generate_test_instance1():
     return g
 
 def generate_test_instance2():
-    g = Graph(type=DIRECTED_GRAPH, display='pygame')
+    g = Graph(type=DIRECTED_GRAPH, display='matplotlib')
     g.add_edge(0,1)
     g.add_edge(0,2)
     g.add_edge(2,3)

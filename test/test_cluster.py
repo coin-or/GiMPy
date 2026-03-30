@@ -7,9 +7,7 @@ the methods in the literature and measuring running time performances. Hence
 it is teaching/research oriented. This script demonstrates the Graph class's
 capability as a graphviz interface.
 '''
-from __future__ import print_function
-
-from gimpy import Graph, DIRECTED_GRAPH
+from coinor.gimpy import Graph, DIRECTED_GRAPH
 
 if __name__=='__main__':
     c = Graph(type=DIRECTED_GRAPH, layout = 'dot')
