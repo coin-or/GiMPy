@@ -1,9 +1,6 @@
 '''
 Tree class built on top of Graph class.
 '''
-from __future__ import print_function
-from __future__ import absolute_import
-from builtins import str
 
 from .graph import Graph, Node
 from .global_constants import *

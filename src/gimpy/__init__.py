@@ -1,4 +1,3 @@
-from __future__ import absolute_import
 from .global_constants import *
 from . import graph
 from . import examples

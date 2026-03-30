@@ -1,7 +1,6 @@
 '''
 This file has global constants required for GIMPy.
 '''
-from past.builtins import basestring
 
 import re     # for compile()
 
@@ -132,7 +131,7 @@ def quote_if_necessary(s):
         if s is True:
             return 'True'
         return 'False'
-    if not isinstance(s, basestring):
+    if not isinstance(s, str):
         return s
     if not s:
         return s

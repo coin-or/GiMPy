@@ -47,15 +47,6 @@ TODO(aykut):
 future:
 -> The solution we find is not strongly feasible. Fix this.
 '''
-from __future__ import division
-from __future__ import print_function
-from __future__ import absolute_import
-from future import standard_library
-standard_library.install_aliases()
-from builtins import str
-from builtins import range
-from past.utils import old_div
-from builtins import object
 
 from .global_constants import *
 try:
@@ -3341,9 +3332,9 @@ After installation, ensure that the PATH variable is properly set.''')
         if graph_size == 0:
             return {}
         #value for nodes without inbound links
-        min_value = old_div((1.0-damping_factor),graph_size)
+        min_value = (1.0-damping_factor)/graph_size
         # itialize the page rank dict with 1/N for all nodes
-        pagerank = dict.fromkeys(nodes, old_div(1.0,graph_size))
+        pagerank = dict.fromkeys(nodes, 1.0/graph_size)
         for _ in range(max_iterations):
             diff = 0 #total difference compared to last iteraction
             # computes each node PageRank based on inbound links
