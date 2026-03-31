@@ -1770,6 +1770,17 @@ After installation, ensure that the PATH variable is properly set.''')
                             format = 'pdf'
                         self.set_layout('dot')
                         tex = dot2tex.dot2tex(self.to_string(), autosize=True, texmode = 'math', template = DOT2TEX_TEMPLATE)
+                        with open(basename+'.tex', 'w') as f:
+                            f.write(tex)
+                        try: 
+                            subprocess.call(['latex', basename])
+                            if format == 'ps':
+                                subprocess.call(['dvips', basename])
+                            elif format == 'pdf':
+                                subprocess.call(['pdflatex', basename])
+                            self.set_layout('dot2tex')
+                        except:
+                            print("There was an error runing latex. Is it installed?")
                     else:
                         print("Error: Dot2tex not installed.")
                 except:
@@ -1781,17 +1792,6 @@ After installation, ensure that the PATH variable is properly set.''')
                                                  basename + '.dot'])
                     except:
                         print("There was an error running dot2tex.")
-                with open(basename+'.tex', 'w') as f:
-                    f.write(tex)
-                try: 
-                    subprocess.call(['latex', basename])
-                    if format == 'ps':
-                        subprocess.call(['dvips', basename])
-                    elif format == 'pdf':
-                        subprocess.call(['pdflatex', basename])
-                    self.set_layout('dot2tex')
-                except:
-                    print("There was an error runing latex. Is it installed?")
             else:
                 with open(basename+'.'+format, "w+b") as f:
                     self.write(f, self.get_layout(), format)
