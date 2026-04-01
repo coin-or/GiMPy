@@ -12,10 +12,6 @@ branching variable (most fractional and fixed). The complete_enumeration
 variable can be used to turn off fathoming by bound.
 
 '''
-from __future__ import print_function
-from __future__ import absolute_import
-from builtins import str
-from builtins import range
 
 from pulp import LpVariable, lpSum, LpProblem, LpMaximize, LpConstraint, LpStatus, value
 import math

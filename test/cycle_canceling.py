@@ -1,9 +1,6 @@
 '''
 tests if cycle canceling method works properly.
 '''
-from __future__ import print_function
-from builtins import str
-from builtins import range
 
 from test_algorithms import generate_graph
 

@@ -1,4 +1,3 @@
-from __future__ import print_function
 # import classes
 from coinor.gimpy import Graph, Tree, BinaryTree
 # import dependency related globals. All these dependencies are optional.

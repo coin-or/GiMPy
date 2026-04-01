@@ -2,12 +2,6 @@
 Compare running times of gimpy and regimpy (reimplementation) and theoretical
 for following algorithms DFS, BFS, augmenting flow, cycle canceling, simplex.
 '''
-from __future__ import division
-from __future__ import print_function
-from builtins import str
-from builtins import range
-from past.utils import old_div
-
 
 #TODO(aykut)
 #-> Add average support
@@ -354,7 +348,7 @@ def produce_graphs():
     for a in algo:
         # ========= reimplementation
         # create graph for algorithm a
-        scale = old_div(run_time[a]['regimpy'][-1], run_time[a]['theoretical'][-1])
+        scale = run_time[a]['regimpy'][-1]/run_time[a]['theoretical'][-1]
         scaled_theoretical = [scale*t for t in run_time[a]['theoretical']]
         pyplot.plot(n, run_time[a]['regimpy'], 'bs', label='actual runtime')
         pyplot.plot(n, scaled_theoretical, 'g^', label='theoretical runtime')
@@ -367,7 +361,7 @@ def produce_graphs():
         pyplot.close()
         # ========= old gimpy
         # create graph for algorithm a
-        scale = old_div(run_time[a]['gimpy'][-1], run_time[a]['theoretical'][-1])
+        scale = run_time[a]['gimpy'][-1]/run_time[a]['theoretical'][-1]
         scaled_theoretical = [scale*t for t in run_time[a]['theoretical']]
         pyplot.plot(n, run_time[a]['gimpy'], 'bs', label='actual runtime')
         pyplot.plot(n, scaled_theoretical, 'g^', label='theoretical runtime')

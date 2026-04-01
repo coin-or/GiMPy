@@ -5,7 +5,7 @@ except:
 
 if __name__ == '__main__':
     G = Graph(type = 'digraph', splines = 'true', layout = 'dot',
-              display = 'xdot', rankdir = 'LR', label = 'ISE Requirements and Prerequisite Map',
+              display = 'matplotlib', rankdir = 'LR', label = 'ISE Requirements and Prerequisite Map',
               fontsize = '120', labelloc = 't', size = "7.5,10.0!", ratio = 'fill',
               esep = '10', ranksep = '1.8',
               )
@@ -168,6 +168,6 @@ if __name__ == '__main__':
     cluster_attrs.update({'name':'Computing', 'label':'Computing Requirements'})
     G.create_cluster(['CSE 2', 'Eng 10', 'ISE 112'], cluster_attrs)
 
-    G.set_display_mode('xdot')
+    G.set_display_mode('file')
 
     G.display(basename = 'ISERequirements', format = 'pdf')
