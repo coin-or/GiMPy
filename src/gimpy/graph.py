@@ -932,7 +932,7 @@ class Graph(object):
             Nodes will have 'component' attribute that will have component
             number as value.
         '''
-        self.search(root, display = display, component = component, q = Queue())
+        return(self.search(root, display = display, component = component, q = Queue()))
 
     def acyclic_shortest_path(G, source, destination = None):
         dist = {}
@@ -1434,6 +1434,7 @@ class Graph(object):
                     q.push(n)
                 elif algo == 'HighestLabel':
                     q.push(n, -self.get_node_attr(n, 'distance'))
+        return [self.get_edge_attr(e[0], e[1], 'flow') for e in self.get_edge_list()]
 
     def process_edge_flow(self, source, sink, i, j, algo, q):
         '''
