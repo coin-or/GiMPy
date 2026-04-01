@@ -11,7 +11,6 @@ except ImportError:
 import time
 from random import seed, random, randint
 import math
-import matplotlib.pyplot as pyplot
 
 #testing
 # nodes       10, 15, 20, 25, 30
