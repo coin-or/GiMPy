@@ -1,4 +1,3 @@
-from __future__ import print_function
 from coinor.gimpy import BinaryTree, MATPLOTLIB_INSTALLED
 
 if __name__=='__main__':

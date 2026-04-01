@@ -2,10 +2,6 @@
 tests network simplex method and cycle canceling method of GIMPy.
 
 '''
-from __future__ import print_function
-from builtins import str
-from builtins import range
-
 from coinor.gimpy import Graph, DIRECTED_GRAPH
 from random import seed, randint, random
 from pulp import LpProblem, LpVariable, LpMinimize, lpSum, value, GLPK

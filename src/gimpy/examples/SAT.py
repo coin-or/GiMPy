@@ -1,4 +1,3 @@
-from __future__ import print_function
 try:
     from src.gimpy import Graph
 except ImportError:

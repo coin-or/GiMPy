@@ -10,8 +10,6 @@ black: there is no flow on the arc
 red  : the flow equals to the arc capacity
 green: there is positive flow on the arc, less then capacity.
 '''
-from __future__ import print_function
-
 try:
     from src.gimpy import Graph, DIRECTED_GRAPH
 except ImportError:
