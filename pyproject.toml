@@ -29,12 +29,12 @@ packages = ["coinor", "coinor.gimpy", "coinor.gimpy.examples"]
 "coinor" = "src"
 "coinor.gimpy" = "src/gimpy"
 
-[tool.uv]
-dev-dependencies = [
+[dependency-groups]
+dev = [
     "pytest >= 8.0.0",
     "ruff >= 0.3.0",
 ]
 
-[pytest]
+[tool.pytest]
 testpaths = ["test"]
 addopts = ["--import-mode=importlib"]
