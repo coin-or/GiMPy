@@ -3414,8 +3414,8 @@ After installation, ensure that the PATH variable is properly set.''')
         Description:
             Returns diameter of the graph. Diameter is defined as follows.
             distance(n,m): shortest unweighted path from n to m
-            eccentricity(n) = $\max _m distance(n,m)$
-            diameter = $\min _n eccentricity(n) = \min _n \max _m distance(n,m)$
+            eccentricity(n) = max_m distance(n,m)
+            diameter = min_n eccentricity(n) = min_n max_m distance(n,m)
         Return:
             Returns diameter of the graph.
         '''
