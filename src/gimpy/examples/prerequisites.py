@@ -168,6 +168,9 @@ if __name__ == '__main__':
     cluster_attrs.update({'name':'Computing', 'label':'Computing Requirements'})
     G.create_cluster(['CSE 2', 'Eng 10', 'ISE 112'], cluster_attrs)
 
-    G.set_display_mode('file')
 
-    G.display(basename = 'ISERequirements', format = 'pdf')
+#    G.set_display_mode('file')
+#    G.display(basename = 'ISERequirements', format = 'pdf')
+
+    G.set_display_mode('matplotlib')
+    G.dfs('Math 21', display = 'matplotlib')

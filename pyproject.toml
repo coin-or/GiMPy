@@ -36,5 +36,6 @@ dev = [
 ]
 
 [tool.pytest]
+pythonpath = ["test"]
 testpaths = ["test"]
 addopts = ["--import-mode=importlib"]
