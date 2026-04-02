@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "coinor.gimpy"
-version = "2.1.2"
+version = "2.1.3"
 description = "Graph Methods in Python"
 readme = "README.md"
 license = { text = "Eclipse Public License" }
